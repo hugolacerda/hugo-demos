@@ -1,0 +1,992 @@
+<!-- 
+  ============================================================
+  SBV EXIT READINESS ASSESSMENT TOOL
+  For Squarespace Code Block
+  ============================================================
+  
+  Styled to match: https://strategicbusinessvaluations.com
+  
+  INSTRUCTIONS:
+  1. In Squarespace, edit the page (e.g., /advisors)
+  2. Replace the existing 3-button CTA section with a Code Block
+  3. Paste this entire code
+  4. Make sure "Display Source" is OFF
+  5. Save and preview
+  
+  CUSTOMIZATION:
+  - Update the Calendly/contact link in the results section
+  - Tool URLs have UTM parameters for tracking
+  
+  ============================================================
+-->
+
+<style>
+  /* ========================================
+     SBV Website Color Palette
+     Matched to strategicbusinessvaluations.com
+     ======================================== */
+  :root {
+    --sbv-light-blue: #8fbfda;
+    --sbv-light-blue-hover: #7ab0ce;
+    --sbv-orange: #f5a962;
+    --sbv-orange-dark: #e8994f;
+    --sbv-dark-text: #1a1a1a;
+    --sbv-gray-text: #555555;
+    --sbv-light-gray: #f5f5f5;
+    --sbv-white: #ffffff;
+    --sbv-border: #e0e0e0;
+  }
+
+  /* ========================================
+     Assessment Container
+     Matches the white card style on /advisors
+     ======================================== */
+  #sbv-assessment {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 48px;
+    background: var(--sbv-white);
+    font-family: 'Josefin Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-align: center;
+  }
+
+  #sbv-assessment * {
+    box-sizing: border-box;
+  }
+
+  /* ========================================
+     Header Section
+     ======================================== */
+  .sbv-header {
+    margin-bottom: 28px;
+  }
+
+  .sbv-header h2 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--sbv-dark-text);
+    margin: 0 0 12px 0;
+    line-height: 1.25;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .sbv-header p {
+    font-size: 16px;
+    color: var(--sbv-gray-text);
+    margin: 0;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+
+  .sbv-time-badge {
+    display: inline-block;
+    background: var(--sbv-light-gray);
+    color: var(--sbv-gray-text);
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ========================================
+     Progress Section
+     ======================================== */
+  .sbv-topline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    gap: 12px;
+  }
+
+  .sbv-progress {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sbv-gray-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .sbv-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--sbv-light-gray);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-bottom: 32px;
+  }
+
+  .sbv-bar > div {
+    height: 100%;
+    width: 0%;
+    background: var(--sbv-light-blue);
+    transition: width 0.4s ease;
+    border-radius: 3px;
+  }
+
+  /* ========================================
+     Question Section
+     ======================================== */
+  .sbv-q {
+    margin-top: 8px;
+    text-align: center;
+  }
+
+  .sbv-q h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+    color: var(--sbv-dark-text);
+  }
+
+  .sbv-help {
+    font-size: 14px;
+    color: var(--sbv-gray-text);
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    font-style: italic;
+  }
+
+  /* ========================================
+     Answer Buttons
+     Matches the light blue buttons on SBV site
+     ======================================== */
+  .sbv-answers {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .sbv-btn {
+    appearance: none;
+    border: none;
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+    padding: 14px 32px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.25s ease;
+    text-decoration: none;
+    display: inline-block;
+    min-width: 140px;
+  }
+
+  .sbv-btn:hover {
+    background: var(--sbv-light-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .sbv-btn.primary {
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+  }
+
+  .sbv-btn.primary:hover {
+    background: var(--sbv-light-blue-hover);
+  }
+
+  .sbv-btn.secondary {
+    background: transparent;
+    color: var(--sbv-light-blue);
+    border: 2px solid var(--sbv-light-blue);
+  }
+
+  .sbv-btn.secondary:hover {
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+  }
+
+  /* Answer buttons - match Value Builder/PRE/Freedom Score buttons */
+  .sbv-btn.answer {
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+    min-width: 120px;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .sbv-btn.answer::before {
+    display: none;
+  }
+
+  .sbv-btn.answer:hover {
+    background: var(--sbv-light-blue-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .sbv-btn.orange {
+    background: var(--sbv-orange);
+    color: var(--sbv-white);
+  }
+
+  .sbv-btn.orange:hover {
+    background: var(--sbv-orange-dark);
+  }
+
+  /* ========================================
+     Navigation
+     ======================================== */
+  .sbv-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid var(--sbv-border);
+  }
+
+  .sbv-link {
+    background: none;
+    border: none;
+    padding: 8px 0;
+    color: var(--sbv-gray-text);
+    text-decoration: none;
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.2s ease;
+  }
+
+  .sbv-link:hover {
+    color: var(--sbv-light-blue);
+  }
+
+  .sbv-link:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+
+  /* ========================================
+     Trust Badges / Anxiety Reducers
+     ======================================== */
+  .sbv-trust {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid var(--sbv-border);
+  }
+
+  .sbv-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--sbv-gray-text);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .sbv-trust-item svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  /* ========================================
+     Results Section
+     ======================================== */
+  .sbv-results {
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .sbv-results h3 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: var(--sbv-dark-text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .sbv-results > p {
+    color: var(--sbv-gray-text);
+    margin: 0 0 24px 0;
+    line-height: 1.6;
+  }
+
+  /* ========================================
+     Result Cards
+     ======================================== */
+  .sbv-card {
+    border: 1px solid var(--sbv-border);
+    border-radius: 6px;
+    padding: 24px;
+    margin-top: 16px;
+    background: var(--sbv-white);
+    text-align: left;
+    transition: all 0.25s ease;
+  }
+
+  .sbv-card:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .sbv-card.primary-card {
+    border-color: var(--sbv-light-blue);
+    border-width: 2px;
+    background: linear-gradient(135deg, var(--sbv-white) 0%, #f0f7fb 100%);
+  }
+
+  .sbv-card.primary-card .sbv-card-badge {
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+  }
+
+  .sbv-card.secondary-card {
+    opacity: 0.85;
+  }
+
+  .sbv-card.secondary-card .sbv-card-badge {
+    background: var(--sbv-light-gray);
+    color: var(--sbv-gray-text);
+  }
+
+  .sbv-card-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .sbv-card-title {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--sbv-dark-text);
+    margin: 0 0 8px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .sbv-card-desc {
+    font-size: 14px;
+    color: var(--sbv-gray-text);
+    margin: 0 0 16px 0;
+    line-height: 1.6;
+  }
+
+  .sbv-card-because {
+    margin: 16px 0;
+    padding: 12px;
+    background: var(--sbv-light-gray);
+    border-radius: 4px;
+  }
+
+  .sbv-card-because strong {
+    font-size: 12px;
+    color: var(--sbv-dark-text);
+    display: block;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .sbv-why {
+    margin: 0 0 0 16px;
+    padding: 0;
+    color: var(--sbv-gray-text);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .sbv-why li {
+    margin: 4px 0;
+  }
+
+  .sbv-card-cta {
+    margin-top: 16px;
+    text-align: center;
+  }
+
+  /* ========================================
+     Call Card (Orange section style)
+     ======================================== */
+  .sbv-call-card {
+    margin-top: 24px;
+    padding: 24px;
+    background: var(--sbv-orange);
+    border-radius: 6px;
+    text-align: center;
+  }
+
+  .sbv-call-card strong {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--sbv-white);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .sbv-call-card p {
+    font-size: 14px;
+    color: var(--sbv-white);
+    margin: 8px 0 16px 0;
+    line-height: 1.5;
+    opacity: 0.95;
+  }
+
+  .sbv-call-card .sbv-btn {
+    background: var(--sbv-light-blue);
+    color: var(--sbv-white);
+  }
+
+  .sbv-call-card .sbv-btn:hover {
+    background: var(--sbv-light-blue-hover);
+  }
+
+  .sbv-call-card small {
+    display: block;
+    margin-top: 12px;
+    font-size: 11px;
+    color: var(--sbv-white);
+    opacity: 0.8;
+    font-style: italic;
+  }
+
+  /* ========================================
+     Disclaimer
+     ======================================== */
+  .sbv-disclaimer {
+    margin-top: 20px;
+    padding: 16px;
+    background: var(--sbv-light-gray);
+    border-radius: 4px;
+    font-size: 12px;
+    color: var(--sbv-gray-text);
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  /* Hidden State */
+  .sbv-hidden {
+    display: none !important;
+  }
+
+  /* Start Screen */
+  .sbv-start {
+    text-align: center;
+    padding: 10px 0;
+  }
+
+  .sbv-start-btn {
+    margin-top: 28px;
+  }
+
+  /* ========================================
+     Mobile Responsive
+     ======================================== */
+  @media (max-width: 600px) {
+    #sbv-assessment {
+      padding: 28px 20px;
+    }
+
+    .sbv-header h2 {
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    .sbv-q h3 {
+      font-size: 18px;
+    }
+
+    .sbv-answers {
+      flex-direction: column;
+    }
+
+    .sbv-btn {
+      width: 100%;
+      padding: 14px 20px;
+    }
+
+    .sbv-topline {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sbv-trust {
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .sbv-results h3 {
+      font-size: 20px;
+    }
+
+    .sbv-card {
+      padding: 20px 16px;
+    }
+  }
+</style>
+
+<div id="sbv-assessment" aria-live="polite">
+  
+  <!-- ========================================
+       START SCREEN
+       ======================================== -->
+  <div id="sbvStartScreen" class="sbv-start">
+    <div class="sbv-header">
+      <h2>Find Your Next Best Move</h2>
+      <p>Answer 6 quick questions to identify how to increase business value—based on where you are today.</p>
+      <span class="sbv-time-badge">Takes About 60 Seconds</span>
+    </div>
+    
+    <button type="button" class="sbv-btn primary sbv-start-btn" id="sbvStartBtn">
+      Start Assessment
+    </button>
+    
+    <div class="sbv-trust">
+      <div class="sbv-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+          <polyline points="22 4 12 14.01 9 11.01"/>
+        </svg>
+        <span>No Signup Required</span>
+      </div>
+      <div class="sbv-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+          <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        </svg>
+        <span>Answers Stay Private</span>
+      </div>
+      <div class="sbv-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+        <span>Skip Any Question</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================
+       QUESTION SCREEN
+       ======================================== -->
+  <div id="sbvQuestionScreen" class="sbv-hidden">
+    <div class="sbv-topline">
+      <div class="sbv-progress" id="sbvProgressText">Question 1 of 6</div>
+      <button class="sbv-link" id="sbvRestart" type="button">Start Over</button>
+    </div>
+    <div class="sbv-bar" aria-hidden="true"><div id="sbvBarFill"></div></div>
+    
+    <div class="sbv-q">
+      <h3 id="sbvQuestionText">Loading…</h3>
+      <p class="sbv-help" id="sbvHelpText"></p>
+      <div class="sbv-answers" id="sbvAnswerButtons"></div>
+    </div>
+    
+    <div class="sbv-nav">
+      <button class="sbv-link" id="sbvBack" type="button" disabled>← Back</button>
+      <button class="sbv-link" id="sbvSkip" type="button">Skip →</button>
+    </div>
+  </div>
+
+  <!-- ========================================
+       RESULTS SCREEN
+       ======================================== -->
+  <div id="sbvResultsScreen" class="sbv-results sbv-hidden">
+    <h3>Your Next Steps</h3>
+    <p>Based on your answers, here's where to focus to increase business value.</p>
+    
+    <div class="sbv-card primary-card" id="sbvPrimaryCard"></div>
+    <div class="sbv-card secondary-card" id="sbvSecondaryCard"></div>
+    
+    <div class="sbv-call-card">
+      <strong>Looking for More?</strong>
+      <p>Schedule a call with our team to discuss your results and next steps.</p>
+      <!-- =====================================================
+           UPDATE THIS LINK to Gary's actual Calendly or booking page
+           ===================================================== -->
+      <a href="https://strategicbusinessvaluations.com/book" target="_blank" class="sbv-btn" style="margin-top: 12px;">
+        View the Calendar
+      </a>
+      <small>Tip: Complete the recommended assessment first for a more productive conversation.</small>
+    </div>
+    
+    <div class="sbv-disclaimer">
+      <strong>Note:</strong> This is a quick routing assessment—not a valuation. Your results help us recommend the most relevant next step.
+    </div>
+    
+    <div style="text-align: center; margin-top: 20px;">
+      <button class="sbv-link" id="sbvRestartFromResults" type="button">← Retake Assessment</button>
+    </div>
+  </div>
+  
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // =====================================================
+  // CONFIGURATION - Update these URLs as needed
+  // =====================================================
+  
+  const TOOL_LINKS = {
+    freedom: "https://score.valuebuildersystem.com/freedomscore/strategic-business-valuations/nancy-hallett?utm_source=sbv&utm_medium=assessment&utm_campaign=exit_readiness_router",
+    prescore: "https://score.valuebuildersystem.com/prescore/strategic-business-valuations/nancy-hallett?utm_source=sbv&utm_medium=assessment&utm_campaign=exit_readiness_router",
+    valuebuilder: "https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&utm_medium=assessment&utm_campaign=exit_readiness_router"
+  };
+
+  // =====================================================
+  // QUESTIONS - 6 questions with Yes/No/Not Sure answers
+  // =====================================================
+  
+  const QUESTIONS = [
+    {
+      id: "q1_priorValuation",
+      text: "Have you ever had a formal business valuation?",
+      help: "This helps us understand your familiarity with the valuation process.",
+      driver: "context"
+    },
+    {
+      id: "q2_finPlan",
+      text: "Do you have a written long-term financial plan?",
+      help: "Financial clarity is often a key constraint in exit planning.",
+      driver: "freedom"
+    },
+    {
+      id: "q3_transitionPlan",
+      text: "Do you have a transition plan for when you eventually step away from the business?",
+      help: "A transition plan reduces risk and increases business transferability.",
+      driver: "prescore"
+    },
+    {
+      id: "q4_growth",
+      text: "In the past 24 months, has your business grown meaningfully?",
+      help: "Growth trends help determine whether value-growth work should be prioritized.",
+      driver: "valuebuilder"
+    },
+    {
+      id: "q5_postExit",
+      text: "Do you know what you want to do when you leave or step back from the business?",
+      help: "Clarity about your next chapter often drives better exit decisions.",
+      driver: "prescore"
+    },
+    {
+      id: "q6_gm",
+      text: "Do you have a general manager (or equivalent leader) who is not you?",
+      help: "Leadership depth is a key driver of transferability and business value.",
+      driver: "valuebuilder"
+    }
+  ];
+
+  // =====================================================
+  // TOOL METADATA
+  // =====================================================
+  
+  const TOOL_META = {
+    prescore: {
+      name: "PRE Score",
+      subtitle: "Exit Readiness Assessment",
+      desc: "Clarify your personal readiness to exit, reduce regret risk, and build a practical path to stepping back with confidence.",
+      url: TOOL_LINKS.prescore
+    },
+    freedom: {
+      name: "Freedom Score",
+      subtitle: "Financial Readiness Assessment", 
+      desc: "Estimate your financial readiness and identify the planning work needed to reach your personal freedom point.",
+      url: TOOL_LINKS.freedom
+    },
+    valuebuilder: {
+      name: "Value Builder Score",
+      subtitle: "Business Value & Transferability",
+      desc: "Identify the highest-impact drivers to increase business value and reduce the company's dependence on you.",
+      url: TOOL_LINKS.valuebuilder
+    }
+  };
+
+  // =====================================================
+  // STATE
+  // =====================================================
+  
+  let currentIndex = 0;
+  const answers = {};
+
+  // =====================================================
+  // DOM ELEMENTS
+  // =====================================================
+  
+  const startScreen = document.getElementById('sbvStartScreen');
+  const questionScreen = document.getElementById('sbvQuestionScreen');
+  const resultsScreen = document.getElementById('sbvResultsScreen');
+  const startBtn = document.getElementById('sbvStartBtn');
+  const questionText = document.getElementById('sbvQuestionText');
+  const helpText = document.getElementById('sbvHelpText');
+  const answerButtons = document.getElementById('sbvAnswerButtons');
+  const progressText = document.getElementById('sbvProgressText');
+  const barFill = document.getElementById('sbvBarFill');
+  const backBtn = document.getElementById('sbvBack');
+  const skipBtn = document.getElementById('sbvSkip');
+  const restartBtn = document.getElementById('sbvRestart');
+  const restartFromResultsBtn = document.getElementById('sbvRestartFromResults');
+  const primaryCard = document.getElementById('sbvPrimaryCard');
+  const secondaryCard = document.getElementById('sbvSecondaryCard');
+
+  // =====================================================
+  // FUNCTIONS
+  // =====================================================
+
+  function showScreen(screen) {
+    startScreen.classList.add('sbv-hidden');
+    questionScreen.classList.add('sbv-hidden');
+    resultsScreen.classList.add('sbv-hidden');
+    screen.classList.remove('sbv-hidden');
+  }
+
+  function updateProgress() {
+    const total = QUESTIONS.length;
+    const current = currentIndex + 1;
+    progressText.textContent = `Question ${current} of ${total}`;
+    const pct = Math.round((currentIndex / total) * 100);
+    barFill.style.width = pct + '%';
+  }
+
+  function renderQuestion() {
+    updateProgress();
+    const q = QUESTIONS[currentIndex];
+    questionText.textContent = q.text;
+    helpText.textContent = q.help || '';
+    
+    // Clear and create answer buttons
+    answerButtons.innerHTML = '';
+    
+    const choices = [
+      { label: 'Yes', value: 'yes' },
+      { label: 'No', value: 'no' },
+      { label: 'Not Sure', value: 'ns' }
+    ];
+
+    choices.forEach(choice => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'sbv-btn answer';
+      btn.textContent = choice.label;
+      btn.addEventListener('click', () => selectAnswer(choice.value));
+      answerButtons.appendChild(btn);
+    });
+
+    // Update back button state
+    backBtn.disabled = currentIndex === 0;
+  }
+
+  function selectAnswer(value) {
+    const q = QUESTIONS[currentIndex];
+    answers[q.id] = value;
+    goNext();
+  }
+
+  function goNext() {
+    if (currentIndex < QUESTIONS.length - 1) {
+      currentIndex++;
+      renderQuestion();
+    } else {
+      showResults();
+    }
+  }
+
+  function goBack() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      renderQuestion();
+    }
+  }
+
+  function skipQuestion() {
+    const q = QUESTIONS[currentIndex];
+    answers[q.id] = 'ns'; // Treat skip as "Not sure"
+    goNext();
+  }
+
+  function restart() {
+    currentIndex = 0;
+    for (const key in answers) {
+      delete answers[key];
+    }
+    showScreen(startScreen);
+  }
+
+  // =====================================================
+  // ROUTING LOGIC
+  // Based on MeclabsAI recommendations
+  // "Not sure" is treated the same as "No" (gap)
+  // =====================================================
+
+  function isGap(questionId) {
+    const value = answers[questionId];
+    return value === 'no' || value === 'ns' || value == null;
+  }
+
+  function calculateRoute() {
+    // Calculate gap scores
+    // ExitGap: Q3 (transition plan) + Q5 (post-exit clarity)
+    // FinanceGap: Q2 (financial plan)
+    // TransferGap: Q6 (GM/leader) + Q4 (growth)
+    
+    const ExitGap = (isGap('q3_transitionPlan') ? 1 : 0) + (isGap('q5_postExit') ? 1 : 0);
+    const FinanceGap = isGap('q2_finPlan') ? 1 : 0;
+    const TransferGap = (isGap('q6_gm') ? 1 : 0) + (isGap('q4_growth') ? 1 : 0);
+
+    // Primary selection with tie-breakers
+    // Priority: PREScore wins when ExitGap is high (psychological readiness often blocks action)
+    let primary = 'valuebuilder'; // default
+    
+    if (ExitGap === 2) {
+      primary = 'prescore';
+    } else if (TransferGap === 2) {
+      primary = 'valuebuilder';
+    } else if (FinanceGap === 1 && ExitGap <= 1 && TransferGap <= 1) {
+      primary = 'freedom';
+    }
+
+    // Secondary selection (next most relevant)
+    let secondary;
+    
+    if (primary === 'prescore') {
+      secondary = (FinanceGap === 1 && TransferGap === 0) ? 'freedom' : 'valuebuilder';
+    } else if (primary === 'valuebuilder') {
+      secondary = (FinanceGap === 1 && ExitGap === 0) ? 'freedom' : 'prescore';
+    } else {
+      // primary is freedom
+      secondary = 'valuebuilder';
+    }
+
+    return { primary, secondary };
+  }
+
+  function getBecauseBullets(toolKey) {
+    const bullets = [];
+
+    if (toolKey === 'prescore') {
+      if (isGap('q3_transitionPlan')) {
+        bullets.push("You indicated you don't yet have a clear transition plan (or you're not sure).");
+      }
+      if (isGap('q5_postExit')) {
+        bullets.push("You indicated you don't have clarity on what you'll do after stepping back.");
+      }
+      if (bullets.length === 0) {
+        bullets.push("This assessment helps confirm your exit-readiness and reduce uncertainty.");
+      }
+    }
+
+    if (toolKey === 'freedom') {
+      if (isGap('q2_finPlan')) {
+        bullets.push("You indicated you don't yet have a written long-term financial plan.");
+      }
+      if (bullets.length === 0) {
+        bullets.push("This assessment helps translate business value into personal financial readiness.");
+      }
+    }
+
+    if (toolKey === 'valuebuilder') {
+      if (isGap('q6_gm')) {
+        bullets.push("You indicated you don't have a day-to-day leader besides yourself.");
+      }
+      if (isGap('q4_growth')) {
+        bullets.push("You indicated recent growth hasn't been clearly strong (or you're not sure).");
+      }
+      if (bullets.length === 0) {
+        bullets.push("This assessment identifies which value drivers will most increase transferability.");
+      }
+    }
+
+    return bullets.slice(0, 2); // Max 2 bullets for clarity
+  }
+
+  function renderCard(cardEl, toolKey, isPrimary) {
+    const meta = TOOL_META[toolKey];
+    const bullets = getBecauseBullets(toolKey);
+    const badgeText = isPrimary ? 'Recommended' : 'Optional Next Step';
+    
+    cardEl.innerHTML = `
+      <span class="sbv-card-badge">${badgeText}</span>
+      <h4 class="sbv-card-title">${meta.name} — ${meta.subtitle}</h4>
+      <p class="sbv-card-desc">${meta.desc}</p>
+      
+      <div class="sbv-card-because">
+        <strong>Why we recommend this:</strong>
+        <ul class="sbv-why">
+          ${bullets.map(b => `<li>${b}</li>`).join('')}
+        </ul>
+      </div>
+      
+      <div class="sbv-card-cta">
+        <a href="${meta.url}" target="_blank" rel="noopener" class="sbv-btn ${isPrimary ? 'primary' : 'secondary'}">
+          ${isPrimary ? 'Start ' + meta.name + ' →' : 'Take ' + meta.name}
+        </a>
+      </div>
+    `;
+  }
+
+  function showResults() {
+    const { primary, secondary } = calculateRoute();
+    
+    renderCard(primaryCard, primary, true);
+    renderCard(secondaryCard, secondary, false);
+    
+    barFill.style.width = '100%';
+    showScreen(resultsScreen);
+  }
+
+  // =====================================================
+  // EVENT LISTENERS
+  // =====================================================
+
+  startBtn.addEventListener('click', () => {
+    showScreen(questionScreen);
+    renderQuestion();
+  });
+
+  backBtn.addEventListener('click', goBack);
+  skipBtn.addEventListener('click', skipQuestion);
+  restartBtn.addEventListener('click', restart);
+  restartFromResultsBtn.addEventListener('click', restart);
+
+  // =====================================================
+  // INITIALIZE
+  // Start screen is shown by default (others are hidden)
+  // =====================================================
+
+})();
+</script>
