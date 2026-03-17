@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit-Window Marketing Audit | Powered by MeclabsAI</title>
+    <meta name="description" content="Audit your marketing assets against proven MECLABS conversion heuristics. Get a diagnostic report + test plan in minutes.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(99, 102, 241, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-primary: #6366f1;
+            --accent-secondary: #818cf8;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --success: #22c55e;
+            --warning: #f59e0b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Noise texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(99, 102, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(99, 102, 241, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: white;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .header-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 100px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        .header-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 60px;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent-glow);
+            border: 1px solid var(--border-accent);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: var(--accent-secondary);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #ffffff 0%, #a1a1aa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* What You Get Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            padding: 20px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-accent);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-glow);
+            border: 1px solid var(--border-accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon svg {
+            width: 20px;
+            height: 20px;
+            stroke: var(--accent-secondary);
+        }
+
+        .feature-content h3 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .feature-content p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Audit Tool Section */
+        .audit-section {
+            padding: 40px 0 80px;
+        }
+
+        .audit-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .audit-header h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .audit-header p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Widget Container */
+        .widget-wrapper {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .widget-container {
+            position: relative;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            overflow: hidden;
+            min-height: 700px;
+            box-shadow: 
+                0 0 0 1px rgba(99, 102, 241, 0.1),
+                0 20px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 100px -20px rgba(99, 102, 241, 0.15);
+        }
+
+        .widget-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 20px;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .widget-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .widget-title-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+        }
+
+        .widget-title span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .widget-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .widget-status::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+        }
+
+        /* CTA to launch widget if not auto-loaded */
+        .widget-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .widget-placeholder h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        .widget-placeholder p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            max-width: 400px;
+        }
+
+        .start-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .start-btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* MeclabsAI Widget Overrides */
+        #cfdContainer {
+            position: relative;
+            width: 100%;
+            min-height: 650px;
+        }
+
+        #cfdContainer #meclabs-ai-widget {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            border-radius: 0 !important;
+            transform: none !important;
+            opacity: 1 !important;
+            pointer-events: all !important;
+        }
+
+        /* Hide the floating trigger since we're inline */
+        #meclabs-ai-widget-btn,
+        .meclabs-ai-notification-container-wrapper,
+        .meclabs-ai-custom-trigger-primary-container {
+            display: none !important;
+        }
+
+        /* Hide the floating trigger button */
+        #meclabs-ai-widget-btn {
+            display: none !important;
+        }
+
+        /* Force the widget panel to appear in our container area */
+        #meclabs-ai-widget {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            max-width: 100% !important;
+            max-height: 100% !important;
+            transform: none !important;
+            opacity: 1 !important;
+            pointer-events: all !important;
+            border-radius: 0 !important;
+        }
+
+        /* Make our container the positioning context */
+        .widget-container {
+            position: relative;
+        }
+        
+
+        /* How It Works */
+        .how-it-works {
+            padding: 60px 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .step {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--accent-secondary);
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .step p {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border-subtle);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-powered {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .footer-powered img {
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-secondary);
+        }
+
+        .footer-legal {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 0 40px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .widget-container {
+                border-radius: 12px;
+            }
+
+            .header-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 19V13H15V19M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <span class="logo-text">Exit-Window</span>
+                </a>
+                <div class="header-badge">
+                    <span>Powered by MECLABS Conversion Science</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="hero-eyebrow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                    Free Marketing Diagnostic
+                </div>
+                <h1>Audit Your Marketing<br>Like a Buyer Would</h1>
+                <p>Get a MECLABS-style diagnostic on your landing page, email, or ad. Find the #1 constraint killing conversions and get a test plan to fix it.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Tiered Diagnostic</h3>
+                        <p>Strong / Moderate / Weak ratings across 7 conversion lenses</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"/>
+                            <line x1="12" y1="8" x2="12" y2="12"/>
+                            <line x1="12" y1="16" x2="12.01" y2="16"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Primary Constraint</h3>
+                        <p>The single biggest bottleneck limiting your conversions</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M12 20h9"/>
+                            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>3 Test Hypotheses</h3>
+                        <p>Structured experiments with metrics and expected impact</p>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+                        </svg>
+                    </div>
+                    <div class="feature-content">
+                        <h3>First Test Plan</h3>
+                        <p>A clean A/B setup with what to hold constant</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="audit-section">
+            <div class="container">
+                <div class="audit-header">
+                    <h2>Run Your Audit</h2>
+                    <p>Paste a URL or your copy, provide context, and get your diagnostic report.</p>
+                </div>
+
+                <div class="widget-wrapper">
+                    <div class="widget-container">
+                        <div class="widget-header">
+                            <div class="widget-title">
+                                <div class="widget-title-dot"></div>
+                                <span>MECLABS Marketing Audit</span>
+                            </div>
+                            <div class="widget-status">ready</div>
+                        </div>
+                        
+                        <!-- MeclabsAI Widget Container -->
+                        <div id="cfdContainer">
+                            <!-- The MeclabsAI widget will load here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="how-it-works">
+            <div class="container">
+                <h2>How It Works</h2>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Submit Your Asset</h3>
+                        <p>Paste a URL or copy from your landing page, email, or ad</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Add Context</h3>
+                        <p>Tell us your audience and conversion goal</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Get Your Report</h3>
+                        <p>Receive a diagnostic with constraints, risks, and test hypotheses</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-powered">
+                    Powered by MeclabsAI Conversion Science
+                </div>
+                <div class="footer-links">
+                    <a href="https://www.gatewaybusinessadvisors.com" target="_blank">Gateway Business Advisors</a>
+                    <a href="https://meclabsai.com" target="_blank">MeclabsAI</a>
+                </div>
+                <div class="footer-legal">
+                    This tool audits marketing assets, not business quality. All recommendations are hypotheses.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- MeclabsAI Widget Script -->
+    <script async src="https://meclabsai.com/embed/chat.js?appId=yv11q9AWNT"></script>
+    
+    <script>
+        // Auto-open the widget when the page loads
+        // The widget should load inline in the cfdContainer
+        document.addEventListener('DOMContentLoaded', function() {
+            // Give the widget time to load, then try to auto-open
+            setTimeout(function() {
+                const widget = document.getElementById('meclabs-ai-widget');
+                const container = document.getElementById('cfdContainer');
+                if (widget && container) {
+                    container.appendChild(widget);
+                    widget.classList.add('meclabs-ai-widget-visible');
+                }
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

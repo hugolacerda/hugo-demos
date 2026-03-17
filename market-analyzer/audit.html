@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Start Your Audit | Exit-Window Marketing Audit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="wizard-container">
+    
+    <!-- Wizard Header -->
+    <header class="wizard-header">
+      <div class="container">
+        <div class="header-content">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">EW</div>
+            Exit-Window
+          </a>
+          <a href="index.html" style="color: var(--text-light); font-size: 14px;">Save & Exit</a>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="wizard-progress">
+          <div class="progress-step">
+            <div class="progress-dot active" id="dot-1">1</div>
+            <span class="progress-label active" id="label-1">Exit Window</span>
+          </div>
+          <div class="progress-line" id="line-1"></div>
+          <div class="progress-step">
+            <div class="progress-dot" id="dot-2">2</div>
+            <span class="progress-label" id="label-2">Assets</span>
+          </div>
+          <div class="progress-line" id="line-2"></div>
+          <div class="progress-step">
+            <div class="progress-dot" id="dot-3">3</div>
+            <span class="progress-label" id="label-3">Consumables</span>
+          </div>
+          <div class="progress-line" id="line-3"></div>
+          <div class="progress-step">
+            <div class="progress-dot" id="dot-4">4</div>
+            <span class="progress-label" id="label-4">Transferability</span>
+          </div>
+          <div class="progress-line" id="line-4"></div>
+          <div class="progress-step">
+            <div class="progress-dot" id="dot-5">5</div>
+            <span class="progress-label" id="label-5">Review</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Wizard Content -->
+    <div class="wizard-content">
+      <div class="container">
+        
+        <!-- Step 1: Exit Window & Context -->
+        <div class="wizard-step active" id="step-1">
+          <h2>Tell us about your exit window</h2>
+          <p class="step-description">This helps us tailor the audit to your timeline and goals.</p>
+          
+          <div class="form-group">
+            <label>When do you plan to sell?</label>
+            <div class="option-cards">
+              <label class="option-card">
+                <input type="radio" name="exit_timing" value="sell_now" required>
+                <div class="card-content">
+                  <h4>Sell Now (0-12 months)</h4>
+                  <p>I have decided to sell and want to reduce buyer objections quickly.</p>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="exit_timing" value="sell_later">
+                <div class="card-content">
+                  <h4>Sell Later (12-60 months)</h4>
+                  <p>I am planning ahead and want to build transferable marketing systems.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="industry">Industry</label>
+            <select id="industry" name="industry" required>
+              <option value="">Select your industry</option>
+              <option value="professional_services">Professional Services</option>
+              <option value="home_services">Home Services</option>
+              <option value="healthcare">Healthcare</option>
+              <option value="manufacturing">Manufacturing</option>
+              <option value="distribution">Distribution</option>
+              <option value="software">Software / SaaS</option>
+              <option value="retail">Retail / E-commerce</option>
+              <option value="construction">Construction</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Business Model</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="business_model" value="b2b" required>
+                <div class="choice-content">B2B (Business to Business)</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="business_model" value="b2c">
+                <div class="choice-content">B2C (Business to Consumer)</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="business_model" value="both">
+                <div class="choice-content">Both</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="revenue">Annual Revenue (optional but recommended)</label>
+            <select id="revenue" name="revenue">
+              <option value="">Select a range</option>
+              <option value="under_500k">Under $500,000</option>
+              <option value="500k_1m">$500,000 - $1 million</option>
+              <option value="1m_3m">$1 million - $3 million</option>
+              <option value="3m_10m">$3 million - $10 million</option>
+              <option value="10m_plus">$10 million+</option>
+            </select>
+          </div>
+
+          <div class="wizard-nav">
+            <div></div>
+            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Asset Ingestion -->
+        <div class="wizard-step" id="step-2">
+          <h2>Add the marketing assets you want audited</h2>
+          <p class="step-description">We will analyze your website and key pages to identify messaging issues.</p>
+          
+          <div class="form-group">
+            <label>How would you like to share your website content?</label>
+            <div class="option-cards">
+              <label class="option-card">
+                <input type="radio" name="input_mode" value="url" checked>
+                <div class="card-content">
+                  <h4>Website URL Scan</h4>
+                  <p>Enter your homepage and one service page URL. We will analyze the live pages.</p>
+                </div>
+              </label>
+              <label class="option-card">
+                <input type="radio" name="input_mode" value="paste">
+                <div class="card-content">
+                  <h4>Paste Copy</h4>
+                  <p>Paste your headline, subhead, and CTA text directly. Good if your site is outdated.</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- URL Mode Fields -->
+          <div id="url-fields">
+            <div class="form-group">
+              <label for="homepage_url">Homepage URL</label>
+              <input type="url" id="homepage_url" name="homepage_url" placeholder="https://yourcompany.com">
+            </div>
+
+            <div class="form-group">
+              <label for="service_url">Primary Service/Product Page URL</label>
+              <input type="url" id="service_url" name="service_url" placeholder="https://yourcompany.com/services">
+              <p class="hint">The page that describes your main offer.</p>
+            </div>
+
+            <div class="form-group">
+              <label>Primary conversion action on your site</label>
+              <div class="choice-list">
+                <label class="choice-item">
+                  <input type="radio" name="conversion_action" value="call">
+                  <div class="choice-content">Call / Phone</div>
+                </label>
+                <label class="choice-item">
+                  <input type="radio" name="conversion_action" value="form">
+                  <div class="choice-content">Contact Form</div>
+                </label>
+                <label class="choice-item">
+                  <input type="radio" name="conversion_action" value="consult">
+                  <div class="choice-content">Book a Consult</div>
+                </label>
+                <label class="choice-item">
+                  <input type="radio" name="conversion_action" value="quote">
+                  <div class="choice-content">Request a Quote</div>
+                </label>
+                <label class="choice-item">
+                  <input type="radio" name="conversion_action" value="buy">
+                  <div class="choice-content">Buy Now</div>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Paste Mode Fields (hidden by default) -->
+          <div id="paste-fields" style="display: none;">
+            <div class="form-group">
+              <label for="headline">Current Homepage Headline</label>
+              <input type="text" id="headline" name="headline" placeholder="Your main headline">
+            </div>
+
+            <div class="form-group">
+              <label for="subhead">Subheadline / Intro Paragraph</label>
+              <textarea id="subhead" name="subhead" placeholder="The supporting text below your headline"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="cta_text">Call-to-Action Text</label>
+              <input type="text" id="cta_text" name="cta_text" placeholder="e.g., 'Get a Free Quote'">
+            </div>
+
+            <div class="form-group">
+              <label for="proof_points">Proof Points Currently Used (optional)</label>
+              <textarea id="proof_points" name="proof_points" placeholder="e.g., '500+ clients served', '4.9 stars on Google', 'BBB Accredited'"></textarea>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-back" onclick="prevStep(1)">Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Consumables -->
+        <div class="wizard-step" id="step-3">
+          <h2>Add examples of messages buyers will judge you by</h2>
+          <p class="step-description">Your emails, ads, and subject lines reveal messaging consistency and conversion readiness.</p>
+          
+          <div class="form-group">
+            <label for="email_sample">One Sales or Nurture Email</label>
+            <textarea id="email_sample" name="email_sample" placeholder="Paste the full text of one marketing or sales email you send to prospects..." style="min-height: 160px;"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="ad_sample">One Ad, Post, or Outreach Message</label>
+            <textarea id="ad_sample" name="ad_sample" placeholder="Paste a Google ad, Facebook ad, LinkedIn post, or direct outreach message..."></textarea>
+            <p class="hint">Any promotional message you use to attract prospects.</p>
+          </div>
+
+          <div class="form-group">
+            <label>Three Subject Lines You Use</label>
+            <input type="text" name="subject_1" placeholder="Subject line 1" style="margin-bottom: 12px;">
+            <input type="text" name="subject_2" placeholder="Subject line 2" style="margin-bottom: 12px;">
+            <input type="text" name="subject_3" placeholder="Subject line 3">
+          </div>
+
+          <div class="form-group">
+            <label for="target_customer">Describe Your Ideal Customer</label>
+            <textarea id="target_customer" name="target_customer" placeholder="In 1-2 sentences: who are they, what do they want, and what do they fear?"></textarea>
+            <p class="hint">Example: "CFOs at mid-size manufacturing companies who want to reduce costs but fear disrupting operations."</p>
+          </div>
+
+          <div class="form-group">
+            <label for="primary_promise">Your Primary Promise</label>
+            <input type="text" id="primary_promise" name="primary_promise" placeholder="In one sentence, what is the most important outcome you deliver?">
+            <p class="hint">Example: "We reduce HVAC energy costs by 30% within 90 days, guaranteed."</p>
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-back" onclick="prevStep(2)">Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(4)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Transferability Assessment -->
+        <div class="wizard-step" id="step-4">
+          <h2>Transferability & buyer-risk check</h2>
+          <p class="step-description">10 quick questions about your marketing operations. This is where we assess how sellable your marketing system really is.</p>
+          
+          <div class="form-group">
+            <label>1. Who drives new customer acquisition today?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q1" value="owner">
+                <div class="choice-content">Owner</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q1" value="sales_team">
+                <div class="choice-content">Sales team</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q1" value="marketing_employee">
+                <div class="choice-content">Marketing employee</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q1" value="agency">
+                <div class="choice-content">Agency</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q1" value="varies">
+                <div class="choice-content">It varies / unclear</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>2. Is lead generation documented (repeatable without the owner)?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q2" value="none">
+                <div class="choice-content">No documentation</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q2" value="informal">
+                <div class="choice-content">Some notes / informal</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q2" value="sops">
+                <div class="choice-content">SOPs exist</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q2" value="sops_training">
+                <div class="choice-content">SOPs + training exist</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>3. Do you have a clear "where leads come from" breakdown?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q3" value="no">
+                <div class="choice-content">No</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q3" value="guess">
+                <div class="choice-content">Rough guess</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q3" value="by_channel">
+                <div class="choice-content">Yes, by channel</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q3" value="by_channel_metrics">
+                <div class="choice-content">Yes, by channel with metrics</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>4. Do you track conversion performance?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q4" value="not_really">
+                <div class="choice-content">Not really</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q4" value="some">
+                <div class="choice-content">Some (e.g., leads only)</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q4" value="lead_to_sale">
+                <div class="choice-content">Yes (lead to sale)</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q4" value="lead_to_sale_cac">
+                <div class="choice-content">Yes (lead to sale + CAC)</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>5. Where does credibility come from most?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q5" value="owner">
+                <div class="choice-content">Owner reputation / relationships</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q5" value="reviews">
+                <div class="choice-content">Reviews</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q5" value="case_studies">
+                <div class="choice-content">Case studies</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q5" value="metrics">
+                <div class="choice-content">Metrics / results</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q5" value="certifications">
+                <div class="choice-content">Certifications / awards</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>6. Is your value proposition consistent across website, email, and ads?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q6" value="not_consistent">
+                <div class="choice-content">Not consistent</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q6" value="somewhat">
+                <div class="choice-content">Somewhat</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q6" value="mostly">
+                <div class="choice-content">Mostly consistent</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q6" value="very">
+                <div class="choice-content">Very consistent</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>7. Sales process dependence (pick closest)</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q7" value="owner_closes">
+                <div class="choice-content">Owner must close most deals</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q7" value="team_owner_involved">
+                <div class="choice-content">Team can close but owner is involved</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q7" value="team_closes">
+                <div class="choice-content">Team closes consistently without owner</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q7" value="self_serve">
+                <div class="choice-content">Mostly self-serve purchase</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>8. Customer concentration concern?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q8" value="not_sure">
+                <div class="choice-content">Not sure</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q8" value="yes">
+                <div class="choice-content">Yes (top clients are a big share)</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q8" value="no">
+                <div class="choice-content">No / diversified</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>9. How strong is your "proof pack"? (case studies, testimonials, metrics, guarantees)</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q9" value="weak">
+                <div class="choice-content">Weak / sparse</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q9" value="some">
+                <div class="choice-content">Some proof, not organized</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q9" value="strong">
+                <div class="choice-content">Strong proof, somewhat organized</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q9" value="strong_organized">
+                <div class="choice-content">Strong + organized + used consistently</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>10. If you hired a new marketing person, could they run campaigns in 30 days?</label>
+            <div class="choice-list">
+              <label class="choice-item">
+                <input type="radio" name="q10" value="no">
+                <div class="choice-content">No</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q10" value="maybe">
+                <div class="choice-content">Maybe with heavy owner help</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q10" value="yes_some_help">
+                <div class="choice-content">Yes with some help</div>
+              </label>
+              <label class="choice-item">
+                <input type="radio" name="q10" value="yes_sops">
+                <div class="choice-content">Yes with templates/SOPs</div>
+              </label>
+            </div>
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-back" onclick="prevStep(3)">Back</button>
+            <button type="button" class="btn btn-primary" onclick="nextStep(5)">Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Review & Submit -->
+        <div class="wizard-step" id="step-5">
+          <h2>Review & Generate Your Audit</h2>
+          <p class="step-description">Confirm your information and we will generate your Marketing Sellability report.</p>
+          
+          <div style="background: var(--bg-light); border-radius: 12px; padding: 30px; margin-bottom: 30px;">
+            <h4 style="margin-bottom: 20px;">Your report will include:</h4>
+            <ul style="list-style: none; line-height: 2.2;">
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                Marketing Sellability Score (Conversion Readiness + Transferability)
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                MECLABS-based diagnosis (motivation, value prop, incentive, friction, anxiety)
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                Full rewrite pack (headlines, subject lines, email, ad)
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                Timeline-specific action plan
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                5 test hypotheses (IF/BY/WILL/BECAUSE)
+              </li>
+              <li style="display: flex; align-items: center; gap: 10px;">
+                <svg width="20" height="20" fill="var(--success)" viewBox="0 0 16 16"><path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/></svg>
+                PDF download
+              </li>
+            </ul>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address (to receive your report)</label>
+            <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="company_name">Company Name (optional, for report)</label>
+            <input type="text" id="company_name" name="company_name" placeholder="Your Company Name">
+          </div>
+
+          <div class="wizard-nav">
+            <button type="button" class="btn btn-back" onclick="prevStep(4)">Back</button>
+            <a href="report-sample.html" class="btn btn-primary btn-lg" style="padding-left: 40px; padding-right: 40px;">Generate My Audit</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    let currentStep = 1;
+    const totalSteps = 5;
+
+    function nextStep(step) {
+      // Hide current step
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      
+      // Show next step
+      currentStep = step;
+      document.getElementById('step-' + step).classList.add('active');
+      
+      // Update progress
+      updateProgress();
+      
+      // Scroll to top
+      window.scrollTo(0, 0);
+    }
+
+    function prevStep(step) {
+      document.getElementById('step-' + currentStep).classList.remove('active');
+      currentStep = step;
+      document.getElementById('step-' + step).classList.add('active');
+      updateProgress();
+      window.scrollTo(0, 0);
+    }
+
+    function updateProgress() {
+      for (let i = 1; i <= totalSteps; i++) {
+        const dot = document.getElementById('dot-' + i);
+        const label = document.getElementById('label-' + i);
+        const line = document.getElementById('line-' + (i - 1));
+        
+        if (i < currentStep) {
+          dot.classList.add('completed');
+          dot.classList.remove('active');
+          dot.innerHTML = '&#10003;';
+          label.classList.remove('active');
+          if (line) line.classList.add('completed');
+        } else if (i === currentStep) {
+          dot.classList.add('active');
+          dot.classList.remove('completed');
+          dot.innerHTML = i;
+          label.classList.add('active');
+        } else {
+          dot.classList.remove('active', 'completed');
+          dot.innerHTML = i;
+          label.classList.remove('active');
+          if (line) line.classList.remove('completed');
+        }
+      }
+    }
+
+    // Toggle URL vs Paste fields
+    document.querySelectorAll('input[name="input_mode"]').forEach(function(radio) {
+      radio.addEventListener('change', function() {
+        if (this.value === 'url') {
+          document.getElementById('url-fields').style.display = 'block';
+          document.getElementById('paste-fields').style.display = 'none';
+        } else {
+          document.getElementById('url-fields').style.display = 'none';
+          document.getElementById('paste-fields').style.display = 'block';
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
