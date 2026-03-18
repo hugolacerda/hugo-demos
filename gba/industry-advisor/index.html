@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Industry M&A Advisor | Gateway Business Advisors</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #080b10;
+      --bg2:     #0d1117;
+      --surface: #111827;
+      --border:  rgba(255,255,255,0.07);
+      --accent:  #E47D46;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(228,125,70,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(228,125,70,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(228,125,70,0.065) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* noise */
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: 0.022;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px;
+    }
+
+    /* ── Header ── */
+    .header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-wrap img { height: 36px; width: auto; }
+
+    .logo-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--border);
+    }
+
+    .logo-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: blink 2.5s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 48px 280px;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .eyebrow::before,
+    .eyebrow::after {
+      content: '';
+      display: block;
+      width: 44px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    .hero h1 {
+      font-size: clamp(44px, 7vw, 82px);
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--muted);
+      font-weight: 300;
+      max-width: 400px;
+      line-height: 1.75;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .footer-l {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    .footer-r {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.4;
+      text-align: right;
+      max-width: 380px;
+    }
+
+    /* Fade-in */
+    .header, .hero, .footer {
+      animation: up 0.5s ease both;
+    }
+    .hero   { animation-delay: 0.06s; }
+    .footer { animation-delay: 0.1s;  }
+
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0);    }
+    }
+
+    @media (max-width: 640px) {
+      .header { padding: 18px 24px; }
+      .hero   { padding: 60px 24px 260px; }
+      .footer { flex-direction: column; text-align: center; padding: 18px 24px; }
+      .footer-r { text-align: center; max-width: 100%; }
+      .hero h1 { letter-spacing: -2px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="../site/img/logo.png" alt="Gateway Business Advisors">
+    <div class="logo-sep"></div>
+    <span class="logo-tag">Industry M&amp;A Advisor</span>
+  </div>
+  <div class="status-pill">
+    <div class="dot"></div>
+    Advisor Online
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="eyebrow">M&amp;A Intelligence</div>
+  <h1>What is your<br>industry <em>worth</em><br>right now?</h1>
+  <p class="hero-sub">Ask the advisor below. Get M&amp;A trends, valuation multiples, and what drives premium value in your specific industry.</p>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-l">&copy; 2026 Gateway Business Advisors &mdash; (904) 759-7902 &mdash; Jacksonville, FL</div>
+  <div class="footer-r">Directional market context only. Not a valuation or professional financial advice.</div>
+</footer>
+
+<!-- MeclabsAI Industry M&A Advisor Widget -->
+<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
+
+</body>
+</html>
