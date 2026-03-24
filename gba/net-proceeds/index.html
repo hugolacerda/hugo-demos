@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Net Proceeds Calculator | Gateway Business Advisors</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #080b10;
+      --bg2:     #0d1117;
+      --surface: #111827;
+      --border:  rgba(255,255,255,0.07);
+      --accent:  #E47D46;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --red:     #f87171;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* grid */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(228,125,70,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(228,125,70,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* glow */
+    body::after {
+      content: '';
+      position: fixed;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1000px;
+      height: 1000px;
+      background: radial-gradient(circle, rgba(228,125,70,0.065) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* noise */
+    .noise {
+      position: fixed;
+      inset: 0;
+      opacity: 0.022;
+      pointer-events: none;
+      z-index: 1;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-wrap img { height: 36px; width: auto; }
+    .logo-sep { width: 1px; height: 20px; background: var(--border); }
+    .logo-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      box-shadow: 0 0 8px #22c55e;
+      animation: blink 2.5s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.25; }
+    }
+
+    /* Main */
+    .main {
+      position: relative;
+      z-index: 10;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 64px 48px 80px;
+      gap: 48px;
+    }
+
+    /* Hero */
+    .hero-text {
+      text-align: center;
+      max-width: 580px;
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      display: block;
+      width: 44px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+    .hero-text h1 {
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 300;
+      line-height: 1.1;
+      letter-spacing: -2px;
+      margin-bottom: 16px;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero-text p {
+      font-size: 15px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.75;
+    }
+
+    /* Calculator grid */
+    .calc-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 100%;
+      max-width: 920px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--border);
+    }
+
+    .panel {
+      background: var(--surface);
+      padding: 40px;
+    }
+
+    .panel-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 32px;
+      opacity: 0.75;
+    }
+
+    /* Input fields */
+    .field { margin-bottom: 28px; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      font-family: var(--mono);
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .input-wrap:focus-within {
+      border-color: rgba(228,125,70,0.4);
+    }
+
+    .input-prefix, .input-suffix {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--accent);
+      padding: 0 14px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .input-prefix { border-right: 1px solid var(--border); }
+    .input-suffix { border-left: 1px solid var(--border); }
+
+    .input-wrap input[type="number"] {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 16px;
+      padding: 0 16px;
+      height: 48px;
+      width: 100%;
+      min-width: 0;
+      -moz-appearance: textfield;
+    }
+    .input-wrap input[type="number"]::-webkit-inner-spin-button,
+    .input-wrap input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+    /* Range slider */
+    .range-wrap { margin-top: 12px; }
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 8px;
+      opacity: 0.6;
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 2px;
+      background: transparent;
+      outline: none;
+      cursor: pointer;
+    }
+    input[type="range"]::-webkit-slider-runnable-track {
+      height: 2px;
+      border-radius: 2px;
+      background: linear-gradient(
+        to right,
+        var(--accent) 0%,
+        var(--accent) var(--pct, 18%),
+        rgba(255,255,255,0.1) var(--pct, 18%),
+        rgba(255,255,255,0.1) 100%
+      );
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      margin-top: -7px;
+      box-shadow: 0 0 0 3px rgba(228,125,70,0.2);
+      transition: box-shadow 0.2s;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      box-shadow: 0 0 0 6px rgba(228,125,70,0.25);
+    }
+    input[type="range"]::-moz-range-track {
+      height: 2px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.1);
+    }
+    input[type="range"]::-moz-range-progress {
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 16px;
+      height: 16px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: none;
+      box-shadow: 0 0 0 3px rgba(228,125,70,0.2);
+    }
+
+    .field-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 8px;
+      opacity: 0.65;
+      line-height: 1.5;
+    }
+
+    /* Results panel */
+    .results-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .breakdown { flex: 1; }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .breakdown-row:first-child { border-top: 1px solid var(--border); }
+
+    .breakdown-label {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .breakdown-label small {
+      font-family: var(--mono);
+      font-size: 10px;
+      opacity: 0.55;
+    }
+
+    .breakdown-value {
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .breakdown-value.deduct { color: var(--red); }
+
+    /* Net proceeds block */
+    .net-block {
+      background: rgba(228,125,70,0.07);
+      border: 1px solid rgba(228,125,70,0.22);
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .net-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      opacity: 0.75;
+    }
+    .net-amount {
+      font-family: var(--mono);
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .net-pct {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    /* CTA section */
+    .cta-section {
+      width: 100%;
+      max-width: 920px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 680px;
+      opacity: 0.8;
+    }
+    .disclaimer strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      padding: 14px 32px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .cta-btn:hover {
+      opacity: 0.88;
+      transform: translateY(-1px);
+    }
+
+    .cta-sub {
+      font-size: 12px;
+      color: var(--muted);
+      opacity: 0.55;
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+    .footer-l {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .footer-r {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.4;
+      text-align: right;
+      max-width: 380px;
+    }
+
+    /* Animations */
+    .header { animation: up 0.4s ease both; }
+    .main   { animation: up 0.4s ease both 0.06s; }
+    .footer { animation: up 0.4s ease both 0.1s;  }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mobile */
+    @media (max-width: 740px) {
+      .header { padding: 18px 24px; }
+      .main   { padding: 48px 20px 60px; gap: 36px; }
+      .calc-wrap { grid-template-columns: 1fr; }
+      .panel  { padding: 28px 22px; }
+      .footer { flex-direction: column; text-align: center; padding: 18px 24px; }
+      .footer-r { text-align: center; max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="noise"></div>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="../site/img/logo.png" alt="Gateway Business Advisors">
+    <div class="logo-sep"></div>
+    <span class="logo-tag">Net Proceeds Calculator</span>
+  </div>
+  <div class="status-pill">
+    <div class="dot"></div>
+    Directional Estimate
+  </div>
+</header>
+
+<!-- Main -->
+<main class="main">
+
+  <!-- Hero -->
+  <div class="hero-text">
+    <div class="eyebrow">Exit Planning</div>
+    <h1>What will you actually<br><em>walk away with?</em></h1>
+    <p>A $5M sale and a $3M net are very different conversations. Adjust the inputs below to see how the numbers break down before you talk to anyone.</p>
+  </div>
+
+  <!-- Calculator -->
+  <div class="calc-wrap">
+
+    <!-- Left: Inputs -->
+    <div class="panel">
+      <div class="panel-label">Your Numbers</div>
+
+      <div class="field">
+        <label>Estimated Sale Price</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="salePrice" value="5000000" min="0" max="100000000" step="50000">
+        </div>
+        <div class="range-wrap">
+          <div class="range-labels">
+            <span>$500K</span>
+            <span>$10M</span>
+            <span>$25M</span>
+          </div>
+          <input type="range" id="salePriceSlider" min="500000" max="25000000" step="50000" value="5000000">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Broker Commission</label>
+        <div class="input-wrap">
+          <input type="number" id="brokerPct" value="10" min="0" max="20" step="0.5">
+          <span class="input-suffix">%</span>
+        </div>
+        <div class="field-note">Typically 8% to 12% depending on deal size and complexity.</div>
+      </div>
+
+      <div class="field">
+        <label>Attorney Fees (Est.)</label>
+        <div class="input-wrap">
+          <span class="input-prefix">$</span>
+          <input type="number" id="attorneyFees" value="20000" min="0" step="1000">
+        </div>
+        <div class="field-note">Typically $15K to $30K or more depending on deal structure.</div>
+      </div>
+
+      <div class="field">
+        <label>Effective Tax Rate (Est.)</label>
+        <div class="input-wrap">
+          <input type="number" id="taxRate" value="20" min="0" max="60" step="1">
+          <span class="input-suffix">%</span>
+        </div>
+        <div class="field-note">Florida has no state income tax. Federal long-term capital gains rates vary by income. Your CPA will determine the actual figure.</div>
+      </div>
+    </div>
+
+    <!-- Right: Results -->
+    <div class="panel results-panel">
+      <div>
+        <div class="panel-label">Breakdown</div>
+        <div class="breakdown">
+          <div class="breakdown-row">
+            <span class="breakdown-label">Gross Sale Price</span>
+            <span class="breakdown-value" id="r-gross">$5,000,000</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">
+              Broker Commission
+              <small id="r-broker-pct">(10%)</small>
+            </span>
+            <span class="breakdown-value deduct" id="r-broker">-$500,000</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">Attorney Fees</span>
+            <span class="breakdown-value deduct" id="r-attorney">-$20,000</span>
+          </div>
+          <div class="breakdown-row">
+            <span class="breakdown-label">
+              Est. Capital Gains Tax
+              <small id="r-tax-pct">(20%)</small>
+            </span>
+            <span class="breakdown-value deduct" id="r-tax">-$896,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="net-block">
+        <div class="net-label">Estimated Net Proceeds</div>
+        <div class="net-amount" id="r-net">$3,584,000</div>
+        <div class="net-pct" id="r-net-pct">71.7% of gross sale price</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <p class="disclaimer">
+      <strong>This is a directional estimate only.</strong> Every business sale is different. Tax treatment depends on deal structure, asset vs. stock sale, depreciation recapture, cost basis, and your personal tax situation. Estimated taxes above are applied to proceeds after broker and attorney fees and assume long-term capital gains treatment. Consult a qualified CPA before drawing conclusions from these figures.
+    </p>
+    <a href="#" class="cta-btn">Schedule a Consultation with Gary</a>
+    <p class="cta-sub">Learn what your specific business is worth and what you would actually walk away with.</p>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-l">&copy; 2026 Gateway Business Advisors &mdash; (904) 759-7902 &mdash; Jacksonville, FL</div>
+  <div class="footer-r">Directional estimate only. Not financial, tax, or legal advice. Consult a qualified CPA and attorney before any transaction.</div>
+</footer>
+
+<script>
+  const saleInput     = document.getElementById('salePrice');
+  const slider        = document.getElementById('salePriceSlider');
+  const brokerInput   = document.getElementById('brokerPct');
+  const attorneyInput = document.getElementById('attorneyFees');
+  const taxInput      = document.getElementById('taxRate');
+
+  const rGross     = document.getElementById('r-gross');
+  const rBroker    = document.getElementById('r-broker');
+  const rBrokerPct = document.getElementById('r-broker-pct');
+  const rAttorney  = document.getElementById('r-attorney');
+  const rTax       = document.getElementById('r-tax');
+  const rTaxPct    = document.getElementById('r-tax-pct');
+  const rNet       = document.getElementById('r-net');
+  const rNetPct    = document.getElementById('r-net-pct');
+
+  function fmt(n) {
+    if (n < 0) return '-$' + Math.round(Math.abs(n)).toLocaleString('en-US');
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+
+  function updateSliderTrack() {
+    const min = Number(slider.min);
+    const max = Number(slider.max);
+    const val = Math.min(Math.max(Number(slider.value), min), max);
+    const pct = ((val - min) / (max - min)) * 100;
+    slider.style.setProperty('--pct', pct.toFixed(2) + '%');
+  }
+
+  function calculate() {
+    const sale     = Math.max(0, Number(saleInput.value)     || 0);
+    const broker   = Math.max(0, Math.min(100, Number(brokerInput.value)   || 0));
+    const attorney = Math.max(0, Number(attorneyInput.value) || 0);
+    const tax      = Math.max(0, Math.min(100, Number(taxInput.value)      || 0));
+
+    const brokerAmt  = sale * (broker / 100);
+    const subtotal   = sale - brokerAmt - attorney;
+    const taxAmt     = Math.max(0, subtotal) * (tax / 100);
+    const net        = subtotal - taxAmt;
+    const netPct     = sale > 0 ? ((net / sale) * 100).toFixed(1) : '0.0';
+
+    rGross.textContent    = fmt(sale);
+    rBroker.textContent   = '-' + fmt(brokerAmt);
+    rBrokerPct.textContent= '(' + broker + '%)';
+    rAttorney.textContent = '-' + fmt(attorney);
+    rTax.textContent      = '-' + fmt(taxAmt);
+    rTaxPct.textContent   = '(' + tax + '%)';
+    rNet.textContent      = fmt(net);
+    rNetPct.textContent   = netPct + '% of gross sale price';
+  }
+
+  slider.addEventListener('input', () => {
+    saleInput.value = slider.value;
+    updateSliderTrack();
+    calculate();
+  });
+
+  saleInput.addEventListener('input', () => {
+    const v = Number(saleInput.value) || 0;
+    slider.value = Math.min(Math.max(v, Number(slider.min)), Number(slider.max));
+    updateSliderTrack();
+    calculate();
+  });
+
+  brokerInput.addEventListener('input',   calculate);
+  attorneyInput.addEventListener('input', calculate);
+  taxInput.addEventListener('input',      calculate);
+
+  updateSliderTrack();
+  calculate();
+</script>
+
+</body>
+</html>
