@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADS Avatar Options | Gateway Business Advisors</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #080b10;
+      --bg2:     #0d1117;
+      --surface: #111827;
+      --border:  rgba(255,255,255,0.07);
+      --accent:  #E47D46;
+      --text:    #e2e8f0;
+      --muted:   #64748b;
+      --mono:    'IBM Plex Mono', monospace;
+      --sans:    'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(228,125,70,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(228,125,70,0.03) 1px, transparent 1px);
+      background-size: 64px 64px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      top: -300px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 900px;
+      height: 900px;
+      background: radial-gradient(circle, rgba(228,125,70,0.055) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header */
+    .header {
+      position: relative;
+      z-index: 10;
+      padding: 22px 48px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-wrap img { height: 34px; width: auto; }
+    .logo-sep { width: 1px; height: 20px; background: var(--border); }
+    .logo-tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .header-note {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 100px;
+    }
+
+    /* Page intro */
+    .intro {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 56px 48px 48px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .eyebrow::before, .eyebrow::after {
+      content: '';
+      display: block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    .intro h1 {
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 300;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+    .intro h1 em { font-style: italic; color: var(--accent); }
+
+    .intro p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.75;
+      font-weight: 300;
+    }
+
+    /* Main content */
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 0 48px 80px;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    /* Archetype section */
+    .archetype {
+      margin-bottom: 72px;
+    }
+
+    .archetype-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .archetype-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--accent);
+      opacity: 0.6;
+    }
+
+    .archetype-name {
+      font-size: 22px;
+      font-weight: 300;
+      letter-spacing: -0.5px;
+    }
+
+    .archetype-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-left: auto;
+      font-style: italic;
+      max-width: 300px;
+      text-align: right;
+    }
+
+    /* Image grid */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .image-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .image-card:hover {
+      border-color: rgba(228,125,70,0.3);
+      transform: translateY(-2px);
+    }
+
+    .image-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 9/16;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .image-card-label {
+      padding: 10px 14px;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.5px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox-inner {
+      position: relative;
+      max-height: 92vh;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .lightbox img {
+      max-height: 88vh;
+      max-width: 50vw;
+      object-fit: contain;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 22px;
+      cursor: pointer;
+      padding: 4px 8px;
+      font-family: var(--mono);
+      transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--text); }
+
+    .lightbox-nav {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: border-color 0.2s;
+    }
+    .lightbox-nav:hover { border-color: var(--accent); }
+
+    .lightbox-info {
+      position: absolute;
+      bottom: -36px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+    }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      z-index: 10;
+      border-top: 1px solid var(--border);
+      padding: 18px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-l {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .footer-r {
+      font-size: 11px;
+      color: var(--muted);
+      opacity: 0.4;
+    }
+
+    /* Animations */
+    .header, .intro, .content { animation: up 0.45s ease both; }
+    .intro   { animation-delay: 0.05s; }
+    .content { animation-delay: 0.1s; }
+    @keyframes up {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 640px) {
+      .header { padding: 18px 20px; }
+      .archetype-desc { display: none; }
+      .content { padding: 0 20px 60px; }
+      .intro { padding: 40px 20px 36px; }
+      .footer { flex-direction: column; gap: 8px; padding: 16px 20px; }
+      .lightbox img { max-width: 85vw; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="logo-wrap">
+    <img src="../gba/site/img/logo.png" alt="Gateway Business Advisors">
+    <div class="logo-sep"></div>
+    <span class="logo-tag">Avatar Review</span>
+  </div>
+  <div class="header-note">Internal Review Only</div>
+</header>
+
+<!-- Intro -->
+<div class="intro">
+  <div class="eyebrow">ADS Agent Avatars</div>
+  <h1>Select your <em>advisor</em> archetype</h1>
+  <p>Three directions generated based on your reference figures. Each is an original archetype, not a likeness of any real individual. Click any image to enlarge.</p>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- Archetype 1: Ray Dalio -->
+  <div class="archetype">
+    <div class="archetype-header">
+      <span class="archetype-num">01</span>
+      <span class="archetype-name">The Institutional Authority</span>
+      <span class="archetype-desc">Composed, silver-haired gravitas. Decades of experience, still and certain.</span>
+    </div>
+    <div class="image-grid" id="grid-dalio">
+      <div class="image-card" onclick="openLightbox('dalio', 0)">
+        <img src="RayDalio/RayDalio.png" alt="Institutional Authority 1" loading="lazy">
+        <div class="image-card-label">Option 01 &mdash; A</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('dalio', 1)">
+        <img src="RayDalio/RayDalio2.png" alt="Institutional Authority 2" loading="lazy">
+        <div class="image-card-label">Option 01 &mdash; B</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('dalio', 2)">
+        <img src="RayDalio/RayDalio3.png" alt="Institutional Authority 3" loading="lazy">
+        <div class="image-card-label">Option 01 &mdash; C</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('dalio', 3)">
+        <img src="RayDalio/RayDalio4.png" alt="Institutional Authority 4" loading="lazy">
+        <div class="image-card-label">Option 01 &mdash; D</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('dalio', 4)">
+        <img src="RayDalio/RayDalio5.png" alt="Institutional Authority 5" loading="lazy">
+        <div class="image-card-label">Option 01 &mdash; E</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archetype 2: Suze Orman -->
+  <div class="archetype">
+    <div class="archetype-header">
+      <span class="archetype-num">02</span>
+      <span class="archetype-name">The Trusted Advisor</span>
+      <span class="archetype-desc">Confident, warm, direct. The person who tells you what no one else will.</span>
+    </div>
+    <div class="image-grid" id="grid-orman">
+      <div class="image-card" onclick="openLightbox('orman', 0)">
+        <img src="SuzeOrman/SuzeOrman.png" alt="Trusted Advisor 1" loading="lazy">
+        <div class="image-card-label">Option 02 &mdash; A</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('orman', 1)">
+        <img src="SuzeOrman/SuzeOrman2.png" alt="Trusted Advisor 2" loading="lazy">
+        <div class="image-card-label">Option 02 &mdash; B</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('orman', 2)">
+        <img src="SuzeOrman/Suzeorman3.png" alt="Trusted Advisor 3" loading="lazy">
+        <div class="image-card-label">Option 02 &mdash; C</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('orman', 3)">
+        <img src="SuzeOrman/BVyDzWmV8CqGcuLn.png" alt="Trusted Advisor 4" loading="lazy">
+        <div class="image-card-label">Option 02 &mdash; D</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('orman', 4)">
+        <img src="SuzeOrman/BVyDzWmV8CqGcuLn (1).png" alt="Trusted Advisor 5" loading="lazy">
+        <div class="image-card-label">Option 02 &mdash; E</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archetype 3: Elon Musk -->
+  <div class="archetype">
+    <div class="archetype-header">
+      <span class="archetype-num">03</span>
+      <span class="archetype-name">The Forward Thinker</span>
+      <span class="archetype-desc">Intense, modern, forward-leaning. Already thinking ten years ahead.</span>
+    </div>
+    <div class="image-grid" id="grid-elon">
+      <div class="image-card" onclick="openLightbox('elon', 0)">
+        <img src="ElonMusk/BVyDzWmV8CqGcuLn.png" alt="Forward Thinker 1" loading="lazy">
+        <div class="image-card-label">Option 03 &mdash; A</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('elon', 1)">
+        <img src="ElonMusk/BVyDzWmV8CqGcuLn (1).png" alt="Forward Thinker 2" loading="lazy">
+        <div class="image-card-label">Option 03 &mdash; B</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('elon', 2)">
+        <img src="ElonMusk/BVyDzWmV8CqGcuLn (2).png" alt="Forward Thinker 3" loading="lazy">
+        <div class="image-card-label">Option 03 &mdash; C</div>
+      </div>
+      <div class="image-card" onclick="openLightbox('elon', 3)">
+        <img src="ElonMusk/BVyDzWmV8CqGcuLn (3).png" alt="Forward Thinker 4" loading="lazy">
+        <div class="image-card-label">Option 03 &mdash; D</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-l">&copy; 2026 Gateway Business Advisors &mdash; Internal Use Only</div>
+  <div class="footer-r">These are original archetype images, not likenesses of any real individual.</div>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+  <div class="lightbox-inner">
+    <button class="lightbox-nav" onclick="navigateLightbox(-1)">&#8592;</button>
+    <div style="position:relative;">
+      <button class="lightbox-close" onclick="closeLightbox()">&#x2715; close</button>
+      <img id="lightbox-img" src="" alt="">
+      <div class="lightbox-info" id="lightbox-info"></div>
+    </div>
+    <button class="lightbox-nav" onclick="navigateLightbox(1)">&#8594;</button>
+  </div>
+</div>
+
+<script>
+  const archetypes = {
+    dalio: {
+      label: 'The Institutional Authority',
+      images: [
+        'RayDalio/RayDalio.png',
+        'RayDalio/RayDalio2.png',
+        'RayDalio/RayDalio3.png',
+        'RayDalio/RayDalio4.png',
+        'RayDalio/RayDalio5.png'
+      ],
+      options: ['01 - A','01 - B','01 - C','01 - D','01 - E']
+    },
+    orman: {
+      label: 'The Trusted Advisor',
+      images: [
+        'SuzeOrman/SuzeOrman.png',
+        'SuzeOrman/SuzeOrman2.png',
+        'SuzeOrman/Suzeorman3.png',
+        'SuzeOrman/BVyDzWmV8CqGcuLn.png',
+        'SuzeOrman/BVyDzWmV8CqGcuLn (1).png'
+      ],
+      options: ['02 - A','02 - B','02 - C','02 - D','02 - E']
+    },
+    elon: {
+      label: 'The Forward Thinker',
+      images: [
+        'ElonMusk/BVyDzWmV8CqGcuLn.png',
+        'ElonMusk/BVyDzWmV8CqGcuLn (1).png',
+        'ElonMusk/BVyDzWmV8CqGcuLn (2).png',
+        'ElonMusk/BVyDzWmV8CqGcuLn (3).png'
+      ],
+      options: ['03 - A','03 - B','03 - C','03 - D']
+    }
+  };
+
+  let currentArchetype = null;
+  let currentIndex = 0;
+
+  function openLightbox(archetype, index) {
+    currentArchetype = archetype;
+    currentIndex = index;
+    updateLightbox();
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function updateLightbox() {
+    const a = archetypes[currentArchetype];
+    document.getElementById('lightbox-img').src = a.images[currentIndex];
+    document.getElementById('lightbox-info').textContent =
+      a.label + '  —  Option ' + a.options[currentIndex];
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function closeLightboxOutside(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  function navigateLightbox(dir) {
+    const a = archetypes[currentArchetype];
+    currentIndex = (currentIndex + dir + a.images.length) % a.images.length;
+    updateLightbox();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    if (e.key === 'ArrowRight') navigateLightbox(1);
+  });
+</script>
+
+</body>
+</html>
