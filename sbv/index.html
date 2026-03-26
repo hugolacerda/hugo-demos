@@ -17,8 +17,8 @@
       --accent-h:   hsl(13,60%,55%);
       --fg:         hsl(218,55%,10%);
       --fg-90:      hsla(218,55%,10%,0.90);
-      --muted-txt:  hsl(218,20%,45%);
-      --border:     hsl(37,15%,85%);
+      --muted-txt:  hsl(30,7%,33%);
+      --border:     hsl(37,22%,78%);
       --ivory:      rgb(246,242,239);
       --ivory-60:   rgba(246,242,239,0.60);
       --ivory-40:   rgba(246,242,239,0.40);
@@ -32,7 +32,7 @@
     img{display:block;max-width:100%;}
     a{text-decoration:none;color:inherit;}
 
-    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 48px;}
+    .container{width:100%;max-width:1400px;margin:0 auto;padding:0 48px;}
     @media(max-width:768px){.container{padding:0 24px;}}
 
     .eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
@@ -61,7 +61,7 @@
 
     /* HERO */
     .hero{position:relative;overflow:hidden;min-height:640px;display:flex;align-items:center;}
-    .hero__bg{position:absolute;inset:0;background-image:url('https://sbv-homepage-wireframe-hf.mecpartners.com/assets/hero-meeting-B520FFay.jpg');background-size:cover;background-position:center 30%;}
+    .hero__bg{position:absolute;inset:0;background-image:url('./assets/hero-meeting-B520FFay.jpg');background-size:cover;background-position:center 30%;}
     .hero__overlay{position:absolute;inset:0;background:linear-gradient(105deg,rgba(11,22,40,.92) 0%,rgba(11,22,40,.78) 50%,rgba(11,22,40,.45) 100%);}
     .hero__body{position:relative;z-index:2;padding:80px 0 96px;max-width:600px;}
     .hero__eyebrow{font-family:var(--body);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;opacity:.9;}
@@ -105,7 +105,7 @@
     /* DIFFERENTIATORS — dark, 3-col grid per item */
     .diff{position:relative;padding:80px 0 96px;overflow:hidden;}
     .diff__bg-dark{position:absolute;inset:0;background:var(--dark);}
-    .diff__bg-img{position:absolute;inset:0;background-image:url('https://sbv-homepage-wireframe-hf.mecpartners.com/assets/differentiators-bg-8RZ5LmOf.jpg');background-size:cover;background-position:center;opacity:.08;}
+    .diff__bg-img{position:absolute;inset:0;background-image:url('./assets/differentiators-bg-8RZ5LmOf.jpg');background-size:cover;background-position:center;opacity:.08;}
     .diff__inner{position:relative;z-index:2;}
     .diff__h2{font-family:var(--headline);font-size:clamp(32px,4.5vw,52px);font-weight:500;color:var(--ivory);margin-bottom:56px;letter-spacing:-.02em;line-height:1.15;}
     .diff__item{display:grid;grid-template-columns:80px 1fr 1.2fr;gap:24px 40px;align-items:baseline;padding:40px 0;border-top:1px solid rgba(255,255,255,.10);}
@@ -389,7 +389,7 @@
           <p class="team__sub reveal d2">No hand-offs to junior staff. You work directly with credentialed valuators who understand what's at stake.</p>
         </div>
         <div class="team__photo-wrap reveal">
-          <img src="https://sbv-homepage-wireframe-hf.mecpartners.com/assets/team-group-DFJ-N-HQ.jpg"
+          <img src="./assets/team-group-DFJ-N-HQ.jpg"
                onerror="this.src='https://images.squarespace-cdn.com/content/v1/6284faaf5688a757f15cb74f/ac44d208-528f-487a-b5be-15e4a2b75bac/Gary+Nancy+Amanda.jpg'"
                alt="The Strategic Business Valuations team" width="1200" height="800">
           <div class="team__photo-overlay"></div>
