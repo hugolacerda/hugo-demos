@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Strategic Business Valuations</title>
+  <meta name="description" content="Meet the SBV team. CVA and CEPA certified professionals helping Florida business owners understand and optimize business value.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { line-height: 1.5; } body { margin: 0; }
+    img, svg, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: inherit; } button { cursor: pointer; font: inherit; background: none; border: none; padding: 0; }
+    h1,h2,h3,h4,h5,h6 { font-size: inherit; font-weight: inherit; } ol, ul { list-style: none; margin: 0; padding: 0; } p { margin: 0; }
+    :root { --color-midnight-hsl: 218 55% 10%; --color-deep-water-hsl: 212 52% 24%; --color-ember-hsl: 13 55% 50%; --color-clay-hsl: 37 30% 79%; --color-ivory-hsl: 30 27% 95%; --background: 30 27% 95%; --foreground: 218 55% 10%; --card: 0 0% 100%; --muted: 37 30% 79%; --muted-foreground: 30 7% 33%; --accent: 13 55% 50%; --border: 37 22% 78%; --radius: .5rem; --font-headline: "Playfair Display", Georgia, serif; --font-body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif; --shadow-ember: 0 8px 24px rgba(196, 85, 58, .2); }
+    body { background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    h1,h2,h3,h4,h5,h6 { font-family: var(--font-headline); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
+    .container { width: 100%; margin: 0 auto; padding: 0 2rem; } @media (min-width: 1400px) { .container { max-width: 1400px; } }
+    .eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .eyebrow .line { width: 2rem; height: 1px; background: hsl(var(--accent)); flex-shrink: 0; }
+    .eyebrow span:not(.line) { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+    .btn-ember { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; background: hsl(var(--color-ember-hsl)); color: hsl(var(--color-ivory-hsl)); box-shadow: var(--shadow-ember); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; height: 2.75rem; border-radius: calc(var(--radius) - 2px); padding: 0 2rem; transition: all 0.15s; text-decoration: none; }
+    .btn-ember:hover { background: hsl(var(--color-ember-hsl) / 0.9); transform: translateY(-2px); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+    .site-header { position: sticky; top: 0; z-index: 50; background: hsl(var(--card) / 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid hsl(var(--border)); }
+    .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; } @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
+    .logo-placeholder { border: 2px dashed hsl(var(--muted-foreground) / 0.4); border-radius: 0.25rem; padding: 0.5rem 1.25rem; }
+    .logo-placeholder span { font-size: 0.75rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+    .main-nav { display: none; align-items: center; gap: 2rem; } @media (min-width: 768px) { .main-nav { display: flex; } }
+    .main-nav a { font-size: 0.875rem; font-family: var(--font-body); font-weight: 500; color: hsl(var(--foreground) / 0.8); transition: color 0.15s; }
+    .main-nav a:hover, .main-nav a.active { color: hsl(var(--accent)); }
+    .header-cta-wrap { display: none; flex-direction: column; align-items: center; gap: 0.375rem; } @media (min-width: 768px) { .header-cta-wrap { display: flex; } }
+    .header-cta-sub { font-size: 10px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground) / 0.7); }
+    .mobile-menu-btn { display: block; color: hsl(var(--foreground)); } @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+    .nav-dropdown { position: relative; } .nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; }
+    .nav-dropdown .chevron { width: 0.7rem; height: 0.7rem; transition: transform 0.2s; } .nav-dropdown:hover .chevron { transform: rotate(180deg); }
+    .nav-dd-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 0.75rem; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.15s, visibility 0.15s; z-index: 60; }
+    .nav-dropdown:hover .nav-dd-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+    .nav-dd-inner { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(10,22,40,0.12); padding: 0.5rem; min-width: 240px; }
+    .nav-dd-inner a { display: flex; flex-direction: column; padding: 0.625rem 0.875rem; border-radius: calc(var(--radius) - 2px); transition: background 0.15s; }
+    .nav-dd-inner a:hover { background: hsl(var(--background)); }
+    .nav-dd-inner a .dd-title { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); transition: color 0.15s; }
+    .nav-dd-inner a .dd-desc { font-size: 0.6875rem; color: hsl(var(--muted-foreground)); margin-top: 2px; }
+    .nav-dd-inner a:hover .dd-title { color: hsl(var(--accent)); }
+    .nav-dd-inner a + a { margin-top: 2px; }
+
+    .section { padding: 5rem 0; } @media (min-width: 768px) { .section { padding: 6rem 0; } }
+    .section.bg-card { background: hsl(var(--card)); }
+    .section.bg-dark { position: relative; background: hsl(var(--color-midnight-hsl)); color: hsl(var(--color-ivory-hsl)); overflow: hidden; }
+    .section.bg-dark .container { position: relative; z-index: 10; }
+
+    /* ── Hero: photo with overlay, centered text ── */
+    .hero-about { position: relative; overflow: hidden; text-align: center; }
+    .hero-about .bg { position: absolute; inset: 0; }
+    .hero-about .bg img { width: 100%; height: 100%; object-fit: cover; }
+    .hero-about .overlay { position: absolute; inset: 0; background: hsl(var(--color-midnight-hsl) / 0.8); }
+    .hero-about .container { position: relative; z-index: 10; padding: 6rem 2rem; }
+    @media (min-width: 768px) { .hero-about .container { padding: 8rem 2rem; } }
+    .hero-about .eyebrow { justify-content: center; }
+    .hero-about .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
+    .hero-about h1 { font-size: 2.25rem; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1rem; }
+    @media (min-width: 768px) { .hero-about h1 { font-size: 3rem; } }
+    @media (min-width: 1024px) { .hero-about h1 { font-size: 3.5rem; } }
+    .hero-about .lead { font-size: 1.125rem; font-family: var(--font-body); color: hsl(var(--color-clay-hsl) / 0.9); line-height: 1.625; max-width: 36rem; margin: 0 auto; }
+
+    /* ── Values grid ── */
+    .values-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 72rem; margin: 0 auto; }
+    @media (min-width: 768px) { .values-grid { grid-template-columns: repeat(3, 1fr); } }
+    .value-card { text-align: center; padding: 2rem 1.5rem; }
+    .value-card .icon { width: 3rem; height: 3rem; border-radius: var(--radius); background: hsl(var(--accent) / 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+    .value-card .icon svg { width: 1.5rem; height: 1.5rem; color: hsl(var(--accent)); }
+    .value-card h3 { font-size: 1.125rem; color: hsl(var(--foreground)); margin-bottom: 0.5rem; }
+    .value-card p { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+
+    /* ── Team bios ── */
+    .team-grid { display: flex; flex-direction: column; gap: 4rem; max-width: 64rem; margin: 0 auto; }
+    .team-member { display: grid; gap: 2.5rem; align-items: start; }
+    @media (min-width: 768px) { .team-member { grid-template-columns: 280px 1fr; } }
+    .team-member:nth-child(even) { direction: ltr; }
+    .team-member .photo { border-radius: var(--radius); overflow: hidden; box-shadow: 0 12px 32px rgba(10,22,40,0.1); }
+    .team-member .photo img { width: 100%; height: auto; display: block; }
+    .team-member .bio { direction: ltr; }
+    .team-member .role { font-size: 0.6875rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--accent)); margin-bottom: 0.5rem; }
+    .team-member h3 { font-size: 1.5rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
+    .team-member .bio-text { font-size: 0.9375rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.7; }
+    .team-member .bio-text + .bio-text { margin-top: 0.75rem; }
+
+    /* ── Credentials ── */
+    .creds-row { display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: center; align-items: center; max-width: 64rem; margin: 0 auto; }
+    .creds-row img { height: 60px; width: auto; opacity: 0.7; transition: opacity 0.2s; filter: grayscale(30%); }
+    .creds-row img:hover { opacity: 1; filter: none; }
+
+    /* ── CTA band ── */
+    .cta-band { padding: 4rem 0; background: hsl(var(--color-midnight-hsl)); text-align: center; }
+    .cta-band h2 { font-size: 1.875rem; color: rgb(245,242,237); margin-bottom: 0.75rem; } @media (min-width: 768px) { .cta-band h2 { font-size: 2.25rem; } }
+    .cta-band p { font-size: 1rem; font-family: var(--font-body); color: rgb(139,157,184); margin-bottom: 2rem; max-width: 28rem; margin-left: auto; margin-right: auto; line-height: 1.625; }
+    .cta-band .sub { font-size: 11px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: rgb(139,157,184); margin-top: 0.5rem; }
+
+    .site-footer { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); padding: 3rem 0; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; } @media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
+    .footer-inner nav { display: flex; gap: 1.5rem; } .footer-inner nav a { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); transition: color 0.15s; } .footer-inner nav a:hover { color: hsl(var(--accent)); }
+    .footer-inner .copyright { font-size: 0.75rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); }
+    .footer-logo-placeholder { border: 2px dashed hsl(var(--muted-foreground) / 0.3); border-radius: 0.25rem; padding: 0.375rem 1rem; }
+    .footer-logo-placeholder span { font-size: 10px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container inner"><a href="./index.html" class="logo-placeholder"><span>New Logo</span></a><nav class="main-nav"><a href="./index.html">Home</a><div class="nav-dropdown"><a href="./valuations.html">Services <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a><div class="nav-dd-menu"><div class="nav-dd-inner"><a href="./valuations.html"><span class="dd-title">Valuations</span><span class="dd-desc">Defensible reports for any scenario</span></a><a href="./exit.html"><span class="dd-title">Exit Planning</span><span class="dd-desc">Value optimization for your transition</span></a><a href="./advisory.html"><span class="dd-title">Buy-Sell Advisory</span><span class="dd-desc">Close the deal the right way</span></a></div></div></div><a href="./insights.html">Insights</a><a href="./about.html" class="active">About</a><a href="./contact.html">Contact</a></nav><div style="display:flex;align-items:center;gap:0.75rem;"><div class="header-cta-wrap"><a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember">Talk with a Valuation Expert</a><span class="header-cta-sub">15-minute call · No obligation</span></div><button class="mobile-menu-btn" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button></div></div></header>
+
+  <!-- Hero -->
+  <section class="hero-about">
+    <div class="bg"><img src="https://placeholdit.com/1920x700/1a2744/1a2744?text=SBV+team+in+Jacksonville+office" alt="SBV team" width="1920" height="700"><div class="overlay"></div></div>
+    <div class="container">
+      <div class="eyebrow"><span class="line"></span><span>About Strategic Business Valuations</span><span class="line"></span></div>
+      <h1>Helping Owners Understand the Value of What They've Built</h1>
+      <p class="lead">We combine certified valuation expertise with a genuine commitment to owner education. Our goal is simple: give you the clarity to make better decisions about your business.</p>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="section">
+    <div class="container">
+      <div class="values-grid reveal">
+        <div class="value-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg></div>
+          <h3>Honest Approach</h3>
+          <p>We speak plainly and truthfully about value, risk, and options. We will not sugarcoat a valuation or tell you what you want to hear.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+          <h3>Education First</h3>
+          <p>Teaching precedes advising. Informed owners make better decisions. We equip you with the knowledge to act with confidence.</p>
+        </div>
+        <div class="value-card">
+          <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <h3>Clarity Over Complexity</h3>
+          <p>We simplify what others overcomplicate so you can act with confidence. Plain language, no jargon, straight to the point.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team -->
+  <section class="section bg-card">
+    <div class="container">
+      <div style="text-align:center;max-width:48rem;margin:0 auto 3rem;">
+        <div class="eyebrow" style="justify-content:center;"><span class="line"></span><span>Meet the Team</span><span class="line"></span></div>
+        <h2 style="font-size:1.875rem;color:hsl(var(--foreground));margin-bottom:0.75rem;">Certified professionals. Direct access.</h2>
+        <p style="font-size:1rem;font-family:var(--font-body);color:hsl(var(--muted-foreground));line-height:1.625;">You work directly with our principals from first call to final report. No junior analysts, no hand-offs.</p>
+      </div>
+      <div class="team-grid reveal">
+        <div class="team-member">
+          <div class="photo"><img src="https://placeholdit.com/280x350/d6cfc4/8a7e6e?text=Nancy+Hallett+headshot" alt="Nancy Hallett, CVA" width="280" height="350"></div>
+          <div class="bio">
+            <div class="role">Founder · Managing Partner</div>
+            <h3>Nancy Hallett</h3>
+            <p class="bio-text">Nancy is the Managing Partner at Strategic Business Valuations and a partner at Gateway Business Advisors. She is a Certified Valuation Analyst (CVA), Certified Exit Planning Advisor (CEPA), and Certified Mergers and Acquisitions Professional (CM&AP). With a degree in Accounting from Florida State College at Jacksonville, Nancy combines deep expertise in financial analysis with hands-on experience in business brokerage and lower middle-market M&A transactions.</p>
+            <p class="bio-text">Nancy is dedicated to helping business owners understand the true value of their businesses. Her approach is grounded in integrity and a clear understanding of the challenges owners face, ensuring you receive trusted, expert guidance every step of the way.</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="photo"><img src="https://placeholdit.com/280x350/d6cfc4/8a7e6e?text=Gary+Hallett+headshot" alt="Gary Hallett, CEPA" width="280" height="350"></div>
+          <div class="bio">
+            <div class="role">Founder · Strategic Lead</div>
+            <h3>Gary Hallett</h3>
+            <p class="bio-text">Gary is the co-founder of two Jacksonville-based companies: Gateway Business Advisors, specializing in M&A advisory, and Strategic Business Valuations, a valuation and exit planning firm. A Certified Exit Planning Advisor (CEPA) and M&A Master Intermediary (M&AMI), Gary helps business owners unlock their business's value to achieve an exit with no regrets. His focus is on guiding owners through strategic preparation for successful transitions.</p>
+            <p class="bio-text">Gary is passionate about making a lasting impact and shares this journey with his wife and business partner, Nancy Hallett.</p>
+          </div>
+        </div>
+        <div class="team-member">
+          <div class="photo"><img src="https://placeholdit.com/280x350/d6cfc4/8a7e6e?text=Amanda+Gordon+headshot" alt="Amanda Gordon, Business Analyst" width="280" height="350"></div>
+          <div class="bio">
+            <div class="role">Business Analyst</div>
+            <h3>Amanda Gordon</h3>
+            <p class="bio-text">Amanda is an experienced business analyst with four years of expertise in business valuations. She combines a strong analytical foundation with market insight to help clients better understand and maximize the value of their businesses. Amanda's thoughtful approach and attention to detail allow her to navigate complex valuation processes with clarity and professionalism.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Credentials -->
+  <section class="section">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <div class="eyebrow" style="justify-content:center;"><span class="line"></span><span>Credentials &amp; Affiliations</span><span class="line"></span></div>
+      </div>
+      <div class="creds-row reveal">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=NACVA" alt="NACVA">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=CEPA" alt="CEPA">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=CVA" alt="CVA">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=M%26A+Source" alt="M&A Source">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=IBBA" alt="IBBA">
+        <img src="https://placeholdit.com/120x60/f5f0eb/999?text=Value+Builder" alt="Value Builder">
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Band -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to talk?</h2>
+      <p>A 15-minute conversation is all it takes to get started. We'll discuss your situation and determine if we're a good fit.</p>
+      <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember" style="font-size:1rem;">Talk with a Valuation Expert</a>
+      <div class="sub">15-minute call · No obligation</div>
+    </div>
+  </section>
+
+  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-logo-placeholder"><span>New Logo</span></div><nav><a href="./index.html">Home</a><a href="./valuations.html">Services</a><a href="./insights.html">Insights</a><a href="./contact.html">Contact</a></nav><p class="copyright">© 2026 Strategic Business Valuations · Jacksonville, FL</p></div></div></footer>
+  <script>document.addEventListener('DOMContentLoaded',()=>{const r=document.querySelectorAll('.reveal');if(!r.length)return;const o=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('visible');o.unobserve(n.target);}});},{threshold:0.12});r.forEach(el=>o.observe(el));});</script>
+</body>
+</html>
