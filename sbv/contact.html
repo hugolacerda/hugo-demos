@@ -24,6 +24,9 @@
     .btn-ember { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; background: hsl(var(--color-ember-hsl)); color: hsl(var(--color-ivory-hsl)); box-shadow: var(--shadow-ember); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; height: 2.75rem; border-radius: calc(var(--radius) - 2px); padding: 0 2rem; transition: all 0.15s; text-decoration: none; }
     .btn-ember:hover { background: hsl(var(--color-ember-hsl) / 0.9); transform: translateY(-2px); }
     .btn-ember.xl { font-size: 1rem; padding: 0 2.5rem; height: 3rem; }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Header */
     .site-header { position: sticky; top: 0; z-index: 50; background: hsl(var(--card) / 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid hsl(var(--border)); }
     .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; } @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
     .logo-placeholder { border: 2px dashed hsl(var(--muted-foreground) / 0.4); border-radius: 0.25rem; padding: 0.5rem 1.25rem; }
@@ -45,6 +48,8 @@
     .nav-dd-inner a .dd-desc { font-size: 0.6875rem; color: hsl(var(--muted-foreground)); margin-top: 2px; }
     .nav-dd-inner a:hover .dd-title { color: hsl(var(--accent)); }
     .nav-dd-inner a + a { margin-top: 2px; }
+
+    /* Contact layout */
     .contact-section { padding: 5rem 0; } @media (min-width: 768px) { .contact-section { padding: 6rem 0; } }
     .contact-grid { display: grid; gap: 4rem; max-width: 72rem; margin: 0 auto; }
     @media (min-width: 1024px) { .contact-grid { grid-template-columns: 1fr 1.2fr; gap: 5rem; } }
@@ -58,6 +63,8 @@
     .contact-detail .value { font-size: 1rem; font-family: var(--font-body); color: hsl(var(--foreground)); }
     .contact-detail .value a { color: hsl(var(--accent)); transition: opacity 0.15s; }
     .contact-detail .value a:hover { opacity: 0.8; }
+
+    /* Book a call card */
     .book-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 2.5rem; text-align: center; }
     .book-card h2 { font-size: 1.5rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
     .book-card > p { font-size: 0.9375rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; margin-bottom: 2rem; max-width: 28rem; margin-left: auto; margin-right: auto; }
@@ -65,6 +72,8 @@
     .expect-list { display: flex; flex-direction: column; gap: 0.75rem; text-align: left; max-width: 22rem; margin: 0 auto 2rem; }
     .expect-list li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--foreground) / 0.85); line-height: 1.4; }
     .expect-list li svg { width: 1rem; height: 1rem; color: hsl(var(--accent)); flex-shrink: 0; margin-top: 2px; }
+
+    /* Contact form */
     .form-section { padding: 5rem 0; background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); }
     @media (min-width: 768px) { .form-section { padding: 6rem 0; } }
     .form-wrapper { max-width: 40rem; margin: 0 auto; }
@@ -78,9 +87,21 @@
     .form-group { display: flex; flex-direction: column; gap: 0.375rem; }
     .form-group label { font-size: 0.8125rem; font-family: var(--font-body); font-weight: 600; color: hsl(var(--foreground)); }
     .form-group label .req { color: hsl(var(--accent)); margin-left: 2px; }
-    .form-group input, .form-group select, .form-group textarea { font-family: var(--font-body); font-size: 0.9375rem; color: hsl(var(--foreground)); background: hsl(var(--background)); border: 1px solid hsl(var(--border)); border-radius: calc(var(--radius) - 2px); padding: 0.75rem 1rem; transition: border-color 0.15s, box-shadow 0.15s; outline: none; width: 100%; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: hsl(var(--accent)); box-shadow: 0 0 0 3px hsl(var(--accent) / 0.1); }
-    .form-group input::placeholder, .form-group textarea::placeholder { color: hsl(var(--muted-foreground) / 0.5); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: var(--font-body); font-size: 0.9375rem; color: hsl(var(--foreground));
+      background: hsl(var(--background)); border: 1px solid hsl(var(--border));
+      border-radius: calc(var(--radius) - 2px); padding: 0.75rem 1rem;
+      transition: border-color 0.15s, box-shadow 0.15s; outline: none; width: 100%;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: hsl(var(--accent)); box-shadow: 0 0 0 3px hsl(var(--accent) / 0.1);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: hsl(var(--muted-foreground) / 0.5); }
     .form-group textarea { resize: vertical; min-height: 120px; }
     .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
     .form-submit { display: flex; flex-direction: column; align-items: center; gap: 0.75rem; margin-top: 0.5rem; }
@@ -90,10 +111,14 @@
     .form-success.show { display: block; }
     .form-success h3 { font-size: 1.5rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
     .form-success p { font-size: 1rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+
+    /* Trust band */
     .trust-band { padding: 3rem 0; background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); }
     .trust-items { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; }
     .trust-items .item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); }
     .trust-items svg { width: 1rem; height: 1rem; color: hsl(var(--accent)); flex-shrink: 0; }
+
+    /* Footer */
     .site-footer { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); padding: 3rem 0; }
     .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; } @media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
     .footer-inner nav { display: flex; gap: 1.5rem; } .footer-inner nav a { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); transition: color 0.15s; } .footer-inner nav a:hover { color: hsl(var(--accent)); }
@@ -103,6 +128,8 @@
   </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container inner">
       <a href="./index.html" class="logo-placeholder"><span>New Logo</span></a>
@@ -123,6 +150,7 @@
     </div>
   </header>
 
+  <!-- Contact Info + Book a Call -->
   <section class="contact-section">
     <div class="container">
       <div class="contact-grid">
@@ -130,6 +158,7 @@
           <div class="eyebrow"><span class="line"></span><span>Get In Touch</span><span class="line"></span></div>
           <h1>Let's Start a Conversation</h1>
           <p class="lead">Whether you have questions about a valuation, want to discuss exit planning, or just need to understand where you stand, we're here to help.</p>
+
           <div class="contact-detail">
             <div class="ic"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
             <div><div class="label">Phone</div><div class="value"><a href="tel:9046678122">(904) 667-8122</a></div></div>
@@ -161,6 +190,7 @@
     </div>
   </section>
 
+  <!-- Contact Form -->
   <section class="form-section">
     <div class="container">
       <div class="form-wrapper">
@@ -181,6 +211,7 @@
               <input type="text" id="lastName" name="lastName" placeholder="Last name" required>
             </div>
           </div>
+
           <div class="form-row two-col">
             <div class="form-group">
               <label for="email">Email <span class="req">*</span></label>
@@ -191,6 +222,7 @@
               <input type="tel" id="phone" name="phone" placeholder="(904) 555-0123">
             </div>
           </div>
+
           <div class="form-group">
             <label for="interest">What are you interested in?</label>
             <select id="interest" name="interest">
@@ -202,10 +234,12 @@
               <option value="other">Other</option>
             </select>
           </div>
+
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" placeholder="Tell us a little about your situation and how we can help..."></textarea>
           </div>
+
           <div class="form-submit">
             <button type="button" class="btn-ember" onclick="handleSubmit()">Send Message</button>
             <span class="note">Your information is confidential and will never be shared.</span>
@@ -220,6 +254,7 @@
     </div>
   </section>
 
+  <!-- Trust Band -->
   <section class="trust-band">
     <div class="container">
       <div class="trust-items">
@@ -231,6 +266,7 @@
     </div>
   </section>
 
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-inner">
