@@ -1,0 +1,67 @@
+/* ═══════════════════════════════════════════════════
+   SBV — Service Pages Shared Styles
+   Shared across: advisory.html, exit.html, valuations.html
+   ═══════════════════════════════════════════════════ */
+
+/* Inline check icon */
+.check-svg { width: 1rem; height: 1rem; color: hsl(var(--accent)); flex-shrink: 0; margin-top: 2px; }
+
+/* ── CTA Left Column ── */
+.cta-left p.et {
+  color: hsl(var(--color-ember-hsl));
+  font-size: 11px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.cta-left h2 {
+  font-size: 1.875rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin-bottom: 1rem;
+  color: rgb(245, 242, 237);
+}
+@media (min-width: 768px) { .cta-left h2 { font-size: 2.25rem; } }
+@media (min-width: 1024px) { .cta-left h2 { font-size: 3rem; } }
+.cta-left .sub {
+  font-family: var(--font-headline);
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  color: rgb(217, 205, 184);
+  font-style: italic;
+}
+.cta-left .desc {
+  font-size: 1rem;
+  font-family: var(--font-body);
+  line-height: 1.625;
+  margin-bottom: 2.5rem;
+  max-width: 28rem;
+  color: rgb(139, 157, 184);
+}
+.cta-btn-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; }
+.cta-btn-sub {
+  font-size: 11px;
+  font-family: var(--font-body);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgb(139, 157, 184);
+}
+.cta-trust { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.cta-trust .item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-family: var(--font-body); color: rgb(139, 157, 184); }
+.cta-trust svg { width: 0.875rem; height: 0.875rem; color: hsl(var(--color-ember-hsl)); flex-shrink: 0; }
+
+/* ── Free Guide CTA section (exit + valuations) ── */
+.guide-cta-section {
+  padding: 3rem 0;
+  background: hsl(var(--card));
+  border-top: 1px solid hsl(var(--border));
+  border-bottom: 1px solid hsl(var(--border));
+}
+.guide-cta-inner { max-width: 64rem; margin: 0 auto; }
+.guide-cta-flex { display: flex; gap: 2rem; align-items: center; flex-wrap: wrap; }
+.guide-cta-img { width: 280px; height: 200px; object-fit: contain; flex-shrink: 0; }
+.guide-cta-body { flex: 1; min-width: 260px; }
+.guide-cta-body h3 { font-size: 1.5rem; color: hsl(var(--foreground)); margin-bottom: 0.5rem; }
+.guide-cta-body p { font-size: 0.9375rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; margin-bottom: 1.25rem; }

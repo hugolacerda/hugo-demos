@@ -1,0 +1,48 @@
+/* ═══════════════════════════════════════════════════
+   SBV — About Page (about.html)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Hero: photo + overlay + centered text ── */
+.hero-about { position: relative; overflow: hidden; text-align: center; }
+.hero-about .bg { position: absolute; inset: 0; }
+.hero-about .bg img { width: 100%; height: 100%; object-fit: cover; }
+.hero-about .overlay { position: absolute; inset: 0; background: hsl(var(--color-midnight-hsl) / 0.8); }
+.hero-about .container { position: relative; z-index: 10; padding: 6rem 2rem; }
+@media (min-width: 768px) { .hero-about .container { padding: 8rem 2rem; } }
+.hero-about .eyebrow { justify-content: center; }
+.hero-about .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
+.hero-about h1 { font-size: 2.25rem; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1rem; }
+@media (min-width: 768px) { .hero-about h1 { font-size: 3rem; } }
+@media (min-width: 1024px) { .hero-about h1 { font-size: 3.5rem; } }
+.hero-about .lead { font-size: 1.125rem; font-family: var(--font-body); color: hsl(var(--color-clay-hsl) / 0.9); line-height: 1.625; max-width: 36rem; margin: 0 auto; }
+
+/* ── Section intro (centered heading block — replaces inline styles) ── */
+.section-intro { text-align: center; max-width: 48rem; margin: 0 auto 3rem; }
+.section-intro h2 { font-size: 1.875rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
+.section-intro p { font-size: 1rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+
+/* ── Values Grid ── */
+.values-grid { display: grid; grid-template-columns: 1fr; gap: 2rem; max-width: 72rem; margin: 0 auto; }
+@media (min-width: 768px) { .values-grid { grid-template-columns: repeat(3, 1fr); } }
+.value-card { text-align: center; padding: 2rem 1.5rem; }
+.value-card .icon { width: 3rem; height: 3rem; border-radius: var(--radius); background: hsl(var(--accent) / 0.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; }
+.value-card .icon svg { width: 1.5rem; height: 1.5rem; color: hsl(var(--accent)); }
+.value-card h3 { font-size: 1.125rem; color: hsl(var(--foreground)); margin-bottom: 0.5rem; }
+.value-card p { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+
+/* ── Team Bios ── */
+.team-grid { display: flex; flex-direction: column; gap: 4rem; max-width: 64rem; margin: 0 auto; }
+.team-member { display: grid; gap: 2.5rem; align-items: start; }
+@media (min-width: 768px) { .team-member { grid-template-columns: 280px 1fr; } }
+.team-member .photo { border-radius: var(--radius); overflow: hidden; box-shadow: 0 12px 32px rgba(10, 22, 40, 0.1); }
+.team-member .photo img { width: 100%; height: auto; display: block; }
+.team-member .bio { direction: ltr; }
+.team-member .role { font-size: 0.6875rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--accent)); margin-bottom: 0.5rem; }
+.team-member h3 { font-size: 1.5rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
+.team-member .bio-text { font-size: 0.9375rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.7; }
+.team-member .bio-text + .bio-text { margin-top: 0.75rem; }
+
+/* ── Credentials Row ── */
+.creds-row { display: flex; flex-wrap: wrap; gap: 2.5rem; justify-content: center; align-items: center; max-width: 64rem; margin: 0 auto; }
+.creds-row img { height: 60px; width: auto; opacity: 0.7; transition: opacity 0.2s; filter: grayscale(30%); }
+.creds-row img:hover { opacity: 1; filter: none; }

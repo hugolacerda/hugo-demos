@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -l \"external.*\\\\.css\\\\|external.*\\\\.js\\\\|<link.*href.*\\\\.css\\\\|<script.*src.*\\\\.js\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(grep -c \"site-header\\\\|site-footer\\\\|main-nav\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(grep -h \"class=\\\\\"container\\\\|class=\\\\\"section\\\\|class=\\\\\"btn-\\\\|<style\\\\|<script\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(grep \"<script\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(grep -h \"style=\\\\\"\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(grep -o \"class=\\\\\"[^\\\\\"]*\\\\\"\" /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(python3 -)",
+      "Bash(python3)",
+      "Bash(grep -n 'placeholdit' *.html)",
+      "Bash(grep -n '8KeyDriversEbook' /Users/hugolacerda/Desktop/hugo-demos/sbv_draft/*.html)",
+      "Bash(sed -i '' 's|src=\"https://placeholdit.com/1920x900/1a2744/1a2744?text=Business+professionals+reviewing+valuation+report\"|src=\"./assets/valuation-hero.png\"|' valuations.html)",
+      "Bash(sed -i '' 's|src=\"https://placeholdit.com/640x480/e8e0d4/8a7e6e?text=Business+owner+planning+next+chapter\"|src=\"./assets/exitplanning-hero.png\"|' exit.html)",
+      "Bash(sed -i '' 's|src=\"https://placeholdit.com/640x520/d6cfc4/8a7e6e?text=Two+professionals+shaking+hands+closing+a+deal\"|src=\"./assets/Buy-Sell.png\"|' advisory.html)"
+    ]
+  }
+}

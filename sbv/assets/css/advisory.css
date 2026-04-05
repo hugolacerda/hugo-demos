@@ -1,0 +1,65 @@
+/* ═══════════════════════════════════════════════════
+   SBV — Buy-Sell Advisory Page (advisory.html)
+   ═══════════════════════════════════════════════════ */
+
+/* ── Hero: Dark Split ── */
+.hero-split { position: relative; background: hsl(var(--color-midnight-hsl)); overflow: hidden; padding: 5rem 0; }
+@media (min-width: 768px) { .hero-split { padding: 7rem 0; } }
+.hero-split .gradient { position: absolute; inset: 0; background: linear-gradient(160deg, hsl(var(--color-midnight-hsl)) 0%, hsl(var(--color-deep-water-hsl) / 0.6) 50%, hsl(var(--color-ember-hsl) / 0.08) 100%); }
+.hero-split .radial { position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, hsl(var(--color-ember-hsl) / 0.06) 0%, transparent 50%); }
+.hero-split .container { position: relative; z-index: 10; }
+.hero-split-grid { display: grid; gap: 3rem; max-width: 72rem; margin: 0 auto; align-items: center; }
+@media (min-width: 1024px) { .hero-split-grid { grid-template-columns: 1.2fr 1fr; gap: 5rem; } }
+.hero-split .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
+.hero-split h1 { font-size: 2.25rem; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1.25rem; }
+@media (min-width: 768px) { .hero-split h1 { font-size: 3rem; } }
+@media (min-width: 1024px) { .hero-split h1 { font-size: 3.5rem; } }
+.hero-split .lead { font-size: 1.125rem; font-family: var(--font-body); color: hsl(var(--color-clay-hsl) / 0.9); line-height: 1.625; }
+@media (min-width: 768px) { .hero-split .lead { font-size: 1.25rem; } }
+
+/* Hero glass card */
+.hero-glass { border-radius: var(--radius); border: 1px solid hsl(var(--color-ivory-hsl) / 0.12); background: hsl(var(--color-ivory-hsl) / 0.04); backdrop-filter: blur(8px); padding: 2rem; }
+.hero-glass h3 { font-family: var(--font-headline); font-size: 1rem; color: hsl(var(--color-ember-hsl)); font-weight: 500; margin-bottom: 1.25rem; letter-spacing: 0.05em; text-transform: uppercase; }
+.hero-glass-list { display: flex; flex-direction: column; gap: 1rem; }
+.hero-glass-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; font-family: var(--font-body); color: rgb(217, 205, 184); line-height: 1.4; }
+.hero-glass-list li .icon { flex-shrink: 0; width: 2rem; height: 2rem; border-radius: 6px; background: hsl(var(--color-ember-hsl) / 0.12); display: flex; align-items: center; justify-content: center; }
+.hero-glass-list li .icon svg { width: 1rem; height: 1rem; color: hsl(var(--color-ember-hsl)); }
+
+/* CTA group (replaces hero inline styles) */
+.hero-cta-group { margin-top: 2rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.hero-cta-inner { display: flex; flex-direction: column; align-items: center; gap: 0.375rem; }
+.hero-cta-note { font-size: 11px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--color-clay-hsl) / 0.5); }
+
+/* Text block (replaces inline h2/p styles in scenario section) */
+.text-block h2 { font-size: 1.875rem; color: hsl(var(--foreground)); margin-bottom: 1rem; line-height: 1.25; }
+.text-block p { font-size: 1rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; margin-bottom: 2rem; }
+
+/* ── Features Grid ── */
+.features-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 72rem; margin: 0 auto; }
+@media (min-width: 768px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+.feature-card { padding: 2rem; border-radius: var(--radius); background: hsl(var(--card)); border: 1px solid hsl(var(--border)); }
+.feature-card .icon-wrap { width: 2.5rem; height: 2.5rem; border-radius: var(--radius); background: hsl(var(--accent) / 0.1); display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+.feature-card .icon-wrap svg { width: 1.25rem; height: 1.25rem; color: hsl(var(--accent)); }
+.feature-card h3 { font-size: 1.125rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; }
+.feature-card p { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+
+/* ── Scenarios 2-col ── */
+.scenarios-2col { display: grid; gap: 3rem; max-width: 72rem; margin: 0 auto; align-items: center; }
+@media (min-width: 1024px) { .scenarios-2col { grid-template-columns: 1fr 1.1fr; gap: 5rem; } }
+.scenarios-2col .img-col { border-radius: 0.75rem; overflow: hidden; box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); }
+.scenarios-2col .img-col img { width: 100%; height: auto; display: block; }
+.scenario-list { display: flex; flex-direction: column; gap: 0; }
+.scenario-item { display: flex; align-items: flex-start; gap: 1.25rem; padding: 1.5rem 0; border-bottom: 1px solid hsl(var(--border)); }
+.scenario-item:last-child { border-bottom: none; }
+.scenario-item .s-icon { flex-shrink: 0; width: 2.5rem; height: 2.5rem; border-radius: var(--radius); background: hsl(var(--accent) / 0.1); display: flex; align-items: center; justify-content: center; margin-top: 0.125rem; }
+.scenario-item .s-icon svg { width: 1.25rem; height: 1.25rem; color: hsl(var(--accent)); }
+.scenario-item h3 { font-size: 1rem; color: hsl(var(--foreground)); margin-bottom: 0.25rem; }
+.scenario-item p { font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.5; }
+
+/* ── Differentiators (dark 3-col cards) ── */
+.diff-grid { display: grid; gap: 1.5rem; max-width: 72rem; margin: 0 auto; }
+@media (min-width: 768px) { .diff-grid { grid-template-columns: repeat(3, 1fr); } }
+.diff-card { padding: 2rem; border: 1px solid hsl(var(--color-ivory-hsl) / 0.1); border-radius: var(--radius); background: hsl(var(--color-ivory-hsl) / 0.03); }
+.diff-card .num { font-family: var(--font-headline); font-size: 2rem; font-weight: 500; color: hsl(var(--color-ember-hsl) / 0.4); margin-bottom: 0.75rem; }
+.diff-card h3 { font-size: 1.125rem; color: rgb(245, 242, 237); margin-bottom: 0.5rem; }
+.diff-card p { font-size: 0.8125rem; font-family: var(--font-body); color: rgb(139, 157, 184); line-height: 1.5; }
