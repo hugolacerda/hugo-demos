@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exit Planning — Strategic Business Valuations</title>
+  <meta name="description" content="Plan your exit on your terms. Value optimization and exit strategy for founder-led businesses. Jacksonville, FL.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { line-height: 1.5; -webkit-text-size-adjust: 100%; } body { margin: 0; }
+    img, svg, video { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: inherit; } button { cursor: pointer; font: inherit; background: none; border: none; padding: 0; }
+    h1,h2,h3,h4,h5,h6 { font-size: inherit; font-weight: inherit; } ol, ul { list-style: none; margin: 0; padding: 0; } p { margin: 0; }
+    :root {
+      --color-midnight-hsl: 218 55% 10%; --color-deep-water-hsl: 212 52% 24%; --color-ember-hsl: 13 55% 50%; --color-clay-hsl: 37 30% 79%; --color-ivory-hsl: 30 27% 95%;
+      --background: 30 27% 95%; --foreground: 218 55% 10%; --card: 0 0% 100%; --muted: 37 30% 79%; --muted-foreground: 30 7% 33%; --accent: 13 55% 50%; --border: 37 22% 78%; --radius: .5rem;
+      --font-headline: "Playfair Display", Georgia, serif; --font-body: "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+      --shadow-ember: 0 8px 24px rgba(196, 85, 58, .2);
+    }
+    body { background: hsl(var(--background)); color: hsl(var(--foreground)); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    h1,h2,h3,h4,h5,h6 { font-family: var(--font-headline); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
+    .container { width: 100%; margin: 0 auto; padding: 0 2rem; } @media (min-width: 1400px) { .container { max-width: 1400px; } }
+    .eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+    .eyebrow .line { width: 2rem; height: 1px; background: hsl(var(--accent)); flex-shrink: 0; }
+    .eyebrow span:not(.line) { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+    .btn-ember { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; white-space: nowrap; background: hsl(var(--color-ember-hsl)); color: hsl(var(--color-ivory-hsl)); box-shadow: var(--shadow-ember); font-family: var(--font-body); font-size: 0.875rem; font-weight: 600; letter-spacing: 0.025em; height: 2.75rem; border-radius: calc(var(--radius) - 2px); padding: 0 2rem; transition: all 0.15s; text-decoration: none; }
+    .btn-ember:hover { background: hsl(var(--color-ember-hsl) / 0.9); transform: translateY(-2px); }
+    .btn-ember.xl { font-size: 1rem; padding: 0 2.5rem; height: 3rem; }
+    .btn-ghost-sm { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; border: 2px solid hsl(var(--color-ivory-hsl) / 0.2); background: transparent; color: hsl(var(--color-ivory-hsl)); font-family: var(--font-body); font-size: 0.75rem; font-weight: 600; height: 2.25rem; border-radius: calc(var(--radius) - 2px); padding: 0 0.75rem; transition: all 0.15s; text-decoration: none; }
+    .btn-ghost-sm:hover { background: hsl(var(--color-ivory-hsl) / 0.1); }
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; } .reveal.visible { opacity: 1; transform: translateY(0); }
+    .check-svg { width: 1rem; height: 1rem; color: hsl(var(--accent)); flex-shrink: 0; margin-top: 2px; }
+
+    /* ── Header ── */
+    .site-header { position: sticky; top: 0; z-index: 50; background: hsl(var(--card) / 0.95); backdrop-filter: blur(12px); border-bottom: 1px solid hsl(var(--border)); }
+    .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; } @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
+    .logo-placeholder { border: 2px dashed hsl(var(--muted-foreground) / 0.4); border-radius: 0.25rem; padding: 0.5rem 1.25rem; }
+    .logo-placeholder span { font-size: 0.75rem; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+    .main-nav { display: none; align-items: center; gap: 2rem; } @media (min-width: 768px) { .main-nav { display: flex; } }
+    .main-nav a { font-size: 0.875rem; font-family: var(--font-body); font-weight: 500; color: hsl(var(--foreground) / 0.8); transition: color 0.15s; }
+    .main-nav a:hover, .main-nav a.active { color: hsl(var(--accent)); }
+    .header-cta-wrap { display: none; flex-direction: column; align-items: center; gap: 0.375rem; } @media (min-width: 768px) { .header-cta-wrap { display: flex; } }
+    .header-cta-sub { font-size: 10px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground) / 0.7); }
+    .mobile-menu-btn { display: block; color: hsl(var(--foreground)); } @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+
+    /* ═══ HERO: Light centered treatment ═══ */
+    .hero-light { padding: 5rem 0; background: hsl(var(--card)); border-bottom: 1px solid hsl(var(--border)); position: relative; overflow: hidden; }
+    @media (min-width: 768px) { .hero-light { padding: 7rem 0; } }
+    .hero-light::before { content: ''; position: absolute; top: -200px; right: -200px; width: 600px; height: 600px; border-radius: 50%; background: hsl(var(--accent) / 0.04); pointer-events: none; }
+    .hero-light::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; border-radius: 50%; background: hsl(var(--color-deep-water-hsl) / 0.03); pointer-events: none; }
+    .hero-light .container { position: relative; z-index: 10; }
+    .hero-light-inner { display: grid; gap: 3rem; align-items: center; max-width: 72rem; margin: 0 auto; }
+    @media (min-width: 1024px) { .hero-light-inner { grid-template-columns: 1.2fr 1fr; gap: 5rem; } }
+    .hero-light .eyebrow span:not(.line) { color: hsl(var(--accent)); }
+    .hero-light h1 { font-size: 2.25rem; color: hsl(var(--foreground)); margin-bottom: 1.25rem; }
+    @media (min-width: 768px) { .hero-light h1 { font-size: 3rem; } }
+    @media (min-width: 1024px) { .hero-light h1 { font-size: 3.5rem; } }
+    .hero-light .lead { font-size: 1.125rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+    @media (min-width: 768px) { .hero-light .lead { font-size: 1.25rem; } }
+    .hero-light .hero-img { border-radius: 0.75rem; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); }
+    .hero-light .hero-img img { width: 100%; height: auto; display: block; }
+
+    /* ── Sections ── */
+    .section { padding: 5rem 0; } @media (min-width: 768px) { .section { padding: 6rem 0; } }
+    .section.bg-card { background: hsl(var(--card)); }
+    .section.bg-dark { position: relative; background: hsl(var(--color-midnight-hsl)); color: hsl(var(--color-ivory-hsl)); overflow: hidden; }
+    .section.bg-dark .container { position: relative; z-index: 10; }
+    .section-header { max-width: 48rem; margin-bottom: 3rem; }
+    .section-header.centered { text-align: center; margin-left: auto; margin-right: auto; }
+    .section-header.centered .eyebrow { justify-content: center; }
+    .section-header h2 { font-size: 1.875rem; color: hsl(var(--foreground)); margin-bottom: 0.75rem; line-height: 1.25; } @media (min-width: 768px) { .section-header h2 { font-size: 2.25rem; } }
+    .section-header p { font-size: 1rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.625; }
+    .bg-dark .section-header h2 { color: rgb(245,242,237); } .bg-dark .section-header p { color: rgb(139,157,184); } .bg-dark .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
+
+    /* ── Proven Process ── */
+    .proven-process { display: grid; grid-template-columns: 1fr; gap: 0; max-width: 64rem; margin: 0 auto; } @media (min-width: 768px) { .proven-process { grid-template-columns: repeat(4, 1fr); } }
+    .pp-step { text-align: center; padding: 1.5rem 1rem; position: relative; } @media (min-width: 768px) { .pp-step { border-right: 1px solid hsl(var(--border)); } .pp-step:last-child { border-right: none; } }
+    .pp-step .num { font-family: var(--font-headline); font-size: 2.5rem; font-weight: 600; color: hsl(var(--accent) / 0.3); margin-bottom: 0.5rem; }
+    .pp-step h3 { font-size: 1.125rem; color: hsl(var(--foreground)); margin-bottom: 0.5rem; }
+    .pp-step p { font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.5; }
+    
+
+    /* ── 2-col content ── */
+    .two-col { display: grid; gap: 4rem; max-width: 72rem; margin: 0 auto; align-items: center; } @media (min-width: 1024px) { .two-col { grid-template-columns: 1fr 1fr; } }
+    .two-col .content h2 { font-size: 1.875rem; margin-bottom: 1rem; line-height: 1.25; } @media (min-width: 768px) { .two-col .content h2 { font-size: 2.25rem; } }
+    .two-col .content p { font-size: 1rem; font-family: var(--font-body); line-height: 1.625; margin-bottom: 1rem; }
+    .dark-text h2 { color: rgb(245,242,237) !important; } .dark-text p { color: rgb(139,157,184) !important; }
+    .highlight-list { display: flex; flex-direction: column; gap: 1rem; }
+    .highlight-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; font-family: var(--font-body); line-height: 1.5; }
+    .highlight-list li svg { width: 1.25rem; height: 1.25rem; flex-shrink: 0; margin-top: 2px; }
+
+    /* ── Engagement Tiers ── */
+    .eng-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 72rem; margin: 0 auto; }
+    @media (min-width: 640px) { .eng-grid { grid-template-columns: repeat(2, 1fr); } } @media (min-width: 1024px) { .eng-grid { grid-template-columns: repeat(4, 1fr); } }
+    .eng-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 2rem 1.5rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
+    .eng-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(10,22,40,0.1); }
+    .eng-card .label { font-size: 0.75rem; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--accent)); margin-bottom: 0.5rem; }
+    .eng-card .name { font-size: 1.125rem; color: hsl(var(--foreground)); margin-bottom: 0.5rem; }
+    .eng-card .cadence { font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--accent)); font-weight: 600; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid hsl(var(--border)); }
+    .eng-card .features { display: flex; flex-direction: column; gap: 0.75rem; flex: 1; }
+    .eng-card .features li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.8125rem; font-family: var(--font-body); color: hsl(var(--foreground) / 0.85); line-height: 1.4; }
+    .eng-card .card-cta { margin-top: 1.5rem; }
+    .eng-card .card-cta a { display: block; text-align: center; padding: 0.75rem 1rem; font-size: 0.8125rem; font-family: var(--font-body); font-weight: 600; border-radius: calc(var(--radius) - 2px); border: 1.5px solid hsl(var(--border)); color: hsl(var(--foreground)); transition: all 0.15s; text-decoration: none; }
+    .eng-card .card-cta a:hover { border-color: hsl(var(--accent)); color: hsl(var(--accent)); }
+
+    /* ── Final CTA ── */
+    .final-cta { position: relative; padding: 6rem 0; overflow: hidden; } @media (min-width: 768px) { .final-cta { padding: 8rem 0; } }
+    .final-cta-bg { position: absolute; inset: 0; background: hsl(var(--color-midnight-hsl)); }
+    .final-cta-radial { position: absolute; inset: 0; background: radial-gradient(ellipse at bottom right, rgba(196,85,58,0.08) 0%, transparent 60%); }
+    .final-cta .container { position: relative; z-index: 10; }
+    .final-cta-grid { max-width: 64rem; margin: 0 auto; display: grid; gap: 4rem; align-items: start; } @media (min-width: 1024px) { .final-cta-grid { grid-template-columns: 1.3fr 1fr; } }
+    .cta-left p.et { color: hsl(var(--color-ember-hsl)); font-size: 11px; font-family: var(--font-body); font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1.5rem; }
+    .cta-left h2 { font-size: 1.875rem; font-weight: 500; line-height: 1.25; margin-bottom: 1rem; color: rgb(245,242,237); } @media (min-width: 768px) { .cta-left h2 { font-size: 2.25rem; } } @media (min-width: 1024px) { .cta-left h2 { font-size: 3rem; } }
+    .cta-left .sub { font-family: var(--font-headline); font-size: 1.25rem; margin-bottom: 1.5rem; color: rgb(217,205,184); font-style: italic; }
+    .cta-left .desc { font-size: 1rem; font-family: var(--font-body); line-height: 1.625; margin-bottom: 2.5rem; max-width: 28rem; color: rgb(139,157,184); }
+    .cta-btn-wrap { display: inline-flex; flex-direction: column; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .cta-btn-sub { font-size: 11px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: rgb(139,157,184); }
+    .cta-trust { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+    .cta-trust .item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; font-family: var(--font-body); color: rgb(139,157,184); }
+    .cta-trust svg { width: 0.875rem; height: 0.875rem; color: hsl(var(--color-ember-hsl)); flex-shrink: 0; }
+    .glass-card { border-radius: var(--radius); border: 1px solid hsl(var(--color-ivory-hsl) / 0.1); background: hsl(var(--color-ivory-hsl) / 0.03); padding: 2rem; } @media (min-width: 1024px) { .glass-card { margin-top: 2rem; } }
+    .glass-card h3 { font-family: var(--font-headline); font-size: 1.125rem; margin-bottom: 1.5rem; color: rgb(245,242,237); font-weight: 500; }
+    .glass-card ul { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .glass-card li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.875rem; font-family: var(--font-body); color: rgb(217,205,184); }
+    .glass-card li svg { width: 1rem; height: 1rem; color: hsl(var(--color-ember-hsl)); flex-shrink: 0; margin-top: 2px; }
+    .glass-card .divider { border-top: 1px solid hsl(var(--color-ivory-hsl) / 0.1); padding-top: 1.5rem; }
+    .glass-card .divider p { font-size: 0.75rem; font-family: var(--font-body); color: rgb(139,157,184); margin-bottom: 0.75rem; }
+
+    /* ── Footer ── */
+    .site-footer { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); padding: 3rem 0; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; } @media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
+    .footer-inner nav { display: flex; gap: 1.5rem; } .footer-inner nav a { font-size: 0.875rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); transition: color 0.15s; } .footer-inner nav a:hover { color: hsl(var(--accent)); }
+    .footer-inner .copyright { font-size: 0.75rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); }
+    .footer-logo-placeholder { border: 2px dashed hsl(var(--muted-foreground) / 0.3); border-radius: 0.25rem; padding: 0.375rem 1rem; }
+    .footer-logo-placeholder span { font-size: 10px; font-family: var(--font-body); font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+  
+    /* ── Nav Dropdown ── */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; }
+    .nav-dropdown .chevron { width: 0.7rem; height: 0.7rem; transition: transform 0.2s; }
+    .nav-dropdown:hover .chevron { transform: rotate(180deg); }
+    .nav-dd-menu { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); padding-top: 0.75rem; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.15s, visibility 0.15s; z-index: 60; }
+    .nav-dropdown:hover .nav-dd-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+    .nav-dd-inner { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); box-shadow: 0 10px 30px rgba(10,22,40,0.12); padding: 0.5rem; min-width: 240px; }
+    .nav-dd-inner a { display: flex; flex-direction: column; padding: 0.625rem 0.875rem; border-radius: calc(var(--radius) - 2px); transition: background 0.15s; }
+    .nav-dd-inner a:hover { background: hsl(var(--background)); }
+    .nav-dd-inner a .dd-title { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); transition: color 0.15s; }
+    .nav-dd-inner a .dd-desc { font-size: 0.6875rem; color: hsl(var(--muted-foreground)); margin-top: 2px; font-weight: 400; }
+    .nav-dd-inner a:hover .dd-title { color: hsl(var(--accent)); }
+    .nav-dd-inner a + a { margin-top: 2px; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container inner"><a href="./index.html" class="logo-placeholder"><span>New Logo</span></a><nav class="main-nav"><a href="./index.html">Home</a><div class="nav-dropdown"><a href="./valuations.html" class="active">Services <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a><div class="nav-dd-menu"><div class="nav-dd-inner"><a href="./valuations.html"><span class="dd-title">Valuations</span><span class="dd-desc">Defensible reports for any scenario</span></a><a href="./exit.html"><span class="dd-title">Exit Planning</span><span class="dd-desc">Value optimization for your transition</span></a><a href="./advisory.html"><span class="dd-title">Buy-Sell Advisory</span><span class="dd-desc">Close the deal the right way</span></a></div></div></div><a href="./insights.html">Insights</a><a href="./about.html">About</a><a href="./contact.html">Contact</a></nav><div style="display:flex;align-items:center;gap:0.75rem;"><div class="header-cta-wrap"><a href="#cta" class="btn-ember">Talk with a Valuation Expert</a><span class="header-cta-sub">15-minute call · No obligation</span></div><button class="mobile-menu-btn" aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></button></div></div></header>
+
+  <!-- ═══ HERO: Light two-column with image ═══ -->
+  <section class="hero-light">
+    <div class="container">
+      <div class="hero-light-inner">
+        <div>
+          <div class="eyebrow"><span class="line"></span><span>Exit Planning &amp; Value Optimization</span><span class="line"></span></div>
+          <h1>Exit on Your Terms. Protect What You've Built.</h1>
+          <p class="lead">Your business is likely your largest asset. Exit planning isn't about leaving. It's about building a stronger, more valuable company today so you can transition when the time is right.</p>
+          <div style="margin-top:2rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:0.375rem;">
+              <a href="#cta" class="btn-ember" style="font-size:1rem;">Talk with a Valuation Expert</a>
+              <span style="font-size:11px;font-family:var(--font-body);letter-spacing:0.15em;text-transform:uppercase;color:hsl(var(--muted-foreground) / 0.5);">15-minute call · No obligation</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-img">
+          <img src="https://placeholdit.com/640x480/e8e0d4/8a7e6e?text=Business+owner+planning+next+chapter" alt="Business owner planning their next chapter" width="640" height="480">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROVEN PROCESS ═══ -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header centered reveal"><div class="eyebrow"><span class="line"></span><span>The SBV Proven Process</span><span class="line"></span></div><h2>Know the Value. Protect the Value. Grow the Value. Reap the Reward.</h2><p>Every engagement follows a progression designed to move you from understanding to action.</p></div>
+      <div class="proven-process reveal">
+        <div class="pp-step"><div class="num">01</div><h3>Know the Value</h3><p>Understand what your business is worth today and what's driving that number.</p></div>
+        <div class="pp-step"><div class="num">02</div><h3>Protect the Value</h3><p>Identify risks that could erode value and address them before they cost you.</p></div>
+        <div class="pp-step"><div class="num">03</div><h3>Grow the Value</h3><p>Align operations with the 8 key value drivers that buyers and investors care about.</p></div>
+        <div class="pp-step"><div class="num">04</div><h3>Reap the Reward</h3><p>Transition on your timeline, to the right buyer, at the right price.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY EXIT PLANNING (dark 2-col) ═══ -->
+  <section class="section bg-dark">
+    <div class="container">
+      <div class="two-col reveal">
+        <div class="content dark-text">
+          <div class="eyebrow"><span class="line"></span><span>Why Exit Planning Matters</span><span class="line"></span></div>
+          <h2>Every operational decision has a value implication</h2>
+          <p>Most owners are coached to spend money on depreciating assets for tax savings. Nobody optimizes for enterprise value. Exit planning changes that.</p>
+          <p>We help you think like an investor in your own business, connecting the decisions you're already making to the value they create or destroy. You don't need to do anything different. You need to think about it differently.</p>
+        </div>
+        <div>
+          <ul class="highlight-list" style="color:rgb(217,205,184);">
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-ember-hsl))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Reduce owner dependence before it reduces your value</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-ember-hsl))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Build recurring revenue that buyers pay premiums for</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-ember-hsl))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Diversify your customer base to lower concentration risk</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-ember-hsl))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Strengthen management depth so the business runs without you</span></li>
+            <li><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--color-ember-hsl))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Align financial decisions with long-term enterprise value</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <!-- ═══ FREE GUIDE CTA ═══ -->
+  <section style="padding:3rem 0;background:hsl(var(--card));border-top:1px solid hsl(var(--border));border-bottom:1px solid hsl(var(--border));">
+    <div class="container">
+      <div style="max-width:64rem;margin:0 auto;display:grid;gap:2.5rem;align-items:center;" class="reveal">
+        <div style="display:grid;gap:2rem;align-items:center;grid-template-columns:1fr;" class="guide-cta-grid">
+          <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap;">
+            <img src="https://placeholdit.com/280x200/dce8f0/5a8aab?text=Exit+Checklist+ebook+cover" alt="The Exit Checklist ebook" width="280" height="200" style="border-radius:var(--radius);box-shadow:0 8px 24px rgba(10,22,40,0.1);flex-shrink:0;">
+            <div style="flex:1;min-width:260px;">
+              <div class="eyebrow"><span class="line"></span><span>Free Guide</span><span class="line"></span></div>
+              <h3 style="font-size:1.5rem;color:hsl(var(--foreground));margin-bottom:0.5rem;">The Exit Checklist</h3>
+              <p style="font-size:0.9375rem;font-family:var(--font-body);color:hsl(var(--muted-foreground));line-height:1.625;margin-bottom:1.25rem;">A 5-step personal action plan for a happy (and lucrative) exit from your business. Get clarity on what it takes to leave on your terms.</p>
+              <a href="https://score.valuebuildersystem.com/landing/the-exit-checklist-ebook-landing-page/91f04810-5f06-4210-8a90-6288128231c8" target="_blank" rel="noopener noreferrer" class="btn-ember">Download the Guide</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ENGAGEMENT TIERS ═══ -->
+  <section class="section bg-card">
+    <div class="container">
+      <div class="section-header centered reveal"><div class="eyebrow"><span class="line"></span><span>Value Optimization Plans</span><span class="line"></span></div><h2>Choose the engagement that fits your timeline</h2><p>We analyze your financials, set measurable goals, and develop a strategy to drive growth. Then we meet regularly to keep you on track.</p></div>
+      <div class="eng-grid reveal">
+        <div class="eng-card"><div class="label">Foundation</div><div class="name">Annual Value Discovery</div><div class="cadence">Annual Check-in</div><ul class="features"><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Comprehensive yearly assessment</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Strategic roadmap development</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Priority opportunity identification</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Annual plan review</span></li></ul><div class="card-cta"><a href="#cta">Learn More</a></div></div>
+        <div class="eng-card"><div class="label">Executive</div><div class="name">Quarterly Value Enhancement</div><div class="cadence">Quarterly Sessions</div><ul class="features"><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Seasonal strategic planning</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Key milestone tracking</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Focused value-driver assessment</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Strategic course corrections</span></li></ul><div class="card-cta"><a href="#cta">Learn More</a></div></div>
+        <div class="eng-card"><div class="label">Advanced</div><div class="name">Strategic Value Building</div><div class="cadence">Monthly Reviews</div><ul class="features"><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Monthly progress reviews</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Regular value-driver optimization</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Structured accountability</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Ongoing strategic guidance</span></li></ul><div class="card-cta"><a href="#cta">Learn More</a></div></div>
+        <div class="eng-card"><div class="label">Elite</div><div class="name">Intensive Value Acceleration</div><div class="cadence">Weekly Sessions</div><ul class="features"><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Weekly check-in sessions</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Dedicated accountability partnership</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Rapid implementation tracking</span></li><li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>Continuous optimization and support</span></li></ul><div class="card-cta"><a href="#cta">Learn More</a></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FINAL CTA ═══ -->
+  <section id="cta" class="final-cta">
+    <div class="final-cta-bg"></div><div class="final-cta-radial"></div>
+    <div class="container">
+      <div class="final-cta-grid reveal">
+        <div class="cta-left">
+          <p class="et">Take the next step</p>
+          <h2>Start with a conversation, not a commitment</h2>
+          <p class="sub">Every exit plan begins with understanding where you are today.</p>
+          <p class="desc">We'll discuss your timeline, your goals, and whether value optimization makes sense for your situation. No obligation.</p>
+          <div class="cta-btn-wrap"><a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember xl">Talk with a Valuation Expert</a><span class="cta-btn-sub">15-minute call · No obligation</span></div>
+          <div class="cta-trust">
+            <div class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg><span>Confidential — NDA available</span></div>
+            <div class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>15 minutes, no obligation</span></div>
+            <div class="item"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg><span>Speak with a certified valuator</span></div>
+          </div>
+        </div>
+        <div class="glass-card">
+          <h3>What to expect on the call</h3>
+          <ul>
+            <li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>We'll discuss your exit timeline and goals</span></li>
+            <li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>We'll identify whether value optimization fits your situation</span></li>
+            <li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>We'll recommend the right engagement level</span></li>
+            <li><svg class="check-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.801 10A10 10 0 1 1 17 3.335"/><path d="m9 11 3 3L22 4"/></svg><span>No pressure — if we're not the right match, we'll say so</span></li>
+          </ul>
+          <div class="divider"><p>Want to explore other services?</p><div style="display:flex;gap:0.5rem;flex-wrap:wrap;"><a href="./valuations.html" class="btn-ghost-sm">Valuations</a><a href="./advisory.html" class="btn-ghost-sm">Buy-Sell Advisory</a></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer"><div class="container"><div class="footer-inner"><div class="footer-logo-placeholder"><span>New Logo</span></div><nav><a href="./index.html">Home</a><a href="./valuations.html">Services</a><a href="./insights.html">Insights</a><a href="./contact.html">Contact</a></nav><p class="copyright">© 2026 Strategic Business Valuations · Jacksonville, FL</p></div></div></footer>
+  <script>document.addEventListener('DOMContentLoaded',()=>{const r=document.querySelectorAll('.reveal');if(!r.length)return;const o=new IntersectionObserver(e=>{e.forEach(n=>{if(n.isIntersecting){n.target.classList.add('visible');o.unobserve(n.target);}});},{threshold:0.12});r.forEach(el=>o.observe(el));});</script>
+</body>
+</html>
