@@ -166,11 +166,12 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid hsl(var(--border));
 }
-.site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4rem; }
+.site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
 @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
 
 .logo-placeholder { display: flex; align-items: center; }
-.logo-placeholder img { display: block; height: 36px; width: auto; }
+.logo-placeholder img { display: block; height: 40px; width: auto; }
+@media (min-width: 768px) { .logo-placeholder img { height: 45px; } }
 
 .main-nav { display: none; align-items: center; gap: 2rem; }
 @media (min-width: 768px) { .main-nav { display: flex; } }
@@ -319,4 +320,5 @@ h1, h2, h3, h4, h5, h6 {
 .footer-inner nav a:hover { color: hsl(var(--accent)); }
 .footer-inner .copyright { font-size: 0.75rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); }
 .footer-logo-placeholder { display: flex; align-items: center; }
-.footer-logo-placeholder img { display: block; height: 28px; width: auto; }
+.footer-logo-placeholder img { display: block; height: 34px; width: auto; }
+@media (min-width: 768px) { .footer-logo-placeholder img { height: 40px; } }

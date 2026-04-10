@@ -1,0 +1,509 @@
+You're going to hear a lot about AI today, probably more than you want to hear, but the opportunities, the disruption, and the possibilities is everything you're going to hear about AI.
+And at City & Group, we sit at the intersection of all of it. Cybersecurity, AI strategy, and business growth.
+For companies right here in Jacksonville, we work with legal, we work with insurance, we work with ambulatory and medical, and we work with construction companies.
+So, here's what we know. Most business leaders aren't losing sleep over technology.
+They're losing sleep over revenue risk, liability exposure, and whether their business is protected when something goes wrong.
+And that's where we come in.
+We help with growth-focused businesses to stay ahead of cyber threats, understand the strategic advantage of AI,
+and turn technology risk into leadership.
+Leadership opportunities.
+At City & Group, we're not your IT department. We're your strategic technology partner.
+We are always on, and we are always ahead.
+Now, I am here to introduce Ms. Katie Bakewell, and her bio is here, and I know you don't want me to read it to you,
+but one thing that popped out in her bio, and she says she loves all local sports teams,
+and I'm going to need it.
+I'm going to need her to be more specific.
+So, ladies and gentlemen, Ms. Katie Bakewell.
+So, being more specific on that sport, it is literally any sport, except for basketball, which is tall people showing off.
+I'm very short. I don't need that basketball.
+So, what we're here to talk about today is AI FOMO.
+And I am super excited about this topic, because I have been building AI models for 14 years now,
+and until about, I don't know, I guess two years ago, my mom thought that I worked for NLP Logistics,
+and she kept trying to hook me up with her friends who worked in logistics.
+She finally knows what I do, which is amazing.
+And so, I'm going to really follow up with some awesome stuff,
+but I'm going to start out with something that Shani Bowman is going to be very disappointed in me for.
+I'm excited for her talk, because she is one of the people who taught me how to public speak, and I love it.
+And I don't think they ever advised us to open with a complaint.
+Just a show of hands, how many people have heard somebody say,
+Jacksonville could be a tech city?
+Like, I hate that phrase.
+It is my biggest pet peeve.
+Jacksonville is a tech city.
+We keep hearing Jacksonville could be a tech city.
+And we're missing out on all of this tech.
+So, I'm going to give you some examples.
+Top left up here, these two guys who are going to speak later,
+ran an organization that had high school students and middle school students,
+16 teams of them, that spent a weekend building things for the city of Jacksonville using only AI.
+These are our high school students and our middle school students.
+On that top right, that is from TechCo's conference,
+which can no longer be held here at the Herbst.
+It's a corporate center because it has been outgrown.
+We have 1,200 people coming to tech events in Jacksonville,
+and we're saying, well, we could be a tech city.
+We have self-driving buses that we're testing out.
+We have our mayor on a hologram at the airport,
+and we're saying we are not a tech city.
+And we're not only doing that, but we're providing the tech talent.
+Every single one of those universities,
+from Flagler doing their AI Business Week,
+UNF doing everything,
+and if you haven't done the AI for Work and Life course,
+highly suggest it.
+JU has a great cybersecurity program.
+I taught AI to EWU students.
+And then the University of Florida is bringing two AI degrees to Jacksonville.
+We are a tech city.
+We are not missing out.
+And if you're in this city that is full of tech,
+I'm going to ask you guys in a minute how many of you guys have had AI FOMO,
+but I'm going to tell you beforehand, I watched 72 hours of Game of Thrones.
+I hate sci-fi.
+I hate fantasy.
+I hate all of it.
+But I didn't want to miss out on the conversation on Monday mornings at work.
+So I watched 72 hours of a television show that I hated.
+And so I'm not judging anybody for FOMO.
+Who here has had AI FOMO?
+Who has done something in AI because other people were doing it?
+It's all of us, right?
+It's everywhere. It's ubiquitous.
+If you look in the news,
+the news is telling us in the New Yorker, Sam Altman is going to control
+our future.
+We've got AI is replacing our jobs and it's causing these deep emotional chasms.
+And then on this top, right?
+I love this because this is a headline that is in there.
+And somebody is saying this is news.
+More than a quarter of Americans are in an intimate relationship with an AI.
+I am going to go ahead and call that some BS, but it's out there.
+It's in the news. If you go on the news,
+there is not a day goes by that there isn't something about AI.
+And if you're not using it, you're like, man, I better start because
+that's what everybody else is. And then if you go to the store,
+we've got some really terrible products out there.
+Got an AI powered spice grinder.
+I don't know why we need AI to power our spice grinder.
+I was talking to one of our next speakers
+about cooking and there's an AI bread baker.
+Like bread is just like love and passion.
+And you're like, oh, let's make the computer do that.
+There's an AI hairbrush.
+As you brush your hair, it's going to tell you the quality
+and health of your hair and tell you what you could do to improve.
+And then in the
+brand new revolutions, we have the smart fan
+that senses the temperature in the room using AI and then turns on
+and a smart washing machine that senses what kind of water you need in your load
+and get the water in there. Congrats.
+You're doing what an AC and a washing machine have been doing for 50 years.
+This is an AI.
+There's just so much everything that you go out there
+has a label that says this is AI because everybody's afraid of missing the boat.
+Everybody's convinced that if I don't have
+AI in my products, if I don't have AI in my business, it's going to fail.
+So before we dive into anything about AI, like, what is it?
+And AI is really broad.
+You know, everybody you say AI and they go chat GPT and a whole lot more than that.
+AI is teaching a computer to do something that would typically require human intelligence.
+So that could be anything from self-driving cars,
+watching videos of babies to identify if they have cerebral palsy,
+to looking at a dog
+and saying that's got a name on it.
+It's not that crazy, but it does everything.
+There's so much going on with AI.
+And from my background, where I am a proud UNF alum,
+it's mostly math behind the scenes.
+It's just a whole bunch of math doing stuff.
+These aren't robots that are taking over.
+This is math getting put to use.
+So what kind of AI is out there?
+I split this into three areas.
+The first, what's in the news right now?
+We are generating new things.
+It could be text, it could be images, videos.
+You know, God knows what we're seeing on the Internet.
+All of that can be generated.
+It's creating new content and it's these low-code, no-code tools, which are awesome.
+If you're trying to automate a pretty simple task, there are tools out there
+where you do not have to be a developer to do that.
+And it is full of buzzwords.
+You hear agentic, you hear rag.
+And then who here has seen a rocket ship emoji on their LinkedIn today?
+You know, it's everything LinkedIn posts is
+some sort of emojis.
+And then there's the stuff that was in the news a few years ago.
+So the stuff that was in the news a few years ago ranged from understanding your
+text, so that's where NLP, like that foundation of large language models,
+that comes from understanding text or it comes from understanding images and videos.
+Being able to identify on an MRI, is this person experiencing hyperintensities
+of the brain? Like these are really cool things.
+And they made the news because doctors and AI, everybody loves talking about it.
+And there were all these buzzwords.
+It was neural nets. It was deep learning.
+You might have heard reinforcement learning.
+But that's what was cool a few years ago.
+And then there's the stuff that never makes the news.
+It's still AI.
+It's really not sexy, but it's really where a lot of business gets generated.
+Forecasting, turns, just big statistical analysis.
+These are amazing and they are powerful.
+And there's no buzzwords.
+And I hope we keep it that way because I love doing these things.
+I want these things to happen, but they're not what's
+going on in the news. Nobody's in the news talking about my fantastic turn model.
+But what's changed is that line of accessibility.
+Before, for these things on the right hand side, you're bringing in a developer,
+you're bringing in a team that is going to build this.
+They're going to host it.
+They're going to do all these amazing things.
+When you look at what's going on on the left, great.
+You can do this yourself.
+You can be involved in the AI.
+You can get that value without necessarily bringing a team in to do it,
+which is incredible.
+And it's made AI just this ubiquitous thing.
+And it's gone from being, again, something my mom had no idea what I did to
+all of us gathered in a room to talk about AI.
+And there's two things that you can look at there when you're looking at those
+projects that you're taking on, there's things like co-pilot.
+Everybody, I think, raised their hand for ChatGPT or Cloud or Gemini or Co-Pilot.
+These are great tools for personal efficacy.
+It can review your email.
+It can go and help you draft a proposal.
+God knows I use it to check my recipes or do other things like that.
+It's day to day and it's in business and it's providing value.
+But then there's also these enterprise scale things that aren't things that just
+happen for one person, but the things that go to an entire
+enterprise where we're going and seeing how do we do something that's not
+necessarily helping one person do their job a little better,
+but helping scale the organization.
+So quick sort of aside, histology slides.
+So this is a.
+The background is pretty bright.
+I should have made it a little darker, but it is a slide of breast tissue that
+has been stained and we're looking to see if we can find breast cancer.
+So we've got 20 trainees that are going
+to learn whether or not they can find breast cancer in a slide.
+And after just 20 days of training, not a pathologic resident residency,
+but 20 days of training, any one pathologist could be 80 to 90 percent accurate.
+So any one of the 20, they were somewhere between 80 or 90.
+But if you took them all as a group
+and you took the majority answer, they were 99 percent accurate
+after just 20 days by doing a little crowdsourcing of that answer.
+So I'm going to ask if anybody has any guesses.
+And if you have heard me say this before,
+because I tell everybody I meet this because I think it's the best thing ever.
+Please don't raise your hand.
+But anybody else, do you have a guess who these trainees might be?
+They're not med students.
+OK, high school students, we got anybody else?
+We're going dumber.
+Middle school? No, keep going.
+Fifth grader.
+Nope.
+I'm going with the lookies.
+Unfair.
+No, it's...
+Think about if you were at the beach, you could see some fries.
+Who's coming to visit? We've got pigeons.
+They put pigeons in a box with a slide that looks...
+All right.
+I had an image of a slide with a button that said yes and a button that said no.
+And if they got the answer right, they got a peanut.
+And if they didn't get the answer right, no peanut.
+And then after 20 days, a pigeon can recognize what is in that slide.
+And they're incredibly accurate.
+They called it flog sourcing, not crowdsourcing.
+But pretty incredible that, you know, you can train a pigeon.
+And it's just the way that reinforcement learning works for the machine as well.
+When you're talking about a computer learning how to do
+a task, it's going to try it and it's going to fail sometimes and do well
+sometimes and it remembers what it did when it did well.
+And it goes through iterations to learn that just the way a pigeon does.
+But I'm going to give you a word of caution on that FOMO because it sounds
+awesome that we could replace everybody with pigeons and or AI.
+If I had breast cancer and I showed up to
+my doctor's office and there was a pigeon, I'd be pretty disappointed.
+It is the same with AI.
+It can help. It can aid.
+It does not replace a huge amount.
+It's human.
+So we need to have both sides.
+You need the human connection and getting the aid of other tools.
+Pretty awesome.
+So now that I have you thoroughly convinced to purchase AI and or a flock
+of pigeons, I'm going to take you on a little vacation.
+We're going to change festivals, right?
+Go to a music festival. It's pretty awesome.
+There's a lot of bands playing.
+So I'm going to invite you guys back to 2017.
+And me and my friend Ja Rule would like to invite you to the coolest new festival.
+It's going to be on an island.
+There's going to be incredible food.
+There's going to be incredible acts and glamping all over the place.
+But it kind of turned out to be
+tens of bologna sandwiches and people being really upset.
+And I think that's sort of what's happening with AI.
+People went to FIRE Festival, not because like, oh, my God, it's the best thing ever.
+But because there's this new thing, I better be there.
+And that's sort of happening with AI right
+now, where you read something like McKinsey saying 85% of projects fail.
+MIT said only 5% ever make it past somebody trying to POC or testing something out
+on their own. So you keep hearing that these AI projects are failing.
+And so I went back and looked because, like I said, I've been doing this for 14
+years, how long how many of our projects are doing OK?
+And we're at like 70% of them make it to production and stay there.
+And I'm pretty psyched about that, but I don't think it's because we have
+complete math, not up here going, oh, yeah, you know, my math is better.
+My computer is better. It's none of that.
+It's planning. And so I'm not trying to keep that.
+I want everybody to use AI and be successful.
+So I want to talk you through what are
+the steps that you need in order to do this and do this well?
+So first thing, what if we ask questions before we chose the tech that we're going
+to use? I can tell you that my biggest nightmare for the last couple of years
+has been every single client coming and saying, I want
+a client GPT. Build me a chat bot.
+They want a forecasting model, but they want it in a chat bot.
+Everybody wants a chat bot.
+So, no, what if we don't choose the tech first?
+Figure out what problem we're trying to solve.
+I like to think of my job as Indiana Jones and I've got to go and switch out
+the idle for the thing that you actually need.
+So, you know, it's really sort of one
+of those things where you've got to think through things first.
+And the best way to do that is sticky notes.
+I wish there was a cool way to do it that is not sticky notes.
+I've tried Miro. I guess it works if you're all remote.
+But get in a room with people and get sticky notes.
+And don't come with your ideas.
+Come with your problem.
+Not, hey, we should do this cool tech thing, but, hey, we should solve this problem.
+This is a pain point for us and get all those problems together.
+And you're going to find out everybody's got the same problems.
+So you might end up with 100 sticky notes to 20 problems.
+So you get all those problems together, and then we've got to prioritize them.
+So when I look at prioritizing those problems, people use, right.
+I like wire because it gives me
+something to talk about with the worries and worries is a big deal.
+Who are my key players? Are they going to be involved?
+How am I going to get them involved?
+We've also got the impact.
+So when I'm looking at this, what are we going to do this for?
+You know, there are some things where you're talking about nonprofits or you're
+talking about social situations where there are ROI that is really good.
+That's nice, social, wonderful things happening.
+But we're talking about business here.
+And there's three types of ROI that I can provide you.
+It is increased revenue.
+It is decreased costs.
+It is decreased risk.
+If you can't bucket it into one of those
+things and figure out how you're going to measure that, that's not the idea you
+should be working on right now, figure out what impact it's going to have
+and estimate the ROI before you start doing it.
+And then what are your risks?
+So when you look at models, I wish I could tell you AI is 100 percent perfect.
+It is not. How many of you guys have seen a hallucination?
+Right. It fails.
+Probability fails.
+And so you've got to be prepared for that and understand.
+What risk means to you.
+So when I'm looking at risk, is it a false positive that's really bad?
+Is it a false negative that's really bad?
+How am I going to measure those?
+What am I going to do about them?
+What does it cost me if I'm wrong?
+You need to identify that before you start the project.
+I can tell you one of those models that are 30 percent that didn't make it.
+I was heartbroken because like these
+models are my babies and I love them and I want to see them succeed.
+But you go in there and we got the compliance team.
+They're like, yeah,
+that actually doesn't meet our compliance.
+And so everything's great.
+Everybody's like CEO.
+The company's like, let's use this modeling
+compliance or we could call them compliance says no.
+And then what is the effort?
+What is it going to take me to do this?
+And it's something where get your team to do it.
+Get somebody, you know,
+come talk to us, come talk to anybody else that does AI.
+Get an idea of what is it going to take to do this?
+Because some things sound really easy
+and they are super hard and some things sound insurmountable in the Google.
+So get all the ideas out.
+Get them out there and then prioritize them, rank them and be prepared because
+somebody is going to go and thumb the scale and change that over a little bit.
+But then once you have those ideas, pick three, pick your top three.
+You can have 50 ideas in that backlog and
+you should have somebody that is maintaining that backlog.
+But if you try and solve 50 problems, you will solve zero.
+If you try and solve three problems with one in the forefront and then maybe two
+that are in the background that you're working on, you're going to actually solve
+things. So keep somebody who's in charge of that.
+Backlog, revisit that backlog.
+If you were to look at a backlog from 2022
+and then look at it in 2023 with ChatGPT coming out, you'd have changed a lot
+of things. Some of those efforts would have moved up and down.
+Some of that impact would have moved up and down.
+So revisit that backlog, but only focus on a couple ideas at a time.
+And then plan and test.
+Poor Pinto could have done with a little more testing.
+So when we look at
+models, you don't have to boil the ocean.
+You do not have to build the entire model from the beginning.
+Go and find a subset of the data or a subset of the problem and test it on a small group.
+Do a proof of concept.
+It lets you dip your toe in the AI without saying, we're going to go and pay 200
+grand to build this whole thing that we don't know if it's going to work or not.
+Sure, AI, there's things I can tell you,
+like we do them all the time and, you know, can you get the data off the page? Easy.
+If you want to come and do something that's new, you're building a time machine.
+Do I know a time machine works?
+Not until I can step in it, press the button and go back in time.
+Like you do not know it's going to work until you test it.
+So build the small scale test first.
+Do not start with the big problem.
+And then keep it healthy.
+When you look at software development,
+you'll see like I could write code that goes on a website and it says when you
+push this button, a picture of a cat shows up.
+And 50 years from now,
+as long as I've got an ID to open that thing up, I can click that.
+And a cat is going to show up on that website because it's static.
+I have defined this code is going to do this thing.
+When we're talking about AI, you have code and you have output.
+But you've also got data and data changes.
+My favorite example of this is doing some work with a group that does debt collection.
+And when you think about unemployment, man, where there's low unemployment, people
+are more likely to pay.
+Where there's high unemployment, they don't have any money they're not going to pay.
+And that's really great.
+And that model worked until COVID happened and people got furloughed.
+And all of a sudden people had money.
+These people got furloughed and they got
+federal unemployment and state unemployment.
+They had more money than they'd had before.
+And I hate to tell you, I wish I could say
+people were just bad and they weren't paying the debts.
+They're not. People don't have any money.
+And if you give them money, they pay debts.
+It was like Christmas for the debt collectors.
+But that model,
+it kind of sucks unless you're watching it and go, huh, things are changing.
+Let's refit that model. It is living and breathing code.
+You need to keep it healthy.
+You have to monitor it.
+You have to watch it and then make sure it's still working.
+So what's the future for AI in Jacksonville?
+Is the future of AI or is Jacksonville the future of AI?
+Is this what's going on?
+And so I think this is pretty awesome.
+This is out of Google Trends.
+It's what people are searching for.
+And jobs, AI jobs, AI companies, AI education.
+We're trailing a little behind everyone else in the first.
+But we've picked up and man, we are looking for AI companies in Jacksonville.
+People are out there searching for AI companies when they're in Jacksonville.
+They're searching for AI education.
+They're searching for AI jobs.
+Again, we are a tech town.
+We are not missing out.
+And we need to get back into thinking that how great we are.
+And then just for a little fun.
+I asked two of my friends, Chad GBT and Gemini, what the future of Jacksonville looks like.
+And so if we ask Gemini, this is the future of Jacksonville.
+We are adding to the now unnamed BOTUS Wells Fargo, whatever you want to call it, building.
+Apparently we're adding a couple of towers, we're adding some grass.
+We're bringing the landing back.
+I don't know who misses Hooters, but we're getting it back.
+And then that stadium renovation that we're all super excited about.
+And go Jags, I am super excited about that stadium renovation.
+But apparently we're just going north south to east west.
+We're not putting the roof on, not none of that.
+Gemini's got us, we're just flipping it.
+South Bank looks pretty good, though, right?
+We've got some parks, we've got people out there hanging out in the parks.
+So if you look at Gemini, South Bank is the place to be.
+If you look at Chad GBT, I'm sorry if your home is in the South Bank,
+but we've actually flooded it to make room for our fancy water taxis.
+The main street bridges had to be extended.
+So, you know, the future of Jags, like, honestly, it is AI.
+We are a tech town. We are not missing out.
+I'm like, I hope you take some value out of this.
+Figure out how you can use AI, but be smart about the way you're doing it.
+Don't go and start AI just for fun because it's cool tech.
+Go and start AI because it's going to bring you value.
+And I'm going to give you my shameless self-promotion with three QR codes.
+So on the right, if you want to connect with me, talk about sports, talk about AI, talk about City of Jags.
+I'm happy to do so.
+Connect with me on LinkedIn.
+We do a monthly meetup group talking about AI.
+Want to go to that? That's the middle one.
+And then something that I am incredibly proud of Jacksonville for
+GitHub Copilot is a tool that developers are using to automate their coding.
+It's sort of that vibe coding thing that people are talking about.
+So it's bringing, you know, AI into the development environment.
+So GitHub Copilot is doing these
+Dev Days and they're sponsored by GitHub, sponsored by Microsoft.
+There are 250 events all across the world.
+There are four cities in the southeast that have GitHub Dev Days.
+One of those is Jacksonville, and we are the only one in Florida.
+So on May 7th, if you have developers,
+send them over because GitHub Dev Days is going to be awesome.
+And it is a thing that is unique to Jacksonville and it's what makes us great.
+And yay, Jack. Thank you, guys.
+Does anybody have any questions?
+Can you slide back up, please?
+You've got no questions, I'm going to tell you guys.
+The lighting looks great. Hello, questions.
+Yeah. So in the future of AI, one of the things I've been I went to a
+I think an AI Connect meeting, I'm not sure if it was some kind of like a freelance group or some.
+And there was a job manager there who was telling us about like what's what they're
+experiencing with the rise of AI and a lot of things they've been dealing with is
+when people submit their resumes, a lot of it seems to be AI generated.
+And now the picture he was giving me was
+that there seems to be like a thirst for human authenticity as more of this.
+There seems to be like a thirst for human
+authenticity as more of this AI stuff starts like flooding the market, starts
+flooding the Internet, social vehicles, stuff like that.
+Do you think that there's going to be an
+pendulum swing in the other direction where like copyright,
+AI come back or like human or the human interaction will become like the new
+like human authenticity will become the new currency?
+So my first statement on that, if anybody tells you they can predict the future, they lie.
+You know, if you look at who could have
+told you that ChatGPT was going to do what it did in two years, nobody nobody would have guessed it.
+You know, when you look at AI as a general thing, you've got Sam Altman who's saying
+we're going to have AGI and we all be in Bali drinking, you know, whatever.
+In two years.
+You've got Leigh-Anne LeCun, who's sort of the founder of modern AI,
+who says that if we want to get to human intelligence, we might want to try dog
+intelligence first, you know, they're sort of like nobody.
+Nobody can predict the future.
+But I do think that that human connection will continue to be valuable.
+I think if you look at like the Gen Z's got their, you know,
+Gen Alpha, whatever the youngers are beyond six, seven.
+They are also looking for digital or analog things.
+They're looking at analog film.
+You know, I think there is.
+There's this desire for human connection that, you know, I can make some more
+profits, but we still need people in the loop.
+Thank you very much.
+Everybody say that Jacksonville is high tech.
+Thank you very much.
+Great.
+Thank you very much, Leigh-Anne.
+Our chair who's put this whole program together, he and Cynthia put this together.
+So take it away.
+Thank you very much.
+One of the things that we wanted to do as a design principal for this event was to
+help us all kind of reconcile what AI is to get a sense and a feel for what it looks
+like in the workplace, but then also to be kind of practical.
+How do we leverage this in a way that is really helps us accelerate the impact
+that we're trying to have in our business?
+So during the course of today's presentations, we're going to flow.
