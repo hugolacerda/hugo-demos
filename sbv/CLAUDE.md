@@ -27,15 +27,19 @@ python3 -m http.server 8000
 
 ## CSS architecture
 
-**`main.css`** is loaded on every page and owns:
+There are three layers, not two:
+
+**`main.css`** — loaded on every page. Owns:
 - Design tokens (`--color-midnight-hsl`, `--color-ember-hsl`, `--color-ivory-hsl`, `--color-clay-hsl`, etc.)
 - Global reset, typography, container
-- All shared components: `.btn-ember`, `.btn-ghost`, `.btn-ghost-sm`, `.eyebrow`, `.site-header`, `.main-nav`, `.header-right`, `.site-footer`, `.cta-band`, `.nav-dropdown`, mobile menu
+- All shared components: `.btn-ember`, `.btn-ghost`, `.btn-ghost-sm`, `.eyebrow`, `.site-header`, `.main-nav`, `.header-right`, `.site-footer`, `.cta-band`, `.final-cta`, `.glass-card`, `.nav-dropdown`, mobile menu
 - Scroll reveal (`.reveal` / `.reveal.visible`)
 
-**Page-specific stylesheets** (`home.css`, `valuations.css`, `exit.css`, etc.) contain only the styles for that page's unique sections. They load *after* `main.css`.
+**`services.css`** — loaded by the three service pages (`valuations.html`, `exit.html`, `advisory.html`) in addition to their own stylesheet. Contains shared layout patterns used across those pages (hero variants, engagement cards, tier cards, etc.). If you're editing a layout shared by two or more service pages, check `services.css` first before the page-specific file.
 
-**`post.css`** is used by all 12 `/insights/*.html` blog posts (`.post-hero`, `.post-content`, `.post-sidebar`, `.post-layout`, `.sidebar-card`).
+**Page-specific stylesheets** (`home.css`, `valuations.css`, `exit.css`, `advisory.css`, `about.css`, `insights.css`, `contact.css`) contain only the styles unique to that page. Load order on a service page: `main.css` → `services.css` → page CSS.
+
+**`post.css`** — loaded by all 12 `/insights/*.html` blog posts (`.post-hero`, `.post-content`, `.post-sidebar`, `.post-layout`, `.sidebar-card`).
 
 ## Design tokens (key ones)
 
