@@ -17,7 +17,8 @@
       "Bash(python3 /tmp/build_posts.py)",
       "Bash(python3 /tmp/patch_site.py)",
       "Bash(grep -n 'class=\"author\"' /Users/hugolacerda/Desktop/hugo-demos/sbv/insights/*.html)",
-      "Bash(ls /Users/hugolacerda/Desktop/hugo-demos/sbv/*.html)"
+      "Bash(ls /Users/hugolacerda/Desktop/hugo-demos/sbv/*.html)",
+      "Bash(git add:*)"
     ]
   }
 }
