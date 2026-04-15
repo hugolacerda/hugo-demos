@@ -18,7 +18,9 @@
       "Bash(python3 /tmp/patch_site.py)",
       "Bash(grep -n 'class=\"author\"' /Users/hugolacerda/Desktop/hugo-demos/sbv/insights/*.html)",
       "Bash(ls /Users/hugolacerda/Desktop/hugo-demos/sbv/*.html)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

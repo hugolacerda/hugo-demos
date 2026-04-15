@@ -15,7 +15,7 @@ python3 -m http.server 8000
 ## File layout
 
 ```
-/                   Root pages (index, about, contact, valuations, exit, advisory, insights)
+/                   Root pages (index, about, contact, faq, valuations, exit, advisory, insights)
 /insights/          12 static blog post pages, one per article
 /assessment/        Standalone assessment tool (separate index.html)
 /assets/css/        One stylesheet per page + main.css (global)
@@ -37,7 +37,7 @@ There are three layers, not two:
 
 **`services.css`** — loaded by the three service pages (`valuations.html`, `exit.html`, `advisory.html`) in addition to their own stylesheet. Contains shared layout patterns used across those pages (hero variants, engagement cards, tier cards, etc.). If you're editing a layout shared by two or more service pages, check `services.css` first before the page-specific file.
 
-**Page-specific stylesheets** (`home.css`, `valuations.css`, `exit.css`, `advisory.css`, `about.css`, `insights.css`, `contact.css`) contain only the styles unique to that page. Load order on a service page: `main.css` → `services.css` → page CSS.
+**Page-specific stylesheets** (`home.css`, `valuations.css`, `exit.css`, `advisory.css`, `about.css`, `insights.css`, `contact.css`, `faq.css`) contain only the styles unique to that page. Load order on a service page: `main.css` → `services.css` → page CSS.
 
 **`post.css`** — loaded by all 12 `/insights/*.html` blog posts (`.post-hero`, `.post-content`, `.post-sidebar`, `.post-layout`, `.sidebar-card`).
 
@@ -93,7 +93,7 @@ The author byline in `post-meta` is currently commented out — leave it that wa
 
 **`main.js`** — loaded on every page. Drives `.reveal` scroll animations via `IntersectionObserver` (threshold 0.12). Any element with class `reveal` fades in from below on scroll.
 
-**`contact.js`** — only loaded on `contact.html`. Handles the contact form `handleSubmit()`.
+**`contact.js`** — only loaded on `contact.html`. Intercepts the form's `submit` event, POSTs to Netlify Forms via `fetch('/')`, then shows `#formSuccess` on success. The form in `contact.html` uses `data-netlify="true"` with a `bot-field` honeypot and a hidden `form-name` input — all three are required for Netlify to register submissions. Do not remove these or revert to a `type="button"` + inline `handleSubmit()` approach.
 
 ## Globe watermark
 

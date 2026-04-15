@@ -94,7 +94,11 @@
           <p>Fill out the form below and someone from our team will respond within one business day.</p>
         </div>
 
-        <div id="contactForm" class="contact-form">
+        <form id="contactForm" class="contact-form"
+              name="contact" method="POST"
+              data-netlify="true" netlify-honeypot="bot-field" novalidate>
+          <input type="hidden" name="form-name" value="contact">
+          <p style="display:none"><input name="bot-field"></p>
           <div class="form-row two-col">
             <div class="form-group">
               <label for="firstName">First Name <span class="req">*</span></label>
@@ -135,10 +139,10 @@
           </div>
 
           <div class="form-submit">
-            <button type="button" class="btn-ember" onclick="handleSubmit()">Send Message</button>
+            <button type="submit" class="btn-ember">Send Message</button>
             <span class="note">Your information is confidential and will never be shared.</span>
           </div>
-        </div>
+        </form>
 
         <div id="formSuccess" class="form-success">
           <h3>Message sent.</h3>
@@ -171,16 +175,6 @@
     </div>
   </footer>
 
-  <script>
-    function handleSubmit() {
-      // Placeholder: form does nothing on submit for now.
-      // When a CRM is connected, replace this with a fetch() to the CRM endpoint.
-      var form = document.getElementById('contactForm');
-      var success = document.getElementById('formSuccess');
-      form.style.display = 'none';
-      success.classList.add('show');
-      window.scrollTo({ top: success.offsetTop - 100, behavior: 'smooth' });
-    }
-  </script>
+  <script src="./assets/js/contact.js"></script>
 </body>
 </html>
