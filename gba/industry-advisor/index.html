@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Industry M&A Advisor | Gateway Business Advisors</title>
+  <title>Industry Insider | Gateway Business Advisors</title>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -129,63 +129,6 @@
       50%       { opacity: 0.25; }
     }
 
-    /* ── Hero ── */
-    .hero {
-      position: relative;
-      z-index: 10;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 80px 50px 420px;
-    }
-
-    .eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.75;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
-    .eyebrow::before,
-    .eyebrow::after {
-      content: '';
-      display: block;
-      width: 44px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.3;
-    }
-
-    .hero h1 {
-      font-size: clamp(44px, 7vw, 82px);
-      font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -3px;
-      margin-bottom: 24px;
-    }
-
-    .hero h1 em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 16px;
-      color: var(--muted);
-      font-weight: 300;
-      max-width: 400px;
-      line-height: 1.75;
-    }
-
     /* ── Footer ── */
     .footer {
       position: relative;
@@ -213,11 +156,10 @@
     }
 
     /* Fade-in */
-    .header, .hero, .footer {
+    .header, .footer {
       animation: up 0.5s ease both;
     }
-    .hero   { animation-delay: 0.06s; }
-    .footer { animation-delay: 0.1s;  }
+    .footer { animation-delay: 0.1s; }
 
     @keyframes up {
       from { opacity: 0; transform: translateY(14px); }
@@ -226,10 +168,118 @@
 
     @media (max-width: 640px) {
       .header { padding: 18px 24px; }
-      .hero   { padding: 60px 24px 260px; }
       .footer { flex-direction: column; text-align: center; padding: 18px 24px; }
       .footer-r { text-align: center; max-width: 100%; }
-      .hero h1 { letter-spacing: -2px; }
+    }
+
+    /* ── Hide floating widget trigger ── */
+    #meclabs-ai-widget-btn,
+    .meclabs-ai-notification-container-wrapper,
+    .meclabs-ai-notification-gentle-nudge,
+    .meclabs-ai-custom-trigger-primary-container {
+      display: none !important;
+    }
+
+    /* Widget fills #cfdContainer */
+    #cfdContainer #meclabs-ai-widget {
+      width: 100% !important;
+      height: 100% !important;
+      bottom: 0 !important;
+      right: 0 !important;
+    }
+
+    /* ── Page layout ── */
+    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 48px; }
+    .section { position: relative; z-index: 10; padding: 64px 0; }
+    .section-label {
+      font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent); opacity: 0.75;
+      margin-bottom: 32px; text-align: center;
+    }
+    .hero-section { padding: 72px 0 48px; text-align: center; }
+    .hero-section h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; }
+    .hero-section .sub { font-size: 18px; color: var(--text); opacity: 0.6; }
+    .intro-text { text-align: center; max-width: 720px; margin: 0 auto 56px; font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; }
+
+    /* Widget container */
+    #cfdContainer {
+      position: relative; width: 100%; height: 680px;
+      border: 1px solid var(--border); border-radius: 12px;
+      overflow: hidden; background: var(--bg2); margin: 32px 0;
+    }
+    .widget-label { text-align: center; margin-bottom: 0; }
+    .widget-label h2 { font-size: 20px; font-weight: 400; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .widget-label p { font-size: 14px; color: var(--muted); max-width: 540px; margin: 0 auto 24px; line-height: 1.7; }
+
+    /* Steps */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .step-num { font-family: var(--mono); font-size: 11px; color: var(--accent); opacity: 0.6; margin-bottom: 10px; }
+    .step h3 { font-size: 14px; font-weight: 500; line-height: 1.45; margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
+
+    /* Questions grid */
+    .qs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+    }
+    .qs-col { padding: 24px 20px; background: var(--surface); }
+    .qs-col-header { font-family: var(--mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); opacity: 0.8; margin-bottom: 16px; }
+    .qs-col p { font-size: 13px; color: var(--muted); line-height: 1.5; padding: 8px 0; border-bottom: 1px solid var(--border); font-weight: 300; }
+    .qs-col p:last-child { border-bottom: none; padding-bottom: 0; }
+
+    /* Mission */
+    .mission-text { text-align: center; max-width: 600px; margin: 0 auto; font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; }
+    .mission-text em { color: var(--text); font-style: normal; }
+
+    /* Disclaimer */
+    .disclaimer {
+      border-top: 1px solid var(--border);
+      background: var(--bg2);
+      padding: 48px 0;
+    }
+    .disclaimer-inner { max-width: 760px; margin: 0 auto; padding: 0 48px; }
+    .disclaimer h3 { font-size: 13px; font-weight: 500; color: var(--text); opacity: 0.7; margin-bottom: 10px; margin-top: 20px; }
+    .disclaimer h3:first-child { margin-top: 0; }
+    .disclaimer p, .disclaimer li { font-size: 12px; color: var(--muted); line-height: 1.75; font-weight: 300; }
+    .disclaimer ul { list-style: none; padding: 0; }
+    .disclaimer ul li::before { content: "·  "; color: var(--accent); }
+
+    /* Dividers */
+    .border-top { border-top: 1px solid var(--border); }
+
+    /* Eyebrow */
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .eyebrow::before,
+    .eyebrow::after {
+      content: '';
+      display: block;
+      width: 44px;
+      height: 1px;
+      background: var(--accent);
+      opacity: 0.3;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .page-wrap { padding: 0 24px; }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .qs-grid { grid-template-columns: 1fr; }
+      #cfdContainer { height: 560px; }
+    }
+    @media (max-width: 480px) {
+      .steps { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -242,7 +292,7 @@
   <div class="logo-wrap">
     <img src="../site/img/logo.png" alt="Gateway Business Advisors">
     <div class="logo-sep"></div>
-    <span class="logo-tag">Industry M&amp;A Advisor</span>
+    <span class="logo-tag">Industry Insider</span>
   </div>
   <div class="status-pill">
     <div class="dot"></div>
@@ -251,11 +301,101 @@
 </header>
 
 <!-- Hero -->
-<section class="hero">
+<section class="hero-section page-wrap">
   <div class="eyebrow">M&amp;A Intelligence</div>
-  <h1>What is your<br>industry <em>worth</em><br>right now?</h1>
-  <p class="hero-sub">Ask the advisor below. Get M&amp;A trends, valuation multiples, and what drives premium value in your specific industry.</p>
+  <h1>Industry Insider</h1>
+  <p class="sub">M&amp;A Intelligence for Business Owners</p>
 </section>
+
+<!-- Intro + Widget -->
+<div class="page-wrap">
+  <p class="intro-text">Every industry has unique characteristics — distinct business models, profitability margins, growth drivers, risks, and approaches to working capital. Buyers in M&amp;A look for different indicators of value depending on your sector, from scalability and recurring revenue to customer concentration and intellectual property. Understanding these nuances puts you in a position of strength when considering a sale or capital raise.</p>
+
+  <div class="widget-label">
+    <h2>Discover Your Industry Landscape</h2>
+    <p>Use the AI-powered advisor below to get tailored insights — current M&amp;A trends, key value drivers, common valuation ranges, and what can lift or lower the price buyers are willing to pay.</p>
+  </div>
+
+  <div id="cfdContainer"></div>
+</div>
+
+<!-- How to Use -->
+<section class="section border-top">
+  <div class="page-wrap">
+    <div class="section-label">How to Use This Page</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">01</div>
+        <h3>Start by selecting or describing your industry.</h3>
+        <p>Type your industry, niche, or market specialty in natural language — no jargon required.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <h3>Ask specific or broad questions.</h3>
+        <p>Get answers on valuation drivers, what top buyers seek, typical deal terms, or M&amp;A challenges unique to your sector.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <h3>Explore 'what-if' scenarios.</h3>
+        <p>Find out how increases in profitability, revenue, or process improvements could impact your company's value.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">04</div>
+        <h3>Book a call for deeper insight.</h3>
+        <p>Ready for a confidential assessment? Use the call-to-action in the advisor to schedule a direct consultation with our M&amp;A team.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Example Questions -->
+<section class="section border-top" style="background: var(--bg2); padding: 48px 0;">
+  <div class="page-wrap">
+    <div class="section-label">Questions You Can Ask</div>
+    <div class="qs-grid">
+      <div class="qs-col">
+        <div class="qs-col-header">Buyer Focus</div>
+        <p>What metrics do buyers look for in my industry?</p>
+        <p>Are working capital adjustments common in my sector?</p>
+      </div>
+      <div class="qs-col">
+        <div class="qs-col-header">Valuation &amp; Multiples</div>
+        <p>What are typical EBITDA multiples for my size company?</p>
+        <p>How do growth rates impact value?</p>
+      </div>
+      <div class="qs-col">
+        <div class="qs-col-header">Industry Nuances</div>
+        <p>What macro trends affect valuations in this sector?</p>
+        <p>Are strategic buyers paying premiums now?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Our Mission -->
+<section class="section border-top">
+  <div class="page-wrap">
+    <div class="section-label">Our Mission</div>
+    <p class="mission-text">We believe <em>informed business owners make the best decisions.</em> This tool gives you real, actionable intelligence — so you can understand where your business stands today, and what steps can position it for a premium outcome tomorrow.</p>
+  </div>
+</section>
+
+<!-- Disclaimer -->
+<div class="disclaimer">
+  <div class="disclaimer-inner">
+    <div class="section-label" style="text-align: left; margin-bottom: 20px;">Transparency for Better Decisions</div>
+    <p>While our AI advisor draws on leading M&amp;A research, industry reports, and real benchmarks, it is not a substitute for professional valuation or legal/tax counsel. Every business and situation is unique — answers here are for educational purposes and do not constitute specific advice.</p>
+    <h3>What to Keep in Mind</h3>
+    <ul>
+      <li>AI answers reflect general trends and ranges, not precise values for your specific company or deal.</li>
+      <li>Market dynamics change: valuations, buyer preferences, and trends can shift quickly.</li>
+      <li>Confidentiality: please avoid entering sensitive business details — describe your scenario in general terms.</li>
+      <li>Book a call for tailored insight: for a confidential, actionable assessment, always consult an M&amp;A professional.</li>
+    </ul>
+    <h3>AI Guidance Has Limits</h3>
+    <p>Do not make major financial, legal, or exit decisions based solely on AI output. Use this tool as a knowledge catalyst and starting point, not the sole basis for action.</p>
+  </div>
+</div>
 
 <!-- Footer -->
 <footer class="footer">
@@ -263,8 +403,19 @@
   <div class="footer-r">Directional market context only. Not a valuation or professional financial advice.</div>
 </footer>
 
-<!-- MeclabsAI Industry M&A Advisor Widget -->
-<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
+<!-- MeclabsAI Industry Insider Widget -->
+<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC&meclabsaiKey=true"></script>
+
+<script>
+  // Auto-open widget when ready
+  window.addEventListener('message', function(e) {
+    if (e.data && e.data.type === 'CFD_READY') {
+      setTimeout(function() {
+        if (window.AIWidget) window.AIWidget.openAIWidget();
+      }, 300);
+    }
+  });
+</script>
 
 </body>
 </html>
