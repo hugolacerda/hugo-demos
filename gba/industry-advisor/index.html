@@ -172,22 +172,6 @@
       .footer-r { text-align: center; max-width: 100%; }
     }
 
-    /* ── Hide floating widget trigger ── */
-    #meclabs-ai-widget-btn,
-    .meclabs-ai-notification-container-wrapper,
-    .meclabs-ai-notification-gentle-nudge,
-    .meclabs-ai-custom-trigger-primary-container {
-      display: none !important;
-    }
-
-    /* Widget fills #cfdContainer */
-    #cfdContainer #meclabs-ai-widget {
-      width: 100% !important;
-      height: 100% !important;
-      bottom: 0 !important;
-      right: 0 !important;
-    }
-
     /* ── Page layout ── */
     .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 48px; }
     .section { position: relative; z-index: 10; padding: 64px 0; }
@@ -200,16 +184,6 @@
     .hero-section h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; }
     .hero-section .sub { font-size: 18px; color: var(--text); opacity: 0.6; }
     .intro-text { text-align: center; max-width: 720px; margin: 0 auto 56px; font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; }
-
-    /* Widget container */
-    #cfdContainer {
-      position: relative; width: 100%; height: 680px;
-      border: 1px solid var(--border); border-radius: 12px;
-      overflow: hidden; background: var(--bg2); margin: 32px 0;
-    }
-    .widget-label { text-align: center; margin-bottom: 0; }
-    .widget-label h2 { font-size: 20px; font-weight: 400; letter-spacing: -0.5px; margin-bottom: 8px; }
-    .widget-label p { font-size: 14px; color: var(--muted); max-width: 540px; margin: 0 auto 24px; line-height: 1.7; }
 
     /* Steps */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
@@ -276,10 +250,22 @@
       .page-wrap { padding: 0 24px; }
       .steps { grid-template-columns: repeat(2, 1fr); }
       .qs-grid { grid-template-columns: 1fr; }
-      #cfdContainer { height: 560px; }
     }
     @media (max-width: 480px) {
       .steps { grid-template-columns: 1fr; }
+    }
+
+    /* Remove sticky/fixed positioning from widget trigger */
+    #meclabs-ai-widget-btn,
+    #meclabs-ai-widget-image-trigger,
+    .meclabs-ai-notification-container-wrapper,
+    .meclabs-ai-notification-gentle-nudge,
+    .meclabs-ai-custom-trigger-primary-container {
+      position: relative !important;
+      bottom: auto !important;
+      right: auto !important;
+      left: auto !important;
+      top: auto !important;
     }
   </style>
 </head>
@@ -311,12 +297,6 @@
 <div class="page-wrap">
   <p class="intro-text">Every industry has unique characteristics — distinct business models, profitability margins, growth drivers, risks, and approaches to working capital. Buyers in M&amp;A look for different indicators of value depending on your sector, from scalability and recurring revenue to customer concentration and intellectual property. Understanding these nuances puts you in a position of strength when considering a sale or capital raise.</p>
 
-  <div class="widget-label">
-    <h2>Discover Your Industry Landscape</h2>
-    <p>Use the AI-powered advisor below to get tailored insights — current M&amp;A trends, key value drivers, common valuation ranges, and what can lift or lower the price buyers are willing to pay.</p>
-  </div>
-
-  <div id="cfdContainer"></div>
 </div>
 
 <!-- How to Use -->
@@ -404,18 +384,7 @@
 </footer>
 
 <!-- MeclabsAI Industry Insider Widget -->
-<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC&meclabsaiKey=true"></script>
-
-<script>
-  // Auto-open widget when ready
-  window.addEventListener('message', function(e) {
-    if (e.data && e.data.type === 'CFD_READY') {
-      setTimeout(function() {
-        if (window.AIWidget) window.AIWidget.openAIWidget();
-      }, 300);
-    }
-  });
-</script>
+<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
 
 </body>
 </html>
