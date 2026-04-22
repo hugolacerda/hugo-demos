@@ -297,6 +297,8 @@
 <div class="page-wrap">
   <p class="intro-text">Every industry has unique characteristics — distinct business models, profitability margins, growth drivers, risks, and approaches to working capital. Buyers in M&amp;A look for different indicators of value depending on your sector, from scalability and recurring revenue to customer concentration and intellectual property. Understanding these nuances puts you in a position of strength when considering a sale or capital raise.</p>
 
+  <div id="widget-anchor" style="display:flex; justify-content:center; width:100%; margin: 0 auto 64px;"></div>
+
 </div>
 
 <!-- How to Use -->
@@ -385,6 +387,26 @@
 
 <!-- MeclabsAI Industry Insider Widget -->
 <script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
+
+<script>
+  (function() {
+    function moveWidget() {
+      var anchor = document.getElementById('widget-anchor');
+      if (!anchor) return;
+      var trigger =
+        document.getElementById('meclabs-ai-widget-btn') ||
+        document.querySelector('.meclabs-ai-notification-container-wrapper') ||
+        document.querySelector('.meclabs-ai-notification-gentle-nudge') ||
+        document.querySelector('.meclabs-ai-custom-trigger-primary-container');
+      if (trigger) {
+        anchor.appendChild(trigger);
+      } else {
+        setTimeout(moveWidget, 150);
+      }
+    }
+    moveWidget();
+  })();
+</script>
 
 </body>
 </html>
