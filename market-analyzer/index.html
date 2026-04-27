@@ -4,221 +4,469 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Marketing Analyzer | MECLABS Copy Diagnostic</title>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* ── Design Tokens ── */
     :root {
-      --bg:      #080b10;
-      --bg2:     #0d1117;
-      --surface: #111827;
-      --border:  rgba(255,255,255,0.07);
-      --accent:  #E47D46;
-      --text:    #e2e8f0;
-      --muted:   #64748b;
-      --mono:    'IBM Plex Mono', monospace;
-      --sans:    'DM Sans', sans-serif;
+      --color-midnight-hsl: 218 55% 10%;
+      --color-ember-hsl:    13 55% 50%;
+      --color-clay-hsl:     37 30% 79%;
+      --color-ivory-hsl:    30 27% 95%;
+      --background:         30 27% 95%;
+      --foreground:         218 55% 10%;
+      --card:               0 0% 100%;
+      --border:             37 22% 78%;
+      --accent:             13 55% 50%;
+      --muted-foreground:   30 7% 33%;
+      --radius:             .5rem;
+      --font-headline:      "Playfair Display", Georgia, serif;
+      --font-body:          "Libre Franklin", "Helvetica Neue", Arial, sans-serif;
+      --shadow-sm:          0 1px 2px rgba(10,22,40,.06);
+      --shadow-md:          0 4px 12px rgba(10,22,40,.08);
+      --shadow-ember:       0 8px 24px rgba(196,85,58,.2);
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-
+    html { line-height: 1.5; -webkit-text-size-adjust: 100%; }
     body {
-      font-family: var(--sans);
-      background: var(--bg);
-      color: var(--text);
-      overflow-x: hidden;
+      font-family: var(--font-body);
+      background-color: hsl(var(--background));
+      color: hsl(var(--foreground));
+      -webkit-font-smoothing: antialiased;
       display: flex;
       flex-direction: column;
       min-height: 100vh;
     }
-
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image:
-        linear-gradient(rgba(228,125,70,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(228,125,70,0.03) 1px, transparent 1px);
-      background-size: 64px 64px;
-      pointer-events: none;
-      z-index: 0;
+    img, svg { display: block; max-width: 100%; height: auto; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font: inherit; background: none; border: none; padding: 0; }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-headline);
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
     }
+    ul { list-style: none; }
+    p { margin: 0; }
 
-    body::after {
-      content: '';
-      position: fixed;
-      top: -300px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 1000px;
-      height: 1000px;
-      background: radial-gradient(circle, rgba(228,125,70,0.055) 0%, transparent 60%);
-      pointer-events: none;
-      z-index: 0;
+    /* ── Container ── */
+    .container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+
+    /* ── Header ── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: hsl(var(--card) / 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid hsl(var(--border));
     }
-
-    .noise {
-      position: fixed;
-      inset: 0;
-      opacity: 0.022;
-      pointer-events: none;
-      z-index: 1;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 128px;
-    }
-
-    .header {
-      position: relative;
-      z-index: 10;
+    .site-header .inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 22px 48px;
-      border-bottom: 1px solid var(--border);
-      animation: up 0.5s ease both;
+      height: 4.5rem;
+    }
+    @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
+
+    .logo-link { display: flex; align-items: center; }
+    .logo-link img { display: block; height: 38px; width: auto; }
+    @media (min-width: 768px) { .logo-link img { height: 44px; } }
+
+    .main-nav { display: none; align-items: center; gap: 1.75rem; }
+    @media (min-width: 900px) { .main-nav { display: flex; } }
+    .main-nav > a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      color: hsl(var(--foreground) / 0.75);
+      transition: color 0.15s;
+    }
+    .main-nav > a:hover { color: hsl(var(--accent)); }
+
+    /* Dropdown */
+    .nav-dropdown { position: relative; }
+    .nav-dropdown > a {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.025em;
+      color: hsl(var(--foreground) / 0.75);
+      transition: color 0.15s;
+      cursor: default;
+    }
+    .nav-dropdown > a:hover { color: hsl(var(--accent)); }
+    .nav-dropdown .chevron { width: 0.65rem; height: 0.65rem; transition: transform 0.2s; }
+    .nav-dropdown:hover .chevron { transform: rotate(180deg); }
+    .nav-dd-menu {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      padding-top: 0.75rem;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.15s, visibility 0.15s;
+      z-index: 60;
+    }
+    .nav-dropdown:hover .nav-dd-menu { opacity: 1; visibility: visible; pointer-events: auto; }
+    .nav-dd-inner {
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px rgba(10,22,40,0.12);
+      padding: 0.5rem;
+      min-width: 240px;
+    }
+    .nav-dd-inner a {
+      display: flex;
+      flex-direction: column;
+      padding: 0.625rem 0.875rem;
+      border-radius: calc(var(--radius) - 2px);
+      transition: background 0.15s;
+    }
+    .nav-dd-inner a:hover { background: hsl(var(--background)); }
+    .nav-dd-inner .dd-title { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); transition: color 0.15s; }
+    .nav-dd-inner .dd-desc { font-size: 0.6875rem; color: hsl(var(--muted-foreground)); margin-top: 2px; font-weight: 400; }
+    .nav-dd-inner a:hover .dd-title { color: hsl(var(--accent)); }
+
+    .header-right { display: flex; align-items: center; gap: 0.75rem; }
+    .header-cta-wrap { display: none; flex-direction: column; align-items: center; gap: 0.375rem; }
+    @media (min-width: 900px) { .header-cta-wrap { display: flex; } }
+    .header-cta-sub {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: hsl(var(--muted-foreground) / 0.7);
     }
 
-    .logo-wrap { display: flex; align-items: center; gap: 14px; }
-    .logo-text { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
-    .logo-sep { width: 1px; height: 20px; background: var(--border); }
-    .logo-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); }
-
-    .status-pill {
-      display: flex; align-items: center; gap: 8px;
-      font-family: var(--mono); font-size: 10px; color: var(--muted);
-      border: 1px solid var(--border); padding: 6px 14px; border-radius: 100px;
+    /* ── Buttons ── */
+    .btn-ember {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      white-space: nowrap;
+      background-color: hsl(var(--color-ember-hsl));
+      color: hsl(var(--color-ivory-hsl));
+      box-shadow: var(--shadow-ember);
+      font-family: var(--font-body);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.025em;
+      height: 2.75rem;
+      border-radius: calc(var(--radius) - 2px);
+      padding: 0 1.5rem;
+      transition: all 0.15s ease;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
     }
+    .btn-ember:hover { background-color: hsl(var(--color-ember-hsl) / 0.9); transform: translateY(-1px); }
 
-    .dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: #22c55e; box-shadow: 0 0 8px #22c55e;
-      animation: blink 2.5s ease-in-out infinite;
-    }
-
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
-    @keyframes up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-
-    .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 48px; }
-    .section { position: relative; z-index: 10; padding: 64px 0; }
-    .border-top { border-top: 1px solid var(--border); }
-
+    /* ── Eyebrow ── */
     .eyebrow {
-      font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
-      text-transform: uppercase; color: var(--accent); opacity: 0.75;
-      margin-bottom: 32px; display: flex; align-items: center; justify-content: center; gap: 16px;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
     }
-    .eyebrow::before, .eyebrow::after { content: ''; display: block; width: 44px; height: 1px; background: var(--accent); opacity: 0.3; }
+    .eyebrow .line { width: 2rem; height: 1px; background-color: hsl(var(--accent)); flex-shrink: 0; }
+    .eyebrow span:not(.line) {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: hsl(var(--muted-foreground));
+    }
+    .eyebrow.centered { justify-content: center; }
 
+    /* ── Section label (centered eyebrow-style) ── */
     .section-label {
-      font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
-      text-transform: uppercase; color: var(--accent); opacity: 0.75;
-      margin-bottom: 32px; text-align: center;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: hsl(var(--muted-foreground));
+      text-align: center;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .section-label::before, .section-label::after {
+      content: '';
+      display: block;
+      width: 2rem;
+      height: 1px;
+      background-color: hsl(var(--accent));
+      flex-shrink: 0;
     }
 
-    .hero-section { position: relative; z-index: 10; padding: 72px 0 48px; text-align: center; }
-    .hero-section h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; }
-    .hero-section .sub { font-size: 18px; color: var(--text); opacity: 0.6; }
+    /* ── Hero ── */
+    .hero-section {
+      padding: 4rem 0 3rem;
+      text-align: center;
+      border-bottom: 1px solid hsl(var(--border));
+    }
+    .hero-section .eyebrow { justify-content: center; margin-bottom: 1.5rem; }
+    .hero-section h1 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 500;
+      color: hsl(var(--foreground));
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+    .hero-section .sub {
+      font-size: 1.125rem;
+      font-family: var(--font-body);
+      color: hsl(var(--muted-foreground));
+      line-height: 1.6;
+    }
 
+    /* ── Intro ── */
     .intro-text {
-      text-align: center; max-width: 720px; margin: 0 auto 48px;
-      font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300;
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: hsl(var(--muted-foreground));
+      font-weight: 400;
     }
 
+    /* ── Stakes Callout ── */
     .stakes-callout {
-      max-width: 720px; margin: 0 auto 56px;
-      background: var(--surface); border: 1px solid rgba(228,125,70,0.2);
-      border-radius: 10px; padding: 20px 24px;
-      display: flex; align-items: flex-start; gap: 16px;
+      max-width: 680px;
+      margin: 0 auto 3rem;
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-left: 4px solid hsl(var(--accent));
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      box-shadow: var(--shadow-sm);
     }
-
     .stakes-icon {
-      font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
-      color: var(--accent); background: rgba(228,125,70,0.1);
-      border: 1px solid rgba(228,125,70,0.2); border-radius: 6px;
-      padding: 5px 8px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: hsl(var(--accent));
+      background: hsl(var(--accent) / 0.08);
+      border: 1px solid hsl(var(--accent) / 0.2);
+      border-radius: 4px;
+      padding: 4px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .stakes-text {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.7;
     }
 
-    .stakes-text { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
-
-    .widget-cta { display: flex; justify-content: center; margin: 0 auto 64px; }
-
+    /* ── Widget CTA ── */
+    .widget-cta { display: flex; justify-content: center; margin: 0 auto 4rem; }
     .widget-cta-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 20px; padding: 20px 24px;
-      display: flex; align-items: center; justify-content: space-between; gap: 20px;
-      width: 100%; max-width: 520px; cursor: pointer;
-      transition: border-color 0.2s ease, transform 0.15s ease;
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: 12px;
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      width: 100%;
+      max-width: 540px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: var(--shadow-sm);
     }
-
-    .widget-cta-card:hover { border-color: rgba(228,125,70,0.4); transform: scale(1.02); }
-    .widget-cta-text { display: flex; flex-direction: column; gap: 4px; }
-    .widget-cta-title { font-size: 15px; font-weight: 500; color: var(--text); }
-    .widget-cta-sub { font-size: 13px; color: var(--muted); font-weight: 300; }
-
-    .widget-cta-btn {
-      background: var(--accent); color: #fff; border: none; border-radius: 8px;
-      padding: 10px 22px; font-size: 13px; font-weight: 500; cursor: pointer;
-      white-space: nowrap; font-family: var(--sans); transition: opacity 0.15s ease; flex-shrink: 0;
+    .widget-cta-card:hover {
+      border-color: hsl(var(--accent) / 0.4);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
     }
+    .widget-cta-text { display: flex; flex-direction: column; gap: 0.25rem; }
+    .widget-cta-title { font-size: 0.9375rem; font-weight: 600; color: hsl(var(--foreground)); }
+    .widget-cta-sub { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); font-weight: 400; line-height: 1.5; }
 
-    .widget-cta-btn:hover { opacity: 0.85; }
+    /* ── Sections ── */
+    .section { padding: 4rem 0; }
+    .section.bg-card { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); border-bottom: 1px solid hsl(var(--border)); }
+    .section.bg-ivory { background: hsl(var(--background)); border-top: 1px solid hsl(var(--border)); }
 
-    .tabs-wrap { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-    .tab-item { border-bottom: 1px solid var(--border); overflow: hidden; }
+    /* ── Accordion / Tabs ── */
+    .tabs-wrap {
+      display: flex;
+      flex-direction: column;
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .tab-item { border-bottom: 1px solid hsl(var(--border)); overflow: hidden; }
     .tab-item:last-child { border-bottom: none; }
-
     .tab-trigger {
-      width: 100%; background: var(--surface); border: none; color: var(--text);
-      font-family: var(--sans); font-size: 14px; font-weight: 500; padding: 18px 24px;
-      text-align: left; cursor: pointer; display: flex; align-items: center;
-      justify-content: space-between; gap: 12px; transition: background 0.15s ease;
+      width: 100%;
+      background: hsl(var(--card));
+      border: none;
+      color: hsl(var(--foreground));
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      padding: 1.125rem 1.5rem;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      transition: background 0.15s;
     }
-
-    .tab-trigger:hover { background: rgba(255,255,255,0.03); }
-    .tab-trigger.active { background: rgba(228,125,70,0.08); }
-    .tab-trigger .chevron { font-family: var(--mono); font-size: 12px; color: var(--accent); opacity: 0.6; transition: transform 0.2s ease; flex-shrink: 0; }
+    .tab-trigger:hover { background: hsl(var(--background)); }
+    .tab-trigger.active { background: hsl(var(--accent) / 0.06); }
+    .tab-trigger .chevron {
+      font-size: 1rem;
+      color: hsl(var(--accent));
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
     .tab-trigger.active .chevron { transform: rotate(180deg); }
-
-    .tab-body { display: none; padding: 0 24px 24px; background: var(--bg2); }
+    .tab-body { display: none; padding: 0 1.5rem 1.5rem; background: hsl(var(--background)); }
     .tab-body.open { display: block; }
-    .tab-body p { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; margin-bottom: 12px; }
+    .tab-body p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.75; margin-bottom: 0.75rem; }
     .tab-body p:last-child { margin-bottom: 0; }
-    .tab-body ul { list-style: none; padding: 0; margin-top: 4px; }
-    .tab-body ul li { font-size: 13px; color: var(--muted); line-height: 1.75; font-weight: 300; padding: 4px 0 4px 18px; position: relative; }
-    .tab-body ul li::before { content: "·"; position: absolute; left: 4px; color: var(--accent); }
-    .tab-body strong { color: var(--text); font-weight: 500; }
-
-    .content-types { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
-    .type-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 16px; text-align: center; transition: border-color 0.2s ease; }
-    .type-card:hover { border-color: rgba(228,125,70,0.3); }
-    .type-icon { font-family: var(--mono); font-size: 18px; color: var(--accent); margin-bottom: 10px; display: block; }
-    .type-label { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
-    .type-desc { font-size: 11px; color: var(--muted); line-height: 1.6; font-weight: 300; }
-
-    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
-    .step-num { font-family: var(--mono); font-size: 11px; color: var(--accent); opacity: 0.6; margin-bottom: 10px; }
-    .step h3 { font-size: 14px; font-weight: 500; line-height: 1.45; margin-bottom: 8px; }
-    .step p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
-
-    .mission-text { text-align: center; max-width: 620px; margin: 0 auto; font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; }
-    .mission-text em { color: var(--text); font-style: normal; }
-
-    .disclaimer { border-top: 1px solid var(--border); background: var(--bg2); padding: 48px 0; }
-    .disclaimer-inner { max-width: 760px; margin: 0 auto; padding: 0 48px; }
-    .disclaimer h3 { font-size: 13px; font-weight: 500; color: var(--text); opacity: 0.7; margin-bottom: 10px; margin-top: 20px; }
-    .disclaimer h3:first-child { margin-top: 0; }
-    .disclaimer p, .disclaimer li { font-size: 12px; color: var(--muted); line-height: 1.75; font-weight: 300; }
-    .disclaimer ul { list-style: none; padding: 0; }
-    .disclaimer ul li::before { content: "·  "; color: var(--accent); }
-
-    .footer {
-      position: relative; z-index: 10; border-top: 1px solid var(--border);
-      padding: 18px 48px; display: flex; justify-content: space-between;
-      align-items: center; gap: 20px; animation: up 0.5s ease both; animation-delay: 0.1s;
+    .tab-body ul { list-style: none; padding: 0; margin-top: 0.25rem; }
+    .tab-body ul li {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.75;
+      padding: 0.25rem 0 0.25rem 1.125rem;
+      position: relative;
     }
+    .tab-body ul li::before { content: "·"; position: absolute; left: 0.25rem; color: hsl(var(--accent)); }
+    .tab-body strong { color: hsl(var(--foreground)); font-weight: 600; }
 
-    .footer-l { font-family: var(--mono); font-size: 10px; color: var(--muted); }
-    .footer-r { font-size: 11px; color: var(--muted); opacity: 0.4; text-align: right; max-width: 400px; }
+    /* ── Content Types ── */
+    .content-types { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.875rem; }
+    .type-card {
+      background: hsl(var(--card));
+      border: 1px solid hsl(var(--border));
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+      box-shadow: var(--shadow-sm);
+    }
+    .type-card:hover {
+      border-color: hsl(var(--accent) / 0.4);
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+    .type-icon {
+      font-family: var(--font-headline);
+      font-size: 1.375rem;
+      font-weight: 600;
+      color: hsl(var(--accent));
+      margin-bottom: 0.625rem;
+      display: block;
+    }
+    .type-label { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); margin-bottom: 0.375rem; }
+    .type-desc { font-size: 0.75rem; color: hsl(var(--muted-foreground)); line-height: 1.55; }
 
+    /* ── Steps ── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+    .step-num {
+      font-family: var(--font-headline);
+      font-size: 2rem;
+      font-weight: 500;
+      color: hsl(var(--accent) / 0.35);
+      margin-bottom: 0.625rem;
+      line-height: 1;
+    }
+    .step h3 { font-size: 1rem; font-weight: 500; line-height: 1.4; margin-bottom: 0.5rem; color: hsl(var(--foreground)); }
+    .step p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.7; }
+
+    /* ── Mission ── */
+    .mission-text {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+      line-height: 1.8;
+      color: hsl(var(--muted-foreground));
+    }
+    .mission-text em { color: hsl(var(--foreground)); font-style: normal; font-weight: 600; }
+
+    /* ── Disclaimer ── */
+    .disclaimer {
+      background: hsl(var(--card));
+      border-top: 1px solid hsl(var(--border));
+      padding: 3rem 0;
+    }
+    .disclaimer-inner { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
+    .disclaimer h3 {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: hsl(var(--foreground));
+      margin-bottom: 0.5rem;
+      margin-top: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    .disclaimer h3:first-child { margin-top: 0; }
+    .disclaimer p, .disclaimer li {
+      font-size: 0.8125rem;
+      color: hsl(var(--muted-foreground));
+      line-height: 1.75;
+    }
+    .disclaimer ul { list-style: none; padding: 0; }
+    .disclaimer ul li { padding-left: 1rem; position: relative; }
+    .disclaimer ul li::before { content: "·"; position: absolute; left: 0; color: hsl(var(--accent)); }
+
+    /* ── Footer ── */
+    .site-footer {
+      background-color: hsl(var(--card));
+      border-top: 1px solid hsl(var(--border));
+      padding: 2.5rem 0;
+      margin-top: auto;
+    }
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    @media (min-width: 768px) {
+      .footer-inner { flex-direction: row; justify-content: space-between; }
+    }
+    .footer-logo img { display: block; height: 32px; width: auto; }
+    @media (min-width: 768px) { .footer-logo img { height: 36px; } }
+    .footer-nav { display: flex; gap: 1.5rem; }
+    .footer-nav a {
+      font-size: 0.875rem;
+      color: hsl(var(--muted-foreground));
+      transition: color 0.15s;
+    }
+    .footer-nav a:hover { color: hsl(var(--accent)); }
+    .footer-copy { font-size: 0.75rem; color: hsl(var(--muted-foreground)); }
+
+    /* ── Hide MeclabsAI default UI ── */
     #meclabs-ai-widget-btn,
     #meclabs-ai-widget-image-trigger,
     .meclabs-ai-notification-container-wrapper,
@@ -230,18 +478,13 @@
       pointer-events: none !important;
     }
 
+    /* ── Responsive ── */
     @media (max-width: 768px) {
-      .page-wrap { padding: 0 24px; }
-      .header { padding: 18px 24px; }
-      .footer { flex-direction: column; text-align: center; padding: 18px 24px; }
-      .footer-r { text-align: center; max-width: 100%; }
       .steps { grid-template-columns: repeat(2, 1fr); }
       .content-types { grid-template-columns: repeat(2, 1fr); }
       .widget-cta-card { flex-direction: column; align-items: flex-start; }
-      .widget-cta-btn { width: 100%; text-align: center; }
-      .disclaimer-inner { padding: 0 24px; }
+      .widget-cta-card .btn-ember { width: 100%; justify-content: center; }
     }
-
     @media (max-width: 480px) {
       .steps { grid-template-columns: 1fr; }
       .content-types { grid-template-columns: 1fr 1fr; }
@@ -250,27 +493,62 @@
 </head>
 <body>
 
-<div class="noise"></div>
-
-<header class="header">
-  <div class="logo-wrap">
-    <span class="logo-text">Marketing Analyzer</span>
-    <div class="logo-sep"></div>
-    <span class="logo-tag">MECLABS Diagnostic</span>
-  </div>
-  <div class="status-pill">
-    <div class="dot"></div>
-    Analyzer Online
+<!-- ═══════════ HEADER ═══════════ -->
+<header class="site-header">
+  <div class="container inner">
+    <a href="https://strategicbusinessvaluations.com" class="logo-link" target="_blank" rel="noopener noreferrer">
+      <img src="https://strategicbusinessvaluations.com/assets/SBV_logo.webp" alt="Strategic Business Valuations">
+    </a>
+    <nav class="main-nav">
+      <a href="https://strategicbusinessvaluations.com">Home</a>
+      <div class="nav-dropdown">
+        <a href="https://strategicbusinessvaluations.com/valuations.html">Services
+          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </a>
+        <div class="nav-dd-menu">
+          <div class="nav-dd-inner">
+            <a href="https://strategicbusinessvaluations.com/valuations.html">
+              <span class="dd-title">Valuations</span>
+              <span class="dd-desc">Certified reports for any situation</span>
+            </a>
+            <a href="https://strategicbusinessvaluations.com/exit.html">
+              <span class="dd-title">Exit Planning</span>
+              <span class="dd-desc">Maximize your exit value</span>
+            </a>
+            <a href="https://strategicbusinessvaluations.com/advisory.html">
+              <span class="dd-title">Buy-Sell Advisory</span>
+              <span class="dd-desc">Close the deal the right way</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <a href="https://strategicbusinessvaluations.com/insights.html">Insights</a>
+      <a href="https://strategicbusinessvaluations.com/about.html">About</a>
+      <a href="https://strategicbusinessvaluations.com/faq.html">FAQ</a>
+      <a href="https://strategicbusinessvaluations.com/contact.html">Contact</a>
+    </nav>
+    <div class="header-right">
+      <div class="header-cta-wrap">
+        <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember">Speak with a Certified Expert</a>
+        <span class="header-cta-sub">15-minute call · No obligation</span>
+      </div>
+    </div>
   </div>
 </header>
 
-<section class="hero-section page-wrap">
-  <div class="eyebrow">Copy Diagnostic Tool</div>
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero-section container">
+  <div class="eyebrow centered">
+    <span class="line"></span>
+    <span>Copy Diagnostic Tool</span>
+    <span class="line"></span>
+  </div>
   <h1>Marketing Analyzer</h1>
   <p class="sub">Evaluate All Your Marketing Copy with MECLABS Principles</p>
 </section>
 
-<div class="page-wrap" style="position: relative; z-index: 10;">
+<!-- ═══════════ INTRO + CTA ═══════════ -->
+<div class="container" style="padding-top: 3rem;">
   <p class="intro-text">Most marketers know their copy could work harder — but rarely have a scientific way to analyze what's working, what's not, and exactly why. The Marketing Analyzer is a single destination to evaluate any written content against the MECLABS Conversion Heuristic. Receive objective, research-based feedback and move from guessing to confident optimization.</p>
 
   <div class="stakes-callout">
@@ -284,13 +562,14 @@
         <span class="widget-cta-title">Run Your Analysis</span>
         <span class="widget-cta-sub">Select a content type, paste your copy, and get a scored MECLABS diagnostic in seconds.</span>
       </div>
-      <button class="widget-cta-btn">Analyze My Copy</button>
+      <button class="btn-ember">Analyze My Copy</button>
     </div>
   </div>
 </div>
 
-<section class="section border-top">
-  <div class="page-wrap">
+<!-- ═══════════ WHY THIS EXISTS ═══════════ -->
+<section class="section bg-card">
+  <div class="container">
     <div class="section-label">Why This Resource Exists</div>
     <div class="tabs-wrap">
       <div class="tab-item">
@@ -341,8 +620,9 @@
   </div>
 </section>
 
-<section class="section border-top" style="background: var(--bg2); padding: 48px 0;">
-  <div class="page-wrap">
+<!-- ═══════════ CONTENT TYPES ═══════════ -->
+<section class="section bg-ivory">
+  <div class="container">
     <div class="section-label">Five Content Types, One Analyzer</div>
     <div class="content-types">
       <div class="type-card">
@@ -374,8 +654,9 @@
   </div>
 </section>
 
-<section class="section border-top">
-  <div class="page-wrap">
+<!-- ═══════════ HOW TO USE ═══════════ -->
+<section class="section bg-card">
+  <div class="container">
     <div class="section-label">How to Use This Tool</div>
     <div class="steps">
       <div class="step">
@@ -402,16 +683,20 @@
   </div>
 </section>
 
-<section class="section border-top" style="background: var(--bg2); padding: 48px 0;">
-  <div class="page-wrap">
+<!-- ═══════════ MISSION ═══════════ -->
+<section class="section bg-ivory">
+  <div class="container">
     <div class="section-label">Built on Research, Not Opinion</div>
     <p class="mission-text">The MECLABS Conversion Heuristic (C = 4m + 3v + 2(i-f) - 2a) is the backbone of every analysis on this page. Developed through more than a decade of marketing experiments, it gives you a <em>scientific framework</em> for what actually moves conversion rates — not what looks good or follows current trends. This tool puts that framework to work on your copy, on demand.</p>
   </div>
 </section>
 
+<!-- ═══════════ DISCLAIMER ═══════════ -->
 <div class="disclaimer">
   <div class="disclaimer-inner">
-    <div class="section-label" style="text-align: left; margin-bottom: 20px;">Important Notes</div>
+    <div class="section-label" style="text-align:left; justify-content:flex-start; margin-bottom: 1.25rem;">
+      Important Notes
+    </div>
     <p>Marketing Analyzer provides diagnostic feedback grounded in the MECLABS Conversion Heuristic. It is an educational instrument, not a substitute for professional marketing strategy, legal review, or compliance guidance.</p>
     <h3>What to Keep in Mind</h3>
     <ul>
@@ -425,9 +710,22 @@
   </div>
 </div>
 
-<footer class="footer">
-  <div class="footer-l">Marketing Analyzer &mdash; Powered by MECLABS Methodology &mdash; For Authorized Use Only</div>
-  <div class="footer-r">Diagnostic and educational purposes only. Not a substitute for professional marketing, legal, or compliance advice.</div>
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <a href="https://strategicbusinessvaluations.com" class="footer-logo" target="_blank" rel="noopener noreferrer">
+        <img src="https://strategicbusinessvaluations.com/assets/SBV_logo.webp" alt="Strategic Business Valuations">
+      </a>
+      <nav class="footer-nav">
+        <a href="https://strategicbusinessvaluations.com">Home</a>
+        <a href="https://strategicbusinessvaluations.com/valuations.html">Services</a>
+        <a href="https://strategicbusinessvaluations.com/insights.html">Insights</a>
+        <a href="https://strategicbusinessvaluations.com/contact.html">Contact</a>
+      </nav>
+      <p class="footer-copy">© 2026 Strategic Business Valuations · Marketing Analyzer</p>
+    </div>
+  </div>
 </footer>
 
 <!-- MeclabsAI Marketing Analyzer Widget -->

@@ -1,6 +1,6 @@
 # Company Overview: GBA & SBV
 
-*Last updated: April 15, 2026 — SBV site launch, Netlify migration complete*
+*Last updated: April 8, 2026 — Q2 quarterly planning + Flint bi-weekly updates*
 
 ## Gateway Business Advisors (GBA)
 
@@ -178,11 +178,8 @@ Gary is heavily invested in MECLABS conversion science methodology. All marketin
 ## Strategic Business Valuations (SBV)
 
 **Website:** https://strategicbusinessvaluations.com/
-**Hosting:** Netlify (free static hosting) -- LIVE as of April 15, 2026
-**Previous platform:** Squarespace (cancelled -- Gary to confirm)
-**Domain registrar:** Network Solutions (login: nehallett@gmail.com)
-**Deployment reference:** See Notion doc -- SBV Website Hosting & Deployment Reference
-  https://www.notion.so/343f99c396de81a99640c519a7dc96f6
+**Previous platform:** Squarespace (being migrated -- see SBV website section in KB_03)
+**New hosting:** Netlify (free static hosting, pending DNS cutover at Register.com)
 
 **SBV is now the primary growth vehicle for Gary and Nancy.** The March 2026 all-hands
 made this explicit. All significant marketing investment, AI infrastructure, and strategic
@@ -293,13 +290,6 @@ dropdown (Active / Non-active).
 --orange:  #E47D46;  /* ADS accent used in demos and widgets */
 ```
 
-### SBV Colors
-```css
---midnight: #0E1F3D;  /* Deep navy -- primary headings, dark backgrounds */
---ember:    #C4553A;  /* Burnt orange -- buttons, accents */
---ivory:    hsl(30, 27%, 95%);  /* Off-white background */
-```
-
 ### Tone
 - Professional but approachable
 - Confident without being aggressive
@@ -375,7 +365,3 @@ dropdown (Active / Non-active).
   until ICP, CFS, and SCA are complete.
 - **GHL** -- GoHighLevel. CRM and marketing automation platform being adopted to replace
   Pipeline CRM. See KB_10_GHL_CRM.md for full details.
-- **Netlify** -- Static hosting platform for SBV site. Free tier. Connected to hugo-demos
-  GitHub repo for auto-deploy on push. Dashboard: app.netlify.com/projects/sbv
-- **Network Solutions** -- Domain registrar for strategicbusinessvaluations.com.
-  Login: nehallett@gmail.com. Do not touch MX/TXT/email CNAME records.

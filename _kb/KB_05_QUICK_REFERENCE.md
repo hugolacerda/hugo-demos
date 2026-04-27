@@ -1,55 +1,49 @@
 # Quick Reference Card
 
-*Last updated: April 15, 2026 — SBV site live on Netlify*
+*Last updated: April 8, 2026*
 
 ## Company URLs
 
 | Company | Live Site | Notes |
 |---------|-----------|-------|
 | GBA | https://www.gatewaybusinessadvisors.com/ | New site being built by Chuck (external) |
-| SBV | https://strategicbusinessvaluations.com/ | LIVE on Netlify as of April 15, 2026 |
+| SBV | https://strategicbusinessvaluations.com/ | Migrating from Squarespace to Netlify -- pending DNS cutover |
 
 ---
 
-## SBV Hosting (Live)
+## SBV Hosting Migration (In Progress)
 
-**Hosting:** Netlify (free static hosting)
-**Netlify project:** app.netlify.com/projects/sbv
-**GitHub repo:** hugolacerda/hugo-demos | Base directory: sbv
-**Domain registrar:** Network Solutions (login: nehallett@gmail.com)
-**Full deployment reference:** https://www.notion.so/343f99c396de81a99640c519a7dc96f6
+**Current:** Squarespace (domain: strategicbusinessvaluations.com registered at Register.com)
+**Target:** Netlify (free static hosting)
+**Blocker:** Hugo needs Gary to provide Register.com login credentials
 
-**Deploy command:**
-```
-cd ~/Desktop/hugo-demos && git add sbv/ && git commit -m "message" && git push
-```
+**Steps:**
+1. Deploy SBV_draft to Netlify (free, drag-and-drop)
+2. Gary provides Register.com access
+3. Hugo updates DNS at Register.com to point to Netlify
+4. Confirm new site loads on domain
+5. Disconnect domain in Squarespace > Settings > Domains & Email
+6. Gary cancels Squarespace plan
 
-**DNS at Network Solutions (do not touch MX/TXT/email records):**
-- A record: `@` → `75.2.60.5` (Netlify load balancer)
-- CNAME: `www` → `sbv.netlify.app`
-
-**Contact form:** Netlify Forms → Gary@gatewaybusinessadvisors.com
-To swap to GHL: Netlify dashboard → Forms → contact → Form notifications → replace
-email notification with GHL webhook URL. No code changes needed.
-
-**Squarespace:** Gary needs to disconnect the domain and cancel the subscription.
-Go to Squarespace → Settings → Domains & Email → remove strategicbusinessvaluations.com
-(do NOT click "Start Transfer"). Then cancel the Squarespace plan.
+**Do NOT click "Start Transfer" in Squarespace** -- that would move domain registration
+to Squarespace. Domain stays at Register.com.
 
 ---
 
 ## Demo Hosting
 
-**GitHub Pages (demos and reference builds):**
+**GitHub Pages (current -- demos and reference builds):**
 - Base URL: https://hugolacerda.github.io/hugo-demos/
 - Repo: https://github.com/hugolacerda/hugo-demos
 - Local path: /Users/hugolacerda/Desktop/hugo-demos/
 - Push workflow: `git add . && git commit -m "description" && git push`
+- Note: index.html was previously in global gitignore. Fixed March 18, 2026.
+  Remove index.html from ~/.gitignore_global if it reappears.
 
-**Netlify (SBV live site):**
-- Free tier, auto-deploys from GitHub on push to main
-- Custom domain: strategicbusinessvaluations.com
-- SSL: Let's Encrypt, auto-renews every 3 months
+**Netlify (production -- SBV live site):**
+- Free tier. No monthly cost for a static site.
+- Deploy: drag SBV_draft folder into Netlify deploy zone
+- Custom domain configured in Netlify > Domain Management
 
 **Active Demo Links:**
 
@@ -62,6 +56,9 @@ Go to Squarespace → Settings → Domains & Email → remove strategicbusinessv
 | Marketing Analyzer | https://hugolacerda.github.io/hugo-demos/market-analyzer/ |
 | Net Proceeds Calculator | https://hugolacerda.github.io/hugo-demos/gba/net-proceeds/ |
 
+**pCloud (legacy, do not use for new projects):**
+- Old demos still at filedn.com URLs for reference only
+
 ---
 
 ## MeclabsAI Asset IDs
@@ -69,17 +66,20 @@ Go to Squarespace → Settings → Domains & Email → remove strategicbusinessv
 ### SBV Business Value Navigator
 | Component | Detail |
 |---|---|
-| Widget ID | au2pzSqFSbYBqi0KMkzJfI3F |
-| Embed script | `<script async src="https://meclabsai.com/embed/chat.js?appId=au2pzSqFSbYBqi0KMkzJfI3F"></script>` |
-| Deployed | All 7 pages of strategicbusinessvaluations.com |
+| Widget | Live on strategicbusinessvaluations.com |
 | Analytics | 19 users, 120 interactions (as of April 8) |
 | Action needed | Configure transcript analysis email delivery |
 
 ### Industry Insider (GBA) -- formerly Market Pulse
 | Component | ID |
 |-----------|-----|
+| Expert | (log from MeclabsAI dashboard) |
 | Widget | `y1nDqm0lbalGkdYGSmzXkQfC` |
-| Embed script | `<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>` |
+
+### Widget Embed -- Industry Insider
+```html
+<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
+```
 
 ### GBA General Site Agent -- NOT YET BUILT
 IDs to be documented once built.
@@ -95,16 +95,12 @@ IDs to be documented once built.
 
 ## Design Notes
 
-**SBV brand colors:**
-- Midnight (navy): `#0E1F3D`
-- Ember (orange): `#C4553A`
-- Ivory (background): `hsl(30, 27%, 95%)`
-- Fonts: Playfair Display (headlines), Libre Franklin (body)
+**Orange accent (#E47D46)** is the GBA brand color used in demos and widgets.
+**Final branding authority:** Gary's graphic designer (teaches at Flagler, Fox Business
+Network background). Hugo does not make visual design decisions.
 
-**GBA brand colors (reference only -- final authority is Gary's graphic designer):**
-- Navy: `#1a3a5c`
-- Gold: `#c9a227`
-- Orange accent: `#E47D46`
+**SBV design tokens:** Playfair Display headlines, Libre Franklin body, midnight/ember/ivory
+palette, 1400px max-width container.
 
 ---
 
@@ -118,8 +114,9 @@ Applies to every agent on every site. Gary refers to agents as "The Oracle" inte
 
 ## Key Deadlines
 
-- **~April 22, 2026** -- Facebook campaign deadline (SBV site is now live, GHL still needed)
-- **End of June 2026** -- 6 new AI agents built (Hugo's Q2 goal)
+- **~April 22, 2026** -- SBV site must be live (Flint confirmed 2-week window on April 8;
+  Facebook campaign cannot launch until the site is live)
+- **End of June 2026** -- 6 new AI agents built (Hugo's Q2 goal, confirmed publicly with Flint)
 - **End of June 2026** -- 3 additional active exit planning clients
 - **Q2 2026** -- 1,000 CEPA outreach emails sent; 25 Value Builder surveys completed
 
@@ -128,8 +125,11 @@ Applies to every agent on every site. Gary refers to agents as "The Oracle" inte
 ## Open Technical Questions
 
 - EPI database automation: can CEPA email addresses be extracted programmatically?
-- GHL capabilities during trial: does it replace Calendly and SmarterQueue?
-- MeclabsAI MCP server: Flint confirmed ~1 month out. Monitor and connect when available.
+  (Hugo to research before Amanda builds list manually)
+- GHL capabilities during trial: does it replace Calendly and SmarterQueue? Can it
+  host pages for client sites?
+- MeclabsAI MCP server: Flint confirmed ~1 month out. Monitor and connect as soon as
+  available.
 - Can MeclabsAI widgets be restricted to specific pages? (Quinn -- email drafted)
 
 ---
@@ -137,8 +137,11 @@ Applies to every agent on every site. Gary refers to agents as "The Oracle" inte
 ## Chuck's Warranty Constraint (Read Before Touching GBA Codebase)
 
 Chuck's company offers a lifetime bug-fix warranty on the GBA site. That warranty
-is **voided** the moment independent code modifications are made via FTP. Hugo cannot
-touch the GBA codebase independently. All changes go through Gary to Chuck.
+is **voided** the moment independent code modifications are made via FTP. Gary owns
+the IP and can request FTP access once his payment plan completes, but taking that
+access ends the warranty. Hugo making code changes outside Chuck's team would trigger
+this. Raise it with Gary explicitly before any discussion of Hugo taking over the
+build independently.
 
 ---
 
@@ -151,7 +154,6 @@ touch the GBA codebase independently. All changes go through Gary to Chuck.
 | Morning Calls with Gary -- April 8, 2026 | https://www.notion.so/33df99c396de816fbe19cc1cba0e4db6 |
 | MeclabsAI Library Project Idea | https://www.notion.so/33df99c396de81c9a7a2c8b2bb7ffd8b |
 | Gary Call -- Quick Sync, April 2, 2026 | https://www.notion.so/336f99c396de81e4a3d4ec0970194309 |
-| SBV Website -- Hosting & Deployment Reference | https://www.notion.so/343f99c396de81a99640c519a7dc96f6 |
 
 ## Notion Pages (March 2026 Session)
 
@@ -179,15 +181,27 @@ touch the GBA codebase independently. All changes go through Gary to Chuck.
 | Cal | Referring broker | Referrals only, not deal team, zero CRM contacts |
 | Flint McGlaughlin | MeclabsAI founder | Friend of Gary's; platform access, strategy guidance |
 | Quin McGlaughlin | MeclabsAI | Technical questions about ADS; Flint's son |
-| Leanna | MeclabsAI / Facebook | Top Facebook strategist in Flint's group; leads Facebook campaign |
+| Leanna | MeclabsAI / Facebook | Top Facebook strategist in Flint's group; former attorney; leads Facebook campaign |
 | Kavin Patel | Convrrt | Attends Flint bi-weekly calls |
-| Quinn | MeclabsAI contact | Widget technical questions (different from Quin McGlaughlin) |
+| Quinn | MeclabsAI contact | Widget technical questions (note: different from Quin McGlaughlin) |
 | Chuck | External GBA developer | Gary is the intermediary; Hugo does not contact Chuck directly |
 | Kimberly | Value Builder consultant | Best practices for inactive/paused contact re-engagement |
 | Aaron Eiger | CIO, Value Builder | Identified deliverability issue; key contact for platform questions |
 | O'Shane | LinkedIn outreach | Activated for CEPA/LinkedIn campaign in Q2 |
 | Morris | Gary's contact / Harry funder | Funds Hugo's hours for Light to the Nations project |
 | Harry | Light to the Nations Ministry | Guatemala. Pending credentials from Gary. |
+
+---
+
+## GBA Brand Colors (Reference)
+
+```css
+--primary: #1a3a5c;  /* Navy */
+--accent:  #c9a227;  /* Gold */
+--orange:  #E47D46;  /* ADS accent */
+```
+
+*Final branding decisions rest with Gary's graphic designer, not Hugo.*
 
 ---
 
@@ -206,21 +220,24 @@ touch the GBA codebase independently. All changes go through Gary to Chuck.
 
 ## Current Focus Areas (April 2026)
 
-1. **GHL Setup** -- Trial active. Walkthrough with Gary next week. Must be ready before Facebook campaign.
-2. **Facebook Campaign** -- Strategy with Leanna. Launches after GHL ready.
-3. **Industry Insider Agent** -- Avatar pending Gary selection; Chuck integration pending
-4. **GBA General Site Agent** -- Not yet built; needed for GBA site launch
-5. **Agent builds (6 by end of June)** -- Process documented in KB_11. Team submitting wish lists.
+1. **SBV Website** -- Near launch. Waiting on Register.com access from Gary. ~April 22 deadline.
+2. **GHL Setup** -- Trial active. Walkthrough with Gary next week. Must be ready before Facebook campaign.
+3. **Facebook Campaign** -- Strategy being developed with Leanna. Launches after SBV site + GHL ready.
+4. **Industry Insider Agent** -- Avatar pending Gary selection; Chuck integration pending
+5. **GBA General Site Agent** -- Not yet built; needed for GBA site launch
+6. **Agent builds (6 by end of June)** -- Process documented in KB_11. Team submitting wish lists.
 
 ---
 
 ## Pending Decisions and Open Items
 
-1. GHL walkthrough -- schedule with Gary
-2. Gary's content copy for SBV site -- confirm received / outstanding items
-3. Avatar selection for GBA General Agent -- Gary to pick from archetype folder
-4. Exit-Window direction -- ADS Version vs custom build vs neither? (Gary)
-5. EPI database automation -- can CEPA emails be extracted programmatically? (Hugo to research)
-6. MeclabsAI Library project -- when to start? (After GHL setup)
-7. Chuck warranty -- raise with Gary before any independent code changes to GBA site
-8. Gary to disconnect domain in Squarespace and cancel subscription
+1. Register.com access -- Gary to provide to Hugo
+2. GHL walkthrough -- schedule next week with Gary
+3. Gary's content copy for SBV site -- committed by April 4, confirm received
+4. Micro-affirmation icon strip final copy -- connection dropped before Gary confirmed
+5. Segmentation Card 2 exact heading -- directional only, needs confirmation
+6. Avatar selection for GBA General Agent -- Gary to pick from archetype folder
+7. Exit-Window direction -- ADS Version vs custom build vs neither? (Gary)
+8. EPI database automation -- can CEPA emails be extracted programmatically? (Hugo to research)
+9. MeclabsAI Library project -- when to start? (After SBV launch and GHL setup)
+10. Chuck warranty -- raise with Gary before any independent code changes to GBA site

@@ -1,0 +1,5 @@
+.env
+**/outputs/
+**/.tmp/
+node_modules/
+*.log
