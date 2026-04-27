@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ── Design Tokens ── */
     :root {
       --color-midnight-hsl: 218 55% 10%;
       --color-ember-hsl:    13 55% 50%;
@@ -42,95 +41,54 @@
     img, svg { display: block; max-width: 100%; height: auto; }
     a { color: inherit; text-decoration: none; }
     button { cursor: pointer; font: inherit; background: none; border: none; padding: 0; }
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-headline);
-      font-weight: 500;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
-    }
+    h1, h2, h3, h4, h5, h6 { font-family: var(--font-headline); font-weight: 500; line-height: 1.15; letter-spacing: -0.01em; }
     ul { list-style: none; }
     p { margin: 0; }
 
-    /* ── Container ── */
-    .container { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 2rem; }
+    /* ── Container — matches SBV 1400px max ── */
+    .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+    /* Narrower content container for body sections */
+    .container-md { width: 100%; max-width: 960px; margin: 0 auto; padding: 0 2rem; }
 
     /* ── Header ── */
     .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position: sticky; top: 0; z-index: 50; overflow: visible;
       background-color: hsl(var(--card) / 0.95);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid hsl(var(--border));
     }
-    .site-header .inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 4.5rem;
-    }
+    .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
     @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
 
-    .logo-link { display: flex; align-items: center; }
-    .logo-link img { display: block; height: 38px; width: auto; }
-    @media (min-width: 768px) { .logo-link img { height: 44px; } }
+    .logo-placeholder { display: flex; align-items: center; }
+    .logo-placeholder img { display: block; height: 40px; width: auto; }
+    @media (min-width: 768px) { .logo-placeholder img { height: 45px; } }
 
-    .main-nav { display: none; align-items: center; gap: 1.75rem; }
-    @media (min-width: 900px) { .main-nav { display: flex; } }
-    .main-nav > a {
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.025em;
-      color: hsl(var(--foreground) / 0.75);
-      transition: color 0.15s;
+    .main-nav { display: none; align-items: center; gap: 2rem; }
+    @media (min-width: 768px) { .main-nav { display: flex; } }
+    .main-nav a {
+      font-size: 0.875rem; font-family: var(--font-body); font-weight: 500;
+      letter-spacing: 0.025em; color: hsl(var(--foreground) / 0.8); transition: color 0.15s;
+      white-space: nowrap;
     }
-    .main-nav > a:hover { color: hsl(var(--accent)); }
+    .main-nav a:hover { color: hsl(var(--accent)); }
 
-    /* Dropdown */
     .nav-dropdown { position: relative; }
-    .nav-dropdown > a {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.025em;
-      color: hsl(var(--foreground) / 0.75);
-      transition: color 0.15s;
-      cursor: default;
-    }
-    .nav-dropdown > a:hover { color: hsl(var(--accent)); }
-    .nav-dropdown .chevron { width: 0.65rem; height: 0.65rem; transition: transform 0.2s; }
+    .nav-dropdown > a { display: flex; align-items: center; gap: 0.3rem; }
+    .nav-dropdown .chevron { width: 0.7rem; height: 0.7rem; transition: transform 0.2s; }
     .nav-dropdown:hover .chevron { transform: rotate(180deg); }
     .nav-dd-menu {
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      padding-top: 0.75rem;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity 0.15s, visibility 0.15s;
-      z-index: 60;
+      position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+      padding-top: 0.75rem; opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.15s, visibility 0.15s; z-index: 60;
     }
     .nav-dropdown:hover .nav-dd-menu { opacity: 1; visibility: visible; pointer-events: auto; }
     .nav-dd-inner {
-      background: hsl(var(--card));
-      border: 1px solid hsl(var(--border));
-      border-radius: var(--radius);
-      box-shadow: 0 10px 30px rgba(10,22,40,0.12);
-      padding: 0.5rem;
-      min-width: 240px;
+      background: hsl(var(--card)); border: 1px solid hsl(var(--border));
+      border-radius: var(--radius); box-shadow: 0 10px 30px rgba(10,22,40,0.12);
+      padding: 0.5rem; min-width: 240px;
     }
-    .nav-dd-inner a {
-      display: flex;
-      flex-direction: column;
-      padding: 0.625rem 0.875rem;
-      border-radius: calc(var(--radius) - 2px);
-      transition: background 0.15s;
-    }
+    .nav-dd-inner a { display: flex; flex-direction: column; padding: 0.625rem 0.875rem; border-radius: calc(var(--radius) - 2px); transition: background 0.15s; }
     .nav-dd-inner a:hover { background: hsl(var(--background)); }
     .nav-dd-inner .dd-title { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); transition: color 0.15s; }
     .nav-dd-inner .dd-desc { font-size: 0.6875rem; color: hsl(var(--muted-foreground)); margin-top: 2px; font-weight: 400; }
@@ -138,331 +96,121 @@
 
     .header-right { display: flex; align-items: center; gap: 0.75rem; }
     .header-cta-wrap { display: none; flex-direction: column; align-items: center; gap: 0.375rem; }
-    @media (min-width: 900px) { .header-cta-wrap { display: flex; } }
-    .header-cta-sub {
-      font-size: 10px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: hsl(var(--muted-foreground) / 0.7);
-    }
+    @media (min-width: 768px) { .header-cta-wrap { display: flex; } }
+    .header-cta-sub { font-size: 10px; font-family: var(--font-body); letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground) / 0.7); }
+    .mobile-menu-btn { display: block; color: hsl(var(--foreground)); }
+    @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
 
     /* ── Buttons ── */
     .btn-ember {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      white-space: nowrap;
-      background-color: hsl(var(--color-ember-hsl));
-      color: hsl(var(--color-ivory-hsl));
-      box-shadow: var(--shadow-ember);
-      font-family: var(--font-body);
-      font-size: 0.875rem;
-      font-weight: 600;
-      letter-spacing: 0.025em;
-      height: 2.75rem;
-      border-radius: calc(var(--radius) - 2px);
-      padding: 0 1.5rem;
-      transition: all 0.15s ease;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      white-space: nowrap; background-color: hsl(var(--color-ember-hsl));
+      color: hsl(var(--color-ivory-hsl)); box-shadow: var(--shadow-ember);
+      font-family: var(--font-body); font-size: 0.875rem; font-weight: 600;
+      letter-spacing: 0.025em; height: 2.75rem; border-radius: calc(var(--radius) - 2px);
+      padding: 0 1.5rem; transition: all 0.15s ease; text-decoration: none; border: none; cursor: pointer;
     }
     .btn-ember:hover { background-color: hsl(var(--color-ember-hsl) / 0.9); transform: translateY(-1px); }
 
     /* ── Eyebrow ── */
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
-    }
+    .eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
     .eyebrow .line { width: 2rem; height: 1px; background-color: hsl(var(--accent)); flex-shrink: 0; }
-    .eyebrow span:not(.line) {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: hsl(var(--muted-foreground));
-    }
+    .eyebrow span:not(.line) { font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
     .eyebrow.centered { justify-content: center; }
 
-    /* ── Section label (centered eyebrow-style) ── */
     .section-label {
-      font-family: var(--font-body);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      color: hsl(var(--muted-foreground));
-      text-align: center;
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.75rem;
+      font-family: var(--font-body); font-size: 11px; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: hsl(var(--muted-foreground)); text-align: center;
+      margin-bottom: 2rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem;
     }
-    .section-label::before, .section-label::after {
-      content: '';
-      display: block;
-      width: 2rem;
-      height: 1px;
-      background-color: hsl(var(--accent));
-      flex-shrink: 0;
-    }
+    .section-label::before, .section-label::after { content: ''; display: block; width: 2rem; height: 1px; background-color: hsl(var(--accent)); flex-shrink: 0; }
 
     /* ── Hero ── */
-    .hero-section {
-      padding: 4rem 0 3rem;
-      text-align: center;
-      border-bottom: 1px solid hsl(var(--border));
-    }
+    .hero-section { padding: 4rem 0 3rem; text-align: center; border-bottom: 1px solid hsl(var(--border)); }
     .hero-section .eyebrow { justify-content: center; margin-bottom: 1.5rem; }
-    .hero-section h1 {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 500;
-      color: hsl(var(--foreground));
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-    }
-    .hero-section .sub {
-      font-size: 1.125rem;
-      font-family: var(--font-body);
-      color: hsl(var(--muted-foreground));
-      line-height: 1.6;
-    }
+    .hero-section h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 500; color: hsl(var(--foreground)); margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .hero-section .sub { font-size: 1.125rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); line-height: 1.6; }
 
-    /* ── Intro ── */
-    .intro-text {
-      text-align: center;
-      max-width: 680px;
-      margin: 0 auto 2.5rem;
-      font-size: 1rem;
-      line-height: 1.75;
-      color: hsl(var(--muted-foreground));
-      font-weight: 400;
-    }
+    .intro-text { text-align: center; max-width: 680px; margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.75; color: hsl(var(--muted-foreground)); }
 
-    /* ── Stakes Callout ── */
     .stakes-callout {
-      max-width: 680px;
-      margin: 0 auto 3rem;
-      background: hsl(var(--card));
-      border: 1px solid hsl(var(--border));
-      border-left: 4px solid hsl(var(--accent));
-      border-radius: var(--radius);
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      box-shadow: var(--shadow-sm);
+      max-width: 680px; margin: 0 auto 3rem; background: hsl(var(--card));
+      border: 1px solid hsl(var(--border)); border-left: 4px solid hsl(var(--accent));
+      border-radius: var(--radius); padding: 1.25rem 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem; box-shadow: var(--shadow-sm);
     }
-    .stakes-icon {
-      font-family: var(--font-body);
-      font-size: 10px;
-      font-weight: 700;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: hsl(var(--accent));
-      background: hsl(var(--accent) / 0.08);
-      border: 1px solid hsl(var(--accent) / 0.2);
-      border-radius: 4px;
-      padding: 4px 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .stakes-text {
-      font-size: 0.875rem;
-      color: hsl(var(--muted-foreground));
-      line-height: 1.7;
-    }
+    .stakes-icon { font-family: var(--font-body); font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--accent)); background: hsl(var(--accent) / 0.08); border: 1px solid hsl(var(--accent) / 0.2); border-radius: 4px; padding: 4px 8px; white-space: nowrap; flex-shrink: 0; margin-top: 2px; }
+    .stakes-text { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.7; }
 
-    /* ── Widget CTA ── */
     .widget-cta { display: flex; justify-content: center; margin: 0 auto 4rem; }
     .widget-cta-card {
-      background: hsl(var(--card));
-      border: 1px solid hsl(var(--border));
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 540px;
-      cursor: pointer;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: var(--shadow-sm);
+      background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 12px;
+      padding: 1.5rem; display: flex; align-items: center; justify-content: space-between;
+      gap: 1.5rem; width: 100%; max-width: 540px; cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; box-shadow: var(--shadow-sm);
     }
-    .widget-cta-card:hover {
-      border-color: hsl(var(--accent) / 0.4);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
+    .widget-cta-card:hover { border-color: hsl(var(--accent) / 0.4); box-shadow: var(--shadow-md); transform: translateY(-2px); }
     .widget-cta-text { display: flex; flex-direction: column; gap: 0.25rem; }
     .widget-cta-title { font-size: 0.9375rem; font-weight: 600; color: hsl(var(--foreground)); }
-    .widget-cta-sub { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); font-weight: 400; line-height: 1.5; }
+    .widget-cta-sub { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); line-height: 1.5; }
 
     /* ── Sections ── */
     .section { padding: 4rem 0; }
     .section.bg-card { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); border-bottom: 1px solid hsl(var(--border)); }
     .section.bg-ivory { background: hsl(var(--background)); border-top: 1px solid hsl(var(--border)); }
 
-    /* ── Accordion / Tabs ── */
-    .tabs-wrap {
-      display: flex;
-      flex-direction: column;
-      border: 1px solid hsl(var(--border));
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
-    }
+    /* ── Accordion ── */
+    .tabs-wrap { display: flex; flex-direction: column; border: 1px solid hsl(var(--border)); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); }
     .tab-item { border-bottom: 1px solid hsl(var(--border)); overflow: hidden; }
     .tab-item:last-child { border-bottom: none; }
-    .tab-trigger {
-      width: 100%;
-      background: hsl(var(--card));
-      border: none;
-      color: hsl(var(--foreground));
-      font-family: var(--font-body);
-      font-size: 0.9375rem;
-      font-weight: 500;
-      padding: 1.125rem 1.5rem;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-      transition: background 0.15s;
-    }
+    .tab-trigger { width: 100%; background: hsl(var(--card)); border: none; color: hsl(var(--foreground)); font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500; padding: 1.125rem 1.5rem; text-align: left; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; transition: background 0.15s; }
     .tab-trigger:hover { background: hsl(var(--background)); }
     .tab-trigger.active { background: hsl(var(--accent) / 0.06); }
-    .tab-trigger .chevron {
-      font-size: 1rem;
-      color: hsl(var(--accent));
-      transition: transform 0.2s ease;
-      flex-shrink: 0;
-    }
+    .tab-trigger .chevron { font-size: 1rem; color: hsl(var(--accent)); transition: transform 0.2s ease; flex-shrink: 0; }
     .tab-trigger.active .chevron { transform: rotate(180deg); }
     .tab-body { display: none; padding: 0 1.5rem 1.5rem; background: hsl(var(--background)); }
     .tab-body.open { display: block; }
     .tab-body p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.75; margin-bottom: 0.75rem; }
     .tab-body p:last-child { margin-bottom: 0; }
     .tab-body ul { list-style: none; padding: 0; margin-top: 0.25rem; }
-    .tab-body ul li {
-      font-size: 0.875rem;
-      color: hsl(var(--muted-foreground));
-      line-height: 1.75;
-      padding: 0.25rem 0 0.25rem 1.125rem;
-      position: relative;
-    }
+    .tab-body ul li { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.75; padding: 0.25rem 0 0.25rem 1.125rem; position: relative; }
     .tab-body ul li::before { content: "·"; position: absolute; left: 0.25rem; color: hsl(var(--accent)); }
     .tab-body strong { color: hsl(var(--foreground)); font-weight: 600; }
 
     /* ── Content Types ── */
     .content-types { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.875rem; }
-    .type-card {
-      background: hsl(var(--card));
-      border: 1px solid hsl(var(--border));
-      border-radius: var(--radius);
-      padding: 1.5rem 1rem;
-      text-align: center;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-      box-shadow: var(--shadow-sm);
-    }
-    .type-card:hover {
-      border-color: hsl(var(--accent) / 0.4);
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-    .type-icon {
-      font-family: var(--font-headline);
-      font-size: 1.375rem;
-      font-weight: 600;
-      color: hsl(var(--accent));
-      margin-bottom: 0.625rem;
-      display: block;
-    }
+    .type-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 1.5rem 1rem; text-align: center; transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s; box-shadow: var(--shadow-sm); }
+    .type-card:hover { border-color: hsl(var(--accent) / 0.4); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .type-icon { font-family: var(--font-headline); font-size: 1.375rem; font-weight: 600; color: hsl(var(--accent)); margin-bottom: 0.625rem; display: block; }
     .type-label { font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); margin-bottom: 0.375rem; }
     .type-desc { font-size: 0.75rem; color: hsl(var(--muted-foreground)); line-height: 1.55; }
 
     /* ── Steps ── */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
-    .step-num {
-      font-family: var(--font-headline);
-      font-size: 2rem;
-      font-weight: 500;
-      color: hsl(var(--accent) / 0.35);
-      margin-bottom: 0.625rem;
-      line-height: 1;
-    }
+    .step-num { font-family: var(--font-headline); font-size: 2rem; font-weight: 500; color: hsl(var(--accent) / 0.35); margin-bottom: 0.625rem; line-height: 1; }
     .step h3 { font-size: 1rem; font-weight: 500; line-height: 1.4; margin-bottom: 0.5rem; color: hsl(var(--foreground)); }
     .step p { font-size: 0.875rem; color: hsl(var(--muted-foreground)); line-height: 1.7; }
 
-    /* ── Mission ── */
-    .mission-text {
-      text-align: center;
-      max-width: 600px;
-      margin: 0 auto;
-      font-size: 1rem;
-      line-height: 1.8;
-      color: hsl(var(--muted-foreground));
-    }
+    .mission-text { text-align: center; max-width: 600px; margin: 0 auto; font-size: 1rem; line-height: 1.8; color: hsl(var(--muted-foreground)); }
     .mission-text em { color: hsl(var(--foreground)); font-style: normal; font-weight: 600; }
 
-    /* ── Disclaimer ── */
-    .disclaimer {
-      background: hsl(var(--card));
-      border-top: 1px solid hsl(var(--border));
-      padding: 3rem 0;
-    }
+    .disclaimer { background: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); padding: 3rem 0; }
     .disclaimer-inner { max-width: 760px; margin: 0 auto; padding: 0 2rem; }
-    .disclaimer h3 {
-      font-family: var(--font-body);
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: hsl(var(--foreground));
-      margin-bottom: 0.5rem;
-      margin-top: 1.25rem;
-      letter-spacing: 0.02em;
-    }
+    .disclaimer h3 { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; color: hsl(var(--foreground)); margin-bottom: 0.5rem; margin-top: 1.25rem; letter-spacing: 0.02em; }
     .disclaimer h3:first-child { margin-top: 0; }
-    .disclaimer p, .disclaimer li {
-      font-size: 0.8125rem;
-      color: hsl(var(--muted-foreground));
-      line-height: 1.75;
-    }
+    .disclaimer p, .disclaimer li { font-size: 0.8125rem; color: hsl(var(--muted-foreground)); line-height: 1.75; }
     .disclaimer ul { list-style: none; padding: 0; }
     .disclaimer ul li { padding-left: 1rem; position: relative; }
     .disclaimer ul li::before { content: "·"; position: absolute; left: 0; color: hsl(var(--accent)); }
 
     /* ── Footer ── */
-    .site-footer {
-      background-color: hsl(var(--card));
-      border-top: 1px solid hsl(var(--border));
-      padding: 2.5rem 0;
-      margin-top: auto;
-    }
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.25rem;
-    }
-    @media (min-width: 768px) {
-      .footer-inner { flex-direction: row; justify-content: space-between; }
-    }
+    .site-footer { background-color: hsl(var(--card)); border-top: 1px solid hsl(var(--border)); padding: 2.5rem 0; margin-top: auto; }
+    .footer-inner { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; }
+    @media (min-width: 768px) { .footer-inner { flex-direction: row; justify-content: space-between; } }
     .footer-logo img { display: block; height: 32px; width: auto; }
     @media (min-width: 768px) { .footer-logo img { height: 36px; } }
     .footer-nav { display: flex; gap: 1.5rem; }
-    .footer-nav a {
-      font-size: 0.875rem;
-      color: hsl(var(--muted-foreground));
-      transition: color 0.15s;
-    }
+    .footer-nav a { font-size: 0.875rem; color: hsl(var(--muted-foreground)); transition: color 0.15s; }
     .footer-nav a:hover { color: hsl(var(--accent)); }
     .footer-copy { font-size: 0.75rem; color: hsl(var(--muted-foreground)); }
 
@@ -472,11 +220,11 @@
     .meclabs-ai-notification-container-wrapper,
     .meclabs-ai-notification-gentle-nudge,
     .meclabs-ai-custom-trigger-primary-container {
-      display: none !important;
-      visibility: hidden !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
+      display: none !important; visibility: hidden !important;
+      opacity: 0 !important; pointer-events: none !important;
+      height: 0 !important; overflow: hidden !important;
     }
+    [id^="meclabs-ai-widget"], [class^="meclabs-ai-widget"] { max-height: 0 !important; overflow: hidden !important; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -493,32 +241,21 @@
 </head>
 <body>
 
-<!-- ═══════════ HEADER ═══════════ -->
+<!-- HEADER -->
 <header class="site-header">
   <div class="container inner">
-    <a href="https://strategicbusinessvaluations.com" class="logo-link" target="_blank" rel="noopener noreferrer">
-      <img src="https://strategicbusinessvaluations.com/assets/SBV_logo.webp" alt="Strategic Business Valuations">
+    <a href="https://strategicbusinessvaluations.com" class="logo-placeholder">
+      <img src="https://strategicbusinessvaluations.com/assets/SBV_logo.webp" alt="Strategic Business Valuations" height="45">
     </a>
     <nav class="main-nav">
       <a href="https://strategicbusinessvaluations.com">Home</a>
       <div class="nav-dropdown">
-        <a href="https://strategicbusinessvaluations.com/valuations.html">Services
-          <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
-        </a>
+        <a href="https://strategicbusinessvaluations.com/valuations.html">Services <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a>
         <div class="nav-dd-menu">
           <div class="nav-dd-inner">
-            <a href="https://strategicbusinessvaluations.com/valuations.html">
-              <span class="dd-title">Valuations</span>
-              <span class="dd-desc">Certified reports for any situation</span>
-            </a>
-            <a href="https://strategicbusinessvaluations.com/exit.html">
-              <span class="dd-title">Exit Planning</span>
-              <span class="dd-desc">Maximize your exit value</span>
-            </a>
-            <a href="https://strategicbusinessvaluations.com/advisory.html">
-              <span class="dd-title">Buy-Sell Advisory</span>
-              <span class="dd-desc">Close the deal the right way</span>
-            </a>
+            <a href="https://strategicbusinessvaluations.com/valuations.html"><span class="dd-title">Valuations</span><span class="dd-desc">Certified reports for any situation</span></a>
+            <a href="https://strategicbusinessvaluations.com/exit.html"><span class="dd-title">Exit Planning</span><span class="dd-desc">Maximize your exit value</span></a>
+            <a href="https://strategicbusinessvaluations.com/advisory.html"><span class="dd-title">Buy-Sell Advisory</span><span class="dd-desc">Close the deal the right way</span></a>
           </div>
         </div>
       </div>
@@ -532,12 +269,15 @@
         <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember">Speak with a Certified Expert</a>
         <span class="header-cta-sub">15-minute call · No obligation</span>
       </div>
+      <button class="mobile-menu-btn" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+      </button>
     </div>
   </div>
 </header>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section class="hero-section container">
+<!-- HERO -->
+<section class="hero-section container-md">
   <div class="eyebrow centered">
     <span class="line"></span>
     <span>Copy Diagnostic Tool</span>
@@ -547,8 +287,8 @@
   <p class="sub">Evaluate All Your Marketing Copy with MECLABS Principles</p>
 </section>
 
-<!-- ═══════════ INTRO + CTA ═══════════ -->
-<div class="container" style="padding-top: 3rem;">
+<!-- INTRO + CTA -->
+<div class="container-md" style="padding-top: 3rem;">
   <p class="intro-text">Most marketers know their copy could work harder — but rarely have a scientific way to analyze what's working, what's not, and exactly why. The Marketing Analyzer is a single destination to evaluate any written content against the MECLABS Conversion Heuristic. Receive objective, research-based feedback and move from guessing to confident optimization.</p>
 
   <div class="stakes-callout">
@@ -567,9 +307,9 @@
   </div>
 </div>
 
-<!-- ═══════════ WHY THIS EXISTS ═══════════ -->
+<!-- WHY THIS EXISTS -->
 <section class="section bg-card">
-  <div class="container">
+  <div class="container-md">
     <div class="section-label">Why This Resource Exists</div>
     <div class="tabs-wrap">
       <div class="tab-item">
@@ -620,83 +360,45 @@
   </div>
 </section>
 
-<!-- ═══════════ CONTENT TYPES ═══════════ -->
+<!-- CONTENT TYPES -->
 <section class="section bg-ivory">
-  <div class="container">
+  <div class="container-md">
     <div class="section-label">Five Content Types, One Analyzer</div>
     <div class="content-types">
-      <div class="type-card">
-        <span class="type-icon">VP</span>
-        <div class="type-label">Value Proposition</div>
-        <div class="type-desc">Clarity, appeal, exclusivity, and credibility of your core claim</div>
-      </div>
-      <div class="type-card">
-        <span class="type-icon">EM</span>
-        <div class="type-label">Email Content</div>
-        <div class="type-desc">Subject line, body copy, CTA strength, friction, and anxiety triggers</div>
-      </div>
-      <div class="type-card">
-        <span class="type-icon">SM</span>
-        <div class="type-label">Social Post</div>
-        <div class="type-desc">Hook strength, clarity, intent match, and platform CTA fit</div>
-      </div>
-      <div class="type-card">
-        <span class="type-icon">BP</span>
-        <div class="type-label">Blog Post</div>
-        <div class="type-desc">Headline continuity, value delivery, and next-step logic</div>
-      </div>
-      <div class="type-card">
-        <span class="type-icon">HP</span>
-        <div class="type-label">Homepage Copy</div>
-        <div class="type-desc">Above-the-fold hierarchy, conversion pathway, and trust signals</div>
-      </div>
+      <div class="type-card"><span class="type-icon">VP</span><div class="type-label">Value Proposition</div><div class="type-desc">Clarity, appeal, exclusivity, and credibility of your core claim</div></div>
+      <div class="type-card"><span class="type-icon">EM</span><div class="type-label">Email Content</div><div class="type-desc">Subject line, body copy, CTA strength, friction, and anxiety triggers</div></div>
+      <div class="type-card"><span class="type-icon">SM</span><div class="type-label">Social Post</div><div class="type-desc">Hook strength, clarity, intent match, and platform CTA fit</div></div>
+      <div class="type-card"><span class="type-icon">BP</span><div class="type-label">Blog Post</div><div class="type-desc">Headline continuity, value delivery, and next-step logic</div></div>
+      <div class="type-card"><span class="type-icon">HP</span><div class="type-label">Homepage Copy</div><div class="type-desc">Above-the-fold hierarchy, conversion pathway, and trust signals</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ HOW TO USE ═══════════ -->
+<!-- HOW TO USE -->
 <section class="section bg-card">
-  <div class="container">
+  <div class="container-md">
     <div class="section-label">How to Use This Tool</div>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <h3>Select your content type.</h3>
-        <p>Choose one of five categories: Value Proposition, Email, Social Post, Blog Post, or Homepage Copy.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <h3>Paste your copy.</h3>
-        <p>Paste in the full text you want evaluated. For email include the subject line. For homepage include the above-the-fold section at minimum.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <h3>Get your MECLABS diagnostic.</h3>
-        <p>Receive a scored breakdown across five dimensions: motivation, value proposition clarity, friction, anxiety, and CTA strength.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <h3>Act on your top three changes.</h3>
-        <p>Every analysis closes with a prioritized list of the highest-impact, lowest-effort copy improvements to make first.</p>
-      </div>
+      <div class="step"><div class="step-num">01</div><h3>Select your content type.</h3><p>Choose one of five categories: Value Proposition, Email, Social Post, Blog Post, or Homepage Copy.</p></div>
+      <div class="step"><div class="step-num">02</div><h3>Paste your copy.</h3><p>Paste in the full text you want evaluated. For email include the subject line. For homepage include the above-the-fold section at minimum.</p></div>
+      <div class="step"><div class="step-num">03</div><h3>Get your MECLABS diagnostic.</h3><p>Receive a scored breakdown across five dimensions: motivation, value proposition clarity, friction, anxiety, and CTA strength.</p></div>
+      <div class="step"><div class="step-num">04</div><h3>Act on your top three changes.</h3><p>Every analysis closes with a prioritized list of the highest-impact, lowest-effort copy improvements to make first.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════ MISSION ═══════════ -->
+<!-- MISSION -->
 <section class="section bg-ivory">
-  <div class="container">
+  <div class="container-md">
     <div class="section-label">Built on Research, Not Opinion</div>
     <p class="mission-text">The MECLABS Conversion Heuristic (C = 4m + 3v + 2(i-f) - 2a) is the backbone of every analysis on this page. Developed through more than a decade of marketing experiments, it gives you a <em>scientific framework</em> for what actually moves conversion rates — not what looks good or follows current trends. This tool puts that framework to work on your copy, on demand.</p>
   </div>
 </section>
 
-<!-- ═══════════ DISCLAIMER ═══════════ -->
+<!-- DISCLAIMER -->
 <div class="disclaimer">
   <div class="disclaimer-inner">
-    <div class="section-label" style="text-align:left; justify-content:flex-start; margin-bottom: 1.25rem;">
-      Important Notes
-    </div>
+    <div class="section-label" style="text-align:left; justify-content:flex-start; margin-bottom:1.25rem;">Important Notes</div>
     <p>Marketing Analyzer provides diagnostic feedback grounded in the MECLABS Conversion Heuristic. It is an educational instrument, not a substitute for professional marketing strategy, legal review, or compliance guidance.</p>
     <h3>What to Keep in Mind</h3>
     <ul>
@@ -710,7 +412,7 @@
   </div>
 </div>
 
-<!-- ═══════════ FOOTER ═══════════ -->
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="container">
     <div class="footer-inner">
@@ -728,18 +430,35 @@
   </div>
 </footer>
 
-<!-- MeclabsAI Marketing Analyzer Widget -->
+<!-- MeclabsAI Widget -->
 <script async src="https://meclabsai.com/embed/chat.js?appId=prggLO7YjTahW0ATOD8S"></script>
 
 <script>
   function toggleTab(trigger) {
-    const allTriggers = document.querySelectorAll('.tab-trigger');
-    const allBodies = document.querySelectorAll('.tab-body');
-    allTriggers.forEach(t => t.classList.remove('active'));
-    allBodies.forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.tab-trigger').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-body').forEach(b => b.classList.remove('open'));
     trigger.classList.add('active');
     trigger.nextElementSibling.classList.add('open');
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const nav = document.querySelector('.main-nav');
+    if (!menuBtn || !nav) return;
+    menuBtn.addEventListener('click', () => {
+      const open = nav.style.display === 'flex';
+      nav.style.display = open ? '' : 'flex';
+      nav.style.flexDirection = open ? '' : 'column';
+      nav.style.position = open ? '' : 'absolute';
+      nav.style.top = open ? '' : '100%';
+      nav.style.left = open ? '' : '0';
+      nav.style.right = open ? '' : '0';
+      nav.style.background = open ? '' : 'hsl(0 0% 100%)';
+      nav.style.padding = open ? '' : '1rem 2rem 1.5rem';
+      nav.style.borderBottom = open ? '' : '1px solid hsl(37 22% 78%)';
+      nav.style.zIndex = open ? '' : '49';
+    });
+  });
 </script>
 
 </body>
