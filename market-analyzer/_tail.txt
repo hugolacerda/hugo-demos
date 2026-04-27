@@ -1,0 +1,18 @@
+<!-- MeclabsAI Marketing Analyzer Widget -->
+<script async src="https://meclabsai.com/embed/chat.js?appId=prggLO7YjTahW0ATOD8S"></script>
+
+<script>
+  function toggleTab(trigger) {
+    const allTriggers = document.querySelectorAll('.tab-trigger');
+    const allBodies = document.querySelectorAll('.tab-body');
+
+    allTriggers.forEach(t => t.classList.remove('active'));
+    allBodies.forEach(b => b.classList.remove('open'));
+
+    trigger.classList.add('active');
+    trigger.nextElementSibling.classList.add('open');
+  }
+</script>
+
+</body>
+</html>

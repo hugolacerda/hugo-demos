@@ -31,7 +31,6 @@
       min-height: 100vh;
     }
 
-    /* Grid overlay */
     body::before {
       content: '';
       position: fixed;
@@ -44,7 +43,6 @@
       z-index: 0;
     }
 
-    /* Radial glow */
     body::after {
       content: '';
       position: fixed;
@@ -58,7 +56,6 @@
       z-index: 0;
     }
 
-    /* Noise texture */
     .noise {
       position: fixed;
       inset: 0;
@@ -69,7 +66,6 @@
       background-size: 128px;
     }
 
-    /* Header */
     .header {
       position: relative;
       z-index: 10;
@@ -81,444 +77,148 @@
       animation: up 0.5s ease both;
     }
 
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .logo-text {
-      font-family: var(--mono);
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text);
-      letter-spacing: 0.5px;
-    }
-
-    .logo-sep {
-      width: 1px;
-      height: 20px;
-      background: var(--border);
-    }
-
-    .logo-tag {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      color: var(--accent);
-    }
+    .logo-wrap { display: flex; align-items: center; gap: 14px; }
+    .logo-text { font-family: var(--mono); font-size: 13px; font-weight: 600; color: var(--text); letter-spacing: 0.5px; }
+    .logo-sep { width: 1px; height: 20px; background: var(--border); }
+    .logo-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); }
 
     .status-pill {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-      border: 1px solid var(--border);
-      padding: 6px 14px;
-      border-radius: 100px;
+      display: flex; align-items: center; gap: 8px;
+      font-family: var(--mono); font-size: 10px; color: var(--muted);
+      border: 1px solid var(--border); padding: 6px 14px; border-radius: 100px;
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
-      box-shadow: 0 0 8px #22c55e;
+      width: 6px; height: 6px; border-radius: 50%;
+      background: #22c55e; box-shadow: 0 0 8px #22c55e;
       animation: blink 2.5s ease-in-out infinite;
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50%       { opacity: 0.25; }
-    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+    @keyframes up { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
 
-    @keyframes up {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Layout */
     .page-wrap { max-width: 900px; margin: 0 auto; padding: 0 48px; }
     .section { position: relative; z-index: 10; padding: 64px 0; }
     .border-top { border-top: 1px solid var(--border); }
 
     .eyebrow {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.75;
-      margin-bottom: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 4px;
+      text-transform: uppercase; color: var(--accent); opacity: 0.75;
+      margin-bottom: 32px; display: flex; align-items: center; justify-content: center; gap: 16px;
     }
-    .eyebrow::before, .eyebrow::after {
-      content: '';
-      display: block;
-      width: 44px;
-      height: 1px;
-      background: var(--accent);
-      opacity: 0.3;
-    }
+    .eyebrow::before, .eyebrow::after { content: ''; display: block; width: 44px; height: 1px; background: var(--accent); opacity: 0.3; }
 
     .section-label {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--accent);
-      opacity: 0.75;
-      margin-bottom: 32px;
-      text-align: center;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--accent); opacity: 0.75;
+      margin-bottom: 32px; text-align: center;
     }
 
-    /* Hero */
-    .hero-section {
-      position: relative;
-      z-index: 10;
-      padding: 72px 0 48px;
-      text-align: center;
-    }
-
-    .hero-section h1 {
-      font-size: clamp(40px, 6vw, 72px);
-      font-weight: 300;
-      letter-spacing: -2px;
-      margin-bottom: 12px;
-    }
-
-    .hero-section .sub {
-      font-size: 18px;
-      color: var(--text);
-      opacity: 0.6;
-    }
+    .hero-section { position: relative; z-index: 10; padding: 72px 0 48px; text-align: center; }
+    .hero-section h1 { font-size: clamp(40px, 6vw, 72px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; }
+    .hero-section .sub { font-size: 18px; color: var(--text); opacity: 0.6; }
 
     .intro-text {
-      text-align: center;
-      max-width: 720px;
-      margin: 0 auto 48px;
-      font-size: 15px;
-      line-height: 1.85;
-      color: var(--muted);
-      font-weight: 300;
+      text-align: center; max-width: 720px; margin: 0 auto 48px;
+      font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300;
     }
 
-    /* Stakes callout */
     .stakes-callout {
-      max-width: 720px;
-      margin: 0 auto 56px;
-      background: var(--surface);
-      border: 1px solid rgba(228,125,70,0.2);
-      border-radius: 10px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
+      max-width: 720px; margin: 0 auto 56px;
+      background: var(--surface); border: 1px solid rgba(228,125,70,0.2);
+      border-radius: 10px; padding: 20px 24px;
+      display: flex; align-items: flex-start; gap: 16px;
     }
 
     .stakes-icon {
-      font-family: var(--mono);
-      font-size: 10px;
-      letter-spacing: 2px;
-      color: var(--accent);
-      background: rgba(228,125,70,0.1);
-      border: 1px solid rgba(228,125,70,0.2);
-      border-radius: 6px;
-      padding: 5px 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-      margin-top: 1px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+      color: var(--accent); background: rgba(228,125,70,0.1);
+      border: 1px solid rgba(228,125,70,0.2); border-radius: 6px;
+      padding: 5px 8px; white-space: nowrap; flex-shrink: 0; margin-top: 1px;
     }
 
-    .stakes-text {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 300;
-    }
+    .stakes-text { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
 
-    /* Widget CTA */
-    .widget-cta {
-      display: flex;
-      justify-content: center;
-      margin: 0 auto 64px;
-    }
+    .widget-cta { display: flex; justify-content: center; margin: 0 auto 64px; }
 
     .widget-cta-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      width: 100%;
-      max-width: 520px;
-      cursor: pointer;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 20px; padding: 20px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      width: 100%; max-width: 520px; cursor: pointer;
       transition: border-color 0.2s ease, transform 0.15s ease;
     }
 
-    .widget-cta-card:hover {
-      border-color: rgba(228,125,70,0.4);
-      transform: scale(1.02);
-    }
-
-    .widget-cta-text {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .widget-cta-title {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--text);
-    }
-
-    .widget-cta-sub {
-      font-size: 13px;
-      color: var(--muted);
-      font-weight: 300;
-    }
+    .widget-cta-card:hover { border-color: rgba(228,125,70,0.4); transform: scale(1.02); }
+    .widget-cta-text { display: flex; flex-direction: column; gap: 4px; }
+    .widget-cta-title { font-size: 15px; font-weight: 500; color: var(--text); }
+    .widget-cta-sub { font-size: 13px; color: var(--muted); font-weight: 300; }
 
     .widget-cta-btn {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 10px 22px;
-      font-size: 13px;
-      font-weight: 500;
-      cursor: pointer;
-      white-space: nowrap;
-      font-family: var(--sans);
-      transition: opacity 0.15s ease;
-      flex-shrink: 0;
+      background: var(--accent); color: #fff; border: none; border-radius: 8px;
+      padding: 10px 22px; font-size: 13px; font-weight: 500; cursor: pointer;
+      white-space: nowrap; font-family: var(--sans); transition: opacity 0.15s ease; flex-shrink: 0;
     }
 
     .widget-cta-btn:hover { opacity: 0.85; }
 
-    /* Value tabs */
-    .tabs-wrap {
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
-    .tab-item {
-      border-bottom: 1px solid var(--border);
-      overflow: hidden;
-    }
-
+    .tabs-wrap { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .tab-item { border-bottom: 1px solid var(--border); overflow: hidden; }
     .tab-item:last-child { border-bottom: none; }
 
     .tab-trigger {
-      width: 100%;
-      background: var(--surface);
-      border: none;
-      color: var(--text);
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 500;
-      padding: 18px 24px;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      transition: background 0.15s ease;
+      width: 100%; background: var(--surface); border: none; color: var(--text);
+      font-family: var(--sans); font-size: 14px; font-weight: 500; padding: 18px 24px;
+      text-align: left; cursor: pointer; display: flex; align-items: center;
+      justify-content: space-between; gap: 12px; transition: background 0.15s ease;
     }
 
     .tab-trigger:hover { background: rgba(255,255,255,0.03); }
     .tab-trigger.active { background: rgba(228,125,70,0.08); }
-
-    .tab-trigger .chevron {
-      font-family: var(--mono);
-      font-size: 12px;
-      color: var(--accent);
-      opacity: 0.6;
-      transition: transform 0.2s ease;
-      flex-shrink: 0;
-    }
-
+    .tab-trigger .chevron { font-family: var(--mono); font-size: 12px; color: var(--accent); opacity: 0.6; transition: transform 0.2s ease; flex-shrink: 0; }
     .tab-trigger.active .chevron { transform: rotate(180deg); }
 
-    .tab-body {
-      display: none;
-      padding: 0 24px 24px;
-      background: var(--bg2);
-    }
-
+    .tab-body { display: none; padding: 0 24px 24px; background: var(--bg2); }
     .tab-body.open { display: block; }
-
-    .tab-body p {
-      font-size: 14px;
-      color: var(--muted);
-      line-height: 1.8;
-      font-weight: 300;
-      margin-bottom: 12px;
-    }
-
+    .tab-body p { font-size: 14px; color: var(--muted); line-height: 1.8; font-weight: 300; margin-bottom: 12px; }
     .tab-body p:last-child { margin-bottom: 0; }
+    .tab-body ul { list-style: none; padding: 0; margin-top: 4px; }
+    .tab-body ul li { font-size: 13px; color: var(--muted); line-height: 1.75; font-weight: 300; padding: 4px 0 4px 18px; position: relative; }
+    .tab-body ul li::before { content: "·"; position: absolute; left: 4px; color: var(--accent); }
+    .tab-body strong { color: var(--text); font-weight: 500; }
 
-    .tab-body ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 4px;
-    }
-
-    .tab-body ul li {
-      font-size: 13px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-weight: 300;
-      padding: 4px 0;
-      padding-left: 18px;
-      position: relative;
-    }
-
-    .tab-body ul li::before {
-      content: "·";
-      position: absolute;
-      left: 4px;
-      color: var(--accent);
-    }
-
-    .tab-body strong {
-      color: var(--text);
-      font-weight: 500;
-    }
-
-    /* Content type cards */
-    .content-types {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 12px;
-    }
-
-    .type-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 20px 16px;
-      text-align: center;
-      transition: border-color 0.2s ease;
-    }
-
+    .content-types { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .type-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px 16px; text-align: center; transition: border-color 0.2s ease; }
     .type-card:hover { border-color: rgba(228,125,70,0.3); }
+    .type-icon { font-family: var(--mono); font-size: 18px; color: var(--accent); margin-bottom: 10px; display: block; }
+    .type-label { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 6px; }
+    .type-desc { font-size: 11px; color: var(--muted); line-height: 1.6; font-weight: 300; }
 
-    .type-icon {
-      font-family: var(--mono);
-      font-size: 18px;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .type-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .type-desc {
-      font-size: 11px;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 300;
-    }
-
-    /* How it works steps */
     .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
     .step-num { font-family: var(--mono); font-size: 11px; color: var(--accent); opacity: 0.6; margin-bottom: 10px; }
     .step h3 { font-size: 14px; font-weight: 500; line-height: 1.45; margin-bottom: 8px; }
     .step p { font-size: 13px; color: var(--muted); line-height: 1.7; font-weight: 300; }
 
-    /* Mission */
-    .mission-text {
-      text-align: center;
-      max-width: 620px;
-      margin: 0 auto;
-      font-size: 15px;
-      line-height: 1.85;
-      color: var(--muted);
-      font-weight: 300;
-    }
-
+    .mission-text { text-align: center; max-width: 620px; margin: 0 auto; font-size: 15px; line-height: 1.85; color: var(--muted); font-weight: 300; }
     .mission-text em { color: var(--text); font-style: normal; }
 
-    /* Disclaimer */
-    .disclaimer {
-      border-top: 1px solid var(--border);
-      background: var(--bg2);
-      padding: 48px 0;
-    }
-
+    .disclaimer { border-top: 1px solid var(--border); background: var(--bg2); padding: 48px 0; }
     .disclaimer-inner { max-width: 760px; margin: 0 auto; padding: 0 48px; }
-
-    .disclaimer h3 {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--text);
-      opacity: 0.7;
-      margin-bottom: 10px;
-      margin-top: 20px;
-    }
-
+    .disclaimer h3 { font-size: 13px; font-weight: 500; color: var(--text); opacity: 0.7; margin-bottom: 10px; margin-top: 20px; }
     .disclaimer h3:first-child { margin-top: 0; }
-
-    .disclaimer p, .disclaimer li {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.75;
-      font-weight: 300;
-    }
-
+    .disclaimer p, .disclaimer li { font-size: 12px; color: var(--muted); line-height: 1.75; font-weight: 300; }
     .disclaimer ul { list-style: none; padding: 0; }
-
     .disclaimer ul li::before { content: "·  "; color: var(--accent); }
 
-    /* Footer */
     .footer {
-      position: relative;
-      z-index: 10;
-      border-top: 1px solid var(--border);
-      padding: 18px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      animation: up 0.5s ease both;
-      animation-delay: 0.1s;
+      position: relative; z-index: 10; border-top: 1px solid var(--border);
+      padding: 18px 48px; display: flex; justify-content: space-between;
+      align-items: center; gap: 20px; animation: up 0.5s ease both; animation-delay: 0.1s;
     }
 
-    .footer-l {
-      font-family: var(--mono);
-      font-size: 10px;
-      color: var(--muted);
-    }
+    .footer-l { font-family: var(--mono); font-size: 10px; color: var(--muted); }
+    .footer-r { font-size: 11px; color: var(--muted); opacity: 0.4; text-align: right; max-width: 400px; }
 
-    .footer-r {
-      font-size: 11px;
-      color: var(--muted);
-      opacity: 0.4;
-      text-align: right;
-      max-width: 400px;
-    }
-
-    /* Hide native widget trigger */
     #meclabs-ai-widget-btn,
     #meclabs-ai-widget-image-trigger,
     .meclabs-ai-notification-container-wrapper,
@@ -530,7 +230,6 @@
       pointer-events: none !important;
     }
 
-    /* Mobile */
     @media (max-width: 768px) {
       .page-wrap { padding: 0 24px; }
       .header { padding: 18px 24px; }
@@ -553,7 +252,6 @@
 
 <div class="noise"></div>
 
-<!-- Header -->
 <header class="header">
   <div class="logo-wrap">
     <span class="logo-text">Marketing Analyzer</span>
@@ -566,16 +264,13 @@
   </div>
 </header>
 
-<!-- Hero -->
 <section class="hero-section page-wrap">
   <div class="eyebrow">Copy Diagnostic Tool</div>
   <h1>Marketing Analyzer</h1>
   <p class="sub">Evaluate All Your Marketing Copy with MECLABS Principles</p>
 </section>
 
-<!-- Intro + Widget CTA -->
 <div class="page-wrap" style="position: relative; z-index: 10;">
-
   <p class="intro-text">Most marketers know their copy could work harder — but rarely have a scientific way to analyze what's working, what's not, and exactly why. The Marketing Analyzer is a single destination to evaluate any written content against the MECLABS Conversion Heuristic. Receive objective, research-based feedback and move from guessing to confident optimization.</p>
 
   <div class="stakes-callout">
@@ -592,15 +287,12 @@
       <button class="widget-cta-btn">Analyze My Copy</button>
     </div>
   </div>
-
 </div>
 
-<!-- Value Proposition Tabs -->
 <section class="section border-top">
   <div class="page-wrap">
     <div class="section-label">Why This Resource Exists</div>
     <div class="tabs-wrap">
-
       <div class="tab-item">
         <button class="tab-trigger active" onclick="toggleTab(this)">
           What is the Value Proposition?
@@ -615,7 +307,6 @@
           </ul>
         </div>
       </div>
-
       <div class="tab-item">
         <button class="tab-trigger" onclick="toggleTab(this)">
           What Can You Accomplish?
@@ -624,14 +315,13 @@
         <div class="tab-body">
           <ul>
             <li>Instantly surface messaging weak spots and overlooked opportunities in any content type.</li>
-            <li>Benchmark each piece — email, blog, post, homepage — for best-practice fit to the MECLABS heuristic.</li>
+            <li>Benchmark each piece against best-practice fit to the MECLABS heuristic.</li>
             <li>Prioritize copy fixes that are most likely to improve conversion, not just aesthetics.</li>
             <li>Get prescriptive, testable recommendations — not just scores.</li>
             <li>Build a culture of data-driven messaging without needing a PhD in marketing science.</li>
           </ul>
         </div>
       </div>
-
       <div class="tab-item">
         <button class="tab-trigger" onclick="toggleTab(this)">
           Why MECLABS Over Gut Feel?
@@ -640,19 +330,17 @@
         <div class="tab-body">
           <ul>
             <li><strong>Proven methodology:</strong> Based on 10,000+ marketing experiments, not opinion or trend-chasing.</li>
-            <li><strong>Faster results:</strong> Spend less time arguing headlines — run your copy through an analytic lens and focus on highest-yield changes.</li>
+            <li><strong>Faster results:</strong> Focus on highest-yield changes instead of arguing over headlines.</li>
             <li><strong>Universality:</strong> One heuristic applies to every major content type, simplifying your process.</li>
             <li><strong>Better ROI:</strong> The system spotlights what not to change, so you don't optimize yourself out of a working message.</li>
             <li><strong>Ongoing learning:</strong> Each evaluation is a mini-lesson in MECLABS thinking applied to your real copy.</li>
           </ul>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- Content Types -->
 <section class="section border-top" style="background: var(--bg2); padding: 48px 0;">
   <div class="page-wrap">
     <div class="section-label">Five Content Types, One Analyzer</div>
@@ -686,7 +374,6 @@
   </div>
 </section>
 
-<!-- How It Works -->
 <section class="section border-top">
   <div class="page-wrap">
     <div class="section-label">How to Use This Tool</div>
@@ -699,7 +386,7 @@
       <div class="step">
         <div class="step-num">02</div>
         <h3>Paste your copy.</h3>
-        <p>Paste in the full text you want evaluated. For email, include the subject line and body. For homepage, include the above-the-fold section at minimum.</p>
+        <p>Paste in the full text you want evaluated. For email include the subject line. For homepage include the above-the-fold section at minimum.</p>
       </div>
       <div class="step">
         <div class="step-num">03</div>
@@ -715,7 +402,6 @@
   </div>
 </section>
 
-<!-- Mission -->
 <section class="section border-top" style="background: var(--bg2); padding: 48px 0;">
   <div class="page-wrap">
     <div class="section-label">Built on Research, Not Opinion</div>
@@ -723,7 +409,6 @@
   </div>
 </section>
 
-<!-- Disclaimer -->
 <div class="disclaimer">
   <div class="disclaimer-inner">
     <div class="section-label" style="text-align: left; margin-bottom: 20px;">Important Notes</div>
@@ -740,23 +425,20 @@
   </div>
 </div>
 
-<!-- Footer -->
 <footer class="footer">
   <div class="footer-l">Marketing Analyzer &mdash; Powered by MECLABS Methodology &mdash; For Authorized Use Only</div>
   <div class="footer-r">Diagnostic and educational purposes only. Not a substitute for professional marketing, legal, or compliance advice.</div>
 </footer>
 
-<!-- MeclabsAI Widget — replace APP_ID with your widget ID when ready -->
-<!-- <script async src="https://meclabsai.com/embed/chat.js?appId=YOUR_WIDGET_ID_HERE"></script> -->
+<!-- MeclabsAI Marketing Analyzer Widget -->
+<script async src="https://meclabsai.com/embed/chat.js?appId=prggLO7YjTahW0ATOD8S"></script>
 
 <script>
   function toggleTab(trigger) {
     const allTriggers = document.querySelectorAll('.tab-trigger');
     const allBodies = document.querySelectorAll('.tab-body');
-
     allTriggers.forEach(t => t.classList.remove('active'));
     allBodies.forEach(b => b.classList.remove('open'));
-
     trigger.classList.add('active');
     trigger.nextElementSibling.classList.add('open');
   }

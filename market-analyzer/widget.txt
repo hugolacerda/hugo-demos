@@ -1,0 +1,2 @@
+<!-- MeclabsAI Marketing Analyzer Widget -->
+<script async src="https://meclabsai.com/embed/chat.js?appId=prggLO7YjTahW0ATOD8S"></script>
