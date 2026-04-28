@@ -224,7 +224,6 @@
       opacity: 0 !important; pointer-events: none !important;
       height: 0 !important; overflow: hidden !important;
     }
-    [id^="meclabs-ai-widget"], [class^="meclabs-ai-widget"] { max-height: 0 !important; overflow: hidden !important; }
 
     /* ── Responsive ── */
     @media (max-width: 768px) {
@@ -297,7 +296,7 @@
   </div>
 
   <div class="widget-cta">
-    <div class="widget-cta-card" onclick="if(window.AIWidget) window.AIWidget.openAIWidget()">
+    <div class="widget-cta-card" onclick="var btn = document.getElementById('meclabs-ai-widget-btn'); if(btn){ btn.style.display='block'; btn.click(); btn.style.display='none'; } else { var triggers = document.querySelectorAll('[class*=meclabs]'); triggers.forEach(function(t){ t.click(); }); }">
       <div class="widget-cta-text">
         <span class="widget-cta-title">Run Your Analysis</span>
         <span class="widget-cta-sub">Select a content type, paste your copy, and get a scored MECLABS diagnostic in seconds.</span>
