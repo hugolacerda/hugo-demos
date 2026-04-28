@@ -99,7 +99,7 @@ SBV's site is being hosted on Netlify (free static hosting), not GHL. That decis
 
 ### SBV Sub-Account (Active)
 - **Location ID:** `ETrWQNJ5xzOqQPGGXk5a`
-- **PIT Token:** `pit-9bc7ec1d-6228-42c7-9110-f01665fabeb6`
+- **PIT Token:** `[rotated — see GHL agency settings]`
 - **Users:** Gary, Nancy, Hugo, Liana Ling (liana@powerupstrategy.com — Facebook campaign)
 
 ### Pipelines Built

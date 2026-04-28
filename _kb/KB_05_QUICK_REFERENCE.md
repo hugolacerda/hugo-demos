@@ -92,7 +92,7 @@ IDs to be documented once built.
 | Item | ID |
 |---|---|
 | SBV Location ID | `ETrWQNJ5xzOqQPGGXk5a` |
-| PIT Token | `pit-9bc7ec1d-6228-42c7-9110-f01665fabeb6` |
+| PIT Token | `[rotated — see GHL agency settings]` |
 | SBV Outreach & Lead Gen Pipeline | `4dlocepdwaCqnS60Db3M` |
 | SBV Valuation Delivery Pipeline | `KmgopAIb10oisDtGbWHf` |
 | Client Engagement Stage (Pipeline 2, Stage 3) | `52621698-1e33-49c2-9fb3-3091b75a8bf7` |
