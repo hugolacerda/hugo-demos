@@ -214,7 +214,7 @@
     .footer-nav a:hover { color: hsl(var(--accent)); }
     .footer-copy { font-size: 0.75rem; color: hsl(var(--muted-foreground)); }
 
-    /* ── Hide MeclabsAI notification UI — btn stays in DOM off-screen so click works ── */
+    /* ── Hide MeclabsAI notification UI ── */
     #meclabs-ai-widget-image-trigger,
     .meclabs-ai-notification-container-wrapper,
     .meclabs-ai-notification-gentle-nudge,
@@ -223,7 +223,7 @@
       opacity: 0 !important; pointer-events: none !important;
       height: 0 !important; overflow: hidden !important;
     }
-    /* Must NOT be display:none — needs to be in DOM for click() to open modal */
+    /* Keep trigger button off-screen — programmatic .click() works on display:none elements */
     #meclabs-ai-widget-btn {
       position: fixed !important;
       bottom: -999px !important;
@@ -231,6 +231,12 @@
       opacity: 0 !important;
       pointer-events: none !important;
       z-index: -1 !important;
+    }
+    /* Fix: GenUI update sets iframe height:0 when visible — restore it */
+    #meclabs-ai-widget.meclabs-ai-widget-visible,
+    #meclabs-ai-widget.meclabs-ai-widget-visible-with-auto-ai {
+      height: 700px !important;
+      min-height: 700px !important;
     }
 
     /* ── Responsive ── */
@@ -304,7 +310,7 @@
   </div>
 
   <div class="widget-cta">
-    <div class="widget-cta-card" onclick="var btn = document.getElementById('meclabs-ai-widget-btn'); if(btn){ btn.style.display='block'; btn.click(); btn.style.display='none'; } else { var triggers = document.querySelectorAll('[class*=meclabs]'); triggers.forEach(function(t){ t.click(); }); }">
+    <div class="widget-cta-card" onclick="(function(){ var b=document.getElementById('meclabs-ai-widget-btn'); if(b) b.click(); })()">  
       <div class="widget-cta-text">
         <span class="widget-cta-title">Run Your Analysis</span>
         <span class="widget-cta-sub">Select a content type, paste your copy, and get a scored MECLABS diagnostic in seconds.</span>
