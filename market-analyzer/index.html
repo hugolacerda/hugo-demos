@@ -214,8 +214,7 @@
     .footer-nav a:hover { color: hsl(var(--accent)); }
     .footer-copy { font-size: 0.75rem; color: hsl(var(--muted-foreground)); }
 
-    /* ── Hide MeclabsAI default UI ── */
-    #meclabs-ai-widget-btn,
+    /* ── Hide MeclabsAI notification UI — btn stays in DOM off-screen so click works ── */
     #meclabs-ai-widget-image-trigger,
     .meclabs-ai-notification-container-wrapper,
     .meclabs-ai-notification-gentle-nudge,
@@ -223,6 +222,15 @@
       display: none !important; visibility: hidden !important;
       opacity: 0 !important; pointer-events: none !important;
       height: 0 !important; overflow: hidden !important;
+    }
+    /* Must NOT be display:none — needs to be in DOM for click() to open modal */
+    #meclabs-ai-widget-btn {
+      position: fixed !important;
+      bottom: -999px !important;
+      right: -999px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      z-index: -1 !important;
     }
 
     /* ── Responsive ── */
