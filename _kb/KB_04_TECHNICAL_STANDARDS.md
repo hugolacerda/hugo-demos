@@ -1,5 +1,36 @@
 # Technical Standards & Workflows
 
+*Last updated: April 28, 2026*
+
+## Gary Communication Rules (Standing)
+
+- **No Notion links to Gary.** Gary cannot navigate Notion login screens. Send documents as PDF email attachments instead.
+- **No em dashes** in any Gary-facing copy. Replace with commas, periods, or rephrased sentences.
+- **All email drafts reviewed by Hugo** before sending on Gary's behalf.
+- **Plain language** — no technical jargon, minimal copy.
+
+---
+
+## SBV Site — Staging Workflow
+
+All SBV changes go to the `staging` branch before merging to `main` (live site).
+
+```bash
+# Work on staging
+git checkout staging
+git add sbv/[file] && git commit -m "description" && git push
+# Preview at: https://69eff6a1dccf5c000817668e--sbv.netlify.app
+
+# When Gary approves:
+git checkout main && git merge staging && git push
+```
+
+**Critical CSS rules:**
+- The `reveal` class must never be applied to above-the-fold or primary layout containers. Only to secondary sections genuinely below the fold. Applying it broadly causes blank pages on short-content pages.
+- Email DNS records (MX, TXT, autodiscover, email CNAMEs) must never be touched during any DNS migration.
+
+---
+
 ## Documentation Workflow
 
 Every project should maintain parallel documentation in both Notion and Trello with cross-links.
@@ -21,24 +52,8 @@ Used for:
 - Tables for asset IDs and comparisons
 
 ### Trello (Project Tracking)
-Used for:
-- Current status at a glance
-- Task tracking (when applicable)
-- Quick links to demos and docs
-- Team visibility
-
-**Board:** MECLABS
-**Link:** https://trello.com/invite/b/69912a923445fd4d5e490e45/ATTI09f9501126703bfa11c8babc85bc2924C9845D1A/meclabs
-
-**Card Structure:**
-- Status badge at top
-- Overview section
-- Links section (demos, Notion, assets)
-- Current blockers/next steps
-
-### Cross-Linking
-Every Notion page should link to its Trello card.
-Every Trello card should link to its Notion page.
+**Note:** Trello has been retired in favor of Notion's Kanban structure as of April 2026.
+**Notion Project Tracker:** https://www.notion.so/42cde02da93448a3be7b4dd400c086b4
 
 ---
 
@@ -51,11 +66,12 @@ Hugo emails Gary at the end of each workday. Based on Hugo's actual email style:
 - **Shows personality** — Humor is welcome, personal anecdotes are fine
 - **Progress-focused** — What was accomplished, what was discovered
 - **Technology showcase** — How MeclabsAI (or other tools) solved problems
-- **Always includes links** — MeclabsAI conversation links, demos, documentation
-- **Identifies issues** — Flags concerns discovered (like spam forms, SEO problems)
+- **Always includes links** — Demo links, documentation
+- **Identifies issues** — Flags concerns discovered
 - **Suggests solutions** — Offers recommendations, not just problems
-- **No em dashes** — Use commas or rephrase instead; em dashes don't reflect Hugo's writing style
+- **No em dashes** — Use commas or rephrase instead
 - **No emojis** — Keep it plain text throughout
+- **No Notion links** — Send documents as PDF attachments instead
 
 ### Typical Structure
 ```
@@ -65,24 +81,15 @@ Hey Gary,
 
 [Main update on what was accomplished today]
 
-[Links to MeclabsAI conversations, demos, or documentation]
+[Links to demos, staging previews, or attached PDFs]
 
 [Any issues discovered and suggested solutions]
 
 [Next steps or questions if needed]
 
-[Hours attachment mention if applicable]
-
 Thanks,
 Hugo
 ```
-
-### How Claude Can Help
-Hugo prefers to write his own emails but may need help:
-- Summarizing what was accomplished during a work session
-- Articulating technical work in accessible terms
-- Organizing multiple topics into a coherent update
-- Generating full emails when explicitly requested
 
 ---
 
@@ -105,56 +112,6 @@ Hugo prefers to write his own emails but may need help:
 **Philosophy:** Don't limit solutions to any specific stack. Be open to whatever technology is most optimized and efficient for the task at hand, as long as it:
 1. Fits Gary's requirements (when specified)
 2. Best serves the interpreted vision (when requirements aren't specified)
-
-Hugo is a web developer with primarily frontend experience, so solutions will typically be web-based, but the specific technologies should be chosen based on the problem, not predetermined preferences.
-
----
-
-## Demo Hosting
-
-### Current: pCloud (filedn.com)
-Hugo currently uses pCloud's public folder functionality for hosting demos.
-
-**Pattern:**
-```
-https://filedn.com/lEMp35zyDdcjd62Gt1NDwuS/[ProjectFolder]/[file.html]
-```
-
-**Current demos:**
-- Exit-Window ADS: `/MarketAnalyzer.html`
-- Exit-Window V1: `/MarketingAnalyzer/index.html`
-- SBV Assessment Widget: `/SBV_Assessment_Tool_Squarespace.html`
-
-**Note:** Hugo isn't satisfied with pCloud for demo hosting and is open to brainstorming better solutions for dev sites and demos in the future.
-
-### GBA Dev Site (External)
-- URL: https://gba.consultprdevsites-18.com
-- **Important:** This is owned by the external company building the GBA site, NOT by Hugo or Gary's team
-- Will have a different URL when the site launches
-
----
-
-## Asset Management
-
-### MeclabsAI Assets
-Always document:
-- Component type (Expert, App, Widget)
-- Name
-- ID
-- Dashboard link
-
-**Format:**
-| Component | Name | ID |
-|-----------|------|-----|
-| Expert | [Name] | `[ID]` |
-| App | [Name] | `[ID]` |
-| Widget | [Name] | `[ID]` |
-
-### Widget Embed Codes
-Always save the full embed snippet:
-```html
-<script async src="https://meclabsai.com/embed/chat.js?appId=[WIDGET_ID]"></script>
-```
 
 ---
 

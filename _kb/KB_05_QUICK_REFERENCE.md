@@ -1,49 +1,43 @@
 # Quick Reference Card
 
-*Last updated: April 8, 2026*
+*Last updated: April 28, 2026*
 
 ## Company URLs
 
 | Company | Live Site | Notes |
 |---------|-----------|-------|
 | GBA | https://www.gatewaybusinessadvisors.com/ | New site being built by Chuck (external) |
-| SBV | https://strategicbusinessvaluations.com/ | Migrating from Squarespace to Netlify -- pending DNS cutover |
+| SBV | https://strategicbusinessvaluations.com/ | LIVE on Netlify. Staging at staging--sbv.netlify.app |
 
 ---
 
-## SBV Hosting Migration (In Progress)
+## SBV Hosting (LIVE)
 
-**Current:** Squarespace (domain: strategicbusinessvaluations.com registered at Register.com)
-**Target:** Netlify (free static hosting)
-**Blocker:** Hugo needs Gary to provide Register.com login credentials
+**Hosting:** Netlify free tier
+**DNS:** Network Solutions (not Register.com — verified via RDAP)
+**Auto-deploy:** GitHub repo `hugolacerda/hugo-demos`, `sbv` folder as both base and publish directory
+**SSL:** Let's Encrypt via Netlify
 
-**Steps:**
-1. Deploy SBV_draft to Netlify (free, drag-and-drop)
-2. Gary provides Register.com access
-3. Hugo updates DNS at Register.com to point to Netlify
-4. Confirm new site loads on domain
-5. Disconnect domain in Squarespace > Settings > Domains & Email
-6. Gary cancels Squarespace plan
+**Staging workflow:**
+```bash
+git checkout staging
+git add sbv/[file] && git commit -m "description" && git push
+# Review at: https://69eff6a1dccf5c000817668e--sbv.netlify.app
+# When approved:
+git checkout main && git merge staging && git push
+```
 
-**Do NOT click "Start Transfer" in Squarespace** -- that would move domain registration
-to Squarespace. Domain stays at Register.com.
+**Critical:** Email DNS records (MX, TXT, autodiscover, email CNAMEs) must never be touched. They protect Gary's Microsoft/Outlook email.
 
 ---
 
 ## Demo Hosting
 
-**GitHub Pages (current -- demos and reference builds):**
+**GitHub Pages (demos and reference builds):**
 - Base URL: https://hugolacerda.github.io/hugo-demos/
 - Repo: https://github.com/hugolacerda/hugo-demos
 - Local path: /Users/hugolacerda/Desktop/hugo-demos/
 - Push workflow: `git add . && git commit -m "description" && git push`
-- Note: index.html was previously in global gitignore. Fixed March 18, 2026.
-  Remove index.html from ~/.gitignore_global if it reappears.
-
-**Netlify (production -- SBV live site):**
-- Free tier. No monthly cost for a static site.
-- Deploy: drag SBV_draft folder into Netlify deploy zone
-- Custom domain configured in Netlify > Domain Management
 
 **Active Demo Links:**
 
@@ -56,35 +50,35 @@ to Squarespace. Domain stays at Register.com.
 | Marketing Analyzer | https://hugolacerda.github.io/hugo-demos/market-analyzer/ |
 | Net Proceeds Calculator | https://hugolacerda.github.io/hugo-demos/gba/net-proceeds/ |
 
-**pCloud (legacy, do not use for new projects):**
-- Old demos still at filedn.com URLs for reference only
-
 ---
 
 ## MeclabsAI Asset IDs
 
 ### SBV Business Value Navigator
-| Component | Detail |
+| Component | ID / Detail |
 |---|---|
-| Widget | Live on strategicbusinessvaluations.com |
-| Analytics | 19 users, 120 interactions (as of April 8) |
+| Widget ID | `au2pzSqFSbYBqi0KMkzJfI3F` |
+| Status | Live on strategicbusinessvaluations.com (site-wide) |
 | Action needed | Configure transcript analysis email delivery |
 
-### Industry Insider (GBA) -- formerly Market Pulse
+### GBA Industry Insider (formerly Market Pulse)
 | Component | ID |
 |-----------|-----|
-| Expert | (log from MeclabsAI dashboard) |
 | Widget | `y1nDqm0lbalGkdYGSmzXkQfC` |
+| Embed | `<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>` |
 
-### Widget Embed -- Industry Insider
-```html
-<script async src="https://meclabsai.com/embed/chat.js?appId=y1nDqm0lbalGkdYGSmzXkQfC"></script>
-```
+### Marketing Analyzer
+| Component | ID |
+|-----------|-----|
+| App | `SeeCEgerdwMRABOWH7UC` |
+| Widget | `prggLO7YjTahW0ATOD8S` |
+| Embed | `<script async src="https://meclabsai.com/embed/chat.js?appId=prggLO7YjTahW0ATOD8S"></script>` |
+| Demo | https://hugolacerda.github.io/hugo-demos/market-analyzer/ |
 
-### GBA General Site Agent -- NOT YET BUILT
+### GBA General Site Agent — NOT YET BUILT
 IDs to be documented once built.
 
-### Exit-Window Audit (Concept Stage -- On Hold)
+### Exit-Window Audit (On Hold)
 | Component | ID |
 |-----------|-----|
 | Expert | `wKZB8QMbPL` |
@@ -93,14 +87,26 @@ IDs to be documented once built.
 
 ---
 
+## GHL Key IDs
+
+| Item | ID |
+|---|---|
+| SBV Location ID | `ETrWQNJ5xzOqQPGGXk5a` |
+| PIT Token | `pit-9bc7ec1d-6228-42c7-9110-f01665fabeb6` |
+| SBV Outreach & Lead Gen Pipeline | `4dlocepdwaCqnS60Db3M` |
+| SBV Valuation Delivery Pipeline | `KmgopAIb10oisDtGbWHf` |
+| Client Engagement Stage (Pipeline 2, Stage 3) | `52621698-1e33-49c2-9fb3-3091b75a8bf7` |
+| Workflow 1 — Client Engagement Onboarding | `64e6f3cc-7c12-421d-82ab-69ae878ff4aa` |
+| Facebook Campaign Funnel | `PPZ1GsupRV539ASNFqEh` |
+| Registration Form | `CmXMqIBQdAlRSBZpALih` |
+
+---
+
 ## Design Notes
 
 **Orange accent (#E47D46)** is the GBA brand color used in demos and widgets.
-**Final branding authority:** Gary's graphic designer (teaches at Flagler, Fox Business
-Network background). Hugo does not make visual design decisions.
-
-**SBV design tokens:** Playfair Display headlines, Libre Franklin body, midnight/ember/ivory
-palette, 1400px max-width container.
+**SBV design tokens:** Playfair Display headlines, Libre Franklin body, midnight `#0E1F3D` / ember `#C4553A` / ivory palette, 1400px max-width container.
+**Final branding authority:** Gary's graphic designer (teaches at Flagler, Fox Business Network background). Hugo does not make visual design decisions.
 
 ---
 
@@ -114,34 +120,35 @@ Applies to every agent on every site. Gary refers to agents as "The Oracle" inte
 
 ## Key Deadlines
 
-- **~April 22, 2026** -- SBV site must be live (Flint confirmed 2-week window on April 8;
-  Facebook campaign cannot launch until the site is live)
-- **End of June 2026** -- 6 new AI agents built (Hugo's Q2 goal, confirmed publicly with Flint)
-- **End of June 2026** -- 3 additional active exit planning clients
-- **Q2 2026** -- 1,000 CEPA outreach emails sent; 25 Value Builder surveys completed
+- **End of June 2026** — 6 new AI agents (Hugo's Q2 goal). Marketing Analyzer = #1.
+- **End of June 2026** — 3 additional active exit planning clients. Rusty is first.
+- **Q2 2026** — 1,000 CEPA outreach emails sent; 25 Value Builder surveys completed
+- **Before Facebook ads launch** — Privacy/terms pages live, GHL funnel finalized, Meta Business Manager access for Liana
 
 ---
 
 ## Open Technical Questions
 
-- EPI database automation: can CEPA email addresses be extracted programmatically?
-  (Hugo to research before Amanda builds list manually)
-- GHL capabilities during trial: does it replace Calendly and SmarterQueue? Can it
-  host pages for client sites?
-- MeclabsAI MCP server: Flint confirmed ~1 month out. Monitor and connect as soon as
-  available.
-- Can MeclabsAI widgets be restricted to specific pages? (Quinn -- email drafted)
+- EPI database automation: can CEPA email addresses be extracted programmatically? (Hugo to research)
+- GHL: SmarterQueue replacement capability — evaluate at SmarterQueue yearly renewal
+- MeclabsAI MCP server: still coming — monitor and connect as soon as available
+- Can MeclabsAI widgets be restricted to specific pages? (Quinn — email drafted)
+- Katie Milton Jordan: custom eSignature AI agent at $20/month — Gary has call with her, wants Hugo to research her LinkedIn post
+
+---
+
+## Communication Rules (Standing)
+
+- **No Notion links to Gary.** Gary cannot navigate Notion login screens. Send documents as PDF email attachments instead.
+- **No em dashes** in any Gary-facing copy. Use commas, periods, or rephrased sentences.
+- **All email drafts reviewed by Hugo** before sending on Gary's behalf.
+- **Gary communication:** plain language, minimal copy, no technical jargon.
 
 ---
 
 ## Chuck's Warranty Constraint (Read Before Touching GBA Codebase)
 
-Chuck's company offers a lifetime bug-fix warranty on the GBA site. That warranty
-is **voided** the moment independent code modifications are made via FTP. Gary owns
-the IP and can request FTP access once his payment plan completes, but taking that
-access ends the warranty. Hugo making code changes outside Chuck's team would trigger
-this. Raise it with Gary explicitly before any discussion of Hugo taking over the
-build independently.
+Chuck's company offers a lifetime bug-fix warranty on the GBA site. That warranty is **voided** the moment independent code modifications are made via FTP. Raise explicitly with Gary before any discussion of Hugo taking over the build independently.
 
 ---
 
@@ -149,24 +156,17 @@ build independently.
 
 | Document | URL |
 |---|---|
-| Q2 Quarterly Planning Meeting -- April 7, 2026 | https://www.notion.so/33df99c396de81c5a656efe5456fd3e6 |
-| SBV Bi-weekly with Flint -- April 8, 2026 | https://www.notion.so/33df99c396de81279462d5829a438c5c |
-| Morning Calls with Gary -- April 8, 2026 | https://www.notion.so/33df99c396de816fbe19cc1cba0e4db6 |
+| Q2 Quarterly Planning Meeting — April 7, 2026 | https://www.notion.so/33df99c396de81c5a656efe5456fd3e6 |
+| SBV Bi-weekly with Flint — April 8, 2026 | https://www.notion.so/33df99c396de81279462d5829a438c5c |
+| Morning Calls with Gary — April 8, 2026 | https://www.notion.so/33df99c396de816fbe19cc1cba0e4db6 |
 | MeclabsAI Library Project Idea | https://www.notion.so/33df99c396de81c9a7a2c8b2bb7ffd8b |
-| Gary Call -- Quick Sync, April 2, 2026 | https://www.notion.so/336f99c396de81e4a3d4ec0970194309 |
-
-## Notion Pages (March 2026 Session)
-
-| Document | URL |
-|---|---|
-| GEO/SEO Seminar Notes | https://www.notion.so/322f99c396de81c2a280f99f6164485d |
-| CRM Strategy and Tool Stack | https://www.notion.so/322f99c396de81af8efce24d8554a507 |
-| SBV Bi-weekly Call March 11 | https://www.notion.so/322f99c396de81799d1ee6b75cb4868f |
-| GBA Website Review Meeting Notes March 17 | https://www.notion.so/327f99c396de81649e68c19be26f6844 |
-| GBA Industry Insider Project Doc | https://www.notion.so/327f99c396de81ddacb9ed213ecc084d |
-| Expert Benchmark Round 1 | https://www.notion.so/327f99c396de8106b832f16cfdbc3e1b |
-| Expert Benchmark Round 2 | https://www.notion.so/327f99c396de810c819cf3405cb33dc6 |
-| Expert Benchmark Round 3 | https://www.notion.so/327f99c396de8192b7f2c00a814ff0b2 |
+| SBV Deployment Reference | https://www.notion.so/343f99c396de81a99640c519a7dc96f6 |
+| SBV Legal Pages (Privacy + Terms) | https://www.notion.so/34ff99c396de81e4aa9bd1545c7aed5d |
+| Nancy's Workflow Automation Plan | https://www.notion.so/34cf99c396de8113832bc685db196bb4 |
+| SBV Valuation Delivery Workflow Plan | https://www.notion.so/34ef99c396de81fc94f5db198ace3941 |
+| Marketing Analyzer Project Doc | https://www.notion.so/34ff99c396de81d3886bf23763d5aa7e |
+| Facebook Campaign — Lead Gen | https://www.notion.so/349f99c396de812487f6f3749a36e7b4 |
+| Project Tracker | https://www.notion.so/42cde02da93448a3be7b4dd400c086b4 |
 
 ---
 
@@ -176,18 +176,19 @@ build independently.
 |--------|------|-------|
 | Gary Hallett | Managing Partner (GBA), strategic lead (SBV) | Decision maker, married to Nancy. Public face of SBV on LinkedIn. |
 | Nancy Hallett | CVA, runs SBV | SBV is under her name. Stepping back from LinkedIn public presence. |
-| Amanda | Operations (GBA/SBV) | Manages Value Builder CRM; leads CEPA email list-building |
+| Amanda | Operations (GBA/SBV) | Manages Value Builder CRM; leads CEPA email list-building. Use Nancy's MeclabsAI login until Quin resolves access. |
 | John | Consulting team expert | No longer a GBA employee; leading west side M&A deal |
 | Cal | Referring broker | Referrals only, not deal team, zero CRM contacts |
+| Liana Ling | Facebook campaign lead | liana@powerupstrategy.com — external agency, NOT Flint's team. Has GHL access. Needs Meta Business Manager partner access from Gary. |
 | Flint McGlaughlin | MeclabsAI founder | Friend of Gary's; platform access, strategy guidance |
-| Quin McGlaughlin | MeclabsAI | Technical questions about ADS; Flint's son |
-| Leanna | MeclabsAI / Facebook | Top Facebook strategist in Flint's group; former attorney; leads Facebook campaign |
+| Quin McGlaughlin | MeclabsAI | Technical questions about ADS and account admin; Flint's son |
 | Kavin Patel | Convrrt | Attends Flint bi-weekly calls |
 | Quinn | MeclabsAI contact | Widget technical questions (note: different from Quin McGlaughlin) |
 | Chuck | External GBA developer | Gary is the intermediary; Hugo does not contact Chuck directly |
-| Kimberly | Value Builder consultant | Best practices for inactive/paused contact re-engagement |
-| Aaron Eiger | CIO, Value Builder | Identified deliverability issue; key contact for platform questions |
+| Kimberly | Value Builder consultant | Best practices for contact re-engagement |
+| Aaron Eiger | CIO, Value Builder | Key contact for platform questions |
 | O'Shane | LinkedIn outreach | Activated for CEPA/LinkedIn campaign in Q2 |
+| Katie Milton Jordan | AI practitioner | Gary connected. Built custom eSignature AI agent for $20/month. Gary has call with her. |
 | Morris | Gary's contact / Harry funder | Funds Hugo's hours for Light to the Nations project |
 | Harry | Light to the Nations Ministry | Guatemala. Pending credentials from Gary. |
 
@@ -200,8 +201,6 @@ build independently.
 --accent:  #c9a227;  /* Gold */
 --orange:  #E47D46;  /* ADS accent */
 ```
-
-*Final branding decisions rest with Gary's graphic designer, not Hugo.*
 
 ---
 
@@ -218,26 +217,11 @@ build independently.
 
 ---
 
-## Current Focus Areas (April 2026)
+## Current Focus (April 28, 2026)
 
-1. **SBV Website** -- Near launch. Waiting on Register.com access from Gary. ~April 22 deadline.
-2. **GHL Setup** -- Trial active. Walkthrough with Gary next week. Must be ready before Facebook campaign.
-3. **Facebook Campaign** -- Strategy being developed with Leanna. Launches after SBV site + GHL ready.
-4. **Industry Insider Agent** -- Avatar pending Gary selection; Chuck integration pending
-5. **GBA General Site Agent** -- Not yet built; needed for GBA site launch
-6. **Agent builds (6 by end of June)** -- Process documented in KB_11. Team submitting wish lists.
-
----
-
-## Pending Decisions and Open Items
-
-1. Register.com access -- Gary to provide to Hugo
-2. GHL walkthrough -- schedule next week with Gary
-3. Gary's content copy for SBV site -- committed by April 4, confirm received
-4. Micro-affirmation icon strip final copy -- connection dropped before Gary confirmed
-5. Segmentation Card 2 exact heading -- directional only, needs confirmation
-6. Avatar selection for GBA General Agent -- Gary to pick from archetype folder
-7. Exit-Window direction -- ADS Version vs custom build vs neither? (Gary)
-8. EPI database automation -- can CEPA emails be extracted programmatically? (Hugo to research)
-9. MeclabsAI Library project -- when to start? (After SBV launch and GHL setup)
-10. Chuck warranty -- raise with Gary before any independent code changes to GBA site
+1. **Marketing Analyzer** — Push bug fix, confirm working, send Gary updated link
+2. **GHL Workflow 1** — Complete remaining steps, then workflows 2-7
+3. **Facebook Campaign** — Fix landing page per Liana's list, build Thank You page, get legal pages approved for privacy/terms links
+4. **SBV Legal Pages** — Re-send as PDF attachments to Gary for attorney review
+5. **Value Builder warm-up webinar** — Amanda reactivating Gary's paused contacts; social content from top 10 FAQ series
+6. **Agent builds** — 5 more agents by end of June
