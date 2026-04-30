@@ -4,196 +4,304 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Gateway Business Advisors - Coming Soon</title>
-  <meta name="description" content="Gateway Business Advisors is launching a new website. Based in Jacksonville, FL.">
+  <meta name="description" content="Gateway Business Advisors helps owners of sellable businesses prepare for and execute a successful exit. Based in Jacksonville, FL.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --navy: #1A3A5C;
-      --navy-deep: #0f2338;
-      --gold: #C9A227;
-      --gold-light: #e8c357;
+      --navy:   #1A3A5C;
+      --navy-light: #234d7a;
       --orange: #E47D46;
-      --ivory: #F8F5EF;
+      --orange-hover: #cc6b34;
+      --ivory:  #f7f5f0;
+      --gray:   #6b7280;
+      --border: #d1d9e0;
     }
     html, body {
-      height: 100%;
-      font-family: Jost, sans-serif;
-      background: var(--navy-deep);
-      color: var(--ivory);
-      overflow-x: hidden;
+      min-height: 100%;
+      font-family: Open Sans, sans-serif;
+      background: var(--ivory);
+      color: var(--navy);
     }
-    .bg {
-      position: fixed; inset: 0; z-index: 0;
-      background:
-        radial-gradient(ellipse 80% 60% at 15% 20%, rgba(201,162,39,0.07) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 85% 80%, rgba(26,58,92,0.6) 0%, transparent 60%),
-        linear-gradient(160deg, #0f2338 0%, #1A3A5C 50%, #0f2338 100%);
+
+    /* ── Header bar ── */
+    .topbar {
+      background: var(--navy);
+      padding: 0.6rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
     }
-    .bg::after {
+    .topbar-contact {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.75);
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+    }
+    .topbar-contact a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .topbar-contact a:hover { color: #fff; }
+
+    /* ── Main nav area ── */
+    .navbar {
+      background: #fff;
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo img {
+      height: 70px;
+      width: auto;
+      display: block;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
       content: "";
       position: absolute; inset: 0;
       background-image:
-        linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
-      background-size: 60px 60px;
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
     }
-    .page {
+    .hero-inner {
       position: relative; z-index: 1;
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      padding: 3rem 1.5rem;
+      max-width: 700px; margin: 0 auto;
     }
-    .inner { max-width: 680px; width: 100%; text-align: center; }
-    .logo-wrap { margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.8s ease forwards 0.1s; }
-    .logo-name {
-      font-family: Cormorant Garamond, serif;
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 500; letter-spacing: 0.02em;
-      color: var(--ivory); line-height: 1.1;
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 1rem;
+      opacity: 0; animation: fadeUp 0.7s ease forwards 0.1s;
     }
-    .logo-sub {
-      font-size: 0.68rem; font-weight: 500;
-      letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--gold); margin-top: 0.4rem;
+    .hero h1 {
+      font-family: Playfair Display, serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      opacity: 0; animation: fadeUp 0.7s ease forwards 0.25s;
     }
-    .divider {
-      display: flex; align-items: center; gap: 1rem;
-      margin: 2rem 0;
-      opacity: 0; animation: fadeUp 0.8s ease forwards 0.25s;
+    .hero h1 em {
+      font-style: italic;
+      color: #f0c070;
     }
-    .divider::before, .divider::after {
-      content: ""; flex: 1; height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(201,162,39,0.4), transparent);
+    .hero-sub {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      opacity: 0; animation: fadeUp 0.7s ease forwards 0.4s;
     }
-    .divider-icon {
-      width: 8px; height: 8px;
-      background: var(--gold); transform: rotate(45deg); flex-shrink: 0;
-    }
-    .headline {
-      font-family: Cormorant Garamond, serif;
-      font-size: clamp(2rem, 6vw, 3.6rem);
-      font-weight: 500; line-height: 1.15;
-      color: var(--ivory); margin-bottom: 1rem;
-      opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
-    }
-    .headline em { font-style: italic; color: var(--gold-light); }
-    .body-copy {
-      font-size: 1.05rem; font-weight: 300; line-height: 1.75;
-      color: rgba(248,245,239,0.72); margin-bottom: 2.5rem;
-      opacity: 0; animation: fadeUp 0.8s ease forwards 0.55s;
-    }
-    .cta-group {
-      display: flex; flex-direction: column;
-      align-items: center; gap: 1rem; margin-bottom: 3rem;
-      opacity: 0; animation: fadeUp 0.8s ease forwards 0.7s;
+    .hero-ctas {
+      display: flex; flex-wrap: wrap;
+      gap: 1rem; justify-content: center;
+      opacity: 0; animation: fadeUp 0.7s ease forwards 0.55s;
     }
     .btn-primary {
-      display: inline-block; padding: 0.9rem 2.6rem;
-      background: var(--orange); color: #fff;
-      font-family: Jost, sans-serif; font-size: 0.82rem;
-      font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-      text-decoration: none; transition: background 0.2s, transform 0.2s;
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: var(--orange);
+      color: #fff;
+      font-family: Open Sans, sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid var(--orange);
+      transition: background 0.2s, transform 0.2s;
     }
-    .btn-primary:hover { background: #d06b35; transform: translateY(-1px); }
-    .btn-secondary {
-      display: inline-block; padding: 0.85rem 2.6rem;
-      border: 1px solid rgba(201,162,39,0.5); color: var(--gold-light);
-      font-family: Jost, sans-serif; font-size: 0.82rem;
-      font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
-      text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.2s;
+    .btn-primary:hover { background: var(--orange-hover); border-color: var(--orange-hover); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block;
+      padding: 0.9rem 2.2rem;
+      background: transparent;
+      color: #fff;
+      font-family: Open Sans, sans-serif;
+      font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: border-color 0.2s, transform 0.2s;
     }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
-    .contact-row {
+    .btn-outline:hover { border-color: #fff; transform: translateY(-1px); }
+
+    /* ── Divider ── */
+    .divider-bar {
+      height: 4px;
+      background: linear-gradient(90deg, var(--navy), var(--orange), var(--navy));
+    }
+
+    /* ── Body section ── */
+    .body-section {
+      background: #fff;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .body-section .inner { max-width: 640px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 0.75rem;
+    }
+    .body-section h2 {
+      font-family: Playfair Display, serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 600; color: var(--navy);
+      margin-bottom: 1rem; line-height: 1.3;
+    }
+    .body-section p {
+      font-size: 1rem; font-weight: 300;
+      line-height: 1.8; color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Credentials strip ── */
+    .creds-strip {
+      background: var(--ivory);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem;
       display: flex; flex-wrap: wrap;
       align-items: center; justify-content: center;
-      gap: 0.5rem 2rem; font-size: 0.83rem;
-      color: rgba(248,245,239,0.5);
-      opacity: 0; animation: fadeUp 0.8s ease forwards 0.85s;
-    }
-    .contact-row a { color: rgba(248,245,239,0.5); text-decoration: none; transition: color 0.2s; }
-    .contact-row a:hover { color: var(--gold-light); }
-    .contact-row .sep { color: rgba(201,162,39,0.3); }
-    .creds {
-      margin-top: 2.8rem;
-      display: flex; flex-wrap: wrap;
-      align-items: center; justify-content: center;
-      gap: 0.4rem 1.4rem;
-      opacity: 0; animation: fadeUp 0.8s ease forwards 1s;
+      gap: 0.5rem 2.5rem;
     }
     .cred-item {
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: rgba(201,162,39,0.45);
+      font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--navy); opacity: 0.6;
     }
-    .cred-sep { width: 3px; height: 3px; background: rgba(201,162,39,0.25); border-radius: 50%; }
+    .cred-sep {
+      width: 4px; height: 4px;
+      background: var(--orange); border-radius: 50%; opacity: 0.5;
+    }
+
+    /* ── Footer ── */
     .footer {
-      position: relative; z-index: 1; text-align: center;
-      padding: 1.5rem; font-size: 0.7rem;
-      letter-spacing: 0.04em; color: rgba(248,245,239,0.18);
+      background: var(--navy);
+      color: rgba(255,255,255,0.55);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      line-height: 1.8;
     }
+    .footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
+    .footer a:hover { color: #fff; }
+    .footer-addr { margin-bottom: 0.4rem; }
+    .footer-copy { font-size: 0.72rem; margin-top: 1rem; opacity: 0.5; }
+
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(18px); }
+      from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    @media (max-width: 480px) {
-      .cta-group { width: 100%; }
-      .btn-primary, .btn-secondary { width: 100%; text-align: center; }
-      .contact-row { flex-direction: column; gap: 0.5rem; }
+    @media (max-width: 500px) {
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .btn-primary, .btn-outline { width: 100%; text-align: center; }
+      .topbar { justify-content: center; }
       .cred-sep { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="bg"></div>
-  <main class="page">
-    <div class="inner">
 
-      <div class="logo-wrap">
-        <div class="logo-name">Gateway Business Advisors</div>
-        <div class="logo-sub">Jacksonville, Florida</div>
-      </div>
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar-contact">
+      <a href="tel:9047597902">(904) 759-7902</a>
+      <a href="mailto:info@gatewaybusinessadvisors.com">info@gatewaybusinessadvisors.com</a>
+      <span>5011 Gate Parkway, Jacksonville, FL</span>
+    </div>
+  </div>
 
-      <div class="divider"><div class="divider-icon"></div></div>
+  <!-- Logo bar -->
+  <nav class="navbar">
+    <div class="logo">
+      <img src="https://www.gatewaybusinessadvisors.com/wp-content/uploads/2020/06/gw_l.png"
+           alt="Gateway Business Advisors"
+           onerror="this.style.display=none; document.getElementById('logo-text').style.display='block'">
+      <div id="logo-text" style="display:none; font-family:Playfair Display,serif; font-size:1.6rem; font-weight:700; color:var(--navy);">Gateway Business Advisors</div>
+    </div>
+  </nav>
 
-      <h1 class="headline">Something <em>Better</em><br>Is Coming Soon</h1>
-
-      <p class="body-copy">
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow">Coming Soon</div>
+      <h1>A <em>Better</em> Gateway<br>Is on Its Way</h1>
+      <p class="hero-sub">
         We are rebuilding our website to better serve business owners thinking about their next chapter.
         In the meantime, Gary is available for a direct conversation about your situation.
       </p>
-
-      <div class="cta-group">
+      <div class="hero-ctas">
         <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-primary">
           Schedule a Call with Gary
         </a>
-        <a href="mailto:info@gatewaybusinessadvisors.com" class="btn-secondary">
+        <a href="mailto:info@gatewaybusinessadvisors.com" class="btn-outline">
           Send Us a Message
         </a>
       </div>
-
-      <div class="contact-row">
-        <a href="tel:9047597902">(904) 759-7902</a>
-        <span class="sep">&middot;</span>
-        <a href="mailto:info@gatewaybusinessadvisors.com">info@gatewaybusinessadvisors.com</a>
-        <span class="sep">&middot;</span>
-        <span>5011 Gate Parkway, Jacksonville, FL</span>
-      </div>
-
-      <div class="creds">
-        <span class="cred-item">CM&amp;AP</span><span class="cred-sep"></span>
-        <span class="cred-item">MCBI</span><span class="cred-sep"></span>
-        <span class="cred-item">M&amp;AMI</span><span class="cred-sep"></span>
-        <span class="cred-item">CEPA</span><span class="cred-sep"></span>
-        <span class="cred-item">IBBA Member</span><span class="cred-sep"></span>
-        <span class="cred-item">Business Brokers of Florida</span>
-      </div>
-
     </div>
-  </main>
-  <footer class="footer">&copy; 2026 Gateway Business Advisors &nbsp;&middot;&nbsp; Jacksonville, FL</footer>
+  </section>
+
+  <div class="divider-bar"></div>
+
+  <!-- Body -->
+  <section class="body-section">
+    <div class="inner">
+      <div class="section-label">Gateway Business Advisors</div>
+      <h2>Helping Owners Prepare for the Right Exit</h2>
+      <p>
+        We work with a limited number of clients at a time so every engagement gets our full attention.
+        Whether you are ready to sell now or planning ahead, we can help you understand your options
+        and move forward with confidence.
+      </p>
+      <p>
+        Our new website is in development and will be live shortly.
+        Until then, reach Gary directly to start the conversation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Credentials -->
+  <div class="creds-strip">
+    <span class="cred-item">CM&amp;AP</span><span class="cred-sep"></span>
+    <span class="cred-item">MCBI</span><span class="cred-sep"></span>
+    <span class="cred-item">M&amp;AMI</span><span class="cred-sep"></span>
+    <span class="cred-item">CEPA</span><span class="cred-sep"></span>
+    <span class="cred-item">IBBA Member</span><span class="cred-sep"></span>
+    <span class="cred-item">Business Brokers of Florida</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-addr">5011 Gate Parkway, Bldg 100, Suite 100 &nbsp;&middot;&nbsp; Jacksonville, FL 32256</div>
+    <div>
+      <a href="tel:9047597902">(904) 759-7902</a>
+      &nbsp;&middot;&nbsp;
+      <a href="mailto:info@gatewaybusinessadvisors.com">info@gatewaybusinessadvisors.com</a>
+    </div>
+    <div class="footer-copy">&copy; 2026 Gateway Business Advisors. All rights reserved.</div>
+  </footer>
+
 </body>
 </html>
