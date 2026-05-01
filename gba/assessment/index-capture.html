@@ -1046,12 +1046,12 @@
     var payload = {
       first_name: data.firstName, last_name: data.lastName,
       email: data.email, phone: data.phone,
-      assessment_prior_valuation: answerWithQuestion('Have you ever had a formal business valuation?', answers['q1_priorValuation']),
-      assessment_financial_plan: answerWithQuestion('Do you have a written long-term financial plan?', answers['q2_finPlan']),
-      assessment_transition_plan: answerWithQuestion('Do you have a transition plan for when you eventually step away?', answers['q3_transitionPlan']),
-      assessment_business_growth: answerWithQuestion('In the past 24 months, has your business grown meaningfully?', answers['q4_growth']),
-      assessment_postexit_clarity: answerWithQuestion('Do you know what you want to do when you leave the business?', answers['q5_postExit']),
-      assessment_general_manager: answerWithQuestion('Do you have a general manager (or equivalent leader) who is not you?', answers['q6_gm']),
+      assessment_prior_valuation: answerLabel(answers['q1_priorValuation']),
+      assessment_financial_plan: answerLabel(answers['q2_finPlan']),
+      assessment_transition_plan: answerLabel(answers['q3_transitionPlan']),
+      assessment_business_growth: answerLabel(answers['q4_growth']),
+      assessment_postexit_clarity: answerLabel(answers['q5_postExit']),
+      assessment_general_manager: answerLabel(answers['q6_gm']),
       assessment_primary_result: primaryResult,
       assessment_completed_at: new Date().toISOString()
     };
