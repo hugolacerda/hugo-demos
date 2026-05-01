@@ -364,16 +364,14 @@
         Thanks, we will be in touch shortly.
       </div>
 
-      <form class="gba-form" name="gba-coming-soon" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="gba-form">
-        <input type="hidden" name="form-name" value="gba-coming-soon">
-        <input type="hidden" name="bot-field" style="display:none">
+      <form class="gba-form" id="gba-form">
         <div class="form-row">
-          <input type="text" name="first_name" placeholder="First Name" required>
-          <input type="text" name="last_name" placeholder="Last Name" required>
+          <input type="text" id="splash-first" placeholder="First Name" required>
+          <input type="text" id="splash-last" placeholder="Last Name" required>
         </div>
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="tel" name="phone" placeholder="Phone Number">
-        <button type="submit" class="form-submit">Keep Me Posted</button>
+        <input type="email" id="splash-email" placeholder="Email Address" required>
+        <input type="tel" id="splash-phone" placeholder="Phone Number">
+        <button type="submit" class="form-submit" id="splash-submit">Keep Me Posted</button>
       </form>
     </div>
   </section>
@@ -401,16 +399,41 @@
 
   <script>
     var form = document.getElementById('gba-form');
+    var submitBtn = document.getElementById('splash-submit');
+    var GHL_WEBHOOK = 'https://services.leadconnectorhq.com/hooks/VI80tuHy6XpjOOIv7OqH/webhook-trigger/3c331140-456b-4f99-987c-1cd2c21cf785';
+
     if (form) {
       form.addEventListener('submit', function(e) {
         e.preventDefault();
-        var data = new FormData(form);
-        fetch('/', { method: 'POST', body: data })
-          .then(function() {
-            form.style.display = 'none';
-            document.getElementById('form-success').style.display = 'block';
+        var first = document.getElementById('splash-first').value.trim();
+        var last = document.getElementById('splash-last').value.trim();
+        var email = document.getElementById('splash-email').value.trim();
+        var phone = document.getElementById('splash-phone').value.trim();
+
+        if (!first || !last || !email) return;
+
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+
+        fetch(GHL_WEBHOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: first,
+            last_name: last,
+            email: email,
+            phone: phone
           })
-          .catch(function() { form.submit(); });
+        })
+        .then(function() {
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        })
+        .catch(function() {
+          // Fail silently -- show success anyway so user isn't left hanging
+          form.style.display = 'none';
+          document.getElementById('form-success').style.display = 'block';
+        });
       });
     }
   </script>
