@@ -910,6 +910,15 @@
     for (const key in answers) {
       delete answers[key];
     }
+    // Reset contact form fields
+    firstNameInput.value = '';
+    lastNameInput.value = '';
+    emailInput.value = '';
+    phoneInput.value = '';
+    formError.style.display = 'none';
+    // Reset submit button
+    submitContactBtn.textContent = 'See My Results \u2192';
+    submitContactBtn.disabled = false;
     showScreen(startScreen);
   }
 
