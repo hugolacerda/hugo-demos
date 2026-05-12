@@ -378,6 +378,7 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Hamburger → X transition ── */
 .mobile-menu-btn svg line {
   transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-box: fill-box;
   transform-origin: center;
 }
 /* DOM order: 1st=middle(y=12), 2nd=top(y=6), 3rd=bottom(y=18) */
