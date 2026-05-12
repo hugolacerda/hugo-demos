@@ -21,6 +21,9 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
 ol, ul { list-style: none; margin: 0; padding: 0; }
 p { margin: 0; }
 
+/* ── Overflow fix: prevents globe watermark from creating horizontal scroll on mobile ── */
+html { overflow-x: clip; }
+
 /* ── Design Tokens ── */
 :root {
   --color-midnight-hsl: 218 55% 10%;
@@ -200,6 +203,64 @@ h1, h2, h3, h4, h5, h6 {
 
 .mobile-menu-btn { display: block; color: hsl(var(--foreground)); }
 @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+
+/* ── Mobile nav (open state) ── */
+@media (max-width: 767px) {
+  .main-nav.mobile-nav-open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsl(var(--card));
+    z-index: 40;
+    padding: 2rem 1.5rem;
+    gap: 0;
+    overflow-y: auto;
+    border-top: 1px solid hsl(var(--border));
+  }
+
+  .main-nav.mobile-nav-open a {
+    padding: 1rem 0;
+    font-size: 1.125rem;
+    border-bottom: 1px solid hsl(var(--border));
+    display: block;
+    width: 100%;
+  }
+
+  .nav-dropdown.mobile-dd-open .nav-dd-menu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    padding-top: 0;
+  }
+
+  .nav-dropdown.mobile-dd-open .nav-dd-inner {
+    box-shadow: none;
+    border: none;
+    background: transparent;
+    padding: 0 0 0 1rem;
+  }
+
+  .nav-dropdown.mobile-dd-open .nav-dd-inner a {
+    border-bottom: none;
+    padding: 0.625rem 0;
+  }
+}
+
+/* ── Hamburger → X transition ── */
+.mobile-menu-btn svg line {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: center;
+}
+/* DOM order: 1st=middle(y=12), 2nd=top(y=6), 3rd=bottom(y=18) */
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(1) { opacity: 0; }
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(2) { transform: translateY(6px) rotate(45deg); }
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
 /* ── Nav Dropdown ── */
 .nav-dropdown { position: relative; }
