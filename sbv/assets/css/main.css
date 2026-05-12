@@ -162,9 +162,17 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   z-index: 50;
   background-color: hsl(var(--card) / 0.95);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid hsl(var(--border));
+  z-index: -1;
+  pointer-events: none;
 }
 .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
 @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
