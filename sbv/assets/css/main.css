@@ -212,9 +212,11 @@ h1, h2, h3, h4, h5, h6 {
 /* ── Mobile nav (open state) ── */
 @media (max-width: 767px) {
 
-  /* Kill desktop hover trigger on touch — prevents flash of desktop
-     dropdown when toggling the Services accordion closed */
-  .nav-dropdown:hover .nav-dd-menu {
+  /* Kill desktop hover trigger on touch, but only when the accordion is
+     closed — scoping to :not(.mobile-dd-open) prevents the !important
+     from clobbering visibility when the user has tapped Services open
+     (touch keeps :hover active after the tap) */
+  .nav-dropdown:not(.mobile-dd-open):hover .nav-dd-menu {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
@@ -223,6 +225,10 @@ h1, h2, h3, h4, h5, h6 {
   .main-nav.mobile-nav-open {
     display: flex;
     flex-direction: column;
+    /* Override the base .main-nav rule: align-items:center + gap:2rem leak
+       into column layout, centering .nav-dropdown and adding unwanted space */
+    align-items: stretch;
+    gap: 0;
     position: fixed;
     top: 4.5rem;
     left: 0;
@@ -269,7 +275,8 @@ h1, h2, h3, h4, h5, h6 {
     transform: rotate(180deg);
   }
 
-  /* Hide desktop dropdown mechanism entirely */
+  /* Hide desktop dropdown mechanism entirely; transition:none prevents the
+     desktop opacity/visibility fade from firing as a flash on show */
   .main-nav.mobile-nav-open .nav-dd-menu {
     display: none;
     position: static;
@@ -278,6 +285,7 @@ h1, h2, h3, h4, h5, h6 {
     transform: none;
     padding: 0;
     pointer-events: auto;
+    transition: none;
   }
 
   /* Show only when accordion is open */
@@ -303,6 +311,8 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0.875rem 1.5rem 0.875rem 2.25rem;
     border-radius: 0;
     background: transparent;
+    /* Zero out desktop .nav-dd-inner a + a { margin-top: 2px } */
+    margin-top: 0;
   }
 
   .main-nav.mobile-nav-open .nav-dd-inner a:active {
@@ -325,9 +335,13 @@ h1, h2, h3, h4, h5, h6 {
     color: hsl(var(--accent));
   }
 
-  /* CTA block injected at bottom of nav by JS */
+  /* CTA block injected at bottom of nav by JS — sticky so it stays
+     visible at the bottom even when the link list overflows and scrolls;
+     parent has overflow-y:auto so it is the scroll container and sticky
+     bottom:0 works correctly */
   .mobile-nav-cta {
-    margin-top: auto;
+    position: sticky;
+    bottom: 0;
     padding: 1.5rem;
     border-top: 1px solid hsl(var(--border));
     background: hsl(var(--card));
