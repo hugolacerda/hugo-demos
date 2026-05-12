@@ -162,9 +162,17 @@ h1, h2, h3, h4, h5, h6 {
   top: 0;
   z-index: 50;
   background-color: hsl(var(--card) / 0.95);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid hsl(var(--border));
+  z-index: -1;
+  pointer-events: none;
 }
 .site-header .inner { display: flex; align-items: center; justify-content: space-between; height: 4.5rem; }
 @media (min-width: 768px) { .site-header .inner { height: 5rem; } }
@@ -200,6 +208,186 @@ h1, h2, h3, h4, h5, h6 {
 
 .mobile-menu-btn { display: block; color: hsl(var(--foreground)); }
 @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+
+/* ── Mobile nav (open state) ── */
+@media (max-width: 767px) {
+
+  /* Kill desktop hover trigger on touch, but only when the accordion is
+     closed — scoping to :not(.mobile-dd-open) prevents the !important
+     from clobbering visibility when the user has tapped Services open
+     (touch keeps :hover active after the tap) */
+  .nav-dropdown:not(.mobile-dd-open):hover .nav-dd-menu {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  .main-nav.mobile-nav-open {
+    display: flex;
+    flex-direction: column;
+    /* Override the base .main-nav rule: align-items:center + gap:2rem leak
+       into column layout, centering .nav-dropdown and adding unwanted space */
+    align-items: stretch;
+    gap: 0;
+    position: fixed;
+    top: 4.5rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsl(var(--card));
+    z-index: 40;
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-top: 1px solid hsl(var(--border));
+    animation: mobile-nav-in 0.18s ease;
+  }
+
+  @keyframes mobile-nav-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Top-level nav links */
+  .main-nav.mobile-nav-open > a,
+  .main-nav.mobile-nav-open > .nav-dropdown > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.125rem 1.5rem;
+    font-size: 1.0625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: hsl(var(--foreground));
+    border-bottom: 1px solid hsl(var(--border));
+    width: 100%;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .main-nav.mobile-nav-open > a:active,
+  .main-nav.mobile-nav-open > .nav-dropdown > a:active {
+    color: hsl(var(--accent));
+    background: hsl(var(--background));
+  }
+
+  /* Chevron rotation when Services is open */
+  .nav-dropdown.mobile-dd-open > a .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Hide desktop dropdown mechanism entirely; transition:none prevents the
+     desktop opacity/visibility fade from firing as a flash on show */
+  .main-nav.mobile-nav-open .nav-dd-menu {
+    display: none;
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    padding: 0;
+    pointer-events: auto;
+    transition: none;
+  }
+
+  /* Show only when accordion is open */
+  .main-nav.mobile-nav-open .nav-dropdown.mobile-dd-open .nav-dd-menu {
+    display: block;
+  }
+
+  /* Sub-item container — no card, no shadow */
+  .main-nav.mobile-nav-open .nav-dd-inner {
+    background: hsl(var(--background));
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0.25rem 0;
+    min-width: unset;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  /* Sub-items */
+  .main-nav.mobile-nav-open .nav-dd-inner a {
+    display: flex;
+    flex-direction: column;
+    padding: 0.875rem 1.5rem 0.875rem 2.25rem;
+    border-radius: 0;
+    background: transparent;
+    /* Zero out desktop .nav-dd-inner a + a { margin-top: 2px } */
+    margin-top: 0;
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner a:active {
+    background: hsl(var(--card));
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner .dd-title {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner .dd-desc {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    margin-top: 2px;
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner a:active .dd-title {
+    color: hsl(var(--accent));
+  }
+
+  /* CTA block injected at bottom of nav by JS — sticky so it stays
+     visible at the bottom even when the link list overflows and scrolls;
+     parent has overflow-y:auto so it is the scroll container and sticky
+     bottom:0 works correctly */
+  .mobile-nav-cta {
+    position: sticky;
+    bottom: 0;
+    padding: 1.5rem;
+    border-top: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+  }
+
+  .mobile-nav-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: hsl(var(--color-ember-hsl));
+    color: hsl(var(--color-ivory-hsl));
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: calc(var(--radius) - 2px);
+    text-decoration: none;
+    box-shadow: var(--shadow-ember);
+  }
+
+  .mobile-nav-cta-sub {
+    text-align: center;
+    font-size: 10px;
+    font-family: var(--font-body);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-top: 0.625rem;
+  }
+}
+
+/* ── Hamburger → X transition ── */
+.mobile-menu-btn svg line {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+/* DOM order: 1st=middle(y=12), 2nd=top(y=6), 3rd=bottom(y=18) */
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(1) { opacity: 0; }
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(2) { transform: translateY(6px) rotate(45deg); }
+body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Prevent SVG viewBox from clipping rotated hamburger lines */
+.mobile-menu-btn svg { overflow: visible; }
 
 /* ── Nav Dropdown ── */
 .nav-dropdown { position: relative; }
