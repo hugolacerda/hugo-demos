@@ -17,10 +17,25 @@ document.addEventListener('DOMContentLoaded', () => {
   const nav = document.querySelector('.main-nav');
   if (!menuBtn || !nav) return;
 
+  if (!nav.querySelector('.mobile-nav-cta')) {
+    const cta = document.createElement('div');
+    cta.className = 'mobile-nav-cta';
+    cta.innerHTML = `
+      <a href="https://calendly.com/gwba/one-on-one-with-gary"
+         target="_blank" rel="noopener noreferrer">
+        Book a Free 15-Min Call
+      </a>
+      <p class="mobile-nav-cta-sub">No obligation · Certified experts</p>
+    `;
+    nav.appendChild(cta);
+  }
+
   function closeMenu() {
     nav.classList.remove('mobile-nav-open');
     menuBtn.setAttribute('aria-expanded', 'false');
     document.body.classList.remove('mobile-menu-is-open');
+    document.querySelectorAll('.nav-dropdown.mobile-dd-open')
+      .forEach(dd => dd.classList.remove('mobile-dd-open'));
   }
 
   menuBtn.addEventListener('click', () => {

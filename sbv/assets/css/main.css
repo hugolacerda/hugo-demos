@@ -211,6 +211,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Mobile nav (open state) ── */
 @media (max-width: 767px) {
+
+  /* Kill desktop hover trigger on touch — prevents flash of desktop
+     dropdown when toggling the Services accordion closed */
+  .nav-dropdown:hover .nav-dd-menu {
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
   .main-nav.mobile-nav-open {
     display: flex;
     flex-direction: column;
@@ -221,39 +230,134 @@ h1, h2, h3, h4, h5, h6 {
     bottom: 0;
     background: hsl(var(--card));
     z-index: 40;
-    padding: 2rem 1.5rem;
-    gap: 0;
     overflow-y: auto;
+    overflow-x: hidden;
     border-top: 1px solid hsl(var(--border));
+    animation: mobile-nav-in 0.18s ease;
   }
 
-  .main-nav.mobile-nav-open a {
-    padding: 1rem 0;
-    font-size: 1.125rem;
+  @keyframes mobile-nav-in {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Top-level nav links */
+  .main-nav.mobile-nav-open > a,
+  .main-nav.mobile-nav-open > .nav-dropdown > a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.125rem 1.5rem;
+    font-size: 1.0625rem;
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: hsl(var(--foreground));
     border-bottom: 1px solid hsl(var(--border));
-    display: block;
     width: 100%;
+    transition: color 0.15s, background 0.15s;
   }
 
-  .nav-dropdown.mobile-dd-open .nav-dd-menu {
+  .main-nav.mobile-nav-open > a:active,
+  .main-nav.mobile-nav-open > .nav-dropdown > a:active {
+    color: hsl(var(--accent));
+    background: hsl(var(--background));
+  }
+
+  /* Chevron rotation when Services is open */
+  .nav-dropdown.mobile-dd-open > a .chevron {
+    transform: rotate(180deg);
+  }
+
+  /* Hide desktop dropdown mechanism entirely */
+  .main-nav.mobile-nav-open .nav-dd-menu {
+    display: none;
     position: static;
     opacity: 1;
     visibility: visible;
-    pointer-events: auto;
     transform: none;
-    padding-top: 0;
+    padding: 0;
+    pointer-events: auto;
   }
 
-  .nav-dropdown.mobile-dd-open .nav-dd-inner {
-    box-shadow: none;
+  /* Show only when accordion is open */
+  .main-nav.mobile-nav-open .nav-dropdown.mobile-dd-open .nav-dd-menu {
+    display: block;
+  }
+
+  /* Sub-item container — no card, no shadow */
+  .main-nav.mobile-nav-open .nav-dd-inner {
+    background: hsl(var(--background));
     border: none;
-    background: transparent;
-    padding: 0 0 0 1rem;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0.25rem 0;
+    min-width: unset;
+    border-bottom: 1px solid hsl(var(--border));
   }
 
-  .nav-dropdown.mobile-dd-open .nav-dd-inner a {
-    border-bottom: none;
-    padding: 0.625rem 0;
+  /* Sub-items */
+  .main-nav.mobile-nav-open .nav-dd-inner a {
+    display: flex;
+    flex-direction: column;
+    padding: 0.875rem 1.5rem 0.875rem 2.25rem;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner a:active {
+    background: hsl(var(--card));
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner .dd-title {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: hsl(var(--foreground));
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner .dd-desc {
+    font-size: 0.75rem;
+    color: hsl(var(--muted-foreground));
+    margin-top: 2px;
+  }
+
+  .main-nav.mobile-nav-open .nav-dd-inner a:active .dd-title {
+    color: hsl(var(--accent));
+  }
+
+  /* CTA block injected at bottom of nav by JS */
+  .mobile-nav-cta {
+    margin-top: auto;
+    padding: 1.5rem;
+    border-top: 1px solid hsl(var(--border));
+    background: hsl(var(--card));
+  }
+
+  .mobile-nav-cta a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: hsl(var(--color-ember-hsl));
+    color: hsl(var(--color-ivory-hsl));
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    border-radius: calc(var(--radius) - 2px);
+    text-decoration: none;
+    box-shadow: var(--shadow-ember);
+  }
+
+  .mobile-nav-cta-sub {
+    text-align: center;
+    font-size: 10px;
+    font-family: var(--font-body);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: hsl(var(--muted-foreground));
+    margin-top: 0.625rem;
   }
 }
 
