@@ -34,7 +34,7 @@
 .cred-item p:last-of-type { font-size: 0.75rem; font-family: var(--font-body); color: hsl(var(--muted-foreground)); }
 
 /* ── Segmentation ── */
-.segmentation { position: relative; overflow: visible; padding: 5rem 0; }
+.segmentation { position: relative; overflow-x: clip; padding: 5rem 0; }
 @media (min-width: 768px) { .segmentation { padding: 8rem 0; } }
 .segmentation::before {
   content: '';

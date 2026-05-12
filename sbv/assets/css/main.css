@@ -21,9 +21,6 @@ h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
 ol, ul { list-style: none; margin: 0; padding: 0; }
 p { margin: 0; }
 
-/* ── Overflow fix: prevents globe watermark from creating horizontal scroll on mobile ── */
-html { overflow-x: clip; }
-
 /* ── Design Tokens ── */
 :root {
   --color-midnight-hsl: 218 55% 10%;
@@ -261,6 +258,9 @@ h1, h2, h3, h4, h5, h6 {
 body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(1) { opacity: 0; }
 body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(2) { transform: translateY(6px) rotate(45deg); }
 body.mobile-menu-is-open .mobile-menu-btn svg line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Prevent SVG viewBox from clipping rotated hamburger lines */
+.mobile-menu-btn svg { overflow: visible; }
 
 /* ── Nav Dropdown ── */
 .nav-dropdown { position: relative; }
