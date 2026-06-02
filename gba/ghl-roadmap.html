@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GBA — GHL Backend Roadmap</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --midnight: #0E1F3D;
+    --ember: #C4553A;
+    --ivory: #F7F4EE;
+    --teal: #1A6B5A;
+    --teal-light: #E8F4F1;
+    --purple: #3D2C6B;
+    --purple-light: #EEE9F8;
+    --coral-light: #FBF0ED;
+    --amber: #8A5C1A;
+    --amber-light: #FBF5E8;
+    --gray: #6B6B68;
+    --gray-light: #F0EEE9;
+    --border: rgba(14,31,61,0.12);
+    --text: #1A1A18;
+    --text-muted: #6B6B68;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ivory);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  .header {
+    background: var(--midnight);
+    color: white;
+    padding: 48px 64px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    background: rgba(196,85,58,0.15);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .meta-item {
+    border-left: 2px solid var(--ember);
+    padding-left: 12px;
+  }
+  .meta-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.4);
+    margin-bottom: 2px;
+  }
+  .meta-value {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    font-weight: 500;
+  }
+
+  .main {
+    padding: 48px 64px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .legend {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+    padding: 16px 20px;
+    background: white;
+    border: 0.5px solid var(--border);
+    border-radius: 8px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .phase-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+    margin-top: 36px;
+  }
+  .phase-label:first-of-type { margin-top: 0; }
+  .phase-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .phase-line {
+    flex: 1;
+    height: 0.5px;
+    background: var(--border);
+  }
+
+  .stage {
+    border-radius: 10px;
+    border: 0.5px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 8px;
+    background: white;
+    border-left: 3px solid transparent;
+  }
+  .stage.buyer { border-left-color: var(--teal); }
+  .stage.seller { border-left-color: var(--purple); }
+  .stage.shared { border-left-color: var(--ember); }
+
+  .stage-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .stage-number {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: white;
+    background: var(--midnight);
+    width: 24px; height: 24px;
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .stage-header.teal .stage-number { background: var(--teal); }
+  .stage-header.purple .stage-number { background: var(--purple); }
+  .stage-header.coral .stage-number { background: var(--ember); }
+
+  .stage-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--midnight);
+    margin-bottom: 2px;
+  }
+  .stage-trigger {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 300;
+  }
+  .stage-trigger span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+  }
+
+  .stage-body {
+    padding: 0 20px 16px 58px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sequence {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    flex-wrap: wrap;
+  }
+  .seq-step {
+    background: var(--gray-light);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 11px;
+    text-align: center;
+    min-width: 72px;
+    flex: 1;
+  }
+  .seq-step-day {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 1px;
+  }
+  .seq-step-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--text);
+  }
+  .seq-arrow {
+    font-size: 10px;
+    color: var(--border);
+    padding: 0 4px;
+    flex-shrink: 0;
+  }
+
+  .content-row {
+    background: var(--gray-light);
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .content-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    white-space: nowrap;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .content-text {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .note-row {
+    background: var(--amber-light);
+    border-radius: 6px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  .note-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber);
+    white-space: nowrap;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+  .note-text {
+    font-size: 12px;
+    color: var(--text);
+    line-height: 1.5;
+  }
+
+  .exit-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .exit-chip {
+    flex: 1;
+    min-width: 120px;
+    border-radius: 6px;
+    padding: 8px 10px;
+  }
+  .exit-chip-label {
+    font-weight: 500;
+    margin-bottom: 2px;
+    font-size: 11px;
+  }
+  .exit-chip-next {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    opacity: 0.7;
+  }
+  .exit-chip.positive { background: var(--teal-light); color: var(--teal); }
+  .exit-chip.positive.purple { background: var(--purple-light); color: var(--purple); }
+  .exit-chip.positive.coral { background: var(--coral-light); color: var(--ember); }
+  .exit-chip.neutral { background: var(--gray-light); color: var(--gray); }
+
+  .connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    position: relative;
+  }
+  .connector::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 0;
+    width: 0.5px; height: 100%;
+    background: var(--border);
+  }
+  .connector-dot {
+    width: 6px; height: 6px;
+    background: var(--ivory);
+    border: 0.5px solid var(--border);
+    border-radius: 50%;
+    position: relative;
+    z-index: 1;
+  }
+
+  .nurture-callout {
+    background: white;
+    border: 0.5px solid var(--border);
+    border-left: 3px solid var(--gray);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 8px;
+  }
+  .nurture-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--midnight);
+    margin-bottom: 6px;
+  }
+  .nurture-body {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+  .nurture-cadence {
+    display: flex;
+    gap: 6px;
+    margin-top: 8px;
+    flex-wrap: wrap;
+  }
+  .cadence-chip {
+    background: var(--gray-light);
+    border-radius: 4px;
+    padding: 4px 10px;
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  .footer {
+    background: var(--midnight);
+    color: rgba(255,255,255,0.4);
+    font-size: 11px;
+    padding: 20px 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 48px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer strong { color: rgba(255,255,255,0.7); }
+
+  @media (max-width: 680px) {
+    .header { padding: 32px 24px 28px; }
+    .main { padding: 32px 24px; }
+    .footer { padding: 20px 24px; }
+    .stage-body { padding: 0 16px 16px 16px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .header, .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .stage { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-label">Gateway Business Advisors</div>
+  <h1>GHL Backend Roadmap</h1>
+  <div class="header-sub">Automated follow-up system — buyer side + seller side</div>
+  <div class="header-meta">
+    <div class="meta-item">
+      <div class="meta-label">Source</div>
+      <div class="meta-value">Trent Lee IBBA Playbook (May 2026)</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Platform</div>
+      <div class="meta-value">GoHighLevel — GBA sub-account</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">Prepared</div>
+      <div class="meta-value">June 2026</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Buyer-side workflow</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div>Seller-side workflow</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--ember)"></div>Both companies</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div>Requires additional tooling</div>
+    <div class="legend-item"><div class="legend-dot" style="background:var(--gray)"></div>Always-on nurture track</div>
+  </div>
+
+  <!-- BUYER SIDE -->
+  <div class="phase-label">
+    <div class="phase-tag">Buyer side</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="stage buyer">
+    <div class="stage-header teal">
+      <div class="stage-number">1</div>
+      <div>
+        <div class="stage-title">Inquiry received</div>
+        <div class="stage-trigger"><span>trigger:</span> splash page form or website inquiry submitted</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="sequence">
+        <div class="seq-step"><div class="seq-step-day">Day 0</div><div class="seq-step-label">email + SMS</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 1</div><div class="seq-step-label">check-in</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 2</div><div class="seq-step-label">education</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 3</div><div class="seq-step-label">voice drop</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 5</div><div class="seq-step-label">pressure</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 7</div><div class="seq-step-label">close loop</div></div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">content needed</div>
+        <div class="content-text">NDA explainer video (60-90 sec) — why it exists, what it protects, what happens after signing</div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip positive"><div class="exit-chip-label">NDA signed</div><div class="exit-chip-next">→ Stage 2</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">not interested</div><div class="exit-chip-next">tag + disqualify</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">no response</div><div class="exit-chip-next">→ open buyer nurture</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-dot"></div></div>
+
+  <div class="stage buyer">
+    <div class="stage-header teal">
+      <div class="stage-number">2</div>
+      <div>
+        <div class="stage-title">Executive summary (CIM) delivered</div>
+        <div class="stage-trigger"><span>trigger:</span> NDA signed tag applied to contact</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="sequence">
+        <div class="seq-step"><div class="seq-step-day">Day 0</div><div class="seq-step-label">CIM + video</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 1</div><div class="seq-step-label">high engage</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 2</div><div class="seq-step-label">low engage</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 3</div><div class="seq-step-label">voice drop</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 5</div><div class="seq-step-label">pressure</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day 7</div><div class="seq-step-label">close loop</div></div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">content needed</div>
+        <div class="content-text">CIM walkthrough video — what to focus on, key questions to bring to the buyer/seller meeting</div>
+      </div>
+      <div class="note-row">
+        <div class="note-label">note</div>
+        <div class="note-text">Behavior tracking (time on CIM, video watch %) requires DocSend or PandaDoc — not native to GHL. Day 1/2 engagement branching depends on this tooling decision.</div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip positive"><div class="exit-chip-label">high engagement</div><div class="exit-chip-next">→ Stage 3 meeting</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">low engagement</div><div class="exit-chip-next">continue follow-up</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">no engagement</div><div class="exit-chip-next">→ open buyer nurture</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-dot"></div></div>
+
+  <div class="stage buyer">
+    <div class="stage-header teal">
+      <div class="stage-number">3</div>
+      <div>
+        <div class="stage-title">Buyer/seller meeting</div>
+        <div class="stage-trigger"><span>trigger:</span> proof of funds verified, meeting scheduled in GHL calendar</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="sequence">
+        <div class="seq-step"><div class="seq-step-day">Immediately</div><div class="seq-step-label">email + SMS + video</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Day before</div><div class="seq-step-label">reinforcement</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">1 hr before</div><div class="seq-step-label">SMS reminder</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">5 min before</div><div class="seq-step-label">final SMS</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">Same day</div><div class="seq-step-label">post-meeting</div></div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">content needed</div>
+        <div class="content-text">Two videos: (1) immediately after scheduling — how to approach the seller, what the meeting is for; (2) day before — what not to say, how to make a strong first impression</div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip positive"><div class="exit-chip-label">strong meeting</div><div class="exit-chip-next">→ offer / LOI stage</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">uncertain</div><div class="exit-chip-next">controlled follow-up</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">not a fit</div><div class="exit-chip-next">→ open buyer nurture</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:8px">
+    <div class="stage buyer" style="opacity:0.85">
+      <div class="stage-header teal">
+        <div class="stage-number" style="font-size:13px">↩</div>
+        <div>
+          <div class="stage-title">Missed appointment recovery — buyer</div>
+          <div class="stage-trigger"><span>trigger:</span> appointment marked no-show — SMS fires within 5 minutes</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="sequence">
+          <div class="seq-step"><div class="seq-step-day">5 min</div><div class="seq-step-label">SMS + link</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Same day</div><div class="seq-step-label">follow-up</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 2</div><div class="seq-step-label">voice drop</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 3</div><div class="seq-step-label">decision</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 5</div><div class="seq-step-label">scarcity</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 7</div><div class="seq-step-label">close loop</div></div>
+        </div>
+        <div class="exit-row">
+          <div class="exit-chip positive"><div class="exit-chip-label">reschedules</div><div class="exit-chip-next">back on track</div></div>
+          <div class="exit-chip neutral"><div class="exit-chip-label">delays</div><div class="exit-chip-next">controlled follow-up</div></div>
+          <div class="exit-chip neutral"><div class="exit-chip-label">no response</div><div class="exit-chip-next">→ open buyer nurture</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SELLER SIDE -->
+  <div class="phase-label" style="margin-top:44px">
+    <div class="phase-tag">Seller side</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="stage seller">
+    <div class="stage-header purple">
+      <div class="stage-number">4</div>
+      <div>
+        <div class="stage-title">Prospect listing — long-term nurture</div>
+        <div class="stage-trigger"><span>trigger:</span> seller contact added to GBA pipeline at any stage</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="nurture-cadence" style="margin-bottom:0">
+        <div class="cadence-chip">every 14 days — value email</div>
+        <div class="cadence-chip">every 30 days — market insight</div>
+        <div class="cadence-chip">every 90 days — re-qualification</div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">content needed</div>
+        <div class="content-text">Short market update videos (2-3 min) — "here's what I'm seeing right now" style. Gary records periodically. Existing M&A insight content feeds this cadence.</div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip positive purple"><div class="exit-chip-label">signals readiness</div><div class="exit-chip-next">→ Stage 5 appointment</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">stays warm</div><div class="exit-chip-next">continue cadence</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">unsubscribes</div><div class="exit-chip-next">remove completely</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connector"><div class="connector-dot"></div></div>
+
+  <div class="stage seller">
+    <div class="stage-header purple">
+      <div class="stage-number">5</div>
+      <div>
+        <div class="stage-title">Appointment set — pre-meeting education</div>
+        <div class="stage-trigger"><span>trigger:</span> discovery call booked on GHL calendar</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="sequence">
+        <div class="seq-step"><div class="seq-step-day">Immediately</div><div class="seq-step-label">video + calculator</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">24 hrs before</div><div class="seq-step-label">SMS reminder</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">1 hr before</div><div class="seq-step-label">SMS</div></div>
+        <div class="seq-arrow">›</div>
+        <div class="seq-step"><div class="seq-step-day">5 min before</div><div class="seq-step-label">final SMS</div></div>
+      </div>
+      <div class="content-row">
+        <div class="content-label">content needed</div>
+        <div class="content-text">SDE + valuation education video — how multiples work, why valuation is a range not a number, what buyers actually look at. Goal: seller walks in with context, not a price expectation.</div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip positive purple"><div class="exit-chip-label">prepared seller</div><div class="exit-chip-next">confirm, not convince</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">partial prep</div><div class="exit-chip-next">guide more actively</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">no prep</div><div class="exit-chip-next">reset + reschedule</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:8px">
+    <div class="stage seller" style="opacity:0.85">
+      <div class="stage-header purple">
+        <div class="stage-number" style="font-size:13px">↩</div>
+        <div>
+          <div class="stage-title">Missed appointment recovery — seller</div>
+          <div class="stage-trigger"><span>trigger:</span> appointment marked no-show — SMS fires within 5 minutes</div>
+        </div>
+      </div>
+      <div class="stage-body">
+        <div class="sequence">
+          <div class="seq-step"><div class="seq-step-day">5 min</div><div class="seq-step-label">SMS + link</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 1</div><div class="seq-step-label">reframe value</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 2</div><div class="seq-step-label">voice drop</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 3</div><div class="seq-step-label">decision</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 5</div><div class="seq-step-label">priority</div></div>
+          <div class="seq-arrow">›</div>
+          <div class="seq-step"><div class="seq-step-day">Day 7</div><div class="seq-step-label">close loop</div></div>
+        </div>
+        <div class="exit-row">
+          <div class="exit-chip positive purple"><div class="exit-chip-label">reschedules</div><div class="exit-chip-next">back to Stage 5</div></div>
+          <div class="exit-chip neutral"><div class="exit-chip-label">delays</div><div class="exit-chip-next">hold and follow up</div></div>
+          <div class="exit-chip neutral"><div class="exit-chip-label">no response</div><div class="exit-chip-next">→ long-term nurture</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POST CLOSE -->
+  <div class="phase-label" style="margin-top:44px">
+    <div class="phase-tag">Post-close — GBA + SBV</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="stage shared">
+    <div class="stage-header coral">
+      <div class="stage-number">6</div>
+      <div>
+        <div class="stage-title">Post-close referral + testimonial capture</div>
+        <div class="stage-trigger"><span>trigger:</span> opportunity moved to closed won in either pipeline</div>
+      </div>
+    </div>
+    <div class="stage-body">
+      <div class="exit-row">
+        <div class="exit-chip coral positive"><div class="exit-chip-label">Email 1 — day 3</div><div class="exit-chip-next">testimonial ask while experience is fresh</div></div>
+        <div class="exit-chip coral positive"><div class="exit-chip-label">Email 2 — day 7</div><div class="exit-chip-next">"if you know anyone thinking about selling..."</div></div>
+      </div>
+      <div class="exit-row">
+        <div class="exit-chip coral positive"><div class="exit-chip-label">referral generated</div><div class="exit-chip-next">→ new prospect into pipeline</div></div>
+        <div class="exit-chip coral positive"><div class="exit-chip-label">testimonial captured</div><div class="exit-chip-next">→ marketing asset</div></div>
+        <div class="exit-chip neutral"><div class="exit-chip-label">no response</div><div class="exit-chip-next">stays in long-term network</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ALWAYS ON -->
+  <div class="phase-label" style="margin-top:44px">
+    <div class="phase-tag">Always-on — runs in parallel</div>
+    <div class="phase-line"></div>
+  </div>
+
+  <div class="nurture-callout">
+    <div class="nurture-title">Open buyer nurture track</div>
+    <div class="nurture-body">Contacts who don't convert at any stage are not discarded — they enter a long-running nurture track that keeps GBA top of mind until timing changes. Re-engagement triggers the moment a contact clicks a listing, watches a video, or replies to any message.</div>
+    <div class="nurture-cadence">
+      <div class="cadence-chip">weekly — deal flow + video</div>
+      <div class="cadence-chip">monthly — curated opportunities</div>
+      <div class="cadence-chip">quarterly — re-qualification check</div>
+      <div class="cadence-chip">instant — re-engage on any signal</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <span>Gateway Business Advisors — GHL Automation Roadmap</span>
+  <span>Based on Trent Lee IBBA Playbook &middot; <strong>Confidential</strong></span>
+</div>
+
+</body>
+</html>
