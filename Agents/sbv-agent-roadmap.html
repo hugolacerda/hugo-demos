@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBV — Agent Pipeline Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:      #0E1118;
+  --paper:    #F6F3EE;
+  --warm:     #EDE9E1;
+  --rule:     #D4CFC6;
+  --mid:      #6B6560;
+  --faint:    #A09A94;
+  --accent:   #C4553A;
+  --accent-l: #F0D5CE;
+  --green:    #2D6A4F;
+  --green-l:  #D1EAD9;
+  --amber:    #B85C00;
+  --amber-l:  #FDECD6;
+  --blue:     #1E4D8C;
+  --blue-l:   #D4E4F7;
+  --purple:   #5B3A8C;
+  --purple-l: #E8DCF7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px 64px 44px;
+}
+.page-header .eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 12px;
+}
+.page-header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 42px;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+}
+.page-header .subtitle {
+  font-size: 15px;
+  color: #A09A94;
+  max-width: 560px;
+  font-weight: 300;
+}
+.header-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px 32px;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid #2A2622;
+}
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B6560;
+}
+.meta-value {
+  font-size: 13px;
+  color: var(--paper);
+  font-weight: 400;
+}
+
+/* ── VISION BAND ── */
+.vision-band {
+  background: var(--accent);
+  color: white;
+  padding: 28px 64px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+.vision-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.75;
+  padding-top: 3px;
+}
+.vision-rule {
+  width: 1px;
+  min-height: 32px;
+  background: rgba(255,255,255,0.3);
+  flex-shrink: 0;
+  align-self: stretch;
+}
+.vision-text {
+  font-family: 'DM Serif Display', serif;
+  font-size: 17px;
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.4;
+}
+
+/* ── MAIN LAYOUT ── */
+.page-body {
+  padding: 0 64px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── PHASE SECTIONS ── */
+.phase {
+  margin-top: 56px;
+}
+.pipeline-flow,
+.progression,
+.human-section {
+  margin-top: 56px;
+}
+.phase-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.flow-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.phase-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+  white-space: nowrap;
+}
+.phase-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+.phase-desc {
+  margin-left: auto;
+  font-size: 13px;
+  color: var(--mid);
+  max-width: 340px;
+  text-align: right;
+  font-weight: 300;
+}
+
+/* ── AGENT CARDS ── */
+.agent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.agent-grid.single {
+  grid-template-columns: 1fr;
+}
+.agent-grid.triple {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.agent-card {
+  background: white;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.agent-card-top {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.agent-card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.agent-card-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.agent-card-purpose {
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.agent-card-body {
+  padding: 16px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+/* Status badge */
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px 3px 8px;
+  border-radius: 2px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.status-badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.status-built     { background: var(--green-l);  color: var(--green);  }
+.status-built::before { background: var(--green); }
+.status-run1      { background: var(--amber-l);  color: var(--amber);  }
+.status-run1::before  { background: var(--amber); }
+.status-backlog   { background: var(--warm);     color: var(--mid);    }
+.status-backlog::before { background: var(--faint); }
+.status-blocked   { background: #FDEAEA;         color: #A02020;       }
+.status-blocked::before { background: #C93B3B; }
+
+.run-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--faint);
+  letter-spacing: 0.08em;
+}
+
+/* IO rows */
+.io-section {}
+.io-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 6px;
+}
+.io-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.io-list li {
+  font-size: 12.5px;
+  color: var(--ink);
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.45;
+}
+.io-list li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--faint);
+  font-size: 11px;
+}
+
+/* Blocker section */
+.blocker-section {
+  background: #FFFAF8;
+  border: 1px solid #EDD5CC;
+  padding: 12px 14px;
+  margin-top: auto;
+}
+.blocker-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.blocker-label::before {
+  content: '⚑';
+  font-size: 10px;
+}
+.blocker-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.blocker-list li {
+  font-size: 12px;
+  color: #8B3A2A;
+  padding-left: 12px;
+  position: relative;
+  line-height: 1.45;
+}
+.blocker-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  font-size: 10px;
+}
+.blocker-list li strong {
+  font-weight: 600;
+}
+
+/* Ready badge */
+.ready-section {
+  background: #F4FAF6;
+  border: 1px solid #C2E0CC;
+  padding: 10px 14px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ready-section .ready-icon {
+  color: var(--green);
+  font-size: 12px;
+}
+.ready-section span {
+  font-size: 12px;
+  color: var(--green);
+  font-weight: 500;
+}
+
+/* ── PIPELINE FLOW — desktop horizontal ── */
+.flow-track {
+  display: flex;
+  align-items: stretch;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+.flow-node {
+  flex: 1;
+  min-width: 130px;
+  background: white;
+  border: 1px solid var(--rule);
+  padding: 16px 14px 14px;
+}
+.flow-node + .flow-node { border-left: none; }
+.flow-node-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 6px;
+}
+.flow-node-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+.flow-node-io {
+  font-size: 11.5px;
+  color: var(--mid);
+  line-height: 1.45;
+}
+.flow-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  color: var(--accent);
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.flow-human {
+  border-color: var(--ink);
+  border-width: 2px;
+  background: var(--ink);
+  color: white;
+}
+.flow-human .flow-node-num { color: #6B6560; }
+.flow-human .flow-node-io  { color: #A09A94; }
+.flow-node.agent-1 { border-top: 3px solid var(--blue); }
+.flow-node.agent-2 { border-top: 3px solid var(--green); }
+.flow-node.agent-5 { border-top: 3px solid var(--purple); }
+.flow-node.agent-3 { border-top: 3px solid var(--amber); }
+.flow-node.agent-4 { border-top: 3px solid var(--accent); }
+
+/* ── PIPELINE FLOW — mobile vertical stack ── */
+.flow-track-mobile {
+  display: none;
+  flex-direction: column;
+  gap: 0;
+}
+.flow-node-mobile {
+  background: white;
+  border: 1px solid var(--rule);
+  border-bottom: none;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  align-items: center;
+}
+.flow-node-mobile:last-child { border-bottom: 1px solid var(--rule); }
+.flow-node-mobile.flow-human-m {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: white;
+}
+.flow-node-mobile.flow-human-m .flow-node-num { color: #6B6560; }
+.flow-node-mobile.flow-human-m .flow-node-io  { color: #A09A94; }
+.flow-node-mobile.delivery-m {
+  border: 2px solid var(--ink);
+}
+.fmn-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.fmn-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-bottom: 4px;
+}
+.fmn-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.fmn-name {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.fmn-io {
+  font-size: 12px;
+  color: var(--mid);
+  line-height: 1.4;
+}
+.flow-connector-m {
+  display: flex;
+  align-items: center;
+  padding: 4px 0 4px 28px;
+  color: var(--accent);
+  font-size: 16px;
+  background: var(--paper);
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  margin-left: 0;
+}
+
+/* ── PROGRESSION ── */
+.prog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule);
+  overflow: hidden;
+}
+.prog-col {
+  padding: 22px 20px;
+  border-right: 1px solid var(--rule);
+}
+.prog-col:last-child { border-right: none; }
+.prog-col-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 8px;
+}
+.prog-col-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 17px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.prog-col-desc {
+  font-size: 12.5px;
+  color: var(--mid);
+  line-height: 1.55;
+  font-weight: 300;
+}
+.prog-col.active {
+  background: var(--ink);
+}
+.prog-col.active .prog-col-num   { color: #4A4540; }
+.prog-col.active .prog-col-title { color: var(--paper); }
+.prog-col.active .prog-col-desc  { color: #7A7470; }
+
+/* ── NACVA NOTE ── */
+.nacva-note {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: var(--warm);
+  border-left: 3px solid var(--ink);
+  font-size: 13px;
+  color: var(--mid);
+  line-height: 1.6;
+}
+.nacva-note strong { color: var(--ink); font-weight: 600; }
+
+/* ── WHAT STAYS HUMAN ── */
+.human-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 24px;
+}
+.human-card {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 22px;
+}
+.human-card-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #4A4540;
+  margin-bottom: 8px;
+}
+.human-card-title {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  line-height: 1.3;
+}
+.human-card-desc {
+  font-size: 12.5px;
+  color: #7A7470;
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+/* ── FOOTER ── */
+.page-footer {
+  border-top: 1px solid var(--rule);
+  padding: 24px 64px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ════════════════════════════════════════════
+   TABLET  ≤ 900px
+════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .page-header  { padding: 36px 32px 32px; }
+  .page-header h1 { font-size: 34px; }
+  .vision-band  { padding: 24px 32px; }
+  .page-body    { padding: 0 32px 64px; }
+  .page-footer  { padding: 20px 32px; }
+
+  .agent-grid.triple {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .prog-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .prog-col {
+    border-bottom: 1px solid var(--rule);
+  }
+  .prog-col:nth-child(2) { border-right: none; }
+  .prog-col:nth-child(3) { border-right: 1px solid var(--rule); border-bottom: none; }
+  .prog-col:nth-child(4) { border-right: none; border-bottom: none; }
+
+  .phase-desc { display: none; }
+}
+
+/* ════════════════════════════════════════════
+   MOBILE  ≤ 600px
+════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  /* Header */
+  .page-header  { padding: 28px 20px 24px; }
+  .page-header h1 { font-size: 28px; }
+  .page-header .subtitle { font-size: 14px; }
+  .header-meta  { gap: 16px 24px; margin-top: 20px; padding-top: 18px; }
+  .meta-value   { font-size: 12px; }
+
+  /* Vision band */
+  .vision-band  { padding: 20px; gap: 14px; flex-direction: column; }
+  .vision-rule  { display: none; }
+  .vision-text  { font-size: 15px; }
+  .vision-label { padding-top: 0; }
+
+  /* Body */
+  .page-body    { padding: 0 16px 56px; }
+
+  /* Phase headers */
+  .phase        { margin-top: 40px; }
+  .pipeline-flow,
+  .progression,
+  .human-section { margin-top: 40px; }
+  .phase-header,
+  .flow-header  { gap: 8px; margin-bottom: 20px; flex-direction: column; align-items: flex-start; }
+  .phase-title  { font-size: 22px; }
+  .phase-desc   { display: none; }
+
+  /* Agent cards — single column */
+  .agent-grid,
+  .agent-grid.triple {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .agent-card-name { font-size: 18px; }
+
+  /* Blocker / ready sections — flush to card edge */
+  .blocker-section,
+  .ready-section {
+    margin-left: -22px;
+    margin-right: -22px;
+    margin-bottom: -16px;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  /* Pipeline flow — hide horizontal, show vertical */
+  .flow-track   { display: none; }
+  .flow-track-mobile { display: flex; }
+
+  /* Progression — single column */
+  .prog-grid    { grid-template-columns: 1fr; }
+  .prog-col     { border-right: none !important; border-bottom: 1px solid var(--rule); }
+  .prog-col:last-child { border-bottom: none; }
+
+  /* Human grid — single column */
+  .human-grid   { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Footer */
+  .page-footer  {
+    padding: 20px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .page-footer span:not(:first-child) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header class="page-header">
+  <div class="eyebrow">Strategic Business Valuations · Internal</div>
+  <h1>Agent Pipeline Roadmap</h1>
+  <p class="subtitle">An agentic team that handles the mechanical work of a business valuation — freeing Nancy to focus on judgment, interpretation, and NACVA sign-off.</p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Goal</span>
+      <span class="meta-value">Replace Valutrax + BizPro Value</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Platform</span>
+      <span class="meta-value">CoWork (5-file agent structure)</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Q2 Target</span>
+      <span class="meta-value">6 agents built by end of June 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Prepared</span>
+      <span class="meta-value">June 2026</span>
+    </div>
+  </div>
+</header>
+
+<!-- ── VISION BAND ── -->
+<div class="vision-band">
+  <span class="vision-label">End State</span>
+  <div class="vision-rule"></div>
+  <p class="vision-text">Nancy receives a near-complete valuation draft. She reviews, edits, and signs off. The agents did the rest. Non-certified tiers run near-autonomously. Nancy's time concentrates where her CVA credential actually matters.</p>
+</div>
+
+<div class="page-body">
+
+  <!-- ── PHASE 1 ── -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Phase 1</span>
+      <h2 class="phase-title">Foundation Agents — The Analytical Core</h2>
+      <span class="phase-desc">These two agents form the base of the pipeline. Everything downstream depends on their output.</span>
+    </div>
+
+    <div class="agent-grid">
+
+      <!-- Agent 1 -->
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--blue);">Agent 01 · Recast Worksheet</div>
+          <div class="agent-card-name">Recast Worksheet Agent</div>
+          <div class="agent-card-purpose">Takes raw client financials and produces a clean, normalized recast worksheet — the adjusted earnings picture that drives every valuation. Currently done manually by Amanda in Excel, then reviewed by Nancy. The agent handles the mechanical work in minutes.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-built">Built</span>
+            <span class="run-label">Run 1 — awaiting live test</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Client P&L (3 years preferred)</li>
+              <li>Tax returns (2–3 years)</li>
+              <li>Balance sheet</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>Completed recast worksheet (Excel)</li>
+              <li>Add-backs itemized with source references</li>
+              <li>Adjusted EBITDA / SDE clearly labeled</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Waiting on Gary</div>
+            <ul class="blocker-list">
+              <li><strong>Excel recast template</strong> — defines the exact output format</li>
+              <li><strong>Past client financial statement</strong> — needed for known-answer live test</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent 2 -->
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--green);">Agent 02 · Observations</div>
+          <div class="agent-card-name">Observations Agent</div>
+          <div class="agent-card-purpose">Reads the recast worksheet and writes narrative commentary in Nancy's voice — fractional CFO tone. Identifies the 3–4 most material observations and explains what they mean for business value. Solves the gap in Nancy's current ChatGPT attempts: no context, no voice, no client data.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-built">Built</span>
+            <span class="run-label">Run 1 — QA Test 1 passed</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Recast worksheet (output from Agent 1)</li>
+              <li>Industry context and business description</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>3–5 structured observations in memo format</li>
+              <li>Finding + value implication + plain language explanation</li>
+              <li>Ready to drop into valuation report draft</li>
+            </ul>
+          </div>
+          <div class="ready-section">
+            <span class="ready-icon">✓</span>
+            <span>No blockers — ready once Agent 1 produces output</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PHASE 2 ── -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Phase 2</span>
+      <h2 class="phase-title">Report Assembly Agents</h2>
+      <span class="phase-desc">Take Phase 1 analytical output and construct the actual valuation report sections.</span>
+    </div>
+
+    <div class="agent-grid triple">
+
+      <!-- Agent 3 -->
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--amber);">Agent 03 · Narrative</div>
+          <div class="agent-card-name">Report Narrative Writer</div>
+          <div class="agent-card-purpose">Generates the full narrative sections of the valuation report in Nancy's voice. Turns a 30-page certified report from a writing task into an editing task.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-blocked">Blocked</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Output from Agents 1 + 2</li>
+              <li>Value Builder assessment data</li>
+              <li>Client interview notes / GHL record</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>Draft narrative sections (Word-ready)</li>
+              <li>NACVA framing language where required</li>
+              <li>Certified and non-certified variants</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Waiting on Nancy</div>
+            <ul class="blocker-list">
+              <li><strong>IP asset valuation sample</strong> (certified report)</li>
+              <li><strong>Estate planning / IRS-bound sample</strong> (certified report)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent 4 -->
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--accent);">Agent 04 · Tables</div>
+          <div class="agent-card-name">Financial Table Builder</div>
+          <div class="agent-card-purpose">Formats recast data into the branded financial tables that appear in the Word report. Multi-year comparisons, common-size statements. Pure mechanical work Amanda currently does by hand for every engagement.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-blocked">Blocked</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Recast worksheet (Agent 1 output)</li>
+              <li>SBV branded Word template (AUTO-01)</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>Formatted tables ready for Word insertion</li>
+              <li>Multi-year comparison view</li>
+              <li>Common-size income statement</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Waiting on Nancy</div>
+            <ul class="blocker-list">
+              <li><strong>SBV branded Word template</strong> (AUTO-01 must be built first)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent 5 -->
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--purple);">Agent 05 · Value Builder</div>
+          <div class="agent-card-name">Value Builder Summary Agent</div>
+          <div class="agent-card-purpose">Reads the Value Builder Assessment PDF for a client and extracts the 3 highest-impact observations from the 8 value drivers — framed specifically to that business, not generic boilerplate.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-run1">Design Phase</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Value Builder Assessment PDF (client-specific)</li>
+              <li>Business context from GHL contact record</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>3 prioritized value driver observations</li>
+              <li>Plain language explanation per driver</li>
+              <li>Recommended action per driver</li>
+            </ul>
+          </div>
+          <div class="ready-section">
+            <span class="ready-icon">✓</span>
+            <span>No blockers — Jason Horowitz VB report on hand as golden example</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── PIPELINE FLOW ── -->
+  <div class="pipeline-flow">
+    <div class="flow-header">
+      <span class="phase-num">Phase 3</span>
+      <h2 class="phase-title">Full Pipeline — Target Flow</h2>
+      <span class="phase-desc">Agents triggered sequentially by GHL workflow stages. Nancy reviews at defined checkpoints.</span>
+    </div>
+
+    <!-- Desktop / tablet horizontal -->
+    <div class="flow-track">
+      <div class="flow-node agent-1">
+        <div class="flow-node-num">Agent 01</div>
+        <div class="flow-node-name">Recast Worksheet</div>
+        <div class="flow-node-io">In: raw financials<br>Out: recast Excel</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node agent-2">
+        <div class="flow-node-num">Agent 02</div>
+        <div class="flow-node-name">Observations</div>
+        <div class="flow-node-io">In: recast worksheet<br>Out: observations memo</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node agent-5">
+        <div class="flow-node-num">Agent 05</div>
+        <div class="flow-node-name">VB Summary</div>
+        <div class="flow-node-io">In: VB Assessment PDF<br>Out: value driver summary</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node agent-3">
+        <div class="flow-node-num">Agent 03</div>
+        <div class="flow-node-name">Narrative Writer</div>
+        <div class="flow-node-io">In: all above<br>Out: full report narrative</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node agent-4">
+        <div class="flow-node-num">Agent 04</div>
+        <div class="flow-node-name">Table Builder</div>
+        <div class="flow-node-io">In: recast data<br>Out: formatted tables</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node flow-human">
+        <div class="flow-node-num">Human</div>
+        <div class="flow-node-name">Nancy Reviews</div>
+        <div class="flow-node-io">Edits, approves,<br>signs off</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border:2px solid var(--ink);">
+        <div class="flow-node-num">Delivery</div>
+        <div class="flow-node-name">Report to Client</div>
+        <div class="flow-node-io">Final certified or<br>non-certified report</div>
+      </div>
+    </div>
+
+    <!-- Mobile vertical stack -->
+    <div class="flow-track-mobile">
+      <div class="flow-node-mobile" style="border-top:3px solid var(--blue);">
+        <div class="fmn-left">
+          <div class="fmn-num">Agent 01</div>
+        </div>
+        <div>
+          <div class="fmn-name">Recast Worksheet</div>
+          <div class="fmn-io">In: raw financials · Out: recast Excel</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile" style="border-top:3px solid var(--green);">
+        <div class="fmn-left">
+          <div class="fmn-num">Agent 02</div>
+        </div>
+        <div>
+          <div class="fmn-name">Observations</div>
+          <div class="fmn-io">In: recast worksheet · Out: observations memo</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile" style="border-top:3px solid var(--purple);">
+        <div class="fmn-left">
+          <div class="fmn-num">Agent 05</div>
+        </div>
+        <div>
+          <div class="fmn-name">VB Summary</div>
+          <div class="fmn-io">In: VB Assessment PDF · Out: value driver summary</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile" style="border-top:3px solid var(--amber);">
+        <div class="fmn-left">
+          <div class="fmn-num">Agent 03</div>
+        </div>
+        <div>
+          <div class="fmn-name">Narrative Writer</div>
+          <div class="fmn-io">In: all above · Out: full report narrative</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile" style="border-top:3px solid var(--accent);">
+        <div class="fmn-left">
+          <div class="fmn-num">Agent 04</div>
+        </div>
+        <div>
+          <div class="fmn-name">Table Builder</div>
+          <div class="fmn-io">In: recast data · Out: formatted tables</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile flow-human-m">
+        <div class="fmn-left">
+          <div class="fmn-num" style="color:#4A4540;">Human</div>
+        </div>
+        <div>
+          <div class="fmn-name">Nancy Reviews</div>
+          <div class="fmn-io" style="color:#A09A94;">Edits, approves, signs off</div>
+        </div>
+      </div>
+      <div class="flow-connector-m">↓</div>
+      <div class="flow-node-mobile delivery-m">
+        <div class="fmn-left">
+          <div class="fmn-num">Delivery</div>
+        </div>
+        <div>
+          <div class="fmn-name">Report to Client</div>
+          <div class="fmn-io">Final certified or non-certified report</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROGRESSION ── -->
+  <div class="progression">
+    <div class="phase-header">
+      <span class="phase-num">Vision</span>
+      <h2 class="phase-title">The Progression — Near-Term to End State</h2>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-col active">
+        <div class="prog-col-num">Now</div>
+        <div class="prog-col-title">Nancy edits drafts</div>
+        <div class="prog-col-desc">Agents handle mechanical work. Nancy reviews complete drafts, edits, and approves. Still significant time investment but no more writing from scratch.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">Phase 2 Complete</div>
+        <div class="prog-col-title">Nancy spot-checks</div>
+        <div class="prog-col-desc">All five agents running. Nancy's review shrinks to QC passes on specific sections rather than full report rewrites. Amanda's manual formatting work is gone.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">Maturity</div>
+        <div class="prog-col-title">Tiered autonomy</div>
+        <div class="prog-col-desc">Express and Explore tiers run near-autonomously. Nancy's time concentrates on Certified work where her CVA credential is actually required. Volume scales without headcount.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">End State</div>
+        <div class="prog-col-title">Productized pipeline</div>
+        <div class="prog-col-desc">The pipeline becomes a sellable methodology. Matrix-as-a-Service: SBV and GBA offer facilitated agent fleet builds to business owner clients as a value acceleration engagement.</div>
+      </div>
+    </div>
+
+    <div class="nacva-note">
+      <strong>NACVA constraint, acknowledged:</strong> Certified valuations require a CVA signature by definition — that cannot be automated away and we are not trying to. The goal is to concentrate Nancy's time on the judgment and sign-off that only she can provide, while agents handle everything that doesn't require her credential. Express and Explore tiers carry no certification requirement and are the primary candidates for near-autonomous operation.
+    </div>
+  </div>
+
+  <!-- ── WHAT STAYS HUMAN ── -->
+  <div class="human-section">
+    <div class="phase-header">
+      <span class="phase-num">Guardrail</span>
+      <h2 class="phase-title">What the Agents Do Not Replace</h2>
+    </div>
+    <div class="human-grid">
+      <div class="human-card">
+        <div class="human-card-label">Nancy</div>
+        <div class="human-card-title">Professional judgment + NACVA sign-off</div>
+        <div class="human-card-desc">The professional interpretation, the client relationship, the certified report signature. This is what only Nancy can do and where her time should be concentrated.</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card-label">Gary</div>
+        <div class="human-card-title">Strategic advisory layer</div>
+        <div class="human-card-desc">The discovery call, the engagement decision, the seller relationship, the deal structure. These require judgment, experience, and trust that no agent can replicate.</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card-label">Both</div>
+        <div class="human-card-title">Client delivery + relationship</div>
+        <div class="human-card-desc">The final review meeting, presenting findings, answering hard questions. AI is a draft, not the deliverable. Every report that leaves the office has a human name on it.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── FOOTER ── -->
+<footer class="page-footer">
+  <span>Strategic Business Valuations — Agent Pipeline Roadmap</span>
+  <span>Based on Katie Milton Jordan 5-File Methodology · CoWork</span>
+  <span>Confidential · June 2026</span>
+</footer>
+
+</body>
+</html>
