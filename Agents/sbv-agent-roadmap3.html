@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBV — Agent Pipeline Roadmap v3.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:      #0E1118;
+  --paper:    #F6F3EE;
+  --warm:     #EDE9E1;
+  --rule:     #D4CFC6;
+  --mid:      #6B6560;
+  --faint:    #A09A94;
+  --accent:   #C4553A;
+  --accent-l: #F0D5CE;
+  --green:    #2D6A4F;
+  --green-l:  #D1EAD9;
+  --amber:    #B85C00;
+  --amber-l:  #FDECD6;
+  --blue:     #1E4D8C;
+  --blue-l:   #D4E4F7;
+  --purple:   #5B3A8C;
+  --purple-l: #E8DCF7;
+  --teal:     #1A6B6B;
+  --teal-l:   #D0EDED;
+  --rose:     #8C1A4B;
+  --rose-l:   #F2D0DF;
+  --slate:    #3A4A6B;
+  --slate-l:  #D4DCF0;
+  --gold:     #7A6000;
+  --gold-l:   #F5EEC8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.page-header { background: var(--ink); color: var(--paper); padding: 48px 64px 44px; }
+.page-header .eyebrow { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin-bottom: 12px; }
+.page-header h1 { font-family: 'DM Serif Display', serif; font-size: 42px; font-weight: 400; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 10px; }
+.page-header .subtitle { font-size: 15px; color: #A09A94; max-width: 560px; font-weight: 300; }
+.header-meta { display: flex; flex-wrap: wrap; gap: 24px 32px; margin-top: 28px; padding-top: 24px; border-top: 1px solid #2A2622; }
+.meta-item { display: flex; flex-direction: column; gap: 3px; }
+.meta-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6B6560; }
+.meta-value { font-size: 13px; color: var(--paper); font-weight: 400; }
+.meta-value.achieved { color: #7ACA9A; }
+.meta-value.changed  { color: #F5C842; }
+.vision-band { background: var(--accent); color: white; padding: 28px 64px; display: flex; align-items: flex-start; gap: 20px; }
+.vision-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap; opacity: 0.75; padding-top: 3px; }
+.vision-rule { width: 1px; min-height: 32px; background: rgba(255,255,255,0.3); flex-shrink: 0; align-self: stretch; }
+.vision-text { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; font-style: italic; line-height: 1.4; }
+.changelog-band { background: var(--gold-l); border-bottom: 1px solid #D4C060; padding: 18px 64px; display: flex; align-items: flex-start; gap: 20px; }
+.changelog-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); white-space: nowrap; padding-top: 2px; flex-shrink: 0; }
+.changelog-rule { width: 1px; background: #C4B040; flex-shrink: 0; align-self: stretch; min-height: 20px; }
+.changelog-list { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.changelog-list li { font-size: 12.5px; color: var(--gold); padding-left: 14px; position: relative; line-height: 1.5; }
+.changelog-list li::before { content: '→'; position: absolute; left: 0; font-size: 11px; }
+.page-body { padding: 0 64px 80px; max-width: 1200px; margin: 0 auto; }
+.phase { margin-top: 56px; }
+.pipeline-flow, .progression, .human-section, .gba-section { margin-top: 56px; }
+.phase-header { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); margin-bottom: 28px; flex-wrap: wrap; }
+.flow-header { display: flex; align-items: baseline; gap: 16px; padding-bottom: 14px; border-bottom: 2px solid var(--ink); margin-bottom: 32px; flex-wrap: wrap; }
+.phase-num { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
+.phase-title { font-family: 'DM Serif Display', serif; font-size: 26px; font-weight: 400; letter-spacing: -0.01em; }
+.phase-desc { margin-left: auto; font-size: 13px; color: var(--mid); max-width: 340px; text-align: right; font-weight: 300; }
+.agent-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.agent-grid.quad { grid-template-columns: repeat(2, 1fr); }
+.agent-card { background: white; border: 1px solid var(--rule); overflow: hidden; position: relative; display: flex; flex-direction: column; }
+.agent-card-top { padding: 20px 22px 16px; border-bottom: 1px solid var(--rule); }
+.agent-card-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+.agent-card-name { font-family: 'DM Serif Display', serif; font-size: 20px; font-weight: 400; line-height: 1.15; letter-spacing: -0.01em; margin-bottom: 8px; }
+.agent-card-purpose { font-size: 13px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+.agent-card-body { padding: 16px 22px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.status-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.status-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px 3px 8px; border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; font-weight: 500; }
+.status-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.status-built    { background: var(--green-l); color: var(--green); }
+.status-built::before { background: var(--green); }
+.status-backlog  { background: var(--warm); color: var(--mid); }
+.status-backlog::before { background: var(--faint); }
+.status-blocked  { background: #FDEAEA; color: #A02020; }
+.status-blocked::before { background: #C93B3B; }
+.status-rework   { background: var(--amber-l); color: var(--amber); }
+.status-rework::before { background: var(--amber); }
+.status-retired  { background: var(--warm); color: var(--faint); }
+.status-retired::before { background: var(--rule); }
+.run-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--faint); letter-spacing: 0.08em; }
+.io-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 6px; }
+.io-list { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.io-list li { font-size: 12.5px; color: var(--ink); padding-left: 12px; position: relative; line-height: 1.45; }
+.io-list li::before { content: '—'; position: absolute; left: 0; color: var(--faint); font-size: 11px; }
+.blocker-section { background: #FFFAF8; border: 1px solid #EDD5CC; padding: 12px 14px; margin-top: auto; }
+.blocker-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.blocker-label::before { content: '⚑'; font-size: 10px; }
+.blocker-list { list-style: none; display: flex; flex-direction: column; gap: 3px; }
+.blocker-list li { font-size: 12px; color: #8B3A2A; padding-left: 12px; position: relative; line-height: 1.45; }
+.blocker-list li::before { content: '→'; position: absolute; left: 0; font-size: 10px; }
+.blocker-list li strong { font-weight: 600; }
+.changed-section { background: var(--gold-l); border: 1px solid #D4C060; padding: 10px 14px; margin-top: auto; }
+.changed-section span { font-size: 12px; color: var(--gold); line-height: 1.5; display: block; }
+.ready-section { background: #F4FAF6; border: 1px solid #C2E0CC; padding: 10px 14px; margin-top: auto; display: flex; align-items: center; gap: 8px; }
+.ready-section .ready-icon { color: var(--green); font-size: 12px; }
+.ready-section span { font-size: 12px; color: var(--green); font-weight: 500; }
+.note-section { background: var(--blue-l); border: 1px solid #AECBEF; padding: 10px 14px; margin-top: auto; }
+.note-section span { font-size: 12px; color: var(--blue); line-height: 1.5; display: block; }
+.retired-section { background: var(--warm); border: 1px solid var(--rule); padding: 10px 14px; margin-top: auto; display: flex; align-items: flex-start; gap: 8px; }
+.retired-section span { font-size: 12px; color: var(--mid); line-height: 1.5; font-style: italic; }
+.flow-track { display: flex; align-items: stretch; overflow-x: auto; padding-bottom: 8px; }
+.flow-node { flex: 1; min-width: 108px; background: white; border: 1px solid var(--rule); padding: 16px 12px 14px; }
+.flow-node + .flow-node { border-left: none; }
+.flow-node-num { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 6px; }
+.flow-node-name { font-size: 12px; font-weight: 600; line-height: 1.3; margin-bottom: 4px; }
+.flow-node-io { font-size: 11px; color: var(--mid); line-height: 1.45; }
+.flow-arrow { display: flex; align-items: center; padding: 0 2px; color: var(--accent); font-size: 18px; flex-shrink: 0; }
+.flow-human { border-color: var(--ink); border-width: 2px; background: var(--ink); color: white; }
+.flow-human .flow-node-num { color: #6B6560; }
+.flow-human .flow-node-io  { color: #A09A94; }
+.fn-a1  { border-top: 3px solid var(--blue); }
+.fn-a2  { border-top: 3px solid var(--green); }
+.fn-gf  { border-top: 3px solid var(--gold); }
+.fn-a7  { border-top: 3px solid var(--teal); }
+.fn-a5  { border-top: 3px solid var(--purple); }
+.fn-a3  { border-top: 3px solid var(--amber); }
+.methodology-box { margin-top: 24px; border: 1px solid var(--rule); background: white; overflow: hidden; }
+.methodology-header { background: var(--ink); color: var(--paper); padding: 14px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.methodology-grid { display: grid; grid-template-columns: repeat(3, 1fr); }
+.meth-col { padding: 18px 20px; border-right: 1px solid var(--rule); }
+.meth-col:last-child { border-right: none; }
+.meth-col-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.meth-col-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+.meth-col-desc { font-size: 12.5px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+.meth-formula { margin-top: 10px; padding: 8px 10px; background: var(--warm); border-left: 3px solid var(--teal); font-family: 'DM Mono', monospace; font-size: 11px; color: var(--teal); line-height: 1.5; }
+.value-model-box { margin-top: 24px; border: 1px solid var(--rule); background: white; overflow: hidden; }
+.value-model-header { background: var(--accent); color: white; padding: 14px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; }
+.value-model-grid { display: grid; grid-template-columns: 1fr 1fr; }
+.vm-col { padding: 18px 20px; border-right: 1px solid var(--rule); }
+.vm-col:last-child { border-right: none; }
+.vm-col-title { font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--ink); }
+.vm-col-desc { font-size: 12.5px; color: var(--mid); line-height: 1.6; font-weight: 300; }
+.vm-formula { margin-top: 10px; padding: 8px 10px; background: var(--accent-l); border-left: 3px solid var(--accent); font-family: 'DM Mono', monospace; font-size: 11px; color: var(--accent); line-height: 1.5; }
+.nacva-note { margin-top: 16px; padding: 16px 20px; background: var(--warm); border-left: 3px solid var(--ink); font-size: 13px; color: var(--mid); line-height: 1.6; }
+.nacva-note strong { color: var(--ink); font-weight: 600; }
+.accent-note { margin-top: 16px; padding: 14px 18px; background: var(--accent-l); border-left: 3px solid var(--accent); font-size: 12.5px; color: #6B2A1C; line-height: 1.6; }
+.accent-note strong { color: var(--accent); font-weight: 600; }
+.tier-table { margin-top: 24px; width: 100%; border-collapse: collapse; border: 1px solid var(--rule); background: white; }
+.tier-table th { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--rule); background: var(--warm); }
+.tier-table td { padding: 12px 16px; font-size: 12.5px; color: var(--ink); border-bottom: 1px solid var(--rule); vertical-align: top; line-height: 1.5; }
+.tier-table tr:last-child td { border-bottom: none; }
+.tier-tag { display: inline-block; padding: 2px 8px; border-radius: 2px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+.tier-express { background: var(--blue-l);   color: var(--blue); }
+.tier-explore { background: var(--green-l);  color: var(--green); }
+.tier-accel   { background: var(--amber-l);  color: var(--amber); }
+.tier-cert    { background: var(--accent-l); color: var(--accent); }
+.prog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); overflow: hidden; }
+.prog-col { padding: 22px 20px; border-right: 1px solid var(--rule); }
+.prog-col:last-child { border-right: none; }
+.prog-col-num { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px; }
+.prog-col-title { font-family: 'DM Serif Display', serif; font-size: 17px; font-weight: 400; margin-bottom: 10px; line-height: 1.2; }
+.prog-col-desc { font-size: 12.5px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+.prog-col.active { background: var(--ink); }
+.prog-col.active .prog-col-num   { color: #4A4540; }
+.prog-col.active .prog-col-title { color: var(--paper); }
+.prog-col.active .prog-col-desc  { color: #7A7470; }
+.human-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 24px; }
+.human-card { background: var(--ink); color: var(--paper); padding: 20px 22px; }
+.human-card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #4A4540; margin-bottom: 8px; }
+.human-card-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.3; }
+.human-card-desc { font-size: 12.5px; color: #7A7470; line-height: 1.55; font-weight: 300; }
+.replaces-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 24px; }
+.replaces-col { border: 1px solid var(--rule); background: white; overflow: hidden; }
+.replaces-col-header { padding: 12px 16px; background: var(--warm); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--mid); border-bottom: 1px solid var(--rule); }
+.replaces-list { list-style: none; padding: 12px 16px; display: flex; flex-direction: column; gap: 6px; }
+.replaces-list li { font-size: 12.5px; color: var(--ink); padding-left: 12px; position: relative; line-height: 1.45; }
+.replaces-list li::before { content: '—'; position: absolute; left: 0; color: var(--faint); }
+.gba-card-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 24px; }
+.gba-card { border: 1px solid var(--rule); background: white; overflow: hidden; display: flex; flex-direction: column; }
+.gba-card-top { padding: 18px 20px 14px; border-bottom: 1px solid var(--rule); }
+.gba-card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+.gba-card-title { font-family: 'DM Serif Display', serif; font-size: 18px; font-weight: 400; margin-bottom: 6px; }
+.gba-card-desc { font-size: 12.5px; color: var(--mid); line-height: 1.55; font-weight: 300; }
+.gba-card-body { padding: 14px 20px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.page-footer { border-top: 1px solid var(--rule); padding: 24px 64px; display: flex; flex-wrap: wrap; gap: 8px 32px; justify-content: space-between; align-items: center; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.10em; text-transform: uppercase; color: var(--faint); }
+@media (max-width: 900px) {
+  .page-header { padding: 36px 32px 32px; }
+  .page-header h1 { font-size: 34px; }
+  .vision-band, .changelog-band { padding: 24px 32px; }
+  .page-body { padding: 0 32px 64px; }
+  .page-footer { padding: 20px 32px; }
+  .agent-grid, .agent-grid.quad { grid-template-columns: 1fr; }
+  .prog-grid { grid-template-columns: repeat(2, 1fr); }
+  .prog-col { border-bottom: 1px solid var(--rule); }
+  .prog-col:nth-child(2) { border-right: none; }
+  .prog-col:nth-child(3) { border-right: 1px solid var(--rule); border-bottom: none; }
+  .prog-col:nth-child(4) { border-right: none; border-bottom: none; }
+  .phase-desc { display: none; }
+  .methodology-grid { grid-template-columns: 1fr; }
+  .meth-col { border-right: none; border-bottom: 1px solid var(--rule); }
+  .meth-col:last-child { border-bottom: none; }
+  .value-model-grid { grid-template-columns: 1fr; }
+  .vm-col { border-right: none; border-bottom: 1px solid var(--rule); }
+  .vm-col:last-child { border-bottom: none; }
+  .replaces-grid, .gba-card-grid { grid-template-columns: 1fr; }
+  .human-grid { grid-template-columns: 1fr; gap: 12px; }
+}
+@media (max-width: 600px) {
+  .page-header { padding: 28px 20px 24px; }
+  .page-header h1 { font-size: 28px; }
+  .vision-band, .changelog-band { padding: 20px; gap: 14px; flex-direction: column; }
+  .vision-rule, .changelog-rule { display: none; }
+  .page-body { padding: 0 16px 56px; }
+  .phase, .pipeline-flow, .progression, .human-section, .gba-section { margin-top: 40px; }
+  .phase-header, .flow-header { gap: 8px; margin-bottom: 20px; flex-direction: column; align-items: flex-start; }
+  .phase-title { font-size: 22px; }
+  .prog-grid { grid-template-columns: 1fr; }
+  .prog-col { border-right: none !important; border-bottom: 1px solid var(--rule); }
+  .prog-col:last-child { border-bottom: none; }
+  .page-footer { padding: 20px 16px; flex-direction: column; align-items: flex-start; gap: 6px; }
+  .page-footer span:not(:first-child) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="eyebrow">Strategic Business Valuations · Internal</div>
+  <h1>Agent Pipeline Roadmap</h1>
+  <p class="subtitle">An agentic team that handles the mechanical and analytical work of a business valuation — freeing Nancy to focus on judgment, interpretation, and NACVA sign-off.</p>
+  <div class="header-meta">
+    <div class="meta-item"><span class="meta-label">Goal</span><span class="meta-value">Replace Valutrax + BizPro Value</span></div>
+    <div class="meta-item"><span class="meta-label">Platform</span><span class="meta-value">CoWork (5-file agent structure)</span></div>
+    <div class="meta-item"><span class="meta-label">Q2 Status</span><span class="meta-value achieved">Q2 goal met — 5 CoWork agents built ✓</span></div>
+    <div class="meta-item"><span class="meta-label">Version</span><span class="meta-value changed">v3.1 — June 16, 2026 · Tiers deferred</span></div>
+    <div class="meta-item"><span class="meta-label">Last Updated</span><span class="meta-value">June 16, 2026</span></div>
+  </div>
+</header>
+
+<div class="vision-band">
+  <span class="vision-label">End State</span>
+  <div class="vision-rule"></div>
+  <p class="vision-text">Nancy receives a near-complete valuation draft. She reviews, edits, and signs off. The agents did the rest. Non-certified tiers run near-autonomously. Nancy's time concentrates where her CVA credential actually matters — and the pipeline becomes the operating system other advisors can run on.</p>
+</div>
+
+<div class="changelog-band">
+  <span class="changelog-label">v3.1 Changes</span>
+  <div class="changelog-rule"></div>
+  <ul class="changelog-list">
+    <li>Valuation tiers section removed — tier definitions still in flux, will be reintroduced when pricing and scope are settled.</li>
+    <li>Agent 02 format reversed to four-category bullet structure with no numbered labels. Blocked on Gary's golden example.</li>
+    <li>Agent 01 QA logic corrected: no annualization, IDA never flagged absent, no business-model assumptions, drop "address before client" framing.</li>
+    <li>Agent 03 Express/Explore rebuilt to Gary's education-first 10-part page order. Certified unchanged.</li>
+    <li>Growth Forecast added as its own distinct deliverable — sits after Observations in the report flow, not inside Agent 01 or 02.</li>
+    <li>Agent 08 (Scenario Planner) and Agent 00 (Intake) added as Q3 backlog.</li>
+    <li>GBA brokerage agent track added: CIM Writer and Listing Website Builder.</li>
+    <li>Core value model documented as the shared frame every agent serves.</li>
+    <li>SBV identity context drafted for Agent 03 — defines who SBV is, who SBV isn't, and the voice every Express/Explore narrative must use.</li>
+  </ul>
+</div>
+
+<div class="page-body">
+
+  <!-- THE MODEL -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Foundation</span>
+      <h2 class="phase-title">The Model Every Agent Serves</h2>
+      <span class="phase-desc">Gary's mental model. If the agents get this, the rest is detail.</span>
+    </div>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:20px;font-weight:300;line-height:1.6;">Every agent in this pipeline is one step in a single reasoning chain. The chain produces one answer: here is what your business is worth, here is what determines that number, and here is what you can do about it. Agents that lose sight of this model produce generic output. The model is the connective tissue.</p>
+    <div class="value-model-box">
+      <div class="value-model-header">The Two-Lever Value Model — Gary's Framework</div>
+      <div class="value-model-grid">
+        <div class="vm-col">
+          <div class="vm-col-title">Lever 1 — Normalized Earnings</div>
+          <div class="vm-col-desc">The base the multiple acts on. Larger earnings means a larger output — and a small size premium applies on top. This is what the normalization and weighted-earnings agents work on. Growing earnings on weak value drivers leaves money on the table.</div>
+          <div class="vm-formula">Value = Weighted Earnings × Multiple</div>
+        </div>
+        <div class="vm-col">
+          <div class="vm-col-title">Lever 2 — The Multiple (a buildup of risk)</div>
+          <div class="vm-col-desc">The multiple is not a lookup — it is a risk construct. A less risky, more transferable business commands a higher multiple. Risk is measured by the eight Value Builder drivers. Improving those drivers de-risks the business and raises the multiple. One full multiple point is called "a turn."</div>
+          <div class="vm-formula">Higher VB score → lower risk → higher multiple → more value</div>
+        </div>
+      </div>
+    </div>
+    <div class="nacva-note"><strong>The sequencing principle:</strong> Improve the value drivers first to build a stronger foundation, then accelerate earnings growth. Growth on top of improved drivers earns incremental value at a higher multiple — both levers move simultaneously. Gary's headline selling point: a 30% growth rate over two years, averaging 15% a year, will double the value of most businesses.</div>
+    <div class="nacva-note" style="margin-top:8px;"><strong>The simplicity rule:</strong> One or two takeaways per deliverable, not a data dump. "The more details I get bogged down in, the less they need us." Education leads to consultation. Agents that over-reach erode the reason to hire SBV.</div>
+    <div class="nacva-note" style="margin-top:8px;"><strong>Value versus Price — always stated up front:</strong> Value is the pre-market directional number SBV produces. Price is what the market actually pays. These are never the same. SBV educates every client on the difference before anything else.</div>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Methodology</span>
+      <h2 class="phase-title">SBV's In-House Valuation Approach</h2>
+      <span class="phase-desc">The manual steps the agent pipeline replaces.</span>
+    </div>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:20px;font-weight:300;line-height:1.6;">SBV does not use Value Builder's own value number for client-facing work. Value Builder is the nurture, assessment, and conversation layer. Gary: "It is not in the scope of the valuation to analyze the P&L. It is in the scope to analyze their normalized earnings."</p>
+    <div class="methodology-box">
+      <div class="methodology-header">The Three-Part Valuation Process</div>
+      <div class="methodology-grid">
+        <div class="meth-col">
+          <div class="meth-col-label">Step 1</div>
+          <div class="meth-col-title">Normalization (Recasting)</div>
+          <div class="meth-col-desc">Normalize the income statement. Interest, Depreciation, and Amortization are always added back when present — never flagged for absence. Owner add-backs on top of IDA. Output is SDE and EBITDA. SDE for Main Street and owner-operator businesses. EBITDA for larger or institutional-buyer engagements. Nancy determines which per engagement. This is a financial snapshot, not a P&L analysis.</div>
+          <div class="meth-formula">Net Income + IDA (always) + owner add-backs = SDE<br>SDE − reasonable owner salary = EBITDA</div>
+        </div>
+        <div class="meth-col">
+          <div class="meth-col-label">Step 2</div>
+          <div class="meth-col-title">Weighted Earnings</div>
+          <div class="meth-col-desc">SDE or EBITDA from each year is weighted to produce a single representative earnings figure. The weighting is professional judgment Nancy makes per engagement — no fixed formula. Standard 50/30/20 for most three-year Express/Explore runs. Fenetex certified used 30/30/20/10/10/0 across six years. Agent 07 applies whatever Nancy specifies — never its own.</div>
+          <div class="meth-formula">Weighted Earnings = Σ (each year × its weight)<br>Weights must sum to 100% — Nancy sets them</div>
+        </div>
+        <div class="meth-col">
+          <div class="meth-col-label">Step 3</div>
+          <div class="meth-col-title">Market Method + Range of Value</div>
+          <div class="meth-col-desc">DealStats comps. Nancy selects low, mid, and high multiples after reviewing comparable sold transactions. The multiple is a buildup of risk — not a lookup. Agent 07 applies what Nancy specifies. Output is a low/mid/high range of value: the headline number on the report. Primary comp database: DealStats (confirmed on Fenetex, January 2026).</div>
+          <div class="meth-formula">Range of Value = Weighted Earnings × Multiple<br>(low / mid / high — Nancy sets the multiples)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 1 -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Phase 1</span>
+      <h2 class="phase-title">Foundation Agents — The Analytical Core</h2>
+      <span class="phase-desc">Everything downstream depends on these two agents.</span>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--blue);">Agent 01 · Recast Worksheet</div>
+          <div class="agent-card-name">Recast Worksheet Agent</div>
+          <div class="agent-card-purpose">Takes raw client financials and produces a clean normalized recast. A financial snapshot — not a P&L diagnosis. Identifies owner add-backs, produces SDE and EBITDA per year, and summarizes across years. Currently done manually by Amanda in Excel.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-built">Built</span>
+            <span class="run-label">Run 1 validated by Gary — utility contractor P&L 2022–2025.</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Client P&L (3 years preferred — PDF or Excel)</li>
+              <li>Tax returns (2–3 years)</li>
+              <li>Add-backs file (V2 template)</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output — Three Sheets</div>
+            <ul class="io-list">
+              <li>Sheet 1: Per-year recast (source / add-backs / adjusted / notes)</li>
+              <li>Sheet 2: Multi-year normalized summary — all years side by side, % of revenue</li>
+              <li>Sheet 3: SDE/EBITDA summary with short definitions on-page</li>
+            </ul>
+          </div>
+          <div class="changed-section">
+            <span><strong>v3 QA logic corrections:</strong> Never annualize partial periods — label partial and continue. IDA always added back when present, never flagged for absence. Only flag a non-IDA add-back instruction that references a line that does not exist. Never infer a structural or business-model change — inconsistent accounting is the observation, not a model shift. Drop "address before client" framing entirely. QA notes are neutral internal scaffolding for Amanda and Nancy.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--green);">Agent 02 · Observations</div>
+          <div class="agent-card-name">Observations Agent</div>
+          <div class="agent-card-purpose">Reads the recast worksheet and writes high-level observations in Gary's format. Four categories, bullet points throughout. Tells the owner what their financials show right now. One or two takeaways per category. Comes before the Growth Forecast in the report flow.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-blocked">Blocked</span>
+            <span class="run-label">Format rebuild required. Waiting on Gary's bullet-format golden example.</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output — Four Categories (Gary, June 16)</div>
+            <ul class="io-list">
+              <li><strong>Revenue</strong> — two bullets only: most recent year change, three-year change. Skip the middle year.</li>
+              <li><strong>Gross Profit Margin</strong> — improved or decreased last year by X, then three-year direction.</li>
+              <li><strong>Operating Expenses</strong> — increased or decreased last year, plus the three biggest movers.</li>
+              <li><strong>SDE</strong> — what it is and the direction.</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Voice rules</div>
+            <ul class="io-list">
+              <li>Bullet points throughout — no prose paragraphs, no "Observation 1" labels</li>
+              <li>Open with a short executive summary of who the company is and what they do</li>
+              <li>Hit the good and the bad — lead with the headline number a buyer cares about</li>
+              <li>No valuation language. No hedging. Percentages and dollars together.</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Blockers</div>
+            <ul class="blocker-list">
+              <li><strong>Gary is writing the golden example.</strong> Do not rebuild the format until it arrives. The six-observation prose format in the current build is a direct reversal of what Gary asked for.</li>
+              <li><strong>P100 golden example is retired.</strong> Built on annualized data (now forbidden) and in the old prose format. Remove as the calibration case.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GROWTH FORECAST -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">New Deliverable</span>
+      <h2 class="phase-title">Growth Forecast</h2>
+      <span class="phase-desc">Named by Gary on June 16. Sits after Observations, before Recommendations.</span>
+    </div>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:20px;font-weight:300;line-height:1.6;">Not the detailed Accelerate-tier pro forma — that is Agent 06. A simple, high-level five-scenario projection off the Valutrax summary page. Its job is to show what is possible, not to prove it line by line. Gary: "I don't have to prove any of that — that's going to be other agents." He named it in the room: "Growth Forecast. How about that. That's pretty simple."</p>
+
+    <div class="agent-card" style="border-top:3px solid var(--gold);">
+      <div class="agent-card-top">
+        <div class="agent-card-num" style="color:var(--gold);">Growth Forecast · Post-Observations Deliverable</div>
+        <div class="agent-card-name">Growth Forecast</div>
+        <div class="agent-card-purpose">Takes the multi-year normalized summary from Agent 01 and extends it forward into five revenue-growth scenarios. Margin is held flat. Operating expenses grow at half the revenue growth rate. The result demonstrates operating leverage — EBITDA margin improves as the business scales — and anchors Gary's core selling point: a 30% growth rate over two years will double the value of most businesses.</div>
+      </div>
+      <div class="agent-card-body" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;">
+        <div>
+          <div class="status-row" style="margin-bottom:14px;"><span class="status-badge status-backlog">Build next — blocked on Gary's spreadsheet</span></div>
+          <div class="io-label" style="margin-bottom:6px;">Inputs</div>
+          <ul class="io-list">
+            <li>Multi-year normalized summary (Agent 01 Sheet 2)</li>
+            <li>Base year margin (from Agent 01 output)</li>
+            <li>Base year operating expenses (from Agent 01 output)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="io-label" style="margin-bottom:6px;">Exact spec (Gary, June 16)</div>
+          <ul class="io-list">
+            <li>Base year as column 1</li>
+            <li>Five scenarios: 10, 20, 30, 40, 50% revenue growth</li>
+            <li>Margin stays flat across all scenarios</li>
+            <li>Gross profit auto-calculates as revenue × margin</li>
+            <li>Operating expenses grow at half the revenue growth rate (10% revenue = 5% expenses)</li>
+            <li>EBITDA = gross profit − operating expenses</li>
+          </ul>
+        </div>
+        <div>
+          <div class="io-label" style="margin-bottom:6px;">Position in report and pipeline</div>
+          <ul class="io-list">
+            <li>Comes after Observations (Agent 02)</li>
+            <li>Comes before Recommendations and Scenario Plan</li>
+            <li>Its own named page in the client's report — not embedded inside another section</li>
+            <li>Feeds Agent 08 (Scenario Planner) as an input</li>
+          </ul>
+          <div style="margin-top:12px;padding:8px 10px;background:var(--gold-l);border-left:3px solid var(--gold);font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);line-height:1.5;">Gary is formatting his own spreadsheet first. Wait for it before building the agent.</div>
+        </div>
+      </div>
+    </div>
+    <div class="accent-note">
+      <strong>Why the Growth Forecast is not part of Agent 01 or Agent 02:</strong> Gary placed it as a forward-looking page with its own name, after observations and value builder findings. Observations tells the owner what their financials show now. The Growth Forecast shows what is possible. They are two different things. Gary never assigned this calculation to a specific agent folder — he described it by its position in the delivery conversation and its report page.
+    </div>
+  </div>
+
+  <!-- PHASE 2 -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Phase 2</span>
+      <h2 class="phase-title">Report Assembly + Valuation Engine</h2>
+      <span class="phase-desc">The actual valuation number and the full client-facing report.</span>
+    </div>
+    <div class="agent-grid quad">
+
+      <div class="agent-card" style="border-top:3px solid var(--teal);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--teal);">Agent 07 · Valuation Engine</div>
+          <div class="agent-card-name">Earnings &amp; Value Agent</div>
+          <div class="agent-card-purpose">This is where the actual valuation number comes from. Applies Nancy's year weightings and her industry multiple from DealStats to produce a low/mid/high range of value. Never selects its own weighting or multiple. Nancy sets both — the agent applies them.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-built">Built</span>
+            <span class="run-label">Gary: "Who wrote all of this?" — June 16. Fenetex golden example verified. Run 1 pending.</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Multi-year summary (Agent 01)</li>
+              <li>Nancy's input sheet: metric (SDE/EBITDA), year weights, low/mid/high multiples</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output</div>
+            <ul class="io-list">
+              <li>Weighted earnings table with year-by-year breakdown</li>
+              <li>Range of value (low / mid / high) — the headline number</li>
+              <li>Methodology narrative for insertion into the report</li>
+            </ul>
+          </div>
+          <div class="note-section">
+            <span><strong>Next:</strong> Build second and third golden examples. Gary confirmed Trivia Nation first (full history, VB metrics, and financials available). Possibly the laundry business as a third. These define the deliverable at each stage, not just the look.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="border-top:3px solid var(--purple);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--purple);">Agent 05 · Value Builder Summary</div>
+          <div class="agent-card-name">Value Builder Summary Agent</div>
+          <div class="agent-card-purpose">Reads the Value Builder Assessment PDF and produces the qualitative half of the report. Covers the eight value drivers with how the client scored against the industry average, and Gary's short plain-language explanation for each. Bullet points throughout. No valuation figures.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-rework">Needs update</span>
+            <span class="run-label">Current build: 3 priority drivers. June 16 spec: all 8 with short explanations.</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Output (v3 format)</div>
+            <ul class="io-list">
+              <li>Executive summary of who the company is and what they do</li>
+              <li>All eight drivers: score vs. industry average, Gary's short plain-language explanation per driver</li>
+              <li>The 80 benchmark: companies scoring 80+ get ~70% higher offers — goal is always to push toward 80</li>
+              <li>Bullet points throughout</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Blockers</div>
+            <ul class="blocker-list">
+              <li><strong>The exact eight drivers with Gary's one-line explanation for each are not pinned.</strong> He said "these little explanations are all they are, that's all you need" — but only named Financial Performance and Growth Potential in the room. Getting these from Gary is the single highest-leverage unblocking action for the qualitative half of every report.</li>
+              <li><strong>Confirm: three priority drivers or all eight?</strong> Gary implied all eight in the June 16 report walk-through but this was not stated as a direct agent spec.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="border-top:3px solid var(--amber);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--amber);">Agent 03 · Report Narrative</div>
+          <div class="agent-card-name">Report Narrative Writer</div>
+          <div class="agent-card-purpose">Assembles all upstream outputs into the full client report. Two distinct variants. Express/Explore uses Gary's education-first page order in plain, common-people language. Certified uses the formal NACVA structure with normalization language, all 14 limiting conditions, and Nancy's signature block.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row">
+            <span class="status-badge status-rework">Needs update</span>
+            <span class="run-label">Express/Explore page order rebuilt. Certified variant unchanged.</span>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Express / Explore page order (Gary, June 16)</div>
+            <ul class="io-list">
+              <li>1. Title page</li>
+              <li>2. Scope, Confidentiality, Disclaimer</li>
+              <li>3. Table of Contents</li>
+              <li>4. "Value is a Methodology" — education page: the model, eight drivers, multiple as risk, value vs. price</li>
+              <li>5. Section 1 Quantitative: normalization worksheets, multi-year summary with SDE and EBITDA definitions on-page</li>
+              <li>6. Section 2 Qualitative: Value Builder summary, eight drivers and scores</li>
+              <li>7. Estimate of Value — range and risk impact. "Estimate of value," never "most probable sale price."</li>
+              <li>8. Observations</li>
+              <li>9. Recommendations</li>
+              <li>10. Scenario Plan and Growth Forecast</li>
+            </ul>
+          </div>
+          <div class="changed-section">
+            <span><strong>v3 — SBV identity context required:</strong> The current build pulls generic appraisal language from the web. Gary: "We want to talk like common people." Hugo to draft an SBV-identity block for 04-context.md covering who SBV is, the plain-language philosophy, the anti-jargon stance, and the two-lever value model. Gary marks up what to keep.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="border-top:3px solid var(--rule); opacity:0.65;">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--faint);">Agent 04 · Tables — Retired</div>
+          <div class="agent-card-name" style="color:var(--mid);">Financial Table Builder</div>
+          <div class="agent-card-purpose">Originally scoped to format recast data into branded Word tables. Retired June 15, 2026.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row"><span class="status-badge status-retired">Retired</span></div>
+          <div class="retired-section"><span>Financial tables now produced as branded HTML within Agent 03's report output. The Excel-to-Word paste problem is eliminated. Nancy opens the HTML draft in a browser, reviews, and downloads as PDF via the print button.</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="margin-top:20px;">
+      <div class="agent-card" style="border-top:3px solid var(--rose);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--rose);">Agent 06 · Detailed Forecasting — Accelerate Tier Only</div>
+          <div class="agent-card-name">Forecasting Agent</div>
+          <div class="agent-card-purpose">A detailed forward-looking pro forma P&L for Accelerate-tier exit planning clients. This is the detailed version — not the same as the Growth Forecast above. Gary has specific philosophy on every line item: rent at 3% annual increase, advertising as % of revenue, commission-only sales roles under COGS, capacity-based hiring triggers.</div>
+        </div>
+        <div class="agent-card-body" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+          <div>
+            <div class="status-row" style="margin-bottom:14px;"><span class="status-badge status-backlog">Backlog — Q3</span></div>
+            <div class="io-label" style="margin-bottom:6px;">What it covers</div>
+            <ul class="io-list">
+              <li>Top-line revenue at defined growth rate</li>
+              <li>Advertising as % of revenue (invest like a franchise owner in your own brand)</li>
+              <li>Rent at 3% annual increase</li>
+              <li>Commission-only sales roles under COGS, not fixed OpEx</li>
+              <li>Capacity-based hiring triggers baked into the forward P&L</li>
+            </ul>
+          </div>
+          <div>
+            <div class="note-section" style="margin-top:0;">
+              <span><strong>Important:</strong> The Growth Forecast (above) is a separate, simpler, five-scenario macro view for all tiers. Agent 06 is the detailed Accelerate-tier tool with line-by-line assumptions. Do not conflate the two. Build after the core pipeline runs reliably through Q3.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PIPELINE FLOW -->
+  <div class="pipeline-flow">
+    <div class="flow-header">
+      <span class="phase-num">Full Flow</span>
+      <h2 class="phase-title">Target Pipeline — Delivery Sequence</h2>
+      <span class="phase-desc">Agents run sequentially. Nancy reviews at defined checkpoints.</span>
+    </div>
+    <div class="flow-track">
+      <div class="flow-node fn-a1"><div class="flow-node-num">Agent 01</div><div class="flow-node-name">Recast Worksheet</div><div class="flow-node-io">In: raw financials<br>Out: recast xlsx</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node fn-a2"><div class="flow-node-num">Agent 02</div><div class="flow-node-name">Observations</div><div class="flow-node-io">In: recast worksheet<br>Out: 4-category bullet HTML</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node fn-gf"><div class="flow-node-num">Growth Forecast</div><div class="flow-node-name">5-Scenario Table</div><div class="flow-node-io">In: Agent 01 summary<br>Out: 10–50% scenarios</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node fn-a7"><div class="flow-node-num">Agent 07</div><div class="flow-node-name">Earnings &amp; Value</div><div class="flow-node-io">In: SDE + Nancy's inputs<br>Out: range of value HTML</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node fn-a5"><div class="flow-node-num">Agent 05</div><div class="flow-node-name">VB Summary</div><div class="flow-node-io">In: VB Assessment PDF<br>Out: 8-driver summary HTML</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node fn-a3"><div class="flow-node-num">Agent 03</div><div class="flow-node-name">Narrative Writer</div><div class="flow-node-io">In: all above + client-context<br>Out: full report draft HTML</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node flow-human"><div class="flow-node-num">Human</div><div class="flow-node-name">Nancy Reviews</div><div class="flow-node-io">Edits, approves,<br>signs off</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-node" style="border:2px solid var(--ink);"><div class="flow-node-num">Delivery</div><div class="flow-node-name">Report to Client</div><div class="flow-node-io">PDF via browser print<br>Express / Explore / Certified</div></div>
+    </div>
+    <div class="replaces-grid">
+      <div class="replaces-col">
+        <div class="replaces-col-header">What the pipeline replaces</div>
+        <ul class="replaces-list">
+          <li>Valutrax — internal gut-check only, ugly output. Agent 01 replicates its recast function.</li>
+          <li>BizPro Value — unprofessional client-facing report. HTML output replaces it for Express and Explore.</li>
+          <li>Nancy's ChatGPT attempts — no context, no voice, no client data.</li>
+          <li>Amanda's manual data entry into Valutrax and Excel each engagement.</li>
+          <li>Amanda's manual table reformatting for Word — eliminated by HTML output.</li>
+          <li>The weighted earnings and range of value calculation — now Agent 07.</li>
+        </ul>
+      </div>
+      <div class="replaces-col">
+        <div class="replaces-col-header">What the pipeline does NOT replace</div>
+        <ul class="replaces-list">
+          <li>Nancy's professional judgment and NACVA sign-off — required for Certified.</li>
+          <li>The client Q&A call — reviewing recast sheets, assessments, business questions.</li>
+          <li>The delivery meeting — presenting findings and running the Scenario Planner live.</li>
+          <li>Gary's strategic advisory and deal judgment.</li>
+          <li>The multiple selection — Nancy reviews DealStats and sets it. Agent applies it.</li>
+          <li>The weighting decision — Nancy sets year weights. Agent applies them.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- BACKLOG -->
+  <div class="phase">
+    <div class="phase-header">
+      <span class="phase-num">Backlog — Q3</span>
+      <h2 class="phase-title">Next Agents to Build</h2>
+      <span class="phase-desc">Scoped, not yet started. Sequence matters — each depends on what comes before it.</span>
+    </div>
+    <div class="agent-grid">
+
+      <div class="agent-card" style="border-top:3px solid var(--slate);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--slate);">Agent 00 · Intake — Planned Q3</div>
+          <div class="agent-card-name">Security &amp; Intake Agent</div>
+          <div class="agent-card-purpose">Sets the standing facts about a client once, at intake, so every downstream agent works from the same picture instead of guessing. Centralizes PII handling, project-code assignment, and the key decisions that travel through the whole pipeline.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row"><span class="status-badge status-backlog">Planned — Q3</span></div>
+          <div class="io-section">
+            <div class="io-label">What it sets at intake</div>
+            <ul class="io-list">
+              <li>Earnings basis — SDE (owner-operator, Main Street) or EBITDA (larger or institutional buyer)</li>
+              <li>Engagement tier — Express, Explore, Accelerate, or Certified</li>
+              <li>Standing client context — facts SBV already knows so agents don't rediscover and misread them</li>
+              <li>Project code for PII sanitization in file naming</li>
+            </ul>
+          </div>
+          <div class="note-section">
+            <span>These fields are also natural GHL custom fields — set once at intake, travel through the pipeline on every engagement. Design Agent 00 and the GHL intake together.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="agent-card" style="border-top:3px solid var(--rose);">
+        <div class="agent-card-top">
+          <div class="agent-card-num" style="color:var(--rose);">Agent 08 · Scenario Planner — Planned Q3</div>
+          <div class="agent-card-name">Scenario Planner Agent</div>
+          <div class="agent-card-purpose">Gary's "an eight." Takes the Value Builder report and the Growth Forecast and produces a scenario plan combining both value levers — earnings and multiple — into one forward view. The first agent where both levers work together simultaneously.</div>
+        </div>
+        <div class="agent-card-body">
+          <div class="status-row"><span class="status-badge status-backlog">Planned — Q3</span></div>
+          <div class="io-section">
+            <div class="io-label">Six scenarios Gary described (June 16)</div>
+            <ul class="io-list">
+              <li>Base — current value anchored on today's valuation</li>
+              <li>Scenario 1 — improve the Value Builder score (Black Box, not sliders)</li>
+              <li>Scenarios 2–6 — 10, 20, 30, 40, 50% revenue growth from the Growth Forecast</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Depends on</div>
+            <ul class="io-list">
+              <li>Agent 05 output (driver scores)</li>
+              <li>Agent 07 output (earnings and range of value)</li>
+              <li>Growth Forecast output (future EBITDA at each scenario)</li>
+            </ul>
+          </div>
+          <div class="note-section">
+            <span>Gary: "I would love to know what it learns from the data." Still speculative — he said "I'm thinking about" not "build this now." Sequence last among SBV agents. This agent must express value in SBV's framing, not by quoting Value Builder's own value figure.</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- GBA TRACK -->
+  <div class="gba-section">
+    <div class="phase-header">
+      <span class="phase-num">New Track — GBA</span>
+      <h2 class="phase-title">Brokerage Agents</h2>
+      <span class="phase-desc">Raised by Gary on June 16. Separate from the SBV valuation pipeline.</span>
+    </div>
+    <p style="font-size:13px;color:var(--mid);margin-bottom:20px;font-weight:300;line-height:1.6;">These agents reuse the valuation output but serve the brokerage process — getting a business listed and in front of buyers. Both depend on a structured listing-interview intake in GHL, so the same captured data feeds both agents. Design the GHL intake form and the agents together.</p>
+    <div class="gba-card-grid">
+
+      <div class="gba-card" style="border-top:3px solid var(--blue);">
+        <div class="gba-card-top">
+          <div class="gba-card-label" style="color:var(--blue);">GBA Agent · New</div>
+          <div class="gba-card-title">CIM Writer</div>
+          <div class="gba-card-desc">Builds a Confidential Information Memorandum for buyers from Gary's listing-interview notes plus the SBV valuation output. Replaces the manual write-up Gary does between taking the listing and going to market.</div>
+        </div>
+        <div class="gba-card-body">
+          <div class="status-row"><span class="status-badge status-backlog">Planned</span></div>
+          <div class="io-section">
+            <div class="io-label">Inputs</div>
+            <ul class="io-list">
+              <li>Gary's one-page listing interview notes</li>
+              <li>Valuation output (Agent 03 report or Express summary)</li>
+              <li>Business context fields from GHL contact record</li>
+            </ul>
+          </div>
+          <div class="note-section">
+            <span>Gary called this "SIP" in the meeting — he means CIM (Confidential Information Memorandum). Build after the SBV core pipeline is running on real engagements.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="gba-card" style="border-top:3px solid var(--teal);">
+        <div class="gba-card-top">
+          <div class="gba-card-label" style="color:var(--teal);">GBA Agent · New</div>
+          <div class="gba-card-title">Listing Website Builder</div>
+          <div class="gba-card-desc">Stands up a basic business website overnight when a new listing comes in without one. Gary: "I should not be taking a listing for a company that does not have a website." Gives buyers a web presence to find when they look up the business.</div>
+        </div>
+        <div class="gba-card-body">
+          <div class="status-row"><span class="status-badge status-backlog">Planned — solve hosting first</span></div>
+          <div class="io-section">
+            <div class="io-label">Site contents</div>
+            <ul class="io-list">
+              <li>Services offered, phone, email, short About, years in business</li>
+              <li>Seller-supplied testimonials and work photos</li>
+              <li>Basic and clean — not a full brand build</li>
+            </ul>
+          </div>
+          <div class="io-section">
+            <div class="io-label">Hard constraints</div>
+            <ul class="io-list">
+              <li>Client must own the domain — at sale, all assets transfer and GBA cannot be on it</li>
+              <li>Netlify free tier will not scale to hosting client sites — a real hosting solution is required</li>
+            </ul>
+          </div>
+          <div class="blocker-section">
+            <div class="blocker-label">Blockers</div>
+            <ul class="blocker-list">
+              <li><strong>Hosting model unresolved.</strong> Research domain ownership and transfer-at-sale handling before scoping this build.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROGRESSION -->
+  <div class="progression">
+    <div class="phase-header">
+      <span class="phase-num">Vision</span>
+      <h2 class="phase-title">The Progression — Near-Term to End State</h2>
+    </div>
+    <div class="prog-grid">
+      <div class="prog-col active">
+        <div class="prog-col-num">Now — Q2 2026</div>
+        <div class="prog-col-title">Nancy edits drafts</div>
+        <div class="prog-col-desc">All five CoWork agents built. Agent 02 in rework, blocked on Gary's golden example. Agent 01 QA logic corrections applied. Pipeline test staged. Nancy receives a complete branded HTML draft. No more writing from scratch.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">Q3 2026</div>
+        <div class="prog-col-title">Nancy spot-checks</div>
+        <div class="prog-col-desc">Growth Forecast built and integrated. Agent 02 rebuilt from Gary's example. Agents 00 and 08 scoped and built. Pipeline running on real engagements. Vesta and utility contractor complete as client tests.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">Maturity</div>
+        <div class="prog-col-title">Tiered autonomy</div>
+        <div class="prog-col-desc">Express and Explore run near-autonomously. Nancy concentrated on Certified work. GBA agents live. Gary brings on associate advisors who run the same pipeline on their own engagements.</div>
+      </div>
+      <div class="prog-col">
+        <div class="prog-col-num">End State</div>
+        <div class="prog-col-title">The pipeline is the product</div>
+        <div class="prog-col-desc">The valuation pipeline becomes the operating system other advisors plug into. Gary: "We can find way more advisors if we automate the strategic stuff." Revenue target: over $1M, making the business itself saleable.</div>
+      </div>
+    </div>
+    <div class="nacva-note" style="margin-top:20px;"><strong>NACVA constraint, acknowledged:</strong> Certified valuations require a CVA signature — that cannot be automated. Express and Explore are the primary candidates for near-autonomous operation. Nancy's time concentrates on judgment and sign-off that only her credential can provide.</div>
+  </div>
+
+  <!-- WHAT STAYS HUMAN -->
+  <div class="human-section">
+    <div class="phase-header">
+      <span class="phase-num">Guardrail</span>
+      <h2 class="phase-title">What the Agents Do Not Replace</h2>
+    </div>
+    <div class="human-grid">
+      <div class="human-card">
+        <div class="human-card-label">Nancy</div>
+        <div class="human-card-title">Professional judgment + NACVA sign-off</div>
+        <div class="human-card-desc">The multiple selection, the weighting decision, the earnings basis (SDE vs EBITDA), the certified report signature, and the income approach on certified engagements. Agents apply what Nancy specifies. They never choose for her.</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card-label">Gary</div>
+        <div class="human-card-title">Strategic advisory + "the velvet hammer"</div>
+        <div class="human-card-desc">The discovery call, the engagement decision, the seller relationship, the deal structure. Knowing when to step in and when to let partner brokers run it. No agent replicates that judgment or that relationship.</div>
+      </div>
+      <div class="human-card">
+        <div class="human-card-label">Both</div>
+        <div class="human-card-title">Client delivery + the Scenario Planner conversation</div>
+        <div class="human-card-desc">Presenting the Growth Forecast, running Value Builder's Scenario Planner and Black Box live, showing what improvements do to value. This is where advisory upsells happen. AI is a draft, never the deliverable.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="page-footer">
+  <span>Strategic Business Valuations — Agent Pipeline Roadmap v3.1</span>
+  <span>Based on Katie Milton Jordan 5-File Methodology · CoWork</span>
+  <span>Confidential · Updated June 16, 2026</span>
+</footer>
+
+</body>
+</html>
