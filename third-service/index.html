@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Third Service — Concept for Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0E1F3D;
+    --ember: #C4553A;
+    --ivory: #F8F5EF;
+    --ink: #1a1a1a;
+    --mid: #5a5a5a;
+    --muted: #8a8a8a;
+    --rule: #ddd8cf;
+    --rule-soft: #ece8e0;
+    --white: #ffffff;
+    --gold: #9A7B2E;
+    --green: #2d6a4f;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Libre Franklin', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .site-header {
+    background: var(--midnight);
+    padding: 3.5rem 5% 3rem;
+    border-bottom: 2px solid var(--ember);
+  }
+  .site-header .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+  .site-header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 400;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: 800px;
+    margin-bottom: 1rem;
+  }
+  .site-header h1 em { font-style: italic; color: rgba(255,255,255,0.55); }
+  .site-header .subtitle {
+    font-size: 1.02rem;
+    color: rgba(255,255,255,0.62);
+    max-width: 640px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .header-meta {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255,255,255,0.12);
+    flex-wrap: wrap;
+  }
+  .meta-item { display: flex; flex-direction: column; gap: 0.25rem; }
+  .meta-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: rgba(255,255,255,0.35);
+  }
+  .meta-value { font-size: 0.85rem; color: rgba(255,255,255,0.78); font-weight: 500; }
+
+  /* Note bar */
+  .note-bar {
+    background: #fff8f0;
+    border: 1px solid #e8c9a0;
+    border-left: 3px solid var(--ember);
+    padding: 1.25rem 1.75rem;
+    max-width: 1040px;
+    margin: 2.5rem auto 0;
+  }
+  .note-bar .note-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--ember);
+    margin-bottom: 0.4rem;
+  }
+  .note-bar p { font-size: 0.9rem; color: var(--mid); line-height: 1.65; }
+  .note-bar p strong { color: var(--ink); }
+
+  /* Section shell */
+  section { padding: 4rem 5% 3.5rem; max-width: 1080px; margin: 0 auto; }
+  .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--ember);
+    margin-bottom: 1rem;
+  }
+  section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.7rem, 3vw, 2.45rem);
+    font-weight: 400;
+    color: var(--midnight);
+    margin-bottom: 1.25rem;
+    line-height: 1.18;
+    max-width: 760px;
+  }
+  section > p.lead {
+    color: var(--mid);
+    font-size: 0.98rem;
+    line-height: 1.78;
+    max-width: 700px;
+    font-weight: 300;
+    margin-bottom: 0.9rem;
+  }
+  section > p.lead strong { color: var(--ink); font-weight: 600; }
+
+  .divider { border: none; border-top: 1px solid var(--rule); margin: 0 5%; }
+
+  /* Big statement */
+  .statement {
+    background: var(--midnight);
+    border-left: 3px solid var(--ember);
+    padding: 2.25rem 2.5rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .statement p {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.25rem, 2.4vw, 1.7rem);
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.45;
+  }
+
+  /* Ladder */
+  .ladder { margin-top: 2rem; display: flex; flex-direction: column; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+  .rung {
+    background: var(--white);
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 0;
+    align-items: stretch;
+  }
+  .rung.target { background: var(--midnight); }
+  .rung .rung-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--rule);
+  }
+  .rung.target .rung-num { color: var(--ember); border-right-color: rgba(255,255,255,0.12); }
+  .rung .rung-body { padding: 1.1rem 1.5rem; }
+  .rung .rung-name {
+    font-weight: 600;
+    color: var(--ink);
+    font-size: 0.95rem;
+    margin-bottom: 0.15rem;
+  }
+  .rung.target .rung-name { color: var(--white); }
+  .rung .rung-desc { font-size: 0.85rem; color: var(--mid); font-weight: 300; }
+  .rung.target .rung-desc { color: rgba(255,255,255,0.6); }
+  .rung .here {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ember);
+    border: 1px solid #f0d0b0;
+    background: #fff3e8;
+    padding: 0.1rem 0.45rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+  .rung.target .here-target {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--midnight);
+    background: var(--ember);
+    padding: 0.1rem 0.45rem;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+  .ladder-note { font-size: 0.92rem; color: var(--mid); line-height: 1.7; font-weight: 300; margin-top: 1.5rem; max-width: 700px; }
+  .ladder-note strong { color: var(--ink); }
+
+  /* Phase cards */
+  .phases { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+  .phase {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid var(--midnight);
+    padding: 1.75rem 2rem;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.75rem;
+  }
+  .phase.open { border-top-color: var(--ember); }
+  .phase .pnum {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    line-height: 1;
+    color: var(--rule);
+  }
+  .phase.open .pnum { color: #e8c9a0; }
+  .phase .ptag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.58rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ember);
+    margin-bottom: 0.4rem;
+  }
+  .phase .ptitle {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--midnight);
+    margin-bottom: 0.85rem;
+  }
+  .phase .row-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.56rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-top: 0.9rem;
+    margin-bottom: 0.2rem;
+  }
+  .phase p { font-size: 0.88rem; color: var(--mid); line-height: 1.65; }
+  .phase p strong { color: var(--ink); font-weight: 600; }
+
+  /* Simple three-up */
+  .three { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .three .cell { background: var(--white); border: 1px solid var(--rule); padding: 1.5rem; }
+  .three .cell .cnum {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+  }
+  .three .cell h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--midnight);
+    margin-bottom: 0.6rem;
+  }
+  .three .cell p { font-size: 0.84rem; color: var(--mid); line-height: 1.6; }
+
+  /* Pricing list */
+  .price-list { margin-top: 1.5rem; border-top: 2px solid var(--ink); }
+  .price-list .pl-row {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1.5rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .price-list .pl-name { font-weight: 600; color: var(--ink); font-size: 0.92rem; }
+  .price-list .pl-name span { display: block; font-family: 'JetBrains Mono', monospace; font-size: 0.58rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--ember); margin-top: 0.2rem; }
+  .price-list .pl-desc { font-size: 0.88rem; color: var(--mid); line-height: 1.6; }
+
+  /* Callout */
+  .callout {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--green);
+    padding: 1.75rem 2rem;
+    margin-top: 1.5rem;
+  }
+  .callout p { font-size: 0.92rem; color: var(--mid); line-height: 1.72; }
+  .callout p strong { color: var(--ink); }
+
+  /* Footer */
+  footer {
+    background: var(--midnight);
+    padding: 2.5rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+  }
+  footer p {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.32);
+  }
+
+  @media (max-width: 760px) {
+    .phase { grid-template-columns: 1fr; gap: 0.75rem; }
+    .phase .pnum { font-size: 2.25rem; }
+    .three { grid-template-columns: 1fr; }
+    .price-list .pl-row { grid-template-columns: 1fr; gap: 0.4rem; }
+    .rung { grid-template-columns: 60px 1fr; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="eyebrow">Strategic Concept · Prepared for Gary</div>
+  <h1>The Third Service<br><em>Building AI into the companies we value</em></h1>
+  <p class="subtitle">On our call you asked what it would look like to take a business owner from barely using AI all the way to running their company on it. This is my first pass at that answer.</p>
+  <div class="header-meta">
+    <div class="meta-item">
+      <span class="meta-label">Status</span>
+      <span class="meta-value">Concept for review</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Fits inside</span>
+      <span class="meta-value">"Grow the Value"</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Built from</span>
+      <span class="meta-value">The SBV agent work</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-label">Prepared for</span>
+      <span class="meta-value">The Flint conversation</span>
+    </div>
+  </div>
+</header>
+
+<div class="note-bar">
+  <div class="note-label">Read this as a starting point</div>
+  <p>This is a concept to react to, not a finished plan. I have left the open questions in plain sight near the bottom rather than papering over them. Tell me where it is wrong or where you would push back, and I will tighten it before the Flint meeting.</p>
+</div>
+
+<!-- The question -->
+<section>
+  <div class="section-label">The question you asked</div>
+  <h2>How do you take a company from barely using AI to running on it?</h2>
+  <p class="lead">You put it plainly on the call. Most business owners are stuck on the bottom rung, typing questions into ChatGPT and getting a little done. The real prize is much further up: a business where AI agents handle the repeatable work and the owner just approves the output.</p>
+  <p class="lead">The question is how we walk a company from the bottom of that ladder to the point where it actually runs differently. Here is how I would answer that.</p>
+</section>
+
+<hr class="divider">
+
+<!-- The ladder -->
+<section>
+  <div class="section-label">The ladder</div>
+  <h2>Where companies are, and where we take them</h2>
+  <p class="lead">Steve laid out nine rungs on the webinar. You do not need all nine to see the opportunity. These are the ones that matter.</p>
+
+  <div class="ladder">
+    <div class="rung">
+      <div class="rung-num">1</div>
+      <div class="rung-body">
+        <div class="rung-name">Prompting<span class="here">Almost everyone is here</span></div>
+        <div class="rung-desc">Typing questions into a chatbot and getting a bit of help.</div>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-num">2</div>
+      <div class="rung-body">
+        <div class="rung-name">Workflows</div>
+        <div class="rung-desc">Repeatable AI steps, still kicked off and babysat by a person.</div>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-num">3</div>
+      <div class="rung-body">
+        <div class="rung-name">Using agents</div>
+        <div class="rung-desc">Running agents someone else built to do real work.</div>
+      </div>
+    </div>
+    <div class="rung">
+      <div class="rung-num">4</div>
+      <div class="rung-body">
+        <div class="rung-name">Building agents<span class="here">We are here with SBV</span></div>
+        <div class="rung-desc">Building your own agents for the specific work your business does.</div>
+      </div>
+    </div>
+    <div class="rung target">
+      <div class="rung-num">5</div>
+      <div class="rung-body">
+        <div class="rung-name">An operating system<span class="here-target">The target</span></div>
+        <div class="rung-desc">Agents that run real work in sequence, with a person approving the result.</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="ladder-note">Our service takes a company from rung 1 to rung 5. Most of the people on that webinar understood the idea. Almost none of them could actually build it. <strong>That gap is the whole opportunity.</strong></p>
+</section>
+
+<hr class="divider">
+
+<!-- One sentence -->
+<section>
+  <div class="section-label">What it is</div>
+  <h2>The service in one sentence</h2>
+  <div class="statement">
+    <p>We go into a business, find the repeatable work that eats their people's time, and build them a supervised team of AI agents that does it.</p>
+  </div>
+  <p class="lead" style="margin-top:1.75rem;">That is the whole product. Not their website. Not their social media. Not their email marketing. If a client needs those, it is a separate job we add on or hand off. Keeping this narrow is the point. Anyone can call themselves an AI agency. Almost no one can actually build a working agent system. <strong>That is the thing we can do.</strong></p>
+</section>
+
+<hr class="divider">
+
+<!-- The principle -->
+<section>
+  <div class="section-label">The one principle that makes it work</div>
+  <h2>We standardize the approach, not the agents</h2>
+  <p class="lead">You made this point yourself on the call, and it is the key to the whole thing. In the old world, customizing for every client was expensive, and as you pointed out, it even lowers a company's score on the Value Builder assessment.</p>
+  <p class="lead">Agents flip that. We can build something custom for each client cheaply. A recast agent we build for SBV is useless to a plumbing company. But the method for finding what to automate and building the agents is the same every time. <strong>The agents are custom and cheap. The method is the thing we reuse and sell.</strong></p>
+</section>
+
+<hr class="divider">
+
+<!-- The engagement -->
+<section>
+  <div class="section-label">The engagement</div>
+  <h2>What it looks like, step by step</h2>
+  <p class="lead">You asked for this directly. What is the process, how long does it take, what does the client have to do, when do they see something. Here is the shape of it.</p>
+
+  <div class="phases">
+
+    <div class="phase">
+      <div class="pnum">1</div>
+      <div>
+        <div class="ptag">Your front door · 1 to 2 weeks</div>
+        <div class="ptitle">The Audit</div>
+        <div class="row-label">What happens</div>
+        <p>We sit with the business and map how work actually moves through it. We find the repeatable, document-heavy tasks eating people's time, and we rank them by what they are worth to fix.</p>
+        <div class="row-label">What the client gets</div>
+        <p>A clear map of what AI can take off their plate and what each piece is worth in time or money.</p>
+        <div class="row-label">Why it matters</div>
+        <p>This is a paid engagement on its own. It is low risk for the client, it is where we earn their trust, and it tells us exactly what to build next. Companies buy assessments all day long. This is the easiest yes to get.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="pnum">2</div>
+      <div>
+        <div class="ptag">A few days</div>
+        <div class="ptitle">The Plan</div>
+        <div class="row-label">What happens</div>
+        <p>We take the best opportunities from the audit and decide exactly which agents we are building. We set the timeline, what the client has to give us, and when the first draft is ready.</p>
+        <div class="row-label">Why it matters</div>
+        <p>This is the part you said we cannot hand wave. We have to walk in and say here is how it works, here is how long it takes, here is what we need from you. No "it depends on the client."</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="pnum">3</div>
+      <div>
+        <div class="ptag">Depends on scope</div>
+        <div class="ptitle">The Build</div>
+        <div class="row-label">What happens</div>
+        <p>This is the part we already know how to do. We build each agent the same way we are building the SBV team, one job at a time, tested and tightened over a few runs until it handles the work cleanly.</p>
+        <div class="row-label">What the client gives us</div>
+        <p>Their know-how, and an example of the output they want, the same way Nancy gives us a sample report to aim at.</p>
+        <div class="row-label">What the client gets</div>
+        <p>Working agents that do a real piece of their business.</p>
+      </div>
+    </div>
+
+    <div class="phase open">
+      <div class="pnum">4</div>
+      <div>
+        <div class="ptag">The open question</div>
+        <div class="ptitle">The Handoff</div>
+        <div class="row-label">What happens</div>
+        <p>The agents have to live somewhere the client can actually use without me setting up their computer every time. This is the hard part, and I am flagging it as the biggest thing still to figure out.</p>
+        <div class="row-label">Why it matters</div>
+        <p>This decides whether this is a service I run by hand for a handful of clients, or a real product we can sell at scale. Flint has already solved a version of this with his browser agents. That, plus owning the AI account on our end, is the likely path. We design this here.</p>
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="pnum">5</div>
+      <div>
+        <div class="ptag">Monthly</div>
+        <div class="ptitle">Ongoing</div>
+        <div class="row-label">What happens</div>
+        <p>We watch the agents, tune them, and build new ones as the business finds more to automate.</p>
+        <div class="row-label">Why it matters</div>
+        <p>This is the recurring revenue, and it is what keeps us in the seat when the owner eventually decides to sell. That is the tie back to GBA.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Pricing -->
+<section>
+  <div class="section-label">How we would charge</div>
+  <h2>Three pieces, same shape as SBV</h2>
+  <p class="lead">I am not putting dollar figures on this yet. The real numbers come out of the SBV build, because that is the only place we will have honest data on how long things take, and the pricing is your call regardless. The shape, though, looks like this.</p>
+
+  <div class="price-list">
+    <div class="pl-row">
+      <div class="pl-name">The Audit<span>Fixed fee</span></div>
+      <div class="pl-desc">A flat price for the opportunity map. The front door, and the easiest sale.</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-name">The Build<span>Project fee</span></div>
+      <div class="pl-desc">Priced to how many agents we are building. Scoped from the audit so there are no surprises.</div>
+    </div>
+    <div class="pl-row">
+      <div class="pl-name">Ongoing<span>Monthly</span></div>
+      <div class="pl-desc">For keeping it running and growing it over time. The recurring revenue.</div>
+    </div>
+  </div>
+  <p class="lead" style="margin-top:1.5rem;">The logic is the same funnel you already believe in. The audit sells the build. The build sells the monthly.</p>
+</section>
+
+<hr class="divider">
+
+<!-- SBV is the proof -->
+<section>
+  <div class="section-label">Why we can sell this</div>
+  <h2>SBV is the proof, not a hurdle</h2>
+  <p class="lead">The worry is that we cannot sell this until the SBV agents are finished. Flip it around. The SBV pipeline is not something we have to clear before the service exists. It is the service, run once, on our own company.</p>
+  <div class="callout">
+    <p>It proves the one thing that matters: that we can walk into a business, find the work worth automating, and build a system that does it. So yes, <strong>SBV needs to be live and working as our first real example.</strong> That is very different from saying the idea is unproven. We are not missing a piece. We are finishing our proof.</p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- Who buys first -->
+<section>
+  <div class="section-label">Who buys it first</div>
+  <h2>Our valuation clients are the warm list</h2>
+  <p class="lead">The easiest people to sell this to are owners who already went through an SBV valuation. We already know their numbers. We already know where their business is weak and where the owner is the bottleneck.</p>
+  <p class="lead">That is the exact cross-sell you were circling on the call. The third service lives inside "Grow the Value." We do not have to sell a full transformation to a stranger. <strong>We sell the audit. The audit sells the rest.</strong></p>
+</section>
+
+<hr class="divider">
+
+<!-- Open questions -->
+<section>
+  <div class="section-label">What is still open</div>
+  <h2>The honest list</h2>
+  <p class="lead">Three things are genuinely unresolved. None of them sink the idea, but all three need answers before this is a real offering.</p>
+
+  <div class="three">
+    <div class="cell">
+      <div class="cnum">Open · 01</div>
+      <h4>The handoff</h4>
+      <p>How the agents get delivered so this scales past my own hours. This is the big one, and it is Phase 4 above.</p>
+    </div>
+    <div class="cell">
+      <div class="cnum">Open · 02</div>
+      <h4>The price</h4>
+      <p>Waits on real numbers from the SBV build, and it is your call as the business owner.</p>
+    </div>
+    <div class="cell">
+      <div class="cnum">Open · 03</div>
+      <h4>Who delivers it</h4>
+      <p>When this is bigger than I can staff alone, who runs it. The same question you already face with partner brokers at GBA.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>The Third Service · Strategic Concept · June 2026</p>
+  <p>Prepared by Hugo · Starting point for the Flint conversation</p>
+</footer>
+
+</body>
+</html>
