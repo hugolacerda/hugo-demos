@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vie Plant &amp; Garden Design — AI Garden Concierge</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #243528;
+      --forest-deep: #1a2820;
+      --sage: #6f805f;
+      --sage-light: #9aa888;
+      --cream: #f5f1e6;
+      --cream-deep: #ece5d4;
+      --gold: #c2a35c;
+      --gold-deep: #a98a44;
+      --ink: #2b2e27;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Jost', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      padding-bottom: 48px;
+    }
+
+    .display {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 500;
+      line-height: 1.08;
+    }
+
+    .eyebrow {
+      font-family: 'Jost', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--gold);
+    }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 30px;
+      background: var(--forest-deep);
+      border-bottom: 1px solid rgba(194,163,92,0.35);
+    }
+    .topbar img { height: 44px; width: auto; display: block; }
+    .demo-tag {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(245,241,230,0.4);
+      border-radius: 100px;
+      padding: 5px 14px;
+    }
+    .demo-tag b { color: var(--gold); font-weight: 600; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 9vh 30px 0;
+      text-align: center;
+      color: var(--cream);
+      background:
+        linear-gradient(180deg, rgba(26,40,32,0.78) 0%, rgba(26,40,32,0.45) 38%, rgba(36,53,40,0.65) 100%),
+        url('https://vieplantandgarden.com/wp-content/uploads/2024/08/dji_fly_20240119_150738_899_1705695489652_photo_optimized-Jennifer-Waldrop.jpeg') center/cover no-repeat;
+    }
+    .hero .eyebrow { color: var(--gold); }
+    .hero h1 {
+      font-size: clamp(40px, 6.4vw, 78px);
+      margin: 18px auto 14px;
+      max-width: 14ch;
+    }
+    .hero h1 em { font-style: italic; color: var(--sage-light); }
+    .hero p.lede {
+      max-width: 56ch;
+      margin: 0 auto;
+      font-size: clamp(16px, 1.7vw, 19px);
+      font-weight: 300;
+      color: rgba(245,241,230,0.92);
+    }
+
+    .scroll-cue {
+      margin-top: 34px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--cream);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    .scroll-cue .chev {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(245,241,230,0.55);
+      display: grid; place-items: center;
+      font-size: 16px;
+    }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+
+    /* ---------- Intro / features ---------- */
+    .section { max-width: 1080px; margin: 0 auto; padding: 70px 30px 0; }
+    .intro { text-align: center; }
+    .intro .eyebrow { color: var(--gold-deep); }
+    .intro h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      color: var(--forest);
+      margin: 12px auto 16px;
+      max-width: 20ch;
+    }
+    .intro p {
+      max-width: 60ch;
+      margin: 0 auto;
+      color: #525549;
+      font-weight: 300;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 46px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--cream-deep);
+      border-top: 3px solid var(--gold);
+      border-radius: 4px;
+      padding: 30px 26px;
+      text-align: left;
+      box-shadow: 0 14px 30px -22px rgba(36,53,40,0.5);
+    }
+    .card .num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 30px;
+      color: var(--sage);
+      line-height: 1;
+    }
+    .card h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-size: 23px;
+      color: var(--forest);
+      margin: 10px 0 8px;
+    }
+    .card p { font-size: 15px; font-weight: 300; color: #5a5d51; }
+
+    /* ---------- Pointer to the live widget ---------- */
+    .widget-pointer {
+      max-width: 1080px;
+      margin: 64px auto 0;
+      padding: 0 30px;
+      text-align: center;
+    }
+    .widget-pointer .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--forest);
+      color: var(--cream);
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .widget-pointer .badge .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #7fd17f;
+      box-shadow: 0 0 0 0 rgba(127,209,127,0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(127,209,127,0.6); }
+      70% { box-shadow: 0 0 0 9px rgba(127,209,127,0); }
+      100% { box-shadow: 0 0 0 0 rgba(127,209,127,0); }
+    }
+    .widget-pointer p {
+      margin-top: 14px;
+      color: var(--sage);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      max-width: 1080px;
+      margin: 56px auto 0;
+      padding: 26px 30px 0;
+      border-top: 1px solid var(--cream-deep);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #6a6d60;
+    }
+    footer a { color: var(--forest); text-decoration: none; }
+    footer a:hover { color: var(--gold-deep); }
+    footer .contact { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+
+    @media (max-width: 720px) {
+      .cards { grid-template-columns: 1fr; }
+      body { padding-bottom: 40px; }
+      .topbar { padding: 12px 18px; }
+      .section { padding-top: 54px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <img src="https://vieplantandgarden.com/wp-content/uploads/2024/07/Vie-logo.png" alt="Vie Plant &amp; Garden Design">
+    <span class="demo-tag">AI Garden Concierge &middot; <b>Demo</b></span>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Vie Plant &amp; Garden Design</span>
+    <h1 class="display">Your Garden Concierge, <em>always in bloom</em></h1>
+    <p class="lede">Meet Vie's AI assistant — here to answer questions about our landscape design, container gardens, and seasonal services, and to help you book a free estimate in moments.</p>
+    <div class="scroll-cue">
+      <span>Chat below</span>
+      <span class="chev">&#x2193;</span>
+    </div>
+  </section>
+
+  <section class="section intro">
+    <span class="eyebrow">How it helps</span>
+    <h2 class="display">A warmer welcome for every visitor</h2>
+    <p>Instead of a static contact form, visitors are greeted by a knowledgeable assistant that listens, answers, and guides them toward their next project — turning curiosity into booked consultations.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Answers, instantly</h3>
+        <p>Service areas, pricing ranges, timelines, plant care — visitors get clear answers the moment they ask, day or night.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Guides to a free estimate</h3>
+        <p>The assistant gently captures project details and steers interested homeowners straight toward scheduling a consultation.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>Sounds like Vie</h3>
+        <p>Trained on Vie's voice and offerings, so every conversation reflects the same care and craftsmanship as the work itself.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="widget-pointer">
+    <span class="badge"><span class="dot"></span> The concierge is live on this page</span>
+    <p>&#x2193; &nbsp; Try it in the chat window below &nbsp; &#x2193;</p>
+  </div>
+
+  <footer>
+    <span>Vie Plant &amp; Garden Design &middot; Ponte Vedra Beach, FL</span>
+    <div class="contact">
+      <a href="tel:9044738330">(904) 473-8330</a>
+      <a href="mailto:jennifer@jaxvie.com">jennifer@jaxvie.com</a>
+      <span>111 Canal Blvd.</span>
+    </div>
+  </footer>
+
+  <!-- MeclabsAI ADS widget (floats center-bottom, scrolls with the page) -->
+  <script async src="https://meclabsai.com/embed/chat.js?appId=ghPdKfDZrfymiQxN40pQ"></script>
+
+</body>
+</html>
