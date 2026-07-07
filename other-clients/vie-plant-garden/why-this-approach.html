@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vie Plant &amp; Garden Design | Why This Approach</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --forest: #243528;
+    --forest-deep: #1a2820;
+    --sage: #6f805f;
+    --sage-light: #9aa888;
+    --cream: #f5f1e6;
+    --cream-deep: #ece5d4;
+    --gold: #c2a35c;
+    --gold-deep: #a98a44;
+    --ink: #2b2e27;
+    --clay: #b8664a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Jost', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--cream);
+    line-height: 1.6;
+    padding-bottom: 40px;
+  }
+  .display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 500;
+    line-height: 1.1;
+  }
+  .eyebrow {
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gold-deep);
+  }
+
+  /* Topbar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 30px;
+    background: var(--forest-deep);
+  }
+  .topbar .mark {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--cream);
+    font-size: 20px;
+    letter-spacing: 0.5px;
+  }
+  .topbar .mark em { color: var(--gold); font-style: normal; }
+  .prepared-tag {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--cream);
+    border: 1px solid rgba(245,241,230,0.35);
+    border-radius: 100px;
+    padding: 5px 14px;
+  }
+
+  /* Hero */
+  .hero {
+    padding: 80px 30px 60px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--forest-deep) 0%, var(--forest) 100%);
+    color: var(--cream);
+  }
+  .hero .eyebrow { color: var(--gold); }
+  .hero h1 {
+    font-size: clamp(34px, 5.4vw, 58px);
+    max-width: 18ch;
+    margin: 16px auto 18px;
+  }
+  .hero h1 em { font-style: italic; color: var(--sage-light); }
+  .hero p {
+    max-width: 58ch;
+    margin: 0 auto;
+    color: rgba(245,241,230,0.88);
+    font-weight: 300;
+    font-size: 18px;
+  }
+
+  .section { max-width: 980px; margin: 0 auto; padding: 64px 30px 0; }
+  .section h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    color: var(--forest);
+    max-width: 22ch;
+    margin: 10px 0 14px;
+  }
+  .section > .eyebrow { display: block; text-align: center; }
+  .section h2.center { text-align: center; margin-left: auto; margin-right: auto; }
+  .section p.lede {
+    text-align: center;
+    max-width: 62ch;
+    margin: 0 auto;
+    color: #52564a;
+    font-weight: 300;
+    font-size: 16.5px;
+  }
+
+  /* Market grid */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 40px;
+  }
+  .market-card {
+    background: var(--cream-deep);
+    border: 1px solid rgba(43,46,39,0.08);
+    border-radius: 6px;
+    padding: 20px;
+  }
+  .market-card .name { font-family: 'Cormorant Garamond', serif; font-size: 21px; color: var(--forest); font-weight: 600; }
+  .market-card .price { font-size: 13px; color: var(--gold-deep); margin: 4px 0 10px; letter-spacing: 0.3px; }
+  .market-card .note { font-size: 14px; color: #5c6052; font-weight: 300; }
+
+  /* Divider metaphor line */
+  .metaphor {
+    max-width: 700px;
+    margin: 56px auto 0;
+    text-align: center;
+    padding: 30px 24px;
+    border-top: 1px solid var(--sage-light);
+    border-bottom: 1px solid var(--sage-light);
+  }
+  .metaphor p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-style: italic;
+    color: var(--forest);
+  }
+
+  /* Comparison table */
+  .compare-wrap { margin-top: 40px; overflow-x: auto; }
+  table.compare {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    min-width: 620px;
+  }
+  table.compare th, table.compare td {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 14.5px;
+    font-weight: 300;
+    border-bottom: 1px solid rgba(43,46,39,0.08);
+  }
+  table.compare th {
+    font-family: 'Jost', sans-serif;
+    font-weight: 500;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--forest);
+    color: var(--cream);
+  }
+  table.compare th:first-child { border-top-left-radius: 8px; }
+  table.compare th:last-child { border-top-right-radius: 8px; }
+  table.compare td:first-child { font-weight: 500; color: var(--forest); }
+  table.compare tr:last-child td { border-bottom: none; }
+  table.compare td.yours { background: rgba(194,163,92,0.08); color: var(--ink); }
+  table.compare tr:nth-child(even) td:not(.yours) { background: rgba(43,46,39,0.02); }
+
+  /* What you get cards */
+  .get-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .get-card {
+    background: white;
+    border-radius: 8px;
+    padding: 26px 24px;
+    border: 1px solid rgba(43,46,39,0.06);
+  }
+  .get-card .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    color: var(--gold-deep);
+    letter-spacing: 1px;
+  }
+  .get-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    color: var(--forest);
+    margin: 6px 0 8px;
+    font-weight: 600;
+  }
+  .get-card p { font-size: 14.5px; color: #52564a; font-weight: 300; }
+
+  /* Honesty note */
+  .honest {
+    max-width: 700px;
+    margin: 56px auto 0;
+    background: var(--cream-deep);
+    border-left: 3px solid var(--clay);
+    padding: 22px 26px;
+    border-radius: 4px;
+  }
+  .honest .eyebrow { color: var(--clay); }
+  .honest p { font-size: 15px; color: #4a4d41; font-weight: 300; margin-top: 8px; }
+
+  /* Closing */
+  .closing {
+    text-align: center;
+    padding: 70px 30px 20px;
+  }
+  .closing h2 { color: var(--forest); }
+  .closing p {
+    max-width: 54ch;
+    margin: 14px auto 0;
+    color: #52564a;
+    font-weight: 300;
+    font-size: 16px;
+  }
+  .closing .signoff {
+    margin-top: 30px;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--sage);
+    font-size: 17px;
+  }
+
+  @media (max-width: 640px) {
+    .section { padding: 48px 20px 0; }
+    .hero { padding: 56px 20px 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="mark">Gateway <em>&amp;</em> Vie</div>
+  <div class="prepared-tag">Prepared for Vie Plant &amp; Garden Design</div>
+</div>
+
+<div class="hero">
+  <span class="eyebrow">Why This, Not An Off-The-Shelf Chatbot</span>
+  <h1 class="display">Something <em>planted</em> for your business, not dropped onto it</h1>
+  <p>There are a dozen chatbot tools you could sign up for this afternoon. Here's the honest difference between doing that and what we've already started building for Vie.</p>
+</div>
+
+<div class="section">
+  <span class="eyebrow">What's Already Out There</span>
+  <h2 class="display center">The market is full of tools you'd have to run yourself</h2>
+  <p class="lede">Every one of these is a real, working product. They're also all the same basic shape: a dashboard you log into, content you upload, and a bot you keep tweaking as you find its mistakes.</p>
+  <div class="market-grid">
+    <div class="market-card">
+      <div class="name">Tidio</div>
+      <div class="price">~$30&ndash;$80/mo</div>
+      <div class="note">You feed it your FAQs and train it yourself.</div>
+    </div>
+    <div class="market-card">
+      <div class="name">Chatbase</div>
+      <div class="price">~$32&ndash;$150/mo</div>
+      <div class="note">Upload documents, connect your site, maintain it.</div>
+    </div>
+    <div class="market-card">
+      <div class="name">Intercom</div>
+      <div class="price">$29&ndash;$139/seat + per-reply fees</div>
+      <div class="note">Built for larger support teams, not a solo landscaping business.</div>
+    </div>
+    <div class="market-card">
+      <div class="name">HubSpot / WotNot / Zoho</div>
+      <div class="price">$30&ndash;$150+/mo</div>
+      <div class="note">Solid tools, same self-serve setup either way.</div>
+    </div>
+  </div>
+  <div class="metaphor">
+    <p>&ldquo;A seed packet gets you a plant, eventually, if you tend it. A garden bed someone's already prepped and planted gets you a garden.&rdquo;</p>
+  </div>
+</div>
+
+<div class="section">
+  <span class="eyebrow">Side By Side</span>
+  <h2 class="display center">What changes when it's built for you</h2>
+  <div class="compare-wrap">
+    <table class="compare">
+      <tr>
+        <th>&nbsp;</th>
+        <th>Off-the-shelf chatbot</th>
+        <th>What's built for Vie</th>
+      </tr>
+      <tr>
+        <td>Setup</td>
+        <td>You configure it, upload content, write the welcome message</td>
+        <td class="yours">Interviewed, written, and tested for your business</td>
+      </tr>
+      <tr>
+        <td>Questions it asks</td>
+        <td>Generic FAQ matching</td>
+        <td class="yours">A qualification flow built around how Vie actually works</td>
+      </tr>
+      <tr>
+        <td>Quality checks before going live</td>
+        <td>None. You'd be the one finding the mistakes, live, in front of a customer.</td>
+        <td class="yours">Tested in structured rounds before it ever talks to a real visitor</td>
+      </tr>
+      <tr>
+        <td>Ongoing changes</td>
+        <td>You log in and edit it yourself</td>
+        <td class="yours">Hugo adjusts it as your season or services change</td>
+      </tr>
+      <tr>
+        <td>Who's behind it</td>
+        <td>A software company you've never spoken to</td>
+        <td class="yours">Gary and Hugo, people you already know and trust</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="section">
+  <span class="eyebrow">What You're Actually Getting</span>
+  <h2 class="display center">Four things a subscription can't give you</h2>
+  <div class="get-grid">
+    <div class="get-card">
+      <div class="num">01</div>
+      <h3>Built to move people forward</h3>
+      <p>Designed around what actually gets a website visitor to reach out, not just answer whatever they type.</p>
+    </div>
+    <div class="get-card">
+      <div class="num">02</div>
+      <h3>Tested before it meets a customer</h3>
+      <p>Run through real conversations and checked for mistakes before it's ever live on your site.</p>
+    </div>
+    <div class="get-card">
+      <div class="num">03</div>
+      <h3>Grounded in your business</h3>
+      <p>Once connected to Vie's own service and pricing information, it answers from what's actually true about your business, not a generic guess.</p>
+    </div>
+    <div class="get-card">
+      <div class="num">04</div>
+      <h3>Someone tending it</h3>
+      <p>Not a login you're handed and left with. Hugo keeps it working as things change.</p>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="honest">
+    <span class="eyebrow">Where We're Honest With You</span>
+    <p>The version live today is a working starting point, not the finished product. Before it's ready to meet real customers, we still need a short conversation with you: your service area, your pricing boundaries, the questions you get asked most, and where a lead should land once someone's ready to talk. That's the next step, not a formality.</p>
+  </div>
+</div>
+
+<div class="closing">
+  <h2 class="display">The question isn't whether a chatbot can answer questions.</h2>
+  <p>It's whether the one on your site actually sounds like Vie, asks the right things, and sends you a customer instead of a headache. That's the difference we're building.</p>
+  <div class="signoff">From Gary and Hugo</div>
+</div>
+
+</body>
+</html>
