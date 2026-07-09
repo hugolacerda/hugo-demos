@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADS Client Intake</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Libre+Franklin:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --midnight: #0E1F3D;
+    --midnight-deep: #0a1729;
+    --ember: #C4553A;
+    --ember-deep: #a8442e;
+    --ivory: #F8F5EF;
+    --ink: #1a1a1a;
+    --mid: #5a5a5a;
+    --muted: #8a8a8a;
+    --rule: #ddd8cf;
+    --rule-soft: #ece8e0;
+    --white: #ffffff;
+    --gold: #9A7B2E;
+    --green: #2d6a4f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Libre Franklin', sans-serif;
+    background: var(--ivory);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 60px;
+  }
+  .display { font-family: 'Playfair Display', serif; font-weight: 400; }
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+
+  /* Header */
+  header {
+    background: var(--midnight);
+    padding: 2.4rem 6% 2rem;
+    border-bottom: 2px solid var(--ember);
+  }
+  header .eyebrow { color: var(--ember); margin-bottom: 0.7rem; }
+  header h1 {
+    color: var(--white);
+    font-size: clamp(1.7rem, 4vw, 2.5rem);
+    line-height: 1.15;
+    max-width: 640px;
+  }
+  header p {
+    color: rgba(248,245,239,0.75);
+    max-width: 60ch;
+    margin-top: 0.8rem;
+    font-weight: 300;
+    font-size: 0.98rem;
+  }
+
+  /* Progress */
+  .progress-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.6rem 6% 0;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    color: var(--mid);
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+  }
+  .progress-track {
+    height: 4px;
+    background: var(--rule);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--ember);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+    width: 14.3%;
+  }
+
+  /* Card */
+  .card-wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 1.6rem 6% 0;
+  }
+  .card {
+    background: var(--white);
+    border: 1px solid var(--rule-soft);
+    border-radius: 10px;
+    padding: 2.2rem clamp(1.4rem, 4vw, 2.6rem);
+  }
+  .step-eyebrow { color: var(--gold); margin-bottom: 0.6rem; display: block; }
+  .step-title {
+    font-size: clamp(1.3rem, 3vw, 1.7rem);
+    color: var(--midnight);
+    margin-bottom: 0.4rem;
+  }
+  .step-sub {
+    color: var(--mid);
+    font-weight: 300;
+    font-size: 0.95rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .field { margin-bottom: 1.6rem; }
+  .field label {
+    display: block;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .field .req { color: var(--ember); font-size: 0.8rem; margin-left: 3px; }
+  .field .help {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-weight: 300;
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+  .field .note {
+    font-size: 0.82rem;
+    color: var(--ember-deep);
+    background: rgba(196,85,58,0.07);
+    border-left: 2px solid var(--ember);
+    padding: 0.5rem 0.8rem;
+    margin-top: 0.5rem;
+    border-radius: 3px;
+    line-height: 1.5;
+  }
+  input[type="text"], textarea, select {
+    width: 100%;
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.98rem;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    background: var(--ivory);
+    color: var(--ink);
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--ember);
+    background: var(--white);
+  }
+  textarea { min-height: 80px; resize: vertical; }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.6rem;
+    margin-top: 0.3rem;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.92rem;
+    font-weight: 300;
+  }
+  .check-item input { width: 16px; height: 16px; accent-color: var(--ember); }
+
+  .radio-row { display: flex; gap: 1.4rem; margin-top: 0.4rem; flex-wrap: wrap; }
+  .radio-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.92rem; font-weight: 300; }
+  .radio-item input { accent-color: var(--ember); }
+
+  /* Nav buttons */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.2rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--rule-soft);
+  }
+  button {
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 500;
+    padding: 0.7rem 1.5rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+  }
+  button:hover { opacity: 0.88; }
+  button:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-primary { background: var(--midnight); color: var(--white); }
+  .btn-secondary { background: transparent; color: var(--mid); border: 1px solid var(--rule); }
+
+  /* Review screen */
+  .summary-block {
+    background: var(--ivory);
+    border: 1px solid var(--rule-soft);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    white-space: pre-wrap;
+    line-height: 1.7;
+    max-height: 420px;
+    overflow-y: auto;
+    color: var(--ink);
+  }
+  .action-row {
+    display: flex;
+    gap: 0.7rem;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+  }
+  .btn-ghost { background: var(--rule-soft); color: var(--midnight); }
+  .toast {
+    display: none;
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--green);
+    font-weight: 500;
+  }
+
+  @media (max-width: 560px) {
+    header, .progress-wrap, .card-wrap { padding-left: 5%; padding-right: 5%; }
+    .card { padding: 1.6rem 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="eyebrow mono">ADS Client Intake</span>
+  <h1 class="display">Let's define what this agent should do</h1>
+  <p>Nothing here is a form to power through. Skip anything you're not sure about, we'll figure it out together, this just gets us most of the way there before we talk.</p>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label">
+    <span id="stepLabel">Step 1 of 7</span>
+    <span id="stepName">The Basics</span>
+  </div>
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+</div>
+
+<div class="card-wrap">
+  <div class="card" id="cardHost"></div>
+</div>
+
+<script>
+const steps = [
+  {
+    name: "The Basics",
+    eyebrow: "Step 1",
+    title: "Let's start with the basics",
+    sub: "",
+    fields: [
+      { id: "company_name", label: "Company name", type: "text", required: true },
+      { id: "industry", label: "Industry", type: "text", required: true },
+      { id: "conversion_goal", label: "What's the main thing you want a visitor to do?", type: "select", required: true,
+        options: ["Book a consultation", "Request a quote", "Capture contact info", "Get routed to the right service", "Something else"] },
+      { id: "visitor_segments", label: "Who are the 1 to 3 types of people who usually land on your site?", type: "textarea", required: true }
+    ]
+  },
+  {
+    name: "How the Conversation Flows",
+    eyebrow: "Step 2",
+    title: "How the conversation should flow",
+    sub: "",
+    fields: [
+      { id: "first_branch", label: "If you could only ask a visitor one question first, what would split them into the right paths fastest?", type: "text", required: true,
+        note: "Example: one client's agent opens with \"are you looking for design or maintenance,\" since those two paths need completely different follow-up questions." },
+      { id: "top_questions", label: "What are the 5 to 10 questions people ask most before reaching out?", type: "textarea", required: true,
+        help: "One per line is fine, doesn't need to be polished." }
+    ]
+  },
+  {
+    name: "Objections, Boundaries & Tone",
+    eyebrow: "Step 3",
+    title: "Objections, boundaries, and tone",
+    sub: "",
+    fields: [
+      { id: "top_objections", label: "What makes someone hesitate to reach out?", type: "textarea", required: true },
+      { id: "never_promise", label: "What should the agent never promise?", type: "textarea", required: true,
+        note: "Common ones: fixed pricing (use ranges instead), guarantees, or timelines you can't fully control." },
+      { id: "tone", label: "What tone fits your business best?", type: "select", required: true,
+        options: ["Warm and concierge-like", "Expert guide", "Friendly and casual", "Formal and professional"] }
+    ]
+  },
+  {
+    name: "What to Capture",
+    eyebrow: "Step 4",
+    title: "What counts as a lead",
+    sub: "",
+    fields: [
+      { id: "required_fields", label: "What must be captured before it counts as a lead?", type: "checks", required: true,
+        options: ["Name", "Email", "Phone", "Project location", "Timeline", "Budget range"] },
+      { id: "optional_fields", label: "Anything else nice to have, but not mandatory?", type: "textarea" },
+      { id: "allow_attachment", label: "Should visitors be able to attach a photo or file?", type: "radio",
+        options: ["Yes", "No", "Not sure yet"] }
+    ]
+  },
+  {
+    name: "Where a Lead Goes",
+    eyebrow: "Step 5",
+    title: "Where a completed lead should go",
+    sub: "",
+    fields: [
+      { id: "handoff_destination", label: "Where should a completed lead land?", type: "textarea", required: true,
+        help: "An email address, an existing CRM, or just let us know if you don't have one set up yet, that's fine, we'll figure out the best option together." },
+      { id: "calendar_booking", label: "If you'd like the agent to book appointments directly, what calendar system do you use today?", type: "text",
+        note: "Booking straight into a calendar isn't automatic, it takes a quick technical check on our end first. Totally fine to leave this blank for now." }
+    ]
+  },
+  {
+    name: "Baseline & Success",
+    eyebrow: "Step 6",
+    title: "Baseline and what success looks like",
+    sub: "",
+    fields: [
+      { id: "baseline", label: "Any idea of your current lead volume or contact rate today?", type: "textarea",
+        help: "Totally fine if not, this just helps us show real improvement later." },
+      { id: "success_30", label: "What would make this feel like a win 30 days after launch?", type: "textarea", required: true }
+    ]
+  },
+  { name: "Review & Send", eyebrow: "Step 7", title: "Review", sub: "", review: true }
+];
+
+const answers = {};
+let current = 0;
+
+// Formspree endpoint for the ADS Client Intake form.
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeebbbgv";
+const FALLBACK_EMAIL = "hugolacerda20@gmail.com"; // backup mailto address in case Formspree is ever down
+
+function fieldHTML(f) {
+  const val = answers[f.id];
+  let inner = "";
+  if (f.type === "text") {
+    inner = `<input type="text" id="${f.id}" value="${val ? val.replace(/"/g,'&quot;') : ''}">`;
+  } else if (f.type === "textarea") {
+    inner = `<textarea id="${f.id}">${val || ''}</textarea>`;
+  } else if (f.type === "select") {
+    inner = `<select id="${f.id}"><option value="">Choose one...</option>` +
+      f.options.map(o => `<option value="${o}" ${val===o?'selected':''}>${o}</option>`).join('') + `</select>`;
+  } else if (f.type === "checks") {
+    const chosen = val || [];
+    inner = `<div class="check-grid">` + f.options.map(o => {
+      const id = f.id + "_" + o.replace(/\s+/g,'');
+      return `<label class="check-item"><input type="checkbox" data-group="${f.id}" value="${o}" id="${id}" ${chosen.includes(o)?'checked':''}> ${o}</label>`;
+    }).join('') + `</div>`;
+  } else if (f.type === "radio") {
+    inner = `<div class="radio-row">` + f.options.map(o => {
+      const id = f.id + "_" + o.replace(/\s+/g,'');
+      return `<label class="radio-item"><input type="radio" name="${f.id}" value="${o}" id="${id}" ${val===o?'checked':''}> ${o}</label>`;
+    }).join('') + `</div>`;
+  }
+  return `<div class="field">
+    <label for="${f.id}">${f.label}${f.required ? '<span class="req">Required</span>' : ''}</label>
+    ${inner}
+    ${f.help ? `<div class="help">${f.help}</div>` : ''}
+    ${f.note ? `<div class="note">${f.note}</div>` : ''}
+  </div>`;
+}
+
+function collectStepAnswers(step) {
+  if (!step.fields) return;
+  step.fields.forEach(f => {
+    if (f.type === "checks") {
+      const boxes = document.querySelectorAll(`input[data-group="${f.id}"]`);
+      answers[f.id] = Array.from(boxes).filter(b => b.checked).map(b => b.value);
+    } else if (f.type === "radio") {
+      const checked = document.querySelector(`input[name="${f.id}"]:checked`);
+      answers[f.id] = checked ? checked.value : "";
+    } else {
+      const el = document.getElementById(f.id);
+      if (el) answers[f.id] = el.value;
+    }
+  });
+}
+
+function validateStep(step) {
+  if (!step.fields) return true;
+  for (const f of step.fields) {
+    if (f.required) {
+      if (f.type === "checks" && (!answers[f.id] || answers[f.id].length === 0)) return f.label;
+      if (f.type !== "checks" && (!answers[f.id] || answers[f.id].trim() === "")) return f.label;
+    }
+  }
+  return true;
+}
+
+function buildSummary() {
+  let out = `ADS CLIENT INTAKE\n${new Date().toLocaleDateString()}\n${'='.repeat(40)}\n\n`;
+  steps.forEach(step => {
+    if (!step.fields) return;
+    out += `${step.name.toUpperCase()}\n`;
+    step.fields.forEach(f => {
+      const val = answers[f.id];
+      const display = Array.isArray(val) ? val.join(', ') : (val || '(not answered)');
+      out += `- ${f.label}\n  ${display}\n`;
+    });
+    out += `\n`;
+  });
+  return out;
+}
+
+function render() {
+  const step = steps[current];
+  document.getElementById('stepLabel').textContent = `Step ${current+1} of ${steps.length}`;
+  document.getElementById('stepName').textContent = step.name;
+  document.getElementById('progressFill').style.width = `${((current+1)/steps.length)*100}%`;
+
+  const host = document.getElementById('cardHost');
+
+  if (step.review) {
+    const summary = buildSummary();
+    const companyName = answers.company_name || "New client";
+    host.innerHTML = `
+      <span class="step-eyebrow mono">${step.eyebrow}</span>
+      <div class="step-title display">Review before sending</div>
+      <p class="step-sub">Take a quick look, then send it off. It'll land in Hugo and Gary's inbox automatically.</p>
+      <div class="summary-block">${summary.replace(/</g,'&lt;')}</div>
+      <div class="action-row">
+        <button class="btn-primary" id="btnSubmit">Send to Hugo &amp; Gary</button>
+        <button class="btn-ghost" id="btnCopy">Copy to Clipboard</button>
+        <button class="btn-ghost" id="btnDownload">Download as Text</button>
+      </div>
+      <div class="toast" id="toast">Copied.</div>
+      <div class="toast" id="sendStatus"></div>
+      <p style="font-size:0.8rem;color:var(--muted);font-weight:300;margin-top:0.9rem;">
+        Trouble sending? <a href="#" id="fallbackLink" style="color:var(--ember-deep);">email it directly instead</a>.
+      </p>
+      <div class="nav-row">
+        <button class="btn-secondary" id="btnBack">Back</button>
+        <span></span>
+      </div>
+    `;
+    document.getElementById('btnBack').onclick = () => { current--; render(); };
+    document.getElementById('btnCopy').onclick = () => {
+      navigator.clipboard.writeText(summary).then(() => {
+        const t = document.getElementById('toast');
+        t.style.display = 'block';
+        setTimeout(() => t.style.display = 'none', 2500);
+      });
+    };
+    document.getElementById('btnDownload').onclick = () => {
+      const blob = new Blob([summary], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `ads-intake-${companyName.replace(/\s+/g,'-').toLowerCase()}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+    document.getElementById('fallbackLink').onclick = (e) => {
+      e.preventDefault();
+      const subject = encodeURIComponent(`ADS Client Intake: ${companyName}`);
+      const body = encodeURIComponent(summary);
+      window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
+    };
+    document.getElementById('btnSubmit').onclick = async () => {
+      const btn = document.getElementById('btnSubmit');
+      const status = document.getElementById('sendStatus');
+      btn.disabled = true;
+      btn.textContent = "Sending...";
+      try {
+        const res = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: { "Accept": "application/json", "Content-Type": "application/json" },
+          body: JSON.stringify({
+            subject: `ADS Client Intake: ${companyName}`,
+            summary: summary,
+            ...answers
+          })
+        });
+        if (res.ok) {
+          btn.textContent = "Sent";
+          status.style.display = 'block';
+          status.style.color = 'var(--green)';
+          status.textContent = "Sent to Hugo and Gary. Thanks!";
+        } else {
+          throw new Error("Submission failed");
+        }
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = "Send to Hugo & Gary";
+        status.style.display = 'block';
+        status.style.color = 'var(--ember-deep)';
+        status.textContent = "Couldn't send automatically, use the email link below instead.";
+      }
+    };
+    return;
+  }
+
+  host.innerHTML = `
+    <span class="step-eyebrow mono">${step.eyebrow}</span>
+    <div class="step-title display">${step.title}</div>
+    ${step.sub ? `<p class="step-sub">${step.sub}</p>` : '<div style="height:1.2rem"></div>'}
+    ${step.fields.map(fieldHTML).join('')}
+    <div class="nav-row">
+      <button class="btn-secondary" id="btnBack" ${current===0?'disabled':''}>Back</button>
+      <button class="btn-primary" id="btnNext">Continue</button>
+    </div>
+  `;
+
+  document.getElementById('btnBack').onclick = () => {
+    collectStepAnswers(step);
+    current--;
+    render();
+  };
+  document.getElementById('btnNext').onclick = () => {
+    collectStepAnswers(step);
+    const check = validateStep(step);
+    if (check !== true) {
+      alert(`Just need an answer for: ${check}`);
+      return;
+    }
+    current++;
+    render();
+  };
+}
+
+render();
+</script>
+
+</body>
+</html>
