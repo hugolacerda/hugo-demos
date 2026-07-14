@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Wrap-Up Agent · Context</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ------------------------------------------------------------------
+           Chief of Staff — Internal House Style
+           Typography: Inter, in the spirit of Dieter Rams.
+           "Good design is as little design as possible." — Principle 10.
+           ------------------------------------------------------------------ */
+
+        :root {
+            --ink:       #0a0a0a;
+            --ink-soft:  #2a2a2a;
+            --mid:       #5a5a5a;
+            --muted:     #8a8a8a;
+            --faint:     #b5b5b5;
+            --rule:      #e6e6e6;
+            --rule-soft: #f0f0f0;
+            --paper:     #ffffff;
+            --wash:      #f6f6f4;
+            --accent:    #d8481f; /* Braun red, used sparingly */
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+            font-feature-settings: "ss01", "cv11";
+            line-height: 1.55;
+            color: var(--ink);
+            background: var(--paper);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        header.sig-line { height: 1px; background: var(--ink); }
+
+        /* ---------- Navigation ---------- */
+
+        nav {
+            border-bottom: 1px solid var(--rule);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: saturate(180%) blur(8px);
+            background: rgba(255,255,255,0.92);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.125rem 2.5rem;
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .nav-logo {
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: -0.005em;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.625rem;
+        }
+
+        .nav-logo::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.75rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: -0.003em;
+            transition: color 160ms ease;
+        }
+
+        .nav-links a:hover { color: var(--ink); }
+
+        /* ---------- Hero ---------- */
+
+        .hero {
+            padding: 6.5rem 2.5rem 5rem 2.5rem;
+            border-bottom: 1px solid var(--rule);
+            max-width: 1440px;
+            margin: 0 auto;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 140px minmax(0, 1fr);
+            gap: 3rem;
+            max-width: 1120px;
+        }
+
+        .hero-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            padding-top: 1.375rem;
+        }
+
+        .hero-label span {
+            display: block;
+            color: var(--muted);
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.25rem, 4.6vw, 3.625rem);
+            font-weight: 600;
+            line-height: 1.02;
+            letter-spacing: -0.038em;
+            color: var(--ink);
+            margin-bottom: 1.75rem;
+            max-width: 900px;
+        }
+
+        .hero p {
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--mid);
+            line-height: 1.55;
+            max-width: 640px;
+            letter-spacing: -0.006em;
+        }
+
+        /* ---------- Sections ---------- */
+
+        main { counter-reset: section; }
+
+        section {
+            padding: 5rem 2.5rem;
+            border-bottom: 1px solid var(--rule);
+            max-width: 1440px;
+            margin: 0 auto;
+            counter-increment: section;
+        }
+
+        section:last-of-type { border-bottom: none; }
+
+        .section-container {
+            max-width: 1120px;
+        }
+
+        section h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.625rem, 2.6vw, 2rem);
+            font-weight: 600;
+            line-height: 1.08;
+            letter-spacing: -0.028em;
+            color: var(--ink);
+            margin-bottom: 1.5rem;
+        }
+
+        section h2::before {
+            content: counter(section, decimal-leading-zero);
+            display: block;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            color: var(--accent);
+            margin-bottom: 1.125rem;
+        }
+
+        .section-container > h2 + p,
+        .section-container > p {
+            font-size: 1.0625rem;
+            color: var(--mid);
+            max-width: 720px;
+            margin-bottom: 1.75rem;
+            line-height: 1.55;
+            letter-spacing: -0.005em;
+        }
+
+        section h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1875rem;
+            font-weight: 600;
+            line-height: 1.2;
+            letter-spacing: -0.018em;
+            color: var(--ink);
+            margin: 3rem 0 0.875rem 0;
+        }
+
+        section h3:first-child,
+        .section-container > h3:first-of-type { margin-top: 1.5rem; }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin: 1.75rem 0 0.625rem 0;
+        }
+
+        /* ---------- Cards ---------- */
+
+        .rule-group, .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 0 2.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .rule-group-title {
+            grid-column: 1 / -1;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 0.75rem;
+        }
+
+        .rule-card {
+            border-top: 1px solid var(--ink);
+            padding: 1.125rem 0 1.5rem 0;
+        }
+
+        .rule-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-card h5 {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: -0.012em;
+            color: var(--ink);
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-card p {
+            color: var(--mid);
+            font-size: 0.875rem;
+            line-height: 1.6;
+            letter-spacing: -0.003em;
+        }
+
+        /* ---------- Flow diagram ---------- */
+
+        .flow {
+            display: flex;
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--ink);
+            margin: 1.5rem 0 2.5rem;
+        }
+
+        .flow-step {
+            flex: 1 1 0;
+            min-width: 0;
+            padding: 1.25rem 1.5rem 1.375rem 1.25rem;
+            border-right: 1px solid var(--rule);
+            position: relative;
+        }
+
+        .flow-step:last-child {
+            border-right: none;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            top: 50%;
+            right: -0.55em;
+            transform: translateY(-50%);
+            width: 1.1em;
+            height: 1.1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent);
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.875rem;
+            line-height: 1;
+            background: var(--paper);
+            z-index: 2;
+        }
+
+        .flow-number {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            line-height: 1.35;
+            letter-spacing: -0.012em;
+            color: var(--ink);
+            margin-bottom: 0.375rem;
+        }
+
+        .flow-step p {
+            color: var(--mid);
+            font-size: 0.8125rem;
+            line-height: 1.5;
+            letter-spacing: -0.003em;
+            margin-bottom: 0;
+        }
+
+        /* ---------- Tables ---------- */
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.25rem 0 2.5rem;
+            font-size: 0.8125rem;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.75rem 1rem 0.75rem 0;
+            border-top: 1px solid var(--ink);
+            border-bottom: 1px solid var(--ink);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--ink);
+        }
+
+        .data-table td {
+            padding: 0.875rem 1rem 0.875rem 0;
+            border-bottom: 1px solid var(--rule);
+            color: var(--mid);
+            line-height: 1.55;
+            vertical-align: top;
+            letter-spacing: -0.003em;
+        }
+
+        .data-table td:last-child,
+        .data-table th:last-child { padding-right: 0; }
+
+        .data-table td strong { color: var(--ink); font-weight: 600; }
+
+        .data-table tr:last-child td { border-bottom: 1px solid var(--ink); }
+
+        /* ---------- Body ---------- */
+
+        p, li {
+            color: var(--mid);
+            line-height: 1.6;
+            font-size: 0.9375rem;
+            letter-spacing: -0.004em;
+        }
+        p { margin-bottom: 0.875rem; }
+        ul, ol { margin-left: 1.25rem; margin-bottom: 1rem; }
+        li { margin-bottom: 0.375rem; }
+        strong { color: var(--ink); font-weight: 600; }
+
+        a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--faint);
+            transition: border-color 160ms ease;
+        }
+
+        a:hover { border-bottom-color: var(--accent); }
+
+        code {
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            font-size: 0.8125rem;
+            color: var(--ink);
+            background: var(--wash);
+            padding: 0.125rem 0.375rem;
+            border-radius: 2px;
+        }
+
+        pre {
+            background: var(--wash);
+            border: 1px solid var(--rule);
+            padding: 1.25rem;
+            margin: 1rem 0 2rem;
+            overflow-x: auto;
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            font-size: 0.75rem;
+            color: var(--ink);
+            line-height: 1.6;
+        }
+
+        /* ---------- House-style-only helpers (swatches, type samples, do/don't) ---------- */
+
+        .swatch-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem 1.25rem;
+            margin: 1.25rem 0 2.5rem;
+        }
+
+        .swatch-chip {
+            height: 64px;
+            border: 1px solid var(--rule);
+            margin-bottom: 0.625rem;
+        }
+
+        .swatch-name {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--ink);
+        }
+
+        .swatch-hex {
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            font-size: 0.6875rem;
+            color: var(--muted);
+            display: block;
+            margin-top: 0.25rem;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+
+        .type-sample {
+            margin: 0.75rem 0 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--rule);
+        }
+        .type-sample:last-child { border-bottom: none; }
+
+        .type-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 0.625rem;
+        }
+
+        .do-dont {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            margin: 1.25rem 0 2.5rem;
+        }
+
+        .do-dont .col {
+            border-top: 1px solid var(--ink);
+            padding-top: 1rem;
+        }
+
+        .do-dont h4 { margin-top: 0; }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            padding: 4rem 2.5rem;
+            max-width: 1440px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 0.75rem;
+            letter-spacing: -0.003em;
+            border-top: 1px solid var(--rule);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        footer::before {
+            content: "";
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+
+        /* ---------- Responsive ---------- */
+
+        @media (max-width: 900px) {
+            .hero { padding: 3.5rem 1.5rem 2.5rem 1.5rem; }
+            section { padding: 3rem 1.5rem; }
+            .hero-content { grid-template-columns: 1fr; gap: 1rem; }
+            .hero-label { padding-top: 0; }
+            .hero h1 { font-size: 2rem; }
+            section h2 { font-size: 1.5rem; }
+            .nav-links { display: none; }
+            .nav-container { padding: 1rem 1.5rem; }
+            .rule-group, .card-grid, .do-dont { grid-template-columns: 1fr; }
+            .flow { flex-direction: column; }
+            .flow-step { border-right: none; border-bottom: 1px solid var(--rule); }
+            .flow-step:last-child { border-bottom: none; }
+            .flow-step:not(:last-child)::after {
+                content: "↓";
+                top: auto;
+                bottom: -0.55em;
+                right: auto;
+                left: 1.25rem;
+                transform: none;
+            }
+            footer { flex-direction: column; align-items: flex-start; }
+        }
+    </style>
+</head>
+<body>
+    <header class="sig-line"></header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">Project Wrap-Up</div>
+            <ul class="nav-links">
+                <li><a href="01-start-here.html">Start Here</a></li>
+                <li><a href="02-golden-example.html">Example</a></li>
+                <li><a href="03-process.html">Process</a></li>
+                <li><a href="05-quality.html">Quality</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-label">
+                    Continuous Improvement · Agent
+                    <span>Reference & Domain Knowledge</span>
+                </div>
+                <div>
+                    <h1>Context</h1>
+                    <p>Everything the project wrap-up agent needs: input manifest, pricing guide, design system, and file routing. Read the golden example first — you need to see the target before reading the reference material.</p>
+                </div>
+            </div>
+        </div>
+
+<section id="inputs">
+<div class="section-container">
+<h2>Input Manifest</h2>
+<h3>Required Inputs</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Input</th>
+<th>Required</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project name</td>
+<td>Required</td>
+<td>User provides or infer from context</td>
+</tr>
+<tr>
+<td>Project folder path</td>
+<td>Required</td>
+<td>Locate in workspace</td>
+</tr>
+</tbody>
+</table>
+<h3>Recommended Inputs</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Input</th>
+<th>Status</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Client name</td>
+<td>Recommended</td>
+<td>User provides or extract from files</td>
+</tr>
+<tr>
+<td>Scope of work / deliverables</td>
+<td>Recommended</td>
+<td>Scan project folder</td>
+</tr>
+<tr>
+<td>User's active time</td>
+<td>Recommended</td>
+<td>User estimate (minutes directing/reviewing)</td>
+</tr>
+</tbody>
+</table>
+<h3>Optional Inputs</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Input</th>
+<th>Status</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quality criteria</td>
+<td>Optional</td>
+<td>User provides or infer from golden example</td>
+</tr>
+</tbody>
+</table>
+<div style="background: var(--wash); border-left: 2px solid var(--rule); padding: 1rem; margin: 1.5rem 0;">
+<strong>Note:</strong> Infer missing inputs from context. If user provides minimal information, examine the project folder for files that reveal scope, timeline, and deliverables.
+</div>
+</div>
+</section>
+
+<section id="pricing">
+<div class="section-container">
+<h2>Pricing Guide</h2>
+<p>This is the reference table for the "Before" column of the AI invoice. Use these rates to calculate what human agency services would cost.</p>
+<table class="data-table">
+<thead>
+<tr>
+<th>Role</th>
+<th>Typical Tasks</th>
+<th>Rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Project Manager</td>
+<td>Discovery, requirements, coordination</td>
+<td>$150/hr</td>
+</tr>
+<tr>
+<td>UX Designer</td>
+<td>User flows, wireframes, research</td>
+<td>$175/hr</td>
+</tr>
+<tr>
+<td>UI Designer</td>
+<td>Visual design, design system, mockups</td>
+<td>$175/hr</td>
+</tr>
+<tr>
+<td>Frontend Developer</td>
+<td>Interactive builds, prototypes, code</td>
+<td>$200/hr</td>
+</tr>
+<tr>
+<td>Backend Developer</td>
+<td>APIs, databases, integrations</td>
+<td>$200/hr</td>
+</tr>
+<tr>
+<td>QA Engineer</td>
+<td>Testing, bug fixes</td>
+<td>$125/hr</td>
+</tr>
+<tr>
+<td>Copywriter</td>
+<td>Content, messaging, copy</td>
+<td>$150/hr</td>
+</tr>
+<tr>
+<td>Designer + Dev (blended)</td>
+<td>Revision rounds</td>
+<td>$185/hr</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section id="after-column">
+<div class="section-container">
+<h2>"After" Column Standards</h2>
+<p>When building the invoice, use these standards for the "After" (AI-assisted) column:</p>
+<table class="data-table">
+<thead>
+<tr>
+<th>Line Item</th>
+<th>Standard</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AI costs</td>
+<td>$1</td>
+</tr>
+<tr>
+<td>User time</td>
+<td>Minutes actually directing/reviewing (not elapsed time)</td>
+</tr>
+<tr>
+<td>Revision rounds</td>
+<td>Unlimited</td>
+</tr>
+<tr>
+<td>Delivery</td>
+<td>Instant</td>
+</tr>
+</tbody>
+</table>
+<div style="background: var(--wash); border-left: 2px solid var(--rule); padding: 1rem; margin: 1.5rem 0;">
+<strong>Key principle:</strong> The "After" column should dramatically show the time and cost savings by substituting AI for traditional agency services, while maintaining quality.
+</div>
+</div>
+</section>
+
+<section id="invoice-design">
+<div class="section-container">
+<h2>Invoice Design System</h2>
+<p>The invoice is now an inline component embedded within the wrap-up report, not a standalone page.</p>
+<h3>Typography</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Element</th>
+<th>Font</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Headings &amp; totals</td>
+<td>Inter 600</td>
+</tr>
+<tr>
+<td>Body text</td>
+<td>Inter 400</td>
+</tr>
+<tr>
+<td>Prices &amp; rates</td>
+<td>System monospace</td>
+</tr>
+</tbody>
+</table>
+<h3>Color Palette</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Element</th>
+<th>Token</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Background</td>
+<td>--paper</td>
+<td>#ffffff</td>
+</tr>
+<tr>
+<td>Before column background</td>
+<td>--wash</td>
+<td>#f6f6f4</td>
+</tr>
+<tr>
+<td>Before column text</td>
+<td>--muted (line-through)</td>
+<td>#8a8a8a</td>
+</tr>
+<tr>
+<td>After column background</td>
+<td>--wash</td>
+<td>#f6f6f4</td>
+</tr>
+<tr>
+<td>After column highlights</td>
+<td>--accent</td>
+<td>#d8481f</td>
+</tr>
+<tr>
+<td>Savings badge</td>
+<td>--accent</td>
+<td>#d8481f</td>
+</tr>
+</tbody>
+</table>
+<h3>Inline Invoice Structure</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Container</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>invoice-container</code></td>
+<td>Main wrapper for the invoice section</td>
+</tr>
+<tr>
+<td><code>invoice-columns</code></td>
+<td>CSS Grid with two columns (before and after)</td>
+</tr>
+<tr>
+<td><code>invoice-items</code></td>
+<td>List of line items in each column</td>
+</tr>
+<tr>
+<td><code>invoice-totals</code></td>
+<td>Totals row below items</td>
+</tr>
+<tr>
+<td><code>savings-badge</code></td>
+<td>Bar at the bottom showing savings</td>
+</tr>
+</tbody>
+</table>
+<p><em>Reference: <code>02-golden-example.html</code></em></p>
+</div>
+</section>
+
+<section id="wrapup-design">
+<div class="section-container">
+<h2>Wrap-Up Report Design System</h2>
+<p>Same font stack: Inter throughout (headings, body, code/paths). Use the canonical house-style tokens.</p>
+<h3>Component Specifications</h3>
+<table class="data-table">
+<thead>
+<tr>
+<th>Component</th>
+<th>Styling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Background</td>
+<td>--paper (#ffffff)</td>
+</tr>
+<tr>
+<td>BLUF box</td>
+<td>--wash bg, 1px --rule border, accent left accent border</td>
+</tr>
+<tr>
+<td>Stats grid</td>
+<td>Rule cards, --ink values, --muted labels. Accent for savings.</td>
+</tr>
+<tr>
+<td>Improvement cards</td>
+<td>--paper, 1px --rule border</td>
+</tr>
+<tr>
+<td>File table</td>
+<td>--ink header row, --paper body, code-formatted paths</td>
+</tr>
+</tbody>
+</table>
+<p><em>Reference: <code>02-golden-example.html</code></em></p>
+</div>
+</section>
+
+<section id="routing">
+<div class="section-container">
+<h2>Output File Routing</h2>
+<p>The wrap-up agent produces one main deliverable:</p>
+<table class="data-table">
+<thead>
+<tr>
+<th>Output</th>
+<th>Filename</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wrap-Up Report (contains embedded invoice)</td>
+<td>wrap-up.html</td>
+<td>Project folder root</td>
+</tr>
+<tr>
+<td>Agent Package (if applicable)</td>
+<td>01-start-here.html through 05-quality.html</td>
+<td>Relevant Agents/ folder</td>
+</tr>
+</tbody>
+</table>
+<div style="background: var(--wash); border-left: 2px solid var(--rule); padding: 1rem; margin: 1.5rem 0;">
+<strong>Note:</strong> The invoice is now integrated into the wrap-up report as an inline section. There is no separate invoice file output.
+</div>
+</div>
+</section>
+
+<section id="five-file">
+<div class="section-container">
+<h2>Five-File Agent Standard</h2>
+<p>When packaging a workflow as an agent (Step 8), use this standard structure across five files:</p>
+<table class="data-table">
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>01-start-here.html</code></td>
+<td>Entry point: manifest, agent training, human training</td>
+</tr>
+<tr>
+<td><code>02-golden-example.html</code></td>
+<td>Completed deliverable showing what "done" looks like</td>
+</tr>
+<tr>
+<td><code>03-process.html</code></td>
+<td>Machine-readable execution steps with decision rules</td>
+</tr>
+<tr>
+<td><code>04-context.html</code></td>
+<td>Input manifest, domain knowledge, reference tables</td>
+</tr>
+<tr>
+<td><code>05-quality.html</code></td>
+<td>QC gates with weighted scoring</td>
+</tr>
+</tbody>
+</table>
+<div style="background: var(--wash); border-left: 2px solid var(--rule); padding: 1rem; margin: 1.5rem 0;">
+<strong>Standard pattern:</strong> This five-file structure ensures any agent can be understood, replicated, and improved by anyone reading the documentation.
+</div>
+</div>
+</section>
+
+    </main>
+
+    <footer>
+        <div>Project Wrap-Up Agent · Context</div>
+        <div>April 2026</div>
+    </footer>
+
+</body>
+</html>

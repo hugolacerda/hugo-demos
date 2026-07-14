@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Builder Sprint Grader · Context</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:#0a0a0a; --ink-soft:#2a2a2a; --mid:#5a5a5a; --muted:#8a8a8a;
+  --faint:#b5b5b5; --rule:#e6e6e6; --paper:#ffffff; --wash:#f6f6f4;
+  --accent:#d8481f; --good:#177245; --warn:#b7791f; --bad:#b42318;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header.sig-line{height:1px;background:var(--ink)}
+nav{border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(8px)}
+.nav-container{display:flex;align-items:center;justify-content:space-between;padding:1.125rem 2.5rem;max-width:1440px;margin:0 auto}
+.nav-logo{font-size:.8125rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:.625rem}
+.nav-logo:before{content:"";width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.hero{padding:6.5rem 2.5rem 5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto}
+.hero-content{display:grid;grid-template-columns:150px minmax(0,1fr);gap:3rem;max-width:1120px}
+.hero-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);padding-top:1.35rem}
+.hero-label span{display:block;color:var(--muted);font-weight:500;margin-top:.5rem}
+h1{font-size:clamp(2.25rem,4.6vw,3.625rem);font-weight:650;line-height:1.02;letter-spacing:-.038em;margin-bottom:1.75rem;max-width:920px}
+.hero p{font-size:1.0625rem;color:var(--mid);max-width:760px}
+main{counter-reset:section}
+section{padding:5rem 2.5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto;counter-increment:section}
+section:last-of-type{border-bottom:none}
+.section-container{max-width:1120px}
+h2{font-size:clamp(1.625rem,2.6vw,2rem);font-weight:650;line-height:1.08;letter-spacing:-.028em;margin-bottom:1.5rem}
+h2:before{content:counter(section, decimal-leading-zero);display:block;font-size:.6875rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:1.125rem}
+h3{font-size:1.1875rem;font-weight:650;line-height:1.2;letter-spacing:-.018em;margin:3rem 0 .875rem}
+h4{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:1.75rem 0 .625rem}
+p,li{color:var(--mid);font-size:.9375rem;line-height:1.6;letter-spacing:-.004em}
+p{margin-bottom:.875rem}
+ul,ol{margin-left:1.25rem;margin-bottom:1rem}
+li{margin-bottom:.375rem}
+strong{color:var(--ink);font-weight:650}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8125rem;color:var(--ink);background:var(--wash);padding:.125rem .375rem;border-radius:2px}
+.rule-group,.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 2.5rem;margin-bottom:2.5rem}
+.rule-card{border-top:1px solid var(--ink);padding:1.125rem 0 1.5rem}
+.rule-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.rule-card h5{font-size:.9375rem;font-weight:650;line-height:1.35;letter-spacing:-.012em;margin-bottom:.5rem}
+.rule-card p{font-size:.875rem}
+.data-table{width:100%;border-collapse:collapse;margin:1.25rem 0 2.5rem;font-size:.8125rem}
+.data-table th{text-align:left;padding:.75rem 1rem .75rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.data-table td{padding:.875rem 1rem .875rem 0;border-bottom:1px solid var(--rule);color:var(--mid);vertical-align:top;line-height:1.55}
+.data-table tr:last-child td{border-bottom:1px solid var(--ink)}
+.flow{display:flex;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:1.5rem 0 2.5rem}
+.flow-step{flex:1;padding:1.25rem 1.25rem;border-right:1px solid var(--rule);position:relative}
+.flow-step:last-child{border-right:none}
+.flow-step:not(:last-child):after{content:"→";position:absolute;right:-.55em;top:50%;transform:translateY(-50%);background:var(--paper);color:var(--accent);font-weight:700}
+.flow-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.flow-title{font-size:.9375rem;font-weight:650;margin-bottom:.375rem}
+.callout{background:var(--wash);border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin:1.25rem 0 2rem}
+.good{border-left-color:var(--good)} .warn{border-left-color:var(--warn)} .bad{border-left-color:var(--bad)}
+.badge{display:inline-block;font-size:.6875rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;border:1px solid var(--rule);padding:.25rem .5rem;margin-right:.375rem}
+footer{padding:4rem 2.5rem;max-width:1440px;margin:0 auto;color:var(--muted);font-size:.75rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between}
+@media(max-width:900px){.hero,.section{padding:3rem 1.5rem}.hero-content{grid-template-columns:1fr;gap:1rem}.nav-links{display:none}.nav-container{padding:1rem 1.5rem}.flow{flex-direction:column}.flow-step{border-right:none;border-bottom:1px solid var(--rule)}}
+</style>
+
+</head>
+<body>
+<header class="sig-line"></header>
+
+<nav><div class="nav-container">
+<div class="nav-logo">AI Agent Builder Sprint Grader / Context</div>
+<ul class="nav-links">
+<li><a href="01-start-here.html">Start Here</a></li>
+<li><a href="02-golden-example.html">Golden Example</a></li>
+<li><a href="03-process.html">Process</a></li>
+<li><a href="04-context.html">Context</a></li>
+<li><a href="05-quality.html">Quality</a></li>
+</ul>
+</div></nav>
+
+<main>
+<div class="hero"><div class="hero-content">
+<div class="hero-label">Reference<span>Inputs · standards · awards</span></div>
+<div><h1>Context.</h1><p>Input manifest, five-file student standard, award definitions, tie-breaker rules, and output specifications for grading AI Agent Builder Sprint homework.</p></div>
+</div></div>
+
+<section id="input-manifest"><div class="section-container">
+<h2>Input Manifest</h2>
+<p>Missing a required input means the grader should stop or produce a limited report that clearly states what could not be evaluated.</p>
+<table class="data-table"><thead><tr><th>Input</th><th>Tier</th><th>How used</th></tr></thead><tbody>
+<tr><td>Student name</td><td>Required</td><td>Used to group submissions and generate feedback.</td></tr>
+<tr><td>Submission files</td><td>Required</td><td>HTML files copied from Basecamp.</td></tr>
+<tr><td>Agent name or folder label</td><td>Required if multiple agents</td><td>Used to separate one student’s multiple agent packages.</td></tr>
+<tr><td>Submission timestamp</td><td>Recommended</td><td>Used for tie-breaker if quantity and quality are tied.</td></tr>
+<tr><td>Bootcamp day</td><td>Recommended</td><td>Used to filter Day 01 through Day 5 submissions.</td></tr>
+<tr><td>Instructor notes</td><td>Optional</td><td>Used to explain ambiguity or override labels.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="standards"><div class="section-container">
+<h2>Five-File Student Standard</h2>
+<p>A student agent is complete only when it includes all five files below. These are the standards taught in the sprint and used for grading.</p>
+<table class="data-table"><thead><tr><th>File</th><th>Purpose</th><th>Grader checks</th></tr></thead><tbody>
+<tr><td><code>01-start-here.html</code></td><td>Entry point, manifest, agent training, human training.</td><td>Clear purpose, required inputs, how to run, links to other files.</td></tr>
+<tr><td><code>02-golden-example.html</code> or folder</td><td>Completed example showing what “done” looks like.</td><td>Specific, real-looking, not placeholder, aligned to agent purpose.</td></tr>
+<tr><td><code>03-process.html</code></td><td>Machine-readable workflow with steps and decisions.</td><td>Numbered steps, branching logic, clear outputs, edge cases.</td></tr>
+<tr><td><code>04-context.html</code></td><td>Input manifest and domain knowledge.</td><td>Required/recommended/optional inputs, reference tables, relevant assumptions.</td></tr>
+<tr><td><code>05-quality.html</code></td><td>Quality gates, blockers, scoring, acceptance criteria.</td><td>Objective gates, blockers/majors/minors, pass/fail logic.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="awards"><div class="section-container">
+<h2>Award Definitions</h2>
+<div class="rule-group">
+<div class="rule-card"><div class="rule-number">Award 01</div><h5>Most Agents Built</h5><p>Quantity recognition. Count only complete five-file agents submitted from Day 01 through Day 5. Incomplete agents are listed separately and do not count.</p></div>
+<div class="rule-card"><div class="rule-number">Award 02</div><h5>Best Agent Built</h5><p>Quality recognition. Select the highest-scoring complete agent using the rubric in 05-quality.html and the tie-breaker rules.</p></div>
+</div>
+<div class="callout warn"><p><strong>Prize language rule:</strong> Do not mention the gift card or prize amount in grader outputs. The grader identifies recognition winners only.</p></div>
+</div></section>
+
+<section id="output-specs"><div class="section-container">
+<h2>Output Specifications</h2>
+<table class="data-table"><thead><tr><th>Output</th><th>Audience</th><th>Include</th><th>Exclude</th></tr></thead><tbody>
+<tr><td>Internal HTML report</td><td>Instructor</td><td>All scorecards, full leaderboard, recommended winners, tie-breakers, incomplete list, concerns, announcement draft.</td><td>Prize language.</td></tr>
+<tr><td>External HTML report</td><td>Students</td><td>Recognition, encouraging feedback, clear next actions, general quality lessons.</td><td>Private ranking rationale, sensitive critiques, instructor-discretion notes, prize language.</td></tr>
+<tr><td>Individual feedback</td><td>Student</td><td>Status, score if eligible, what worked, what to fix next.</td><td>Comparison language that shames other students.</td></tr>
+<tr><td>Scorecard</td><td>Instructor</td><td>Gate scores, evidence, blockers, majors, final score.</td><td>Unsupported guesses.</td></tr>
+</tbody></table>
+</div></section>
+
+
+<section id="basecamp-schema"><div class="section-container">
+<h2>Basecamp Intake Schema</h2>
+<p>When files arrive without a clean folder structure, use this schema to normalize the batch before grading. Do not assume that a filename alone proves completion.</p>
+<table class="data-table"><thead><tr><th>Field</th><th>Format</th><th>Use</th></tr></thead><tbody>
+<tr><td><code>student_name</code></td><td>Text</td><td>Primary grouping key for feedback and leaderboards.</td></tr>
+<tr><td><code>agent_name</code></td><td>Text</td><td>Secondary grouping key. Use page title, folder label, or repeated nav label if missing.</td></tr>
+<tr><td><code>file_role</code></td><td>01 / 02 / 03 / 04 / 05</td><td>Determines completion status.</td></tr>
+<tr><td><code>original_filename</code></td><td>Text</td><td>Evidence trail for the internal report.</td></tr>
+<tr><td><code>submitted_at</code></td><td>Date/time if available</td><td>Used only after quantity and quality tie-breakers.</td></tr>
+<tr><td><code>ambiguity_note</code></td><td>Text</td><td>Required when grouping is inferred rather than explicit.</td></tr>
+</tbody></table>
+<div class="callout warn"><p><strong>Grouping rule:</strong> If two files could belong to more than one student or agent, include them in the internal ambiguity log and do not use them to break a tie unless the instructor confirms the grouping.</p></div>
+</div></section>
+
+
+<section id="student-feedback-template"><div class="section-container">
+<h2>External Student Feedback Template</h2>
+<p>Use this structure for each student-facing feedback block. It keeps feedback useful without exposing private rankings.</p>
+<div class="callout">
+<p><strong>[Student Name]</strong></p>
+<p><strong>Status:</strong> Complete / Incomplete / Strong submission / Recognition winner</p>
+<p><strong>What worked:</strong> Name the strongest observable choice in the student’s agent package.</p>
+<p><strong>What to improve next:</strong> Name one specific, high-leverage fix.</p>
+<p><strong>Next action:</strong> Give the student a clear action they can complete before the next sprint check-in.</p>
+</div>
+<div class="callout warn"><p><strong>External-report guardrail:</strong> Never say “you lost,” “you ranked below,” or “your work was weak.” Use standards language: “not yet complete,” “needs stronger quality gates,” or “next improvement.”</p></div>
+</div></section>
+
+
+<section id="final-output-naming"><div class="section-container">
+<h2>Final Output Naming & Readiness Checklist</h2>
+<p>Use these conventions when producing the final files.</p>
+<table class="data-table"><thead><tr><th>Output</th><th>Recommended filename</th><th>Ready when</th></tr></thead><tbody>
+<tr><td>Internal report</td><td><code>friday-awards-internal-week-[x].html</code></td><td>Includes evidence, scores, tie-breakers, and instructor discretion notes.</td></tr>
+<tr><td>External report</td><td><code>student-feedback-week-[x].html</code></td><td>Contains student-safe feedback and no private ranking notes.</td></tr>
+<tr><td>Announcement</td><td><code>winner-announcement-week-[x].txt</code></td><td>Names recognitions without prize language.</td></tr>
+<tr><td>Score export</td><td><code>agent-builder-scorecards-week-[x].csv</code></td><td>Contains student, agent, status, score, and eligibility.</td></tr>
+</tbody></table>
+<div class="callout good"><p><strong>Final check:</strong> Before delivery, confirm: complete agents counted correctly, incomplete agents excluded from awards, tie-breakers documented, external report student-safe, and no prize language appears anywhere.</p></div>
+</div></section>
+
+</main>
+<footer><div>AI Agent Builder Sprint Homework Grader</div><div>v1 · May 2026</div></footer>
+</body></html>

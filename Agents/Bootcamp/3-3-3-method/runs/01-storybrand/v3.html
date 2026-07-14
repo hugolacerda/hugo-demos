@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billy's Blog — Draft Topic Calendar | Keystone School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Trajan Pro Bold';
+            src: local('Trajan Pro Bold'), local('TrajanPro-Bold');
+            font-weight: bold;
+            font-style: normal;
+        }
+
+        :root {
+            --ks-red: #cf2e2e;
+            --ks-red-dark: #a82424;
+            --ks-black: #0a0a0a;
+            --ks-charcoal: #1a1a1a;
+            --ks-white: #ffffff;
+            --ks-ivory: #faf9f7;
+            --ks-warm-gray: #f5f3f0;
+            --ks-border: #e5e2dc;
+            --ks-text: #333333;
+            --ks-text-light: #666666;
+            --ks-red-tint: rgba(207, 46, 46, 0.06);
+            --ks-red-border: rgba(207, 46, 46, 0.25);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+            color: var(--ks-text);
+            line-height: 1.7;
+            background: var(--ks-ivory);
+        }
+
+        /* Header — Keystone Black */
+        header {
+            background: var(--ks-black);
+            color: var(--ks-white);
+            padding: 56px 40px;
+            text-align: center;
+            border-bottom: 4px solid var(--ks-red);
+        }
+        header .school-name {
+            font-family: 'Trajan Pro Bold', 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 16px;
+        }
+        header h1 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 38px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: 0.01em;
+        }
+        header .subtitle {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.04em;
+        }
+
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Intro */
+        .intro {
+            font-size: 18px;
+            color: var(--ks-text);
+            margin-bottom: 40px;
+            border-left: 3px solid var(--ks-red);
+            padding-left: 20px;
+            line-height: 1.8;
+        }
+
+        /* Topic Cards */
+        .topic-card {
+            background: var(--ks-white);
+            border: 1px solid var(--ks-border);
+            border-left: 3px solid var(--ks-border);
+            padding: 32px;
+            margin-bottom: 24px;
+            transition: border-left-color 0.2s ease;
+        }
+        .topic-card:hover {
+            border-left-color: var(--ks-red);
+        }
+        .topic-card .week-label {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #999;
+            margin-bottom: 8px;
+        }
+        .topic-card .number {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--ks-red);
+            background: var(--ks-red-tint);
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            letter-spacing: 0.03em;
+        }
+        .topic-card h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 24px;
+            font-weight: 600;
+            font-style: italic;
+            color: var(--ks-charcoal);
+            margin-bottom: 16px;
+            line-height: 1.35;
+        }
+        .topic-card p {
+            font-size: 16px;
+            color: var(--ks-text-light);
+            line-height: 1.85;
+        }
+
+        /* Stakes */
+        .topic-card .stakes {
+            font-size: 15px;
+            color: var(--ks-red-dark);
+            font-style: italic;
+            font-weight: 400;
+            margin: 16px 0;
+            padding: 0;
+        }
+
+        /* Call to Action per card */
+        .topic-card .call-to-action {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 14px;
+            color: var(--ks-charcoal);
+            font-style: normal;
+            font-weight: 500;
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid var(--ks-border);
+        }
+
+        /* Divider */
+        .divider {
+            height: 1px;
+            background: var(--ks-border);
+            margin: 48px 0;
+        }
+
+        /* Stakes Header */
+        .stakes-header {
+            background: var(--ks-red-tint);
+            border-left: 4px solid var(--ks-red);
+            padding: 24px 28px;
+            margin-bottom: 32px;
+            font-size: 16px;
+            color: var(--ks-text);
+            line-height: 1.7;
+        }
+        .stakes-header strong {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--ks-charcoal);
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+        .stakes-header em {
+            display: block;
+            margin-top: 12px;
+            font-style: italic;
+            color: var(--ks-charcoal);
+            font-weight: 400;
+            font-size: 17px;
+        }
+
+        /* Through-Line / Plan */
+        .through-line {
+            background: var(--ks-white);
+            border: 1px solid var(--ks-border);
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+        .through-line h3 {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ks-charcoal);
+            margin-bottom: 24px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .through-line ol {
+            list-style: decimal;
+            margin-left: 24px;
+        }
+        .through-line li {
+            font-size: 16px;
+            color: var(--ks-text-light);
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 32px 40px;
+            color: #999;
+            font-size: 12px;
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            letter-spacing: 0.03em;
+            background: var(--ks-warm-gray);
+            border-top: 1px solid var(--ks-border);
+        }
+
+        /* Archetype Tags */
+        .archetype {
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ks-red);
+            background: var(--ks-red-tint);
+            border: 1px solid var(--ks-red-border);
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            background: transparent;
+            border-top: 2px solid var(--ks-black);
+            padding: 20px 0;
+            margin: 48px 0 32px 0;
+            text-align: center;
+        }
+        .section-label {
+            font-family: 'Trajan Pro Bold', 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ks-charcoal);
+            font-weight: 600;
+            display: inline-block;
+            background: var(--ks-ivory);
+            padding: 8px 20px;
+            margin-top: -11px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--ks-black);
+            color: var(--ks-white);
+            padding: 56px 40px;
+            text-align: center;
+            margin-top: 48px;
+            border-top: 4px solid var(--ks-red);
+        }
+        .cta-section h2 {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 30px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--ks-white);
+        }
+        .cta-section p {
+            font-size: 16px;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 28px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        .cta-button {
+            display: inline-block;
+            background: var(--ks-red);
+            color: var(--ks-white);
+            padding: 14px 36px;
+            border-radius: 3px;
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Inter', -apple-system, Helvetica, sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            background: var(--ks-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(207, 46, 46, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="school-name">Keystone School</div>
+    <h1>Billy's Blog — Draft Topic Calendar</h1>
+    <div class="subtitle">April – June 2026 · 10 Weekly Posts</div>
+</header>
+
+<div class="container">
+
+    <p class="intro">You're raising children in an uncertain world — and you're asking the right questions. <em>What does boredom do for kids? How do I help them navigate anxiety? What kind of education actually prepares them for life?</em> These ten weekly posts are Billy Tijerina's guide through the questions you're asking right now. Billy listens. He reads the research. He watches what your children do when given space and structure. And he shares what he's learning — not as a leader with all the answers, but as a fellow traveler who sees the same challenges you do.</p>
+
+    <div class="stakes-header">
+        <strong>Here's what's at stake:</strong>
+        <em>Parents who engage with these ideas raise children who think for themselves, speak with confidence, and know they are loved. Parents who stay too busy to pause and reflect miss the window — and the chance to shape not just what their children achieve, but who they become.</em>
+    </div>
+
+    <div class="through-line">
+        <h3>The Through-Line: Billy's Plan for You This Spring</h3>
+        <ol>
+            <li>Read the post each week — take 15 minutes to sit with the week's theme</li>
+            <li>Try the "Your Move" action at home — this is where the ideas become real</li>
+            <li>Come back next week and see how the themes build into a coherent vision for your child's growth</li>
+        </ol>
+    </div>
+
+    <!-- Topic 1 -->
+    <div class="topic-card">
+        <div class="number">Post 1</div>
+        <div class="week-label">Week of April 13, 2026</div>
+        <div class="archetype">For the parent who over-schedules</div>
+        <h2>"Why boredom might be the most underrated gift we can give our children"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Over-scheduled children lose the mental space where creativity and self-direction grow.</em></p>
+        <p>You know the paradox: you work hard to fill every hour of your child's day with enrichment, yet research increasingly shows that unstructured time — even the uncomfortable experience of boredom — is where creativity, self-direction, and intrinsic motivation take root. Billy draws on a recent piece from the American Psychological Association linking childhood boredom to divergent thinking, connects it to what Keystone teachers observe when students are given open-ended project time, and shows you how to resist the urge to over-schedule the summer months ahead.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Ask your child tonight: when was the last time you were bored — and what did you do about it?</p>
+    </div>
+
+    <!-- Section 1 Complete -->
+    <div class="section-divider">
+        <div class="section-label">Foundation: The Questions You're Asking</div>
+    </div>
+
+    <!-- Topic 2 -->
+    <div class="topic-card">
+        <div class="number">Post 2</div>
+        <div class="week-label">Week of April 20, 2026</div>
+        <div class="archetype">For the parent seeking values-based education</div>
+        <h2>"What our students learn when they serve the community"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Without service, education becomes an isolated transaction rather than formation for citizenship.</em></p>
+        <p>As spring service projects wrap up, you may be wondering: is your child really growing into the kind of person who sees others and acts? Billy spotlights several student-led initiatives — from food drives to tutoring partnerships with local organizations — and makes the case that service learning isn't an add-on to academics but a core part of how Keystone forms ethical leaders. He references Keystone's pillar of community involvement and weaves in perspectives from faculty advisors and students themselves, arguing that the most lasting lessons often happen outside the classroom walls, and invites you to volunteer alongside your child before the school year ends.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Volunteer alongside your child at one of Keystone's community service events before the end of the school year.</p>
+    </div>
+
+    <!-- Topic 3 -->
+    <div class="topic-card">
+        <div class="number">Post 3</div>
+        <div class="week-label">Week of April 27, 2026</div>
+        <div class="archetype">For the parent fearing transitions</div>
+        <h2>"How we help students navigate the anxiety of 'what comes next'"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Parents who try to eliminate a child's discomfort during transitions rob them of the resilience that only comes through facing uncertainty.</em></p>
+        <p>Spring is a season of transitions — and you may feel the anxiety rising, both in your child and in yourself. Seniors are preparing for graduation, eighth graders are moving to Upper School, families are making enrollment decisions. Billy acknowledges that transitions produce real anxiety for students and parents alike, then draws on research about adolescent identity formation to explain why some discomfort is not only normal but necessary. He highlights the advising relationships and mentoring structures Keystone has built to support your child, and shows you how to name the anxiety without trying to eliminate it.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Name the transition your child is facing and ask them what part feels most uncomfortable — then listen without trying to fix it.</p>
+    </div>
+
+    <!-- Section 2 Begins -->
+    <div class="section-divider">
+        <div class="section-label">Deepening: The Choices That Shape Them</div>
+    </div>
+
+    <!-- Topic 4 -->
+    <div class="topic-card">
+        <div class="number">Post 4</div>
+        <div class="week-label">Week of May 4, 2026</div>
+        <div class="archetype">For the parent questioning screens and tech</div>
+        <h2>"The case for teaching students to write by hand"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Students who rely only on keyboards may miss critical neural pathways involved in memory formation and learning.</em></p>
+        <p>You're watching your child type faster than they write — and you're wondering if handwriting even matters anymore in a world racing toward AI-generated text and voice-to-text dictation. Billy makes a counterintuitive argument: it does — not as nostalgia, but as cognitive science. He cites a recent study from the Norwegian University of Science and Technology showing that handwriting activates brain networks involved in memory and learning in ways that typing does not. He connects this to Keystone's approach and shows you how to advocate for this skill at home and in school.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Encourage your child to take handwritten notes on their next study session and observe if they remember the material more vividly.</p>
+    </div>
+
+    <!-- Topic 5 -->
+    <div class="topic-card">
+        <div class="number">Post 5</div>
+        <div class="week-label">Week of May 11, 2026</div>
+        <div class="archetype">For the parent modeling lifelong learning</div>
+        <h2>"What our mothers — and the people who mother us — teach about education"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Your attitude toward learning — curiosity, struggle, not-knowing — is modeled far more powerfully than any grades or test scores.</em></p>
+        <p>Timed for Mother's Day weekend, you may be wondering: what legacy are you actually passing on through your relationship with learning? Billy writes a warm, reflective post about the role of maternal figures in a child's educational journey. Rather than a generic tribute, he explores the research on how your attitude toward learning — curiosity, persistence, comfort with not knowing — transmits to children more powerfully than any curriculum. He shares anonymized anecdotes from Keystone families and invites you to model the kind of learner you hope your child becomes.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Share something you tried to learn recently that was hard — and let your child see you not giving up.</p>
+    </div>
+
+    <!-- Topic 6 -->
+    <div class="topic-card">
+        <div class="number">Post 6</div>
+        <div class="week-label">Week of May 18, 2026</div>
+        <div class="archetype">For the parent uncertain about the future</div>
+        <h2>"Are we preparing students for jobs that don't exist yet — and does it matter?"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>If you chase the future job market, you miss the point of education entirely — forming adaptable, ethical human beings.</em></p>
+        <p>You've probably heard this cliché of modern education — that we must prepare students for future jobs we can't predict — and wondered if Keystone is doing enough in this area. Billy takes it on and argues that the framing itself misses the point. A liberal arts education doesn't aim to predict the labor market; it aims to form you a son or daughter who is adaptable, literate, ethical, and can learn anything. He references Keystone's own AI policy work alongside broader workforce data and makes the case that the "skills of the future" — critical thinking, communication, collaboration — have been the skills of every era.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Stop asking your child "what job will you have?" and start asking "what kind of person do you want to become?"</p>
+    </div>
+
+    <!-- Section 3 Begins -->
+    <div class="section-divider">
+        <div class="section-label">Closing: The Legacy You Leave</div>
+    </div>
+
+    <!-- Topic 7 -->
+    <div class="topic-card">
+        <div class="number">Post 7</div>
+        <div class="week-label">Week of May 25, 2026</div>
+        <div class="archetype">For the parent grounding children in responsibility</div>
+        <h2>"Why Memorial Day is a teaching moment, not just a long weekend"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Without teaching the meaning of sacrifice, we raise children who take freedom for granted.</em></p>
+        <p>With Memorial Day approaching, you may notice your child sees it as the start of summer, not as a day of remembrance. Billy reflects on the importance of civic memory and what it means to teach your child about sacrifice, service, and the cost of the freedoms they enjoy. He draws on Keystone's history curriculum and recent school events, and gently encourages you to have the conversation that the broader culture often skips. He offers a framework for honoring the day as a family.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Ask your child what Memorial Day means to them — and if they don't know, take time to explain it together.</p>
+    </div>
+
+    <!-- Topic 8 -->
+    <div class="topic-card">
+        <div class="number">Post 8</div>
+        <div class="week-label">Week of June 1, 2026</div>
+        <div class="archetype">For the parent of a graduating senior</div>
+        <h2>"What I've learned from this year's graduating class"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>When educators stop teaching and start learning from students, the whole community is transformed.</em></p>
+        <p>As commencement approaches and you reflect on your student's time at Keystone, Billy shares what the Class of 2026 has taught him — not the other way around. He profiles several moments from the year — a student who changed the tone of a difficult classroom conversation, a senior project that surprised everyone, a quiet act of leadership — without naming names but with enough specificity that you will recognize your child's fingerprints in the story. The post is both a love letter to the Class of 2026 and an invitation for you to recognize how your child has grown.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Tell your graduating senior one specific way they've surprised you or changed you this year.</p>
+    </div>
+
+    <!-- Topic 9 -->
+    <div class="topic-card">
+        <div class="number">Post 9</div>
+        <div class="week-label">Week of June 8, 2026</div>
+        <div class="archetype">For the parent watching their child find their voice</div>
+        <h2>"The real reason we make students give speeches at graduation"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Young people who never speak publicly never discover their own voice or learn they can be heard.</em></p>
+        <p>You've probably heard that your student will be giving a commencement speech — and you may be nervous for them. Billy explains the philosophy behind Keystone's tradition of student speeches at graduation and why this matters more than you might think. He argues that requiring students to articulate their experience in front of a community isn't performative — it's formative. The act of organizing thoughts, finding voice, and standing before people who matter is one of the most powerful exercises in self-knowledge your young person can undertake. He shows you how to support your student without trying to perfect the speech.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Ask your student about the speech they're preparing — not to help them perfect it, but to hear their story.</p>
+    </div>
+
+    <!-- Topic 10 -->
+    <div class="topic-card">
+        <div class="number">Post 10</div>
+        <div class="week-label">Week of June 15, 2026</div>
+        <div class="archetype">For the parent choosing presence over achievement</div>
+        <h2>"A letter to Keystone families as we close this chapter"</h2>
+        <p class="stakes"><strong>Why this matters:</strong> <em>Summer is either a time for formation or fragmentation — the choice is yours.</em></p>
+        <p>As the school year closes, you face a choice about what summer will be — and Billy speaks directly to you in this final post. He reflects honestly on the year's highlights and challenges, thanks you for your trust and participation, and looks ahead to summer and fall with optimism. He reinforces the themes that have run through the year's posts — presence, character, independence, resilience — and closes with a direct invitation: use the summer not to get ahead academically, but to slow down, read together, and let your children be bored, uncomfortable, and wonderfully themselves. This is your move to make.</p>
+        <p class="call-to-action"><strong>Your move:</strong> Choose one intention for summer that has nothing to do with achievement — and protect that time fiercely.</p>
+    </div>
+
+</div>
+
+<div class="cta-section">
+    <h2>Ready to Begin?</h2>
+    <p>Join parents who are pausing, reflecting, and shaping what their children become. Start with Post 1 this week — and let Billy's guide take you through the questions you're asking right now.</p>
+    <a href="https://keystoneschool.org/category/billys-blog-from-our-head-of-school/" class="cta-button">Read Billy's Blog</a>
+</div>
+
+<footer>
+    Keystone School · Billy's Blog Draft Calendar · Prepared April 2026
+</footer>
+
+</body>
+</html>

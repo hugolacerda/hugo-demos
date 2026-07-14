@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 3-3-3 Method · Start Here</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #0a0a0a;
+            --stone: #8a8680;
+            --mid: #6b6b6b;
+            --light: #b0b0b0;
+            --border: #d8d4cc;
+            --wash: #f7f7f7;
+            --white: #ffffff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            line-height: 1.6;
+            color: var(--noir);
+            background: var(--white);
+        }
+
+        header.sig-line { height: 2px; background: var(--noir); }
+
+        nav {
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 2rem;
+        }
+
+        .nav-logo {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--noir);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.current { color: var(--noir); }
+
+        .hero {
+            padding: 6rem 4rem 4.5rem 8%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero-content { max-width: 720px; }
+
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 2.75rem;
+            font-weight: 400;
+            margin-bottom: 1.25rem;
+            color: var(--noir);
+            letter-spacing: -0.01em;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            color: var(--stone);
+            line-height: 1.8;
+            max-width: 640px;
+        }
+
+        section {
+            padding: 4.5rem 4rem 4.5rem 8%;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section-container { max-width: 720px; }
+        .section-container.wide { max-width: 960px; }
+
+        section h2 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.75rem;
+            font-weight: 400;
+            margin-bottom: 2.5rem;
+            color: var(--noir);
+            letter-spacing: -0.01em;
+        }
+
+        section h3 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.25rem;
+            font-weight: 400;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--noir);
+        }
+
+        h4 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+            margin: 1.5rem 0 0.5rem 0;
+        }
+
+        p, li { color: var(--mid); line-height: 1.7; }
+        p { margin-bottom: 0.75rem; }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+        li { margin-bottom: 0.375rem; }
+        strong { color: var(--noir); }
+        em { font-style: italic; }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--noir);
+            background: var(--wash);
+            padding: 0.15rem 0.35rem;
+        }
+
+        pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--noir);
+            background: var(--wash);
+            padding: 1.25rem 1.5rem;
+            line-height: 1.7;
+            overflow-x: auto;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+
+        .rule-card {
+            border-top: 1px solid var(--border);
+            padding: 1.5rem 0;
+        }
+
+        .rule-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+            margin-bottom: 0.25rem;
+        }
+
+        .rule-card h5 {
+            font-family: 'Instrument Serif', serif;
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--noir);
+            margin-bottom: 0.5rem;
+        }
+
+        .rule-card p { color: var(--mid); line-height: 1.7; margin-bottom: 0.5rem; }
+        .rule-card ul, .rule-card ol { margin-top: 0.5rem; margin-bottom: 0; }
+
+        .rule-group { margin-bottom: 3rem; }
+
+        .rule-group-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+            margin-bottom: 1rem;
+        }
+
+        table.minimal {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.875rem;
+        }
+        table.minimal thead th {
+            text-align: left;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--stone);
+            padding: 0.75rem 1rem 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        table.minimal tbody td {
+            padding: 0.875rem 1rem 0.875rem 0;
+            border-top: 1px solid var(--border);
+            color: var(--mid);
+            line-height: 1.6;
+            vertical-align: top;
+        }
+        table.minimal tbody tr:first-child td { border-top: none; }
+        table.minimal tbody td strong { color: var(--noir); font-weight: 600; }
+        table.minimal tbody td.highlight { color: var(--noir); font-weight: 600; }
+
+        footer {
+            padding: 4.5rem 2rem 3.5rem;
+            text-align: center;
+            color: var(--light);
+            font-size: 0.75rem;
+            letter-spacing: 0.03em;
+        }
+        footer .foot-nav {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        footer .foot-nav a {
+            color: var(--stone);
+            text-decoration: none;
+            font-family: 'Instrument Serif', serif;
+            font-size: 0.9rem;
+        }
+        footer .foot-nav a:hover { color: var(--noir); }
+
+        @media (max-width: 768px) {
+            .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .hero h1 { font-size: 2rem; }
+            section h2 { font-size: 1.375rem; }
+            .nav-links { display: none; }
+            table.minimal { font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="sig-line"></header>
+
+    <nav>
+        <div class="nav-container">
+            <div class="nav-logo">The 3-3-3 Method · Start Here</div>
+            <ul class="nav-links">
+                <li><a href="#part-a">Part A</a></li>
+                <li><a href="#part-b">Part B</a></li>
+                <li><a href="#part-c">Part C</a></li>
+                <li><a href="#package">Package</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <div class="hero">
+            <div class="hero-content">
+                <h1>The 3-3-3 Method</h1>
+                <p>A rubric-first, eleven-step method: define what <em>better</em> means, then improve any HTML document through three rounds of three targeted improvements. Nine enhancements, four per-round snapshots, one improvement log. Works on dashboards, training documents, marketing pages, reports — any HTML file.</p>
+            </div>
+        </div>
+
+        <!-- PART A · MANIFEST -->
+        <section id="part-a">
+            <div class="section-container">
+                <h2>Part A · Manifest</h2>
+                <p>What this agent produces, what it needs, and how long it takes.</p>
+
+                <h3>What this agent produces</h3>
+                <p><strong>Input:</strong> any HTML file — dashboard, training doc, marketing page, tool, report — plus an <strong>advisor</strong> whose methodology defines the rubric (Peep Laja for CRO, Oliver Reichenstein for typography, April Dunford for positioning).</p>
+                <p><strong>Output:</strong> a self-contained run folder. The source file is <strong>never</strong> edited directly. The improvement log is the primary deliverable — the improved HTML is its byproduct.</p>
+                <p>The agent proposes 3 candidate advisors based on the artifact type and asks the human to choose before starting.</p>
+
+                <h4>Run folder contents</h4>
+
+                <table class="minimal">
+                    <thead>
+                        <tr><th style="width: 12%;">Snapshot</th><th style="width: 32%;">File</th><th>Description</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="highlight">v0</td><td><code>v0-baseline.html</code></td><td>Copy of the input at run start. Immutable.</td></tr>
+                        <tr><td class="highlight">v1</td><td><code>v1.html</code></td><td>Snapshot after Round 1 (3 improvements applied).</td></tr>
+                        <tr><td class="highlight">v2</td><td><code>v2.html</code></td><td>Snapshot after Round 2 (6 cumulative improvements).</td></tr>
+                        <tr><td class="highlight">v3</td><td><code>v3.html</code></td><td>Final. All 9 improvements applied.</td></tr>
+                        <tr><td class="highlight">Log</td><td><code>improvement-log.html</code></td><td>Primary deliverable: rubric, scoring matrix, 9 before/after cards, closing narrative.</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Estimated time</h3>
+                <p>The full loop is designed to run in one sitting. Default mode: the agent runs all three rounds without mid-flight check-ins, and you review at the end.</p>
+                <p>Per-round snapshots let you diff v1 against v2 against v3 to see the method's progression — not just the endpoint.</p>
+
+                <h4>Time budget</h4>
+
+                <table class="minimal">
+                    <thead>
+                        <tr><th style="width: 18%;">Phase</th><th style="width: 18%;">Duration</th><th>Activity</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td class="highlight">Advisor</td><td>1 min</td><td>Agent proposes 3. Human picks one.</td></tr>
+                        <tr><td class="highlight">Rubric</td><td>2 min</td><td>Load advisor methodology. Score baseline.</td></tr>
+                        <tr><td class="highlight">3 Rounds</td><td>15 min</td><td>Analyze, implement, rescore. Repeat 3×.</td></tr>
+                        <tr><td class="highlight">Review</td><td>5 min</td><td>Walk the matrix, diffs, narrative. Accept.</td></tr>
+                        <tr><td class="highlight">Total</td><td><strong>~23 min</strong></td><td><strong>9 improvements · 4 snapshots · 1 log</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Files in this package</h3>
+                <p>Training (Parts B &amp; C), the canonical example, step-by-step execution, input spec, and quality gates — in five files you read in order.</p>
+
+                <div class="rule-card">
+                    <div class="rule-number">00</div>
+                    <h5>01-start-here.html</h5>
+                    <p>This file. Agent manifest, agent training, and human training — all in one place.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">01</div>
+                    <h5>02-golden-example.html</h5>
+                    <p>An expert agent builder pass on this very start-here document. The <strong>output format</strong> of a 3-3-3 run: rubric card, scoring matrix (baseline→R1→R2→R3→Δ), 3 rounds of 3 improvements with before/after code grids, closing summary narrative. Improvements span content restructuring, missing guardrails, ambiguous instructions, and scope clarity — not just presentational tweaks. This is the shape the agent's <code>improvement-log.html</code> must match.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">02</div>
+                    <h5>03-process.html</h5>
+                    <p>Step-by-step execution with decision points, edge cases, and improvement category taxonomy.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">03</div>
+                    <h5>04-context.html</h5>
+                    <p>Input requirements, improvement categories, improvement-log format spec, design patterns.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">04</div>
+                    <h5>05-quality.html</h5>
+                    <p>Quality gates, weighted scoring rubric, cumulative improvement tracker, success metrics.</p>
+                </div>
+
+                <h3>How to run this agent</h3>
+                <p>Point it at any HTML file. The agent reads this <strong>Start Here</strong>, the golden example, and the process file — then runs the eleven steps autonomously.</p>
+
+                <h4>Copy-paste prompt</h4>
+                <pre>Read the 3-3-3-method agent and apply it to [path-to-your-file.html]</pre>
+
+                <p>You review at the end. Works on dashboards, training docs, marketing pages, reports — any HTML file. Default mode runs all three rounds without mid-flight check-ins.</p>
+
+                <h3>Before You Run · Mandatory Preflight</h3>
+                <p><strong>This file is not self-contained. Do not treat it as such.</strong> Step 0 has substeps that appear only in <code>03-process.html</code>. Reading only this start-here file is the #1 observed failure mode for this agent.</p>
+
+                <div class="rule-card">
+                    <div class="rule-number">Preflight 01</div>
+                    <h5>Read all three: 01, 02, and 03 — before any work begins.</h5>
+                    <p>You must read <code>01-start-here.html</code>, <code>02-golden-example.html</code>, and <code>03-process.html</code> in full before executing Step 0. The full Step 0 substeps (library check, advisor-file creation, run folder scaffolding) live in the process file. Skipping any of these three files is a protocol violation.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Preflight 02</div>
+                    <h5>Check the advisor library before scoring anything.</h5>
+                    <p>After the user picks the advisor, look in the domain <code>Advisors/</code> folder (<code>3. Marketing/2. Advisors/</code> for marketing work, <code>4. Sales/Advisors/</code> for sales work, and so on). If the advisor file exists, read it and derive the rubric from it. <strong>If it does not exist, create the advisor file before continuing</strong> — match the format of the existing files in that folder. The rubric you're about to use should live in the library, not just in this one run's log.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Preflight 03</div>
+                    <h5>Read the house style before writing any internal HTML.</h5>
+                    <p>Before creating the run folder, the advisor file, the improvement log, or any per-round snapshot, <strong>read <code>0. Chief of Staff/house-style.html</code></strong> and copy its <code>&lt;style&gt;</code> block verbatim into every new internal file you create during this run. Do not pattern-match off the target artifact (the target may be customer-facing marketing work in a brand style — that's fine for the artifact itself, but anything you write <em>about</em> the run — advisor files, improvement logs, round snapshots as index pages, quality notes — is internal and must use the house style). Per Chief of Staff Rule 13.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Preflight 04</div>
+                    <h5>State the preflight out loud before Step 0.</h5>
+                    <p>Before running Step 0, state in plain text: (a) which three agent files you've read (01, 02, 03), (b) whether the advisor file exists in the library — and if not, that you're about to create it, and (c) that you've read <code>house-style.html</code> and will use it for all internal files in this run. This is a forcing function — if you can't say it, you haven't done it.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PART B · AGENT TRAINING -->
+        <section id="part-b">
+            <div class="section-container">
+                <h2>Part B · Agent Training</h2>
+                <p>What the agent does at each step and why. Read this to understand what's happening under the hood — or skip to Part C for your role.</p>
+
+                <h3>Core principle: action produces information</h3>
+                <p>Iterating in three rounds of three improvements produces dramatically better results than one-shotting nine improvements at once. Each round's implementation reveals new opportunities that weren't visible before. The artifact itself teaches you what to improve next.</p>
+                <p><strong>Three rounds.</strong> Round 1 improvements change the surface area of the artifact, revealing new opportunities. Round 2 deepens what R1 uncovered. Round 3 polishes and harmonizes.</p>
+                <p><strong>Three per round.</strong> Not five or ten. Three keeps each round implementable in a single coherent pass without losing track of interconnections. Small enough to track precisely. Large enough to matter.</p>
+
+                <h3>Advisor → rubric</h3>
+                <p>Before the rubric, pick the advisor. <strong>The advisor IS the rubric.</strong> Without one, "better" is the agent's taste.</p>
+                <ul>
+                    <li><strong>Step 0 · Select:</strong> Propose 3 candidates matched to the artifact type.</li>
+                    <li><strong>Step 1 · Derive:</strong> 4–6 scorable criteria from the advisor's published methodology.</li>
+                    <li><strong>Stays stable:</strong> Same rubric across all three rounds — honest movement, not moving goalposts.</li>
+                </ul>
+
+                <h3>The right advisor depends on the work</h3>
+                <p>A landing page needs different eyes than a training document. The agent proposes three candidates based on the artifact type and asks the human to pick — or the human names their own.</p>
+
+                <table class="minimal">
+                    <thead>
+                        <tr><th style="width: 34%;">Artifact type</th><th>Candidate advisors</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Landing / sales page (conversion)</strong></td><td>Peep Laja (CXL) · Alex Hormozi (offer) · April Dunford (positioning) · Joanna Wiebe (copy)</td></tr>
+                        <tr><td><strong>Design / UX craft</strong></td><td>Oliver Reichenstein (typography) · Luke Wroblewski (forms/mobile) · Steve Krug (scannability)</td></tr>
+                        <tr><td><strong>Dashboard / data viz</strong></td><td>Edward Tufte (data-ink) · Stephen Few (perceptual clarity) · Cole Knaflic (narrative viz)</td></tr>
+                        <tr><td><strong>Training / START-HERE document</strong></td><td>Barbara Minto (pyramid principle) · Julie Dirksen (learning design) · Chip &amp; Dan Heath (stickiness)</td></tr>
+                        <tr><td><strong>Strategy memo / business case</strong></td><td>Richard Rumelt (strategy kernel) · Roger Martin (integrative thinking) · Barbara Minto (structure)</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>The execution loop</h3>
+                <p>Two setup steps, then three rounds of three. Each round ends with a rescore and a logged section in <code>improvement-log.html</code>.</p>
+
+                <div class="rule-group">
+                    <div class="rule-group-title">Setup</div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 0</div>
+                        <h5>Select advisor + check library + create run folder</h5>
+                        <p>Propose 3 candidate advisors based on artifact type. Human picks one. <strong>Check the domain <code>Advisors/</code> folder</strong> (e.g. <code>3. Marketing/2. Advisors/</code>) for an existing file on that advisor. <strong>If it does not exist, create the advisor file before continuing</strong> — matching the format of other files in that folder, containing the 4–6 rubric dimensions, core mental models, signature moves, and common mistakes. Then create <code>runs/{NN}-{advisor-slug}/</code> and copy the input file in as <code>v0-baseline.html</code>. Full substeps in <code>03-process.html</code> — do not skip.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 1</div>
+                        <h5>Load advisor's rubric</h5>
+                        <p>Derive the 4–6 criterion rubric from the chosen advisor's published methodology. Score the baseline against each criterion before any improvements are suggested.</p>
+                    </div>
+                </div>
+
+                <div class="rule-group">
+                    <div class="rule-group-title">Round 1 — Establish</div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 2</div>
+                        <h5>Analyze &amp; suggest</h5>
+                        <p>Read the artifact against the rubric. Identify 3 high-impact improvements: surface changes that will reveal deeper opportunities.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 3</div>
+                        <h5>Implement + save v1</h5>
+                        <p>Copy <code>v0-baseline.html</code> to <code>v1.html</code>. Apply the 3 improvements to <code>v1.html</code>. Surgical edits only — never rewrite. v0 stays untouched.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 4</div>
+                        <h5>Rescore + log Round 1</h5>
+                        <p>Rescore v1 against the rubric. Write Round 1 into <code>improvement-log.html</code>: 3 improvement cards plus the R1 column in the scoring matrix.</p>
+                    </div>
+                </div>
+
+                <div class="rule-group">
+                    <div class="rule-group-title">Round 2 — Deepen</div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 5</div>
+                        <h5>Re-read v1 + suggest</h5>
+                        <p>Re-read <code>v1.html</code> directly — not from memory. Suggest 3 more improvements informed by what Round 1 revealed.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 6</div>
+                        <h5>Implement + save v2</h5>
+                        <p>Copy <code>v1.html</code> to <code>v2.html</code>. Apply the 3 improvements. Verify integration with Round 1 edits. v1 stays frozen.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 7</div>
+                        <h5>Rescore + log Round 2</h5>
+                        <p>Rescore v2 against the rubric. Append 3 improvement cards to <code>improvement-log.html</code> and add the R2 column to the matrix.</p>
+                    </div>
+                </div>
+
+                <div class="rule-group">
+                    <div class="rule-group-title">Round 3 — Polish</div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 8</div>
+                        <h5>Re-read v2 + suggest</h5>
+                        <p>Re-read <code>v2.html</code>. 3 final improvements focused on polish, coherence, and the highest remaining rubric gaps.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 9</div>
+                        <h5>Implement + save v3</h5>
+                        <p>Copy <code>v2.html</code> to <code>v3.html</code>. Apply the 3 final improvements. Ensure all 9 improvements work together. v2 stays frozen.</p>
+                    </div>
+
+                    <div class="rule-card">
+                        <div class="rule-number">Step 10</div>
+                        <h5>Finalize log + narrative</h5>
+                        <p>Rescore v3. Add R3 and Δ columns to the matrix. Write the closing narrative: where the biggest lifts landed, which dimensions moved most, and why.</p>
+                    </div>
+                </div>
+
+                <h3>Five protocols — anti-degradation</h3>
+                <p>Rules that prevent the agent from introducing bugs or losing functionality while improving.</p>
+
+                <div class="rule-card">
+                    <div class="rule-number">Protocol 01</div>
+                    <h5>Define the rubric before suggesting</h5>
+                    <p>Before Step 2, define what "better" means. Specific enough to guide suggestions, stable enough to judge all three rounds consistently.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Protocol 02</div>
+                    <h5>Re-read before each round</h5>
+                    <p>Before implementing, re-read the current state of the file. Do not rely on a stale mental model. The artifact has changed since the previous round.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Protocol 03</div>
+                    <h5>Targeted edits only</h5>
+                    <p>Never rewrite the entire file. Use surgical, precise edits. This preserves existing functionality and makes changes traceable.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Protocol 04</div>
+                    <h5>Test integration points</h5>
+                    <p>After each round, verify new functions are called from <code>updateAllCharts()</code> or the equivalent master function. Orphaned code is dead code.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Protocol 05</div>
+                    <h5>Improvement-log fidelity</h5>
+                    <p>The log must document each improvement's label, title, rationale; before/after code grid; rubric scores per round (v0→v1→v2→v3→Δ); and a closing summary narrative explaining where the lifts landed and why. No vague summaries.</p>
+                </div>
+
+                <h3>Level 4 classification</h3>
+                <p>The 3-3-3 Method is a <strong>Level 4 Agent</strong>: five primitives, sequential execution with a feedback loop, scoped to quality iteration on a single artifact.</p>
+                <p><strong>The 5 primitives:</strong> Read (analyze), Suggest (propose improvements), Implement (edit snapshot), Document (append to log), Loop (feedback across rounds).</p>
+
+                <h4>Agent levels</h4>
+
+                <table class="minimal">
+                    <thead>
+                        <tr><th style="width: 10%;">Level</th><th style="width: 25%;">Primitives</th><th style="width: 30%;">Orchestration</th><th>Scope</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>L1</strong></td><td>1 primitive</td><td>no orchestration</td><td>Single document.</td></tr>
+                        <tr><td><strong>L2</strong></td><td>2 primitives</td><td>no orchestration</td><td>Related documents.</td></tr>
+                        <tr><td><strong>L3</strong></td><td>3 primitives</td><td>sequential</td><td>Process flow.</td></tr>
+                        <tr><td class="highlight">L4</td><td class="highlight">5 primitives</td><td class="highlight">sequential + feedback</td><td class="highlight">Quality loops ← this agent.</td></tr>
+                        <tr><td><strong>L5</strong></td><td>5 primitives</td><td>branching</td><td>Conditional workflows.</td></tr>
+                        <tr><td><strong>L6</strong></td><td>5 primitives</td><td>Kanban + dispatch</td><td>Portfolio / swarm.</td></tr>
+                        <tr><td><strong>L7</strong></td><td>5 primitives</td><td>full mesh</td><td>Autonomous network.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- PART C · HUMAN -->
+        <section id="part-c">
+            <div class="section-container">
+                <h2>Part C · Your Role</h2>
+                <p>What the agent handles, what it assumes, and where you come in.</p>
+
+                <h3>The three zones</h3>
+                <p>Every part of this agent's work falls into one of three zones. Understanding which is which tells you where the agent stops and you start. Think of the agent as a skilled developer you just hired — some things they can do on their own, some they'll take a reasonable swing at, and some they need to hear from you first because <em>the answer is about your intent, not the code</em>.</p>
+
+                <div class="rule-card">
+                    <div class="rule-number">Zone 1 · 60%</div>
+                    <h5>The agent handles it</h5>
+                    <p>The method itself runs autonomously.</p>
+                    <ul>
+                        <li><strong>The 11-step execution loop:</strong> Advisor selection + 3 rounds × 3 improvements × documentation. Fully autonomous.</li>
+                        <li><strong>Run folder + per-round snapshots:</strong> Creates <code>runs/{NN}-{advisor-slug}/</code> with v0-baseline through v3, editing only snapshots — never the source.</li>
+                        <li><strong>Re-reading before each round:</strong> Built into the protocol. Never works from a stale model.</li>
+                        <li><strong>Surgical edits that preserve function:</strong> Anti-degradation protocols prevent breaking existing features.</li>
+                        <li><strong>The improvement log:</strong> Rubric card, scoring matrix (v0→v1→v2→v3→Δ), 9 before/after cards, closing narrative.</li>
+                        <li><strong>Integration testing:</strong> Verifying new code actually connects to the master orchestration function.</li>
+                        <li><strong>Rubric scoring across rounds:</strong> Consistent scoring from the rubric defined in Step 1.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Zone 2 · 25%</div>
+                    <h5>The agent drafts, you confirm</h5>
+                    <p>Judgment calls where the agent takes a swing.</p>
+                    <ul>
+                        <li><strong>The advisor:</strong> Agent proposes 3 candidates matched to the artifact type. You pick — or name your own.</li>
+                        <li><strong>The rubric itself:</strong> Derived from the chosen advisor's published methodology. You confirm the criteria read right — or adjust before it starts.</li>
+                        <li><strong>Which 3 improvements per round:</strong> The agent picks what it thinks matters most against the rubric. Usually correct, but your priorities might differ.</li>
+                        <li><strong>Round 1 strategy:</strong> The agent chooses "surface changes that reveal deeper opportunities." It may not know which surfaces matter most to you.</li>
+                        <li><strong>Design and UX decisions:</strong> Color, layout, interaction patterns. The agent follows the golden example, but your brand or audience may differ.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">Zone 3 · 15%</div>
+                    <h5>You create this</h5>
+                    <p>Intent the code can't reveal.</p>
+                    <ul>
+                        <li><strong>The input artifact:</strong> The agent needs an HTML file to improve. You provide it.</li>
+                        <li><strong>Business context:</strong> "This dashboard is for executives who only have 30 seconds" or "the main user is colorblind" — intent that isn't visible in the file itself.</li>
+                        <li><strong>Priority overrides:</strong> If you know which dimension matters most ("performance over aesthetics" or "mobile-first"), tell the agent before it starts.</li>
+                        <li><strong>Acceptance of the final output:</strong> Only you can say "this is done." The agent scores against the rubric, but the rubric is a proxy for your judgment.</li>
+                    </ul>
+                </div>
+
+                <h3>Your two jobs</h3>
+                <p><strong>Job 1 — Confirm.</strong> Pick the advisor from the agent's 3 candidates (Step 0). Review the rubric derived from their methodology (Step 1). Scan the improvement log after each round. Say yes, or redirect.</p>
+                <p><strong>Job 2 — Create.</strong> Provide the input artifact. Share any business context the code can't reveal. Set priority overrides if the default rubric weighting doesn't match your needs. Accept the final output.</p>
+                <p>That's it. The agent runs the method. You steer and accept.</p>
+
+                <h4>Job checklist</h4>
+                <ul>
+                    <li>Pick the advisor from 3 candidates</li>
+                    <li>Review the derived rubric before it starts</li>
+                    <li>Scan the improvement log at the end</li>
+                    <li>Provide the input artifact</li>
+                    <li>Share business context the code can't reveal</li>
+                    <li>Set priority overrides if needed</li>
+                    <li>Accept the final output</li>
+                </ul>
+
+                <h3>Why this agent is 60 / 25 / 15</h3>
+                <p>The 3-3-3 Method is more autonomous than a content agent because <strong>the method itself is the value</strong>. The structure — three rounds, three per round, rubric-first, per-round snapshots, improvement log — is fixed. It doesn't change based on the input. That's a lot of Zone 1.</p>
+
+                <h4>Why Zone 2 is thin</h4>
+                <p>The rubric and improvement selection are judgment calls, but the agent makes reasonable ones by reading the artifact against known quality patterns. Most of the time, the human confirms rather than overrides.</p>
+
+                <h4>Why Zone 3 is thinner</h4>
+                <p>Zone 3 is small because the human's job is mostly about <em>intent</em> — what the artifact is for, who uses it, and what "done" means. Once that's provided, the agent takes it from there.</p>
+
+                <h4>Shrink your job further</h4>
+                <p>If you include a brief <strong>artifact brief</strong> with your input — audience, purpose, top 2 priorities — the rubric moves from Zone 2 to Zone 1. The agent will nail it on the first try.</p>
+            </div>
+        </section>
+
+        <!-- PACKAGE -->
+        <section id="package">
+            <div class="section-container">
+                <h2>The Package</h2>
+                <p>Five files. Read in order. Each file is a single HTML document you can open in any browser.</p>
+
+                <div class="rule-card">
+                    <div class="rule-number">00 · You are here</div>
+                    <h5><a href="./01-start-here.html" style="color: var(--noir); text-decoration: none;">Start Here</a></h5>
+                    <p>Manifest, agent training, and human training.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">01 · Shape</div>
+                    <h5><a href="./02-golden-example.html" style="color: var(--noir); text-decoration: none;">Golden Example</a></h5>
+                    <p>An agent builder pass on the 3-3-3 start-here. The canonical shape of a 3-3-3 improvement log.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">02 · Loop</div>
+                    <h5><a href="./03-process.html" style="color: var(--noir); text-decoration: none;">Process</a></h5>
+                    <p>Eleven steps across four phases. Decision points, edge cases, and principles.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">03 · Spec</div>
+                    <h5><a href="./04-context.html" style="color: var(--noir); text-decoration: none;">Context</a></h5>
+                    <p>Input requirements, the ten-category taxonomy, log format, and implementation patterns.</p>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-number">04 · Gates</div>
+                    <h5><a href="./05-quality.html" style="color: var(--noir); text-decoration: none;">Quality</a></h5>
+                    <p>Nine gate checks, the weighted 100-point rubric, and the per-round verification checklist.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="foot-nav">
+            <a href="./01-start-here.html">01 · Start Here</a>
+            <a href="./02-golden-example.html">02 · Golden Example</a>
+            <a href="./03-process.html">03 · Process</a>
+            <a href="./04-context.html">04 · Context</a>
+            <a href="./05-quality.html">05 · Quality</a>
+        </div>
+        <p>The 3-3-3 Method · Level 4 Agent · 2026</p>
+    </footer>
+</body>
+</html>

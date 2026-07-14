@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Builder Sprint Grader · Quality</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:#0a0a0a; --ink-soft:#2a2a2a; --mid:#5a5a5a; --muted:#8a8a8a;
+  --faint:#b5b5b5; --rule:#e6e6e6; --paper:#ffffff; --wash:#f6f6f4;
+  --accent:#d8481f; --good:#177245; --warn:#b7791f; --bad:#b42318;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header.sig-line{height:1px;background:var(--ink)}
+nav{border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(8px)}
+.nav-container{display:flex;align-items:center;justify-content:space-between;padding:1.125rem 2.5rem;max-width:1440px;margin:0 auto}
+.nav-logo{font-size:.8125rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:.625rem}
+.nav-logo:before{content:"";width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.hero{padding:6.5rem 2.5rem 5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto}
+.hero-content{display:grid;grid-template-columns:150px minmax(0,1fr);gap:3rem;max-width:1120px}
+.hero-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);padding-top:1.35rem}
+.hero-label span{display:block;color:var(--muted);font-weight:500;margin-top:.5rem}
+h1{font-size:clamp(2.25rem,4.6vw,3.625rem);font-weight:650;line-height:1.02;letter-spacing:-.038em;margin-bottom:1.75rem;max-width:920px}
+.hero p{font-size:1.0625rem;color:var(--mid);max-width:760px}
+main{counter-reset:section}
+section{padding:5rem 2.5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto;counter-increment:section}
+section:last-of-type{border-bottom:none}
+.section-container{max-width:1120px}
+h2{font-size:clamp(1.625rem,2.6vw,2rem);font-weight:650;line-height:1.08;letter-spacing:-.028em;margin-bottom:1.5rem}
+h2:before{content:counter(section, decimal-leading-zero);display:block;font-size:.6875rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:1.125rem}
+h3{font-size:1.1875rem;font-weight:650;line-height:1.2;letter-spacing:-.018em;margin:3rem 0 .875rem}
+h4{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:1.75rem 0 .625rem}
+p,li{color:var(--mid);font-size:.9375rem;line-height:1.6;letter-spacing:-.004em}
+p{margin-bottom:.875rem}
+ul,ol{margin-left:1.25rem;margin-bottom:1rem}
+li{margin-bottom:.375rem}
+strong{color:var(--ink);font-weight:650}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8125rem;color:var(--ink);background:var(--wash);padding:.125rem .375rem;border-radius:2px}
+.rule-group,.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 2.5rem;margin-bottom:2.5rem}
+.rule-card{border-top:1px solid var(--ink);padding:1.125rem 0 1.5rem}
+.rule-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.rule-card h5{font-size:.9375rem;font-weight:650;line-height:1.35;letter-spacing:-.012em;margin-bottom:.5rem}
+.rule-card p{font-size:.875rem}
+.data-table{width:100%;border-collapse:collapse;margin:1.25rem 0 2.5rem;font-size:.8125rem}
+.data-table th{text-align:left;padding:.75rem 1rem .75rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.data-table td{padding:.875rem 1rem .875rem 0;border-bottom:1px solid var(--rule);color:var(--mid);vertical-align:top;line-height:1.55}
+.data-table tr:last-child td{border-bottom:1px solid var(--ink)}
+.flow{display:flex;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:1.5rem 0 2.5rem}
+.flow-step{flex:1;padding:1.25rem 1.25rem;border-right:1px solid var(--rule);position:relative}
+.flow-step:last-child{border-right:none}
+.flow-step:not(:last-child):after{content:"→";position:absolute;right:-.55em;top:50%;transform:translateY(-50%);background:var(--paper);color:var(--accent);font-weight:700}
+.flow-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.flow-title{font-size:.9375rem;font-weight:650;margin-bottom:.375rem}
+.callout{background:var(--wash);border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin:1.25rem 0 2rem}
+.good{border-left-color:var(--good)} .warn{border-left-color:var(--warn)} .bad{border-left-color:var(--bad)}
+.badge{display:inline-block;font-size:.6875rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;border:1px solid var(--rule);padding:.25rem .5rem;margin-right:.375rem}
+footer{padding:4rem 2.5rem;max-width:1440px;margin:0 auto;color:var(--muted);font-size:.75rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between}
+@media(max-width:900px){.hero,.section{padding:3rem 1.5rem}.hero-content{grid-template-columns:1fr;gap:1rem}.nav-links{display:none}.nav-container{padding:1rem 1.5rem}.flow{flex-direction:column}.flow-step{border-right:none;border-bottom:1px solid var(--rule)}}
+</style>
+
+</head>
+<body>
+<header class="sig-line"></header>
+
+<nav><div class="nav-container">
+<div class="nav-logo">AI Agent Builder Sprint Grader / Quality</div>
+<ul class="nav-links">
+<li><a href="01-start-here.html">Start Here</a></li>
+<li><a href="02-golden-example.html">Golden Example</a></li>
+<li><a href="03-process.html">Process</a></li>
+<li><a href="04-context.html">Context</a></li>
+<li><a href="05-quality.html">Quality</a></li>
+</ul>
+</div></nav>
+
+<main>
+<div class="hero"><div class="hero-content">
+<div class="hero-label">Evaluation<span>Rubric · gates · score bands</span></div>
+<div><h1>Quality Gates.</h1><p>Weighted rubric and acceptance criteria for deciding completion, scoring complete agents, identifying award winners, and separating internal from external reporting.</p></div>
+</div></div>
+
+<section id="pass-criteria"><div class="section-container">
+<h2>Pass Criteria</h2>
+<p>Use this file to determine completion, quality score, and award eligibility.</p>
+<div class="rule-group">
+<div class="rule-card"><div class="rule-number">Complete</div><h5>All five files present</h5><p>Eligible for scoring and awards.</p></div>
+<div class="rule-card"><div class="rule-number">Incomplete</div><h5>One or more required files missing</h5><p>Not scored for Best Agent Built. Does not count toward Most Agents Built. Receives feedback only.</p></div>
+<div class="rule-card"><div class="rule-number">Shippable</div><h5>Score 85+ and no blockers</h5><p>Strong award contender if aligned, useful, and deployable.</p></div>
+</div>
+</div></section>
+
+<section id="rubric"><div class="section-container">
+<h2>Weighted Rubric</h2>
+<p>Total score = 100 points. Score only complete agents.</p>
+<table class="data-table"><thead><tr><th>Gate</th><th>Weight</th><th>What it measures</th></tr></thead><tbody>
+<tr><td>Gate 1 — Completeness</td><td>25%</td><td>All required files and sections exist; no placeholders; package is structurally sound.</td></tr>
+<tr><td>Gate 2 — Accuracy & Coherence</td><td>25%</td><td>Files agree with each other; process matches purpose; context supports process; quality gates evaluate the right thing.</td></tr>
+<tr><td>Gate 3 — Process Usefulness</td><td>20%</td><td>A future AI session could follow the process without prior context; steps are numbered, decision-ready, and specific.</td></tr>
+<tr><td>Gate 4 — Context & Golden Example Strength</td><td>15%</td><td>Inputs are categorized clearly; reference knowledge is useful; golden example shows what done looks like.</td></tr>
+<tr><td>Gate 5 — Deployability & Value</td><td>15%</td><td>Agent solves recurring work, has a clear trigger, and can be realistically run by the intended user.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="gates"><div class="section-container">
+<h2>Gate Details</h2>
+<div class="rule-group">
+<div class="rule-card"><div class="rule-number">Gate 1 Blocker</div><h5>Five-file structure</h5><p>Missing any required file means INCOMPLETE. Stop award scoring.</p></div>
+<div class="rule-card"><div class="rule-number">Gate 1 Major</div><h5>Required sections</h5><p>START-HERE includes manifest/training, process has steps, context has inputs, quality has gates.</p></div>
+<div class="rule-card"><div class="rule-number">Gate 2 Blocker</div><h5>Internal contradictions</h5><p>Agent purpose, process, context, and quality cannot contradict each other in a way that breaks use.</p></div>
+<div class="rule-card"><div class="rule-number">Gate 3 Major</div><h5>Executable process</h5><p>Another AI session can read the process and know what to do, what to read, and what to produce.</p></div>
+<div class="rule-card"><div class="rule-number">Gate 4 Major</div><h5>Golden example quality</h5><p>Example is a real deliverable, not a placeholder or generic description.</p></div>
+<div class="rule-card"><div class="rule-number">Gate 5 Major</div><h5>Practical value</h5><p>The agent automates recurring work and has a plausible user, trigger, and output.</p></div>
+</div>
+</div></section>
+
+<section id="score-bands"><div class="section-container">
+<h2>Score Bands</h2>
+<table class="data-table"><thead><tr><th>Score</th><th>Meaning</th><th>Action</th></tr></thead><tbody>
+<tr><td>90–100</td><td>Excellent, deployable, award contender.</td><td>Consider for Best Agent Built.</td></tr>
+<tr><td>80–89</td><td>Strong, usable, needs refinement.</td><td>Give specific next improvement.</td></tr>
+<tr><td>70–79</td><td>Developing, structurally present but weak.</td><td>Coach toward stronger coherence and process detail.</td></tr>
+<tr><td>Below 70</td><td>Complete but not yet reliable.</td><td>Prioritize one or two high-leverage fixes.</td></tr>
+<tr><td>Incomplete</td><td>Missing five-file structure.</td><td>No award eligibility; provide completion feedback.</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="tone"><div class="section-container">
+<h2>Tone and Reporting Gates</h2>
+<div class="rule-group">
+<div class="rule-card"><div class="rule-number">Internal</div><h5>Direct and decisive</h5><p>Rank clearly. Name blockers. Recommend winners. Flag ambiguity and instructor-discretion calls.</p></div>
+<div class="rule-card"><div class="rule-number">External</div><h5>Warm and standards-based</h5><p>Encourage students while staying specific. No shame. No vague praise. Always include a next action.</p></div>
+<div class="rule-card"><div class="rule-number">Universal</div><h5>No prize language</h5><p>Do not mention the steak dinner gift card or monetary value in any generated report.</p></div>
+</div>
+</div></section>
+
+
+<section id="eligibility-blockers"><div class="section-container">
+<h2>Eligibility Blockers</h2>
+<p>These blockers decide whether a submission can enter the award pool. They are applied before any numeric quality score.</p>
+<table class="data-table"><thead><tr><th>Blocker</th><th>Trigger</th><th>Result</th><th>Feedback stance</th></tr></thead><tbody>
+<tr><td>Missing required file</td><td>Any of 01, 02, 03, 04, or 05 is absent.</td><td>Incomplete. Not award-eligible.</td><td>Explain exactly which file is missing and the next completion step.</td></tr>
+<tr><td>Ungroupable submission</td><td>Files cannot be confidently assigned to a student or agent.</td><td>Hold from leaderboard until instructor confirms.</td><td>Flag internally; do not penalize student publicly without confirmation.</td></tr>
+<tr><td>Placeholder package</td><td>Five files exist but contain mostly TODOs, lorem ipsum, or empty sections.</td><td>Complete structure, but score Gate 1 and Gate 5 severely.</td><td>Name the structural win and the substance gap.</td></tr>
+<tr><td>Prize language present</td><td>Generated report mentions gift card or monetary prize.</td><td>Reporting failure; regenerate report.</td><td>Remove prize language before delivery.</td></tr>
+</tbody></table>
+</div></section>
+
+
+<section id="scorecard-worksheet"><div class="section-container">
+<h2>Scorecard Worksheet</h2>
+<p>Use this worksheet for every complete agent. Evidence notes should point to specific files or sections.</p>
+<table class="data-table"><thead><tr><th>Gate</th><th>Weight</th><th>Score</th><th>Evidence</th><th>Concern</th></tr></thead><tbody>
+<tr><td>Completeness</td><td>25</td><td>__/25</td><td>Which files/sections prove completion?</td><td>Missing, placeholder, or thin sections?</td></tr>
+<tr><td>Accuracy & Coherence</td><td>25</td><td>__/25</td><td>Do purpose, process, context, and quality align?</td><td>Any contradiction or unused context?</td></tr>
+<tr><td>Process Usefulness</td><td>20</td><td>__/20</td><td>Could another AI session run it?</td><td>Any unclear step or missing branch?</td></tr>
+<tr><td>Context & Golden Example</td><td>15</td><td>__/15</td><td>Do inputs and example make done visible?</td><td>Too generic or not tied to use case?</td></tr>
+<tr><td>Deployability & Value</td><td>15</td><td>__/15</td><td>Does this solve recurring work?</td><td>Unclear user, trigger, or output?</td></tr>
+</tbody></table>
+<div class="callout good"><p><strong>Scoring discipline:</strong> Do not give a high score because the idea is good. Give a high score only when the five-file package makes the idea runnable.</p></div>
+</div></section>
+
+</main>
+<footer><div>AI Agent Builder Sprint Homework Grader</div><div>v1 · May 2026</div></footer>
+</body></html>

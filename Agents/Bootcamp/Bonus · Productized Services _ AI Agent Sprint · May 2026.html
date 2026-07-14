@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<!-- saved from url=(0112)file:///Users/katiemiltonjordan/Desktop/%23%23OPERATIONS/bonus-productized-services-sprint-may-2026.html#slide-1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonus · Productized Services | AI Agent Sprint · May 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Bonus · Productized Services _ AI Agent Sprint · May 2026_files/css2" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #0a0a0a;
+            --ivory: #f5f4f0;
+            --white: #ffffff;
+            --stone: #8a8680;
+            --mid: #6b6b6b;
+            --faint: #b5b5b5;
+            --border: #d8d4cc;
+            --rule-soft: #ebe8e2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Motion hygiene */
+        .slide:not(.active),
+        .slide:not(.active) *,
+        .slide:not(.active) *::before,
+        .slide:not(.active) *::after {
+            animation-play-state: paused !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-feature-settings: "ss01", "cv11";
+            font-weight: 400;
+            color: var(--noir);
+            background: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════ DECK SHELL ═══════════ */
+        .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+        .slide {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px 56px 60px 56px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateX(40px);
+            overflow-y: auto;
+        }
+        .slide.active { opacity: 1 !important; pointer-events: all; transform: translateX(0) !important; z-index: 2; }
+        .slide.exiting { opacity: 0 !important; transform: translateX(-40px) !important; z-index: 1; }
+
+        .slide-inner { width: 100%; max-width: 1280px; min-height: calc(100vh - 80px); display: flex; }
+
+        .bg-white { background: var(--white); }
+        .bg-ivory { background: var(--ivory); }
+        .bg-noir  { background: var(--noir); color: var(--ivory); }
+
+        /* ═══════════ RAMS SHELL ═══════════ */
+        .rams {
+            width: 100%; min-height: 100%;
+            display: flex; flex-direction: column;
+            padding: 0 8px;
+        }
+        .rams-top, .rams-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--noir);
+            flex-shrink: 0;
+        }
+        .rams-top { padding-bottom: 14px; border-bottom: 1px solid var(--noir); }
+        .rams-bottom { padding-top: 14px; border-top: 1px solid var(--noir); margin-top: auto; }
+        .rams-bottom .folio { letter-spacing: 0.04em; }
+        .rams-bottom > * { flex: 1; }
+        .rams-bottom > *:nth-child(2) { text-align: center; }
+        .rams-bottom > *:nth-child(3) { text-align: right; }
+
+        .bg-noir .rams-top, .bg-noir .rams-bottom { color: var(--ivory); border-color: rgba(245,244,240,0.3); }
+
+        .rams-body {
+            flex: 1; display: flex; align-items: center;
+            padding: 48px 0 32px 0;
+            min-height: 0;
+        }
+        .rams-body.center { justify-content: center; text-align: center; }
+        .rams-body.top { align-items: flex-start; padding-top: 36px; }
+        .rams-body-inner { width: 100%; max-width: 1040px; }
+        .rams-body-inner.wide { max-width: 1200px; }
+
+        /* ═══════════ TYPE SCALE ═══════════ */
+        .t-display { font-weight: 800; font-size: clamp(67px, 8.0vw, 125px); line-height: 0.94; letter-spacing: -0.038em; color: var(--noir); }
+        .t-h1 { font-weight: 800; font-size: clamp(58px, 6.2vw, 86px); line-height: 0.96; letter-spacing: -0.036em; color: var(--noir); }
+        .t-h2 { font-weight: 700; font-size: clamp(38px, 3.9vw, 58px); line-height: 1.05; letter-spacing: -0.032em; color: var(--noir); }
+        .t-h3 { font-weight: 700; font-size: 31px; line-height: 1.15; letter-spacing: -0.020em; color: var(--noir); }
+        .t-h4 { font-weight: 600; font-size: 23px; line-height: 1.25; letter-spacing: -0.015em; color: var(--noir); }
+        .t-lede { font-weight: 400; font-size: 23px; line-height: 1.55; letter-spacing: -0.005em; color: var(--noir); }
+        .t-body { font-weight: 400; font-size: 18px; line-height: 1.65; letter-spacing: -0.003em; color: var(--noir); }
+        .t-small { font-weight: 400; font-size: 16px; line-height: 1.55; letter-spacing: -0.002em; color: var(--noir); }
+        .t-label { font-weight: 500; font-size: 12px; line-height: 1.0; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); }
+        .t-stone { color: var(--stone); }
+        .t-mid { color: var(--mid); }
+        .t-ivory { color: var(--ivory); }
+        .italic { font-style: italic; }
+
+        .bg-noir .t-display, .bg-noir .t-h1, .bg-noir .t-h2, .bg-noir .t-h3, .bg-noir .t-h4 { color: var(--ivory); }
+        .bg-noir .t-lede, .bg-noir .t-body, .bg-noir .t-small { color: rgba(245,244,240,0.78); }
+
+        .kicker { font-weight: 500; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); margin-bottom: 20px; }
+        .bg-noir .kicker { color: rgba(245,244,240,0.7); }
+        .lede { max-width: 680px; }
+
+        /* ═══════════ CARDS GRID ═══════════ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--noir);
+        }
+        .cards-grid.two-col { grid-template-columns: 1fr 1fr; gap: 24px 40px; }
+        .cards-grid.four-col { grid-template-columns: 1fr 1fr 1fr 1fr; gap: 22px 28px; }
+        .card { display: flex; flex-direction: column; }
+        .card .card-num { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 12px; padding-top: 4px; }
+        .card .card-title { font-weight: 700; font-size: 24px; line-height: 1.15; letter-spacing: -0.020em; color: var(--noir); margin-bottom: 10px; }
+        .card .card-title.smaller { font-size: 20px; }
+        .card .card-desc { font-weight: 400; font-size: 16px; line-height: 1.55; color: var(--noir); letter-spacing: -0.003em; }
+        .card .card-sublist { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+        .card .card-sublist span { font-size: 14px; color: var(--stone); letter-spacing: -0.003em; line-height: 1.5; }
+
+        /* ═══════════ CONTRAST ═══════════ */
+        .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: 32px; border-top: 1px solid var(--noir); }
+        .contrast-col { padding: 28px 40px 8px 0; }
+        .contrast-col + .contrast-col { border-left: 1px solid var(--border); padding-left: 40px; }
+        .contrast-col .col-label { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); margin-bottom: 24px; }
+        .contrast-col .col-list { list-style: none; }
+        .contrast-col .col-list li {
+            font-weight: 400; font-size: 18px; line-height: 1.55;
+            color: var(--noir); padding: 14px 0;
+            border-top: 1px solid var(--border);
+            letter-spacing: -0.003em;
+        }
+        .contrast-col .col-list li:first-child { border-top: none; }
+        .contrast-col.muted .col-list li { color: var(--mid); }
+
+        /* ═══════════ NUM LIST ═══════════ */
+        .num-list { width: 100%; max-width: 1000px; margin-top: 28px; }
+        .num-item {
+            display: grid;
+            grid-template-columns: 68px 1fr;
+            gap: 24px;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+            align-items: baseline;
+        }
+        .num-item:first-child { border-top: 1px solid var(--noir); }
+        .num-item:last-child { border-bottom: 1px solid var(--border); }
+        .num-item .n { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; color: var(--noir); text-transform: uppercase; font-variant-numeric: tabular-nums; padding-top: 2px; }
+        .num-item .num-body { font-weight: 400; font-size: 18px; line-height: 1.55; color: var(--mid); letter-spacing: -0.003em; }
+        .num-item .num-body strong { font-weight: 600; color: var(--noir); }
+
+        /* ═══════════ FLOW CHAIN ═══════════ */
+        .flow-chain {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .flow-step {
+            background: var(--noir);
+            color: var(--ivory);
+            padding: 20px 28px;
+            font-weight: 700;
+            font-size: 18px;
+            letter-spacing: -0.01em;
+            line-height: 1.3;
+            text-align: center;
+            min-width: 180px;
+        }
+        .bg-noir .flow-step {
+            background: var(--ivory);
+            color: var(--noir);
+        }
+        .flow-step .flow-num {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 6px;
+        }
+        .flow-arrow {
+            font-size: 28px;
+            color: var(--stone);
+            padding: 0 12px;
+            font-weight: 300;
+        }
+
+        /* ═══════════ STAT BLOCK ═══════════ */
+        .stat-row {
+            display: flex;
+            gap: 56px;
+            margin-top: 36px;
+            padding-top: 24px;
+            border-top: 1px solid var(--noir);
+        }
+        .stat-block { flex: 1; }
+        .stat-block .stat-num {
+            font-weight: 800;
+            font-size: clamp(48px, 5vw, 72px);
+            line-height: 1;
+            letter-spacing: -0.03em;
+            color: var(--noir);
+        }
+        .stat-block .stat-label {
+            font-size: 16px;
+            color: var(--mid);
+            margin-top: 8px;
+            line-height: 1.45;
+            letter-spacing: -0.003em;
+        }
+        .bg-noir .stat-block .stat-num { color: var(--ivory); }
+        .bg-noir .stat-block .stat-label { color: rgba(245,244,240,0.65); }
+
+        /* ═══════════ FIRMS GRID ═══════════ */
+        .firms-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 32px;
+        }
+        .firm-card {
+            border: 1px solid var(--border);
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .firm-card .firm-name {
+            font-weight: 700;
+            font-size: 15px;
+            letter-spacing: -0.01em;
+            color: var(--noir);
+        }
+        .firm-card .firm-projects {
+            font-size: 13px;
+            color: var(--stone);
+            line-height: 1.45;
+        }
+
+        /* ═══════════ PRICING TIERS ═══════════ */
+        .tier-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--noir);
+        }
+        .tier-card {
+            display: flex;
+            flex-direction: column;
+            padding: 24px 0;
+        }
+        .tier-card + .tier-card {
+            border-left: 1px solid var(--border);
+            padding-left: 32px;
+        }
+        .tier-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 12px;
+        }
+        .tier-title {
+            font-weight: 700;
+            font-size: 28px;
+            letter-spacing: -0.02em;
+            color: var(--noir);
+            margin-bottom: 10px;
+        }
+        .tier-price {
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--noir);
+            margin-bottom: 12px;
+        }
+        .tier-desc {
+            font-size: 16px;
+            color: var(--mid);
+            line-height: 1.55;
+        }
+        .tier-card.featured {
+            background: var(--noir);
+            color: var(--ivory);
+            padding: 24px;
+            margin: -24px 0;
+            border-left: none;
+        }
+        .tier-card.featured + .tier-card { border-left: none; }
+        .tier-card.featured .tier-label { color: rgba(245,244,240,0.6); }
+        .tier-card.featured .tier-title { color: var(--ivory); }
+        .tier-card.featured .tier-price { color: var(--ivory); }
+        .tier-card.featured .tier-desc { color: rgba(245,244,240,0.7); }
+
+        /* ═══════════ EQUATION DISPLAY ═══════════ */
+        .equation {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 36px;
+            padding: 28px 0;
+            border-top: 1px solid var(--noir);
+            border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+        .eq-part {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.02em;
+            color: var(--noir);
+        }
+        .eq-op {
+            font-weight: 300;
+            font-size: 28px;
+            color: var(--stone);
+        }
+        .bg-noir .eq-part { color: var(--ivory); }
+        .bg-noir .equation { border-color: rgba(245,244,240,0.3); }
+
+        /* ═══════════ R-DISPLAY DIVIDER ═══════════ */
+        .r-display { width: 80px; height: 5px; background: var(--noir); margin-top: 24px; }
+        .bg-noir .r-display { background: var(--ivory); }
+
+        /* ═══════════ DECK UI ═══════════ */
+        .deck-progress {
+            position: fixed; bottom: 0; left: 0; height: 3px;
+            background: var(--noir); z-index: 100;
+            transition: width 0.4s ease;
+        }
+        .deck-ui {
+            position: fixed; bottom: 14px; left: 0; right: 0;
+            display: flex; justify-content: center; align-items: center; gap: 18px;
+            z-index: 100;
+        }
+        .deck-counter {
+            font-size: 11px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--stone);
+        }
+        .deck-dots { display: flex; gap: 6px; }
+        .deck-dot {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--border); cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        .deck-dot.active { background: var(--noir); }
+        .deck-arrows { display: flex; gap: 6px; }
+        .deck-arrow {
+            background: none; border: 1px solid var(--border);
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; font-size: 14px; color: var(--noir);
+            transition: background 0.2s ease;
+        }
+        .deck-arrow:hover { background: var(--ivory); }
+    </style>
+</head>
+<body>
+
+<div class="deck">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 01 · TITLE
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-noir active">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Bonus Session</div>
+                    <div>AI Agent Sprint · May 2026</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner wide" style="text-align:center;">
+                        <div class="kicker">Bonus Session</div>
+                        <h1 class="t-display t-ivory">Productized<br>Services.</h1>
+                        <div class="r-display" style="margin: 24px auto 0 auto;"></div>
+                        <p class="t-lede" style="margin: 24px auto 0 auto; max-width: 640px; color: rgba(245,244,240,0.78);">The complete rewiring of the professional services economy — and what it means for you.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>Katie Milton Jordan</div>
+                    <div class="folio">01</div>
+                    <div>katiemiltonjordan.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 02 · THE THESIS
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Thesis</div>
+                    <div>The Productized Services Economy</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Thesis</div>
+                        <h2 class="t-h2">Professional work is being<br>unbundled into deliverables.<br>Deliverables become agents.<br>Agents become productized services.</h2>
+                        <p class="t-lede lede" style="margin-top: 24px;">The future is here — it’s just not evenly distributed yet. By the end of 2027, the professional services industry will be completely rewritten. That means there’s an enormous opportunity.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">02</div>
+                    <div>The Thesis</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 03 · THE FOUR-STEP MOVEMENT
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Movement</div>
+                    <div>Four Steps to the Operating Layer</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Four-Step Movement</div>
+                        <h2 class="t-h2">From specialized professional work<br>to the operating layer.</h2>
+                        <div class="flow-chain">
+                            <div class="flow-step"><div class="flow-num">Step 01</div>Unbundle Into<br>Deliverables</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step"><div class="flow-num">Step 02</div>Rebuild As<br>Agents</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step"><div class="flow-num">Step 03</div>Package Into<br>Productized Services</div>
+                            <div class="flow-arrow">→</div>
+                            <div class="flow-step"><div class="flow-num">Step 04</div>The New<br>Operating Layer</div>
+                        </div>
+                        <p class="t-small t-stone" style="margin-top: 28px; max-width: 680px; margin-left: auto; margin-right: auto;">The deliverable is the atomic unit of knowledge work. Most people don’t view it that way — that’s insight number one.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">03</div>
+                    <div>The Movement</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 04 · GDP VAL STUDY
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Evidence</div>
+                    <div>GDP Val Study</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Evidence</div>
+                        <h2 class="t-h2">AI now outperforms expert<br>knowledge workers 83%+ of the time.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">A blind taste test on expert knowledge work. Experts with 14+ years of experience vs. AI with full context. The gap keeps widening — and the agent harness makes it even stronger.</p>
+                        <div class="stat-row">
+                            <div class="stat-block">
+                                <div class="stat-num">12%</div>
+                                <div class="stat-label">AI win rate — mid-2024<br>Where it started</div>
+                            </div>
+                            <div class="stat-block">
+                                <div class="stat-num">83%+</div>
+                                <div class="stat-label">AI win rate — today<br>With latest models and context</div>
+                            </div>
+                            <div class="stat-block">
+                                <div class="stat-num">14 yr</div>
+                                <div class="stat-label">Avg. expert experience<br>The human benchmark</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">04</div>
+                    <div>GDP Val Study</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 05 · AGENTS = LLM + TOOLS + INSTRUCTIONS
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-noir">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The New Knowledge Work</div>
+                    <div>Writing Agents</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The New Knowledge Worker Deliverable</div>
+                        <h2 class="t-h2 t-ivory">Writing agents is the new<br>knowledge work — and the AI<br>is better at it than you are.</h2>
+                        <div class="equation" style="justify-content: center; border-color: rgba(245,244,240,0.3);">
+                            <div class="eq-part" style="color:var(--ivory);">LLM</div>
+                            <div class="eq-op">+</div>
+                            <div class="eq-part" style="color:var(--ivory);">Tools</div>
+                            <div class="eq-op">+</div>
+                            <div class="eq-part" style="color:var(--ivory);">Instructions</div>
+                            <div class="eq-op">=</div>
+                            <div class="eq-part" style="color:var(--ivory);">Agent</div>
+                        </div>
+                        <p class="t-lede" style="margin-top: 24px; max-width: 700px; margin-left: auto; margin-right: auto; color: rgba(245,244,240,0.78);">The AI is really good at writing instructions. This new skill — writing instructions for agents — can be done by the AI better than an expert in the field.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">05</div>
+                    <div>The New Knowledge Work</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 06 · THE DISTRIBUTION PROBLEM
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Bottleneck</div>
+                    <div>Distribution, Not Product</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Real Problem</div>
+                        <h2 class="t-h2">The product is easy.<br>The problem is distribution.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">You can rebuild every single deliverable on the planet as an agent. But the problem to solve in a business is making money — and that’s a distribution problem, not a product problem.</p>
+                        <div class="contrast-grid">
+                            <div class="contrast-col muted">
+                                <div class="col-label">Not the Problem</div>
+                                <ul class="col-list">
+                                    <li>Building agents</li>
+                                    <li>Quality of output</li>
+                                    <li>Writing instructions</li>
+                                    <li>Manufacturing deliverables</li>
+                                </ul>
+                            </div>
+                            <div class="contrast-col">
+                                <div class="col-label">The Actual Problem</div>
+                                <ul class="col-list">
+                                    <li>Getting in front of customers</li>
+                                    <li>Converting attention to revenue</li>
+                                    <li>Standing out from the noise</li>
+                                    <li>Building a self-sustaining funnel</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">06</div>
+                    <div>Distribution</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 07 · THREE BUSINESS OPPORTUNITIES
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Opportunity</div>
+                    <div>Three Paths to Revenue</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Three Business Opportunities</div>
+                        <h2 class="t-h2">You could do any of these<br>already. You have everything<br>you need.</h2>
+                        <div class="cards-grid" style="margin-top: 36px;">
+                            <div class="card">
+                                <div class="card-num">Opportunity 01</div>
+                                <div class="card-title">Order the Work<br>Directly</div>
+                                <div class="card-desc">Go to companies. Offer services at 10¢ on the dollar. Replace their agency spend with AI-powered deliverables.</div>
+                                <div class="card-sublist">
+                                    <span>Target → Companies with agency spend</span>
+                                    <span>Model → B2B productized services</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-num">Opportunity 02</div>
+                                <div class="card-title">License &amp;<br>White-Label</div>
+                                <div class="card-desc">Don’t buy a franchise. Have all of them. License your agent stack to individuals who want a business-in-a-box.</div>
+                                <div class="card-sublist">
+                                    <span>Target → Individuals / entrepreneurs</span>
+                                    <span>Model → B2C licensing</span>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-num">Opportunity 03</div>
+                                <div class="card-title">Build Custom<br>Agents</div>
+                                <div class="card-desc">Go to companies and build custom agents for every role. Train one person in one week. Prove it, then scale to the whole company.</div>
+                                <div class="card-sublist">
+                                    <span>Target → Companies with knowledge workers</span>
+                                    <span>Model → B2B agent deployment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">07</div>
+                    <div>Three Opportunities</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 08 · OPPORTUNITY 1 — ORDER THE WORK DIRECTLY
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Opportunity 01</div>
+                    <div>Order the Work Directly</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Opportunity 01</div>
+                        <h2 class="t-h2">Your agencies are ripping you off.<br>Just order the work directly.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">We can do productized services for you at 10¢ on the dollar. Don’t hire the marketing agency. Don’t hire the sales enablement firm. We can do all the work.</p>
+                        <div class="num-list">
+                            <div class="num-item">
+                                <div class="n">01</div>
+                                <div class="num-body"><strong>90% of the work can be done by AI.</strong> There are still last-mile problems, but we’re talking about the easy stuff — website design, ad copy, sales enablement, content.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">02</div>
+                                <div class="num-body"><strong>Each firm deconstructs into projects and deliverables.</strong> Charge by the deliverable, by the project, or by the firm.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">03</div>
+                                <div class="num-body"><strong>You could launch any of these firms tomorrow.</strong> You could launch all of them tomorrow. Codex + latest models unlocked this at scale.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">08</div>
+                    <div>Order the Work Directly</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 09 · THE FIRMS GRID
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Opportunity 01</div>
+                    <div>Firms in a Box</div>
+                </div>
+                <div class="rams-body top">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Every Firm You Could Rebuild</div>
+                        <h2 class="t-h3">Each one of these has many projects underneath it.</h2>
+                        <div class="firms-grid">
+                            <div class="firm-card">
+                                <div class="firm-name">Marketing Agency</div>
+                                <div class="firm-projects">Brand strategy, content calendars, campaign management, SEO, social media</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Performance Marketing</div>
+                                <div class="firm-projects">Paid ads, landing pages, conversion optimization, A/B testing, analytics</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Sales Enablement</div>
+                                <div class="firm-projects">Sales decks, battlecards, objection handling, CRM setup, pipeline management</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Leadership Development</div>
+                                <div class="firm-projects">Executive coaching, 360 assessments, succession planning, team workshops</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">HR Consulting</div>
+                                <div class="firm-projects">Job descriptions, comp analysis, onboarding, policy development, culture audits</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Financial Advisory</div>
+                                <div class="firm-projects">Budgeting, forecasting, financial modeling, board reporting, cash flow analysis</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Operations Consulting</div>
+                                <div class="firm-projects">Process mapping, SOP creation, workflow automation, efficiency audits</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">IT / Managed Services</div>
+                                <div class="firm-projects">System architecture, vendor selection, security policies, migration planning</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Legal Services</div>
+                                <div class="firm-projects">Contract review, compliance, policy drafting, IP protection, risk assessment</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Training &amp; Development</div>
+                                <div class="firm-projects">Curriculum design, e-learning, skills assessments, certification programs</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">PR &amp; Communications</div>
+                                <div class="firm-projects">Press releases, media outreach, crisis comms, thought leadership, events</div>
+                            </div>
+                            <div class="firm-card">
+                                <div class="firm-name">Strategy Consulting</div>
+                                <div class="firm-projects">Market analysis, competitive landscape, growth strategy, M&amp;A diligence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">09</div>
+                    <div>Firms in a Box</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 10 · PRICING: DFY / DWY / DIY
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Pricing Model</div>
+                    <div>Three Ways to Sell</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Every Project, Three Ways</div>
+                        <h2 class="t-h2">Done-for-you. Done-with-you.<br>Do-it-yourself.</h2>
+                        <div class="tier-grid">
+                            <div class="tier-card">
+                                <div class="tier-label">Tier 01</div>
+                                <div class="tier-title">Done-for-You</div>
+                                <div class="tier-price">10¢ on the dollar</div>
+                                <div class="tier-desc">Market rate for the deliverable, delivered at a fraction of the cost. The wedge that gets you in the door. This is where it starts.</div>
+                            </div>
+                            <div class="tier-card featured">
+                                <div class="tier-label">Tier 02 — Ideal</div>
+                                <div class="tier-title">Done-with-You</div>
+                                <div class="tier-price">Training + system build</div>
+                                <div class="tier-desc">Help them build their own operating system. You go in and solve the context problem. This is where the real relationship begins.</div>
+                            </div>
+                            <div class="tier-card">
+                                <div class="tier-label">Tier 03</div>
+                                <div class="tier-title">Do-It-Yourself</div>
+                                <div class="tier-price">10¢ on that dollar</div>
+                                <div class="tier-desc">Give them the agents, the templates, the instructions. Self-service at the lowest price point. They’ll realize they need help.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">10</div>
+                    <div>Pricing Model</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 11 · OPPORTUNITY 2 — LICENSE & WHITE-LABEL
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Opportunity 02</div>
+                    <div>License &amp; White-Label</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Opportunity 02</div>
+                        <h2 class="t-h2">Don’t buy a franchise.<br>Have all of them.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">Once you can do the work, license it. Other people will buy it from you. Don’t buy a sales franchise, a marketing agency franchise, a leadership development franchise. Have all of them. And make it your own.</p>
+                        <div class="num-list">
+                            <div class="num-item">
+                                <div class="n">B2C</div>
+                                <div class="num-body"><strong>Go to individuals, not just companies.</strong> License the firm stack to entrepreneurs who want a ready-made business.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">Scale</div>
+                                <div class="num-body"><strong>Build marketing material for anything, insanely quick.</strong> Publish immediately. Run a business as an experiment, not a guess.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">Moat</div>
+                                <div class="num-body"><strong>At enough scale, it’s not trivial to build anymore.</strong> That corpus of work is real. People will pay to skip it.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">11</div>
+                    <div>License &amp; White-Label</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 12 · OPPORTUNITY 3 — BUILD CUSTOM AGENTS
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Opportunity 03</div>
+                    <div>Build Custom Agents for Every Role</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Opportunity 03</div>
+                        <h2 class="t-h2">One person. One week. $1,000.<br>Build agents for every role<br>in the company.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">Agents can be manufactured at scale and they work — once somebody has an operating system. The pitch: give me one person, one week, and $1,000. If it doesn’t work, give you the money back. If it works, we do all of them.</p>
+                        <div class="num-list">
+                            <div class="num-item">
+                                <div class="n">6 × 6</div>
+                                <div class="num-body"><strong>Map the role matrix.</strong> 6 responsibilities × 6 deliverables per role. Less overwhelming than 9×9, better coverage than 3×3. Feels manageable on screen.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">Sprint</div>
+                                <div class="num-body"><strong>Run a Role Sprint.</strong> 1 hour/day for 5 days. They buy today, you give them agents tomorrow, they start Monday. End of week = a case study.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">Expand</div>
+                                <div class="num-body"><strong>Would you like this for all your people?</strong> The CEO doesn’t have time to deal with this. If you get this result for $1,000, they’ll give you the rest of the company.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">12</div>
+                    <div>Build Custom Agents</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 13 · THE 3Ds — DISTRIBUTION, DEPLOYMENT, DATA
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-noir">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Framework</div>
+                    <div>The 3Ds</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The 3Ds</div>
+                        <h2 class="t-h2 t-ivory">Distribution. Deployment. Data.</h2>
+                        <div class="r-display" style="margin: 24px auto 0 auto;"></div>
+                        <div class="cards-grid" style="margin-top: 40px; border-color: rgba(245,244,240,0.3);">
+                            <div class="card" style="text-align: left;">
+                                <div class="card-num" style="color: rgba(245,244,240,0.5);">D1</div>
+                                <div class="card-title" style="color: var(--ivory);">Distribution</div>
+                                <div class="card-desc" style="color: rgba(245,244,240,0.7);">The biggest problem for everybody. How do you get in front of people? How do you acquire customers? This is the bottleneck.</div>
+                            </div>
+                            <div class="card" style="text-align: left;">
+                                <div class="card-num" style="color: rgba(245,244,240,0.5);">D2</div>
+                                <div class="card-title" style="color: var(--ivory);">Deployment</div>
+                                <div class="card-desc" style="color: rgba(245,244,240,0.7);">Building and delivering the agents. The product side. This is the easy part — once you have the agent builder, you can build anything.</div>
+                            </div>
+                            <div class="card" style="text-align: left;">
+                                <div class="card-num" style="color: rgba(245,244,240,0.5);">D3</div>
+                                <div class="card-title" style="color: var(--ivory);">Data</div>
+                                <div class="card-desc" style="color: rgba(245,244,240,0.7);">Context is king. When agents fail, 99% of the time it’s a lack of context. The operating system solves this — not the agent.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">13</div>
+                    <div>The 3Ds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 14 · GIVE AWAY THE MOST VALUABLE THING
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The Play</div>
+                    <div>Extreme Value Up Front</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Distribution Play</div>
+                        <h2 class="t-h2">Give away the most<br>valuable thing.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">Don’t give away an audit. Give away actual work. Give them the first deliverable, done. Your marketing has to be 10× more valuable than everyone else’s.</p>
+                        <div class="contrast-grid">
+                            <div class="contrast-col muted">
+                                <div class="col-label">What Everyone Does</div>
+                                <ul class="col-list">
+                                    <li>“Free audit” or strategy session</li>
+                                    <li>30 minutes of the prospect’s time</li>
+                                    <li>Nothing to show for it</li>
+                                    <li>Easy to ignore in a crowded inbox</li>
+                                </ul>
+                            </div>
+                            <div class="contrast-col">
+                                <div class="col-label">What You Should Do</div>
+                                <ul class="col-list">
+                                    <li>Give them the first deliverable, finished</li>
+                                    <li>Zero time commitment from them</li>
+                                    <li>Tangible value they can use immediately</li>
+                                    <li>Creates the problem they need you to solve</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">14</div>
+                    <div>Give Away Value</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 15 · THE END GAME
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>The End Game</div>
+                    <div>Intelligence-First Company</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The End Game</div>
+                        <h2 class="t-h2">The ultimate business is the<br>intelligence system.</h2>
+                        <p class="t-lede lede" style="margin-top: 20px;">None of these productized services are the ultimate business. They get you in the door. The real play is becoming the fractional elite AI operator — the person who runs the intelligence of the company.</p>
+                        <div class="num-list">
+                            <div class="num-item">
+                                <div class="n">01</div>
+                                <div class="num-body"><strong>Give them agents.</strong> They create the problem you need them to have. They’ll try to use them. No coherent system. No context organized.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">02</div>
+                                <div class="num-body"><strong>Build the operating system.</strong> Context is one of the main folders. You teach them how to fill it. Without it, nothing works.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">03</div>
+                                <div class="num-body"><strong>Become the fractional elite AI operator.</strong> All work goes through you. Every deliverable gets analyzed by you. You’re in charge of the intelligence of the company.</div>
+                            </div>
+                            <div class="num-item">
+                                <div class="n">04</div>
+                                <div class="num-body"><strong>Build a network of intelligence.</strong> Multiple clients = compounding insight. You bring intelligence from all the companies you work with. If they stop working with you, that goes away.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">15</div>
+                    <div>The End Game</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SLIDE 16 · SUMMARY — THE OPERATING LAYER
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-noir">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Summary</div>
+                    <div>The Productized Services Economy</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The Idea</div>
+                        <h2 class="t-h1 t-ivory">Professional work,<br>unbundled into deliverables.<br>Deliverables as agents.<br>Agents into productized services.<br>Productized services become<br>the operating layer.</h2>
+                        <div class="r-display" style="margin: 32px auto 0 auto;"></div>
+                        <p class="t-label" style="margin-top: 28px; color: rgba(245,244,240,0.5);">You have everything you need. The question is where you point it.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>Katie Milton Jordan</div>
+                    <div class="folio">16</div>
+                    <div>katiemiltonjordan.com</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.deck -->
+
+<div class="deck-progress" id="progress" style="width: 6.25%;"></div>
+
+<div class="deck-ui">
+    <div class="deck-counter" id="deckCounter">01 &nbsp;/&nbsp; 16</div>
+    <div class="deck-dots" id="deckDots"><span class="deck-dot active"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span><span class="deck-dot"></span></div>
+    <div class="deck-arrows">
+        <button class="deck-arrow" id="prevBtn" aria-label="Previous slide">←</button>
+        <button class="deck-arrow" id="nextBtn" aria-label="Next slide">→</button>
+    </div>
+</div>
+
+<script>
+(function() {
+    const slides  = document.querySelectorAll('.slide');
+    const total   = slides.length;
+    const counter = document.getElementById('deckCounter');
+    const progress = document.getElementById('progress');
+    const dotsWrap = document.getElementById('deckDots');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0, isAnimating = false;
+
+    const pad = n => String(n).padStart(2, '0');
+
+    // Build dots
+    for (let i = 0; i < total; i++) {
+        const d = document.createElement('span');
+        d.className = 'deck-dot';
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+    }
+    const dots = dotsWrap.querySelectorAll('.deck-dot');
+
+    function update() {
+        slides.forEach((s, i) => { s.classList.remove('active', 'exiting'); if (i === current) s.classList.add('active'); });
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        counter.innerHTML = pad(current + 1) + ' &nbsp;/&nbsp; ' + pad(total);
+        progress.style.width = ((current + 1) / total * 100) + '%';
+        try { history.replaceState(null, '', '#slide-' + (current + 1)); } catch(e) {}
+    }
+
+    function goTo(i) {
+        if (isAnimating || i === current || i < 0 || i >= total) return;
+        isAnimating = true;
+        const prev = slides[current]; current = i;
+        prev.classList.add('exiting'); prev.classList.remove('active');
+        setTimeout(() => { prev.classList.remove('exiting'); update(); isAnimating = false; }, 500);
+    }
+
+    prevBtn.addEventListener('click', () => goTo(current - 1));
+    nextBtn.addEventListener('click', () => goTo(current + 1));
+    document.addEventListener('keydown', (e) => {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+        if (e.key === 'Home') goTo(0);
+        if (e.key === 'End') goTo(total - 1);
+    });
+
+    update();
+})();
+</script>
+
+
+</body></html>

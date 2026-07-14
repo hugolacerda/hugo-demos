@@ -1,0 +1,502 @@
+<!-- filename: agent-builder-bootcamp-day-3.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Builder Bootcamp — Day 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;500;700;900&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1612;
+  --ink-soft: #4a3f37;
+  --paper: #f5f0e8;
+  --paper-warm: #ebe3d4;
+  --accent: #c8442a;
+  --accent-soft: #e8a896;
+  --highlight: #fff3a8;
+  --ai-bg: #0f0e0d;
+  --ai-text: #d4c9b5;
+  --ai-accent: #f5b942;
+  --ai-comment: #6b6258;
+  --ai-tag: #7fb069;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Fraunces', Georgia, serif;
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.65;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.usage-guide {
+  background: var(--paper-warm);
+  border: 2px solid var(--ink);
+  padding: 32px;
+  margin-bottom: 60px;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 15px;
+}
+
+.usage-guide h2 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.usage-guide p { margin-bottom: 14px; line-height: 1.6; }
+
+.usage-guide .copy-prompt {
+  background: var(--paper);
+  border-left: 3px solid var(--accent);
+  padding: 18px 22px;
+  margin: 18px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.usage-guide .confidential {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--ink-soft);
+}
+
+.masthead {
+  border-top: 4px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 14px 0;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  margin-bottom: 40px;
+}
+
+.masthead .meta { color: var(--ink-soft); }
+
+.headline {
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 64px;
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  margin-bottom: 24px;
+}
+
+.headline .second {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent);
+  display: block;
+}
+
+.subtitle {
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 18px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  max-width: 640px;
+  margin-bottom: 60px;
+}
+
+h2.section {
+  font-family: 'Fraunces', serif;
+  font-weight: 700;
+  font-size: 32px;
+  margin: 60px 0 24px 0;
+  padding-top: 32px;
+  border-top: 1px solid var(--ink);
+  letter-spacing: -0.015em;
+}
+
+h2.section::before {
+  content: "§ ";
+  color: var(--accent);
+  font-weight: 400;
+}
+
+h3 {
+  font-family: 'Fraunces', serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 22px;
+  margin: 32px 0 14px 0;
+  color: var(--ink);
+}
+
+p { margin-bottom: 18px; }
+
+.dialogue {
+  border-left: 2px solid var(--paper-warm);
+  padding: 8px 0 8px 20px;
+  margin: 16px 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 17px;
+  line-height: 1.55;
+}
+
+.dialogue.katie { border-left-color: var(--accent); }
+
+.dialogue .speaker {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.dialogue.katie .speaker { color: var(--accent); }
+
+.callout {
+  background: var(--paper-warm);
+  border: 1px solid var(--ink);
+  padding: 24px 28px;
+  margin: 24px 0;
+  font-family: 'Inter Tight', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  position: relative;
+}
+
+.callout .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.pull-quote {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  line-height: 1.3;
+  color: var(--ink);
+  border-left: 4px solid var(--accent);
+  padding: 8px 0 8px 24px;
+  margin: 32px 0;
+  letter-spacing: -0.01em;
+}
+
+.prompt-box {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  white-space: pre-wrap;
+}
+
+.machine-section {
+  margin-top: 80px;
+  background: var(--ai-bg);
+  color: var(--ai-text);
+  padding: 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.machine-header {
+  background: var(--ai-accent);
+  color: var(--ai-bg);
+  padding: 18px 32px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  text-align: center;
+}
+
+.machine-body {
+  padding: 40px 36px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.machine-body h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--ai-accent);
+  margin: 32px 0 14px 0;
+}
+
+.machine-body h3:first-child { margin-top: 0; }
+
+.machine-body p { margin-bottom: 14px; color: var(--ai-text); }
+
+.machine-body ul, .machine-body ol { margin: 10px 0 14px 20px; }
+
+.machine-body li { margin-bottom: 8px; }
+
+.machine-body .tag {
+  color: var(--ai-tag);
+  font-weight: 700;
+}
+
+.machine-body .comment {
+  color: var(--ai-comment);
+  font-style: italic;
+}
+
+.footer {
+  border-top: 4px solid var(--ink);
+  margin-top: 80px;
+  padding-top: 28px;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-soft);
+  line-height: 1.8;
+}
+
+@media (max-width: 640px) {
+  .container { padding: 32px 22px; }
+  .headline { font-size: 40px; }
+  .subtitle { font-size: 16px; }
+  h2.section { font-size: 24px; }
+  .masthead { flex-direction: column; gap: 6px; }
+  .machine-body { padding: 28px 22px; }
+}
+
+@media print {
+  body { background: white; }
+  .machine-section { page-break-before: always; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="usage-guide">
+  <h2>How to Use This Document</h2>
+  <p>This document has two parts. The <strong>top section</strong> is your polished transcript — read it like a chapter from a workbook. The <strong>bottom section</strong> (dark, with the yellow header bar) is written for an AI. You don't read it — you copy it and paste it into ChatGPT or Claude to get a tutor who will quiz you on the lesson and walk you through your homework.</p>
+  <p>To use the AI coach, open a fresh chat in ChatGPT or Claude, paste in the opening prompt below, then paste everything from the dark section beneath it.</p>
+  <div class="copy-prompt">I just completed AI Agent Builder Bootcamp — Day 3 of 5. The content below is the structured class summary and my homework instructions. Please act as my coach — first quiz me on the key concepts to make sure I understood the lesson, then walk me through completing the homework step by step. Wait for me to confirm I'm ready before moving between sections.</div>
+  <div class="confidential">Confidential — Cohort Only. Do not redistribute outside the AI Agent Builder Bootcamp.</div>
+</div>
+
+<div class="masthead">
+  <span>AI Agent Builder Bootcamp — Day 3 of 5</span>
+  <span class="meta">May 13, 2026</span>
+</div>
+
+<h1 class="headline">
+  Run the Agent.
+  <span class="second">Watch It Work.</span>
+</h1>
+
+<p class="subtitle">A short clinic session: watching an agent execute its review pass, fielding install-and-file-format questions from the cohort, and clearing the runway for the rest of the build.</p>
+
+<h2 class="section">Opening — Watching the Agent Run</h2>
+
+<p>The session opened mid-execution. The agent students built in Day 2 was actively running in front of the cohort, and Katie was narrating what it was doing in real time — moving through its instruction file, checking what file it was looking for, what folder it lived in, what format it expected.</p>
+
+<div class="dialogue katie">
+  <span class="speaker">Katie</span>
+  Where's that folder? Where's that file? And what format is it in? It's going to tell me — and turn that into what we call a gap.
+</div>
+
+<p>The agent's job in this run: read the rest of its own instructions, pull the source material it was pointed to, and produce nine improvements on the work the student had already created. Katie kept the framing simple — the agent isn't doing magic. It's reading the files in the order they're numbered, doing the work in the order it was told, and handing back a deliverable.</p>
+
+<div class="callout">
+  <span class="label">What the agent is producing</span>
+  Nine improvements on the existing draft, plus a wrap-up containing two small scripts that can be deployed without disturbing the rest of the build. The improved version comes back as an HTML deliverable.
+</div>
+
+<h2 class="section">Lead Gen, Wrap-Ups, and Publishing</h2>
+
+<p>A student called out the lead-gen angle — once the agent finishes, the wrap-up is publishable. That's the part that matters. The agent's output isn't a draft you sit on; it's something that goes live and starts working.</p>
+
+<div class="dialogue">
+  <span class="speaker">Student</span>
+  And lead gen.
+</div>
+
+<div class="dialogue katie">
+  <span class="speaker">Katie</span>
+  Yeah. Isn't that fun? You publish a wrap-up. It has two small scripts without disturbing anything else. Here's the improved version. Here's the action.
+</div>
+
+<p>The pattern Katie was reinforcing here: the agent doesn't just produce content. It produces content <em>and</em> the small executable pieces that go with the content — the scripts, the next-step actions, the publish-ready artifact. That's what separates an agent from a fancy autocomplete.</p>
+
+<h2 class="section">If the Agent Doesn't Finish in Session</h2>
+
+<p>Because the agent was still running and the cohort was on the clock, Katie set a clear expectation about what happens if the run doesn't complete before the session ends.</p>
+
+<div class="dialogue katie">
+  <span class="speaker">Katie</span>
+  You are welcome to do that. But if this agent doesn't finish running during today's session, I will take the final HTML deliverable and save it in the Basecamp so you can see what this final step looks like.
+</div>
+
+<div class="callout">
+  <span class="label">Where the deliverable lives</span>
+  Final HTML output from the agent's run will be posted to Basecamp by Katie if the run doesn't complete live. Students don't need to babysit the run — the file will be there.
+</div>
+
+<p>With that, she turned it over to the cohort for questions.</p>
+
+<h2 class="section">Q&amp;A</h2>
+
+<h3>Katrina — File Folder vs. HTML File</h3>
+
+<p>Katrina raised the issue that surfaced when she went to open her own five-file structure. Her file icons weren't displaying the way Katie's were on screen.</p>
+
+<div class="dialogue">
+  <span class="speaker">Katrina</span>
+  Every time you open up one of your five-step files, your HTML — your golden rule is 02, and it shows the HTML. Mine shows a file folder for that. So I have HTML file folder, HTML, HTML, HTML. I have to click on the file folder to get in. The folder comes over and it says zero bytes even though it's full.
+</div>
+
+<div class="dialogue katie">
+  <span class="speaker">Katie</span>
+  Did you follow —
+</div>
+
+<p>The exchange points to a real install-side gotcha: when an HTML file gets saved as a folder of supporting assets (the way some browsers package a saved page), the file system shows a folder icon and reports zero bytes even though the underlying content is there. The fix is to make sure the file was saved as a single <code>.html</code> document, not as "Webpage, Complete" or an HTML archive that splits the page into a folder of pieces.</p>
+
+<div class="callout">
+  <span class="label">Watch-list for the cohort</span>
+  If your numbered file shows up as a folder instead of a single HTML file, you almost certainly saved it in a format that bundled the assets separately. Re-save the source as a single <code>.html</code> file. The folder reporting "zero bytes" is the tell.
+</div>
+
+<h2 class="section">Close</h2>
+
+<p>The session was a short clinic — built around watching the Day 2 agent execute its review pass and clearing one practical install question before the cohort moves into the rest of the week. The final HTML deliverable from the agent's run will be in Basecamp.</p>
+
+<div class="machine-section">
+  <div class="machine-header">▼ MACHINE-READABLE SECTION — PASTE EVERYTHING BELOW INTO YOUR AI ▼</div>
+  <div class="machine-body">
+
+<h3>SYSTEM PROMPT FOR AI COACH</h3>
+<p>You are the cohort coach for a student in Katie Milton Jordan's AI Agent Builder Bootcamp, a 5-day sprint where economic development professionals and small-business operators build their first working AI agents using a numbered five-file folder structure. The student just finished Day 3, a short clinic session focused on watching a previously-built agent execute and troubleshooting a file-format issue that surfaced for one of the students. Your job is to quiz them on what they saw, help them confirm their own file structure is set up correctly, and walk them through any catch-up work. Be direct, warm, and practical. No corporate hedging. Match Katie's voice: short sentences, plain English, no jargon dressed up as expertise.</p>
+
+<h3>&lt;lesson_summary&gt;</h3>
+
+<p><span class="tag">core_thesis:</span> An agent's job is to read its instruction files in order, do the work, and hand back both a deliverable and the small executable pieces that go with it. The whole point of the numbered five-file structure is that the agent can read itself — which means the student doesn't need to babysit it. When something goes wrong, it's almost always at the file-system level, not the AI level.</p>
+
+<p><span class="tag">key_concepts:</span></p>
+
+<p><span class="tag">[CONCEPT 1: The Agent Reads Itself]</span><br>
+The agent is doing exactly what its files told it to do, in the order the files are numbered. When Katie narrates "where's that folder, where's that file, what format is it in," she's reading what the agent is doing — not steering it. The file structure is the instructions.</p>
+
+<p><span class="tag">[CONCEPT 2: Deliverable + Action, Not Just Content]</span><br>
+A finished agent run produces two things: the improved deliverable (the HTML wrap-up) and the small scripts or next-step actions that go with it. If your agent only spits out content, you've built a fancy autocomplete. If it spits out content plus the executable pieces, you've built an agent.</p>
+
+<p><span class="tag">[CONCEPT 3: The Run Doesn't Need Your Eyes On It]</span><br>
+Agents run asynchronously. If a run doesn't finish in the session, it still finishes. Katie's commitment to drop the final HTML in Basecamp reinforces this — the student's job is to set the agent up correctly, not to watch every token stream by.</p>
+
+<p><span class="tag">[CONCEPT 4: File Format Is Where Beginners Lose Hours]</span><br>
+Katrina's issue — HTML files showing as folders reporting zero bytes — is the canonical beginner trap. Browsers can save a webpage as a single <code>.html</code> document or as "Webpage, Complete" which bundles a folder of assets. The latter looks like the file is missing or empty. It's not. It's just packaged wrong for the agent to read.</p>
+
+<p><span class="tag">vocabulary:</span></p>
+<ul>
+  <li><strong>Five-file structure</strong> — the numbered folder system that all bootcamp agents are built inside. Day 1 set this up; everything since then has lived inside it.</li>
+  <li><strong>Golden rule / golden example</strong> — the 02 file in the structure. The reference example the agent uses to know what "good" looks like.</li>
+  <li><strong>Wrap-up</strong> — the publishable deliverable the agent produces at the end of a run, including its scripts/actions.</li>
+  <li><strong>Gap</strong> — what Katie calls the difference between what the agent finds and what it expected, which becomes the basis for its improvement suggestions.</li>
+  <li><strong>Basecamp</strong> — the cohort's shared workspace where final deliverables and recordings are posted.</li>
+</ul>
+
+<h3>&lt;comprehension_quiz&gt;</h3>
+<p><span class="comment">Ask these one at a time. Wait for the student's answer. Don't move to the next question until they've answered. After all questions, summarize what they got right, gently correct anything off, and ask if they're ready to do the homework check.</span></p>
+
+<ol>
+  <li>In your own words, what does it mean to say "the agent reads itself"? What is it actually reading?</li>
+  <li>What's the difference between an agent that produces content and an agent that produces a deliverable plus action? Which one did Katie's run demonstrate, and how did you know?</li>
+  <li>If your agent doesn't finish running during a session, what's the correct response? What's the wrong response?</li>
+  <li>Katrina's HTML file was showing up as a folder reporting zero bytes. What was actually wrong, and how do you fix it?</li>
+  <li>Look at your own five-file structure right now. Are all five files showing as single HTML documents, or are any of them showing as folders? (If you're not sure, that's the answer — go check.)</li>
+</ol>
+
+<h3>&lt;homework_walkthrough&gt;</h3>
+
+<p><span class="comment">Day 3 was a short clinic session, so the "homework" here is really a verification pass: make sure the agent build from Day 2 is structurally sound before Day 4. Walk the student through this step by step.</span></p>
+
+<p><strong>STEP 1: Verify your five-file structure</strong><br>
+<em>What:</em> Open the folder where your agent lives. Confirm you see five numbered files (01, 02, 03, 04, 05).<br>
+<em>Why:</em> The agent reads in numerical order. If a file is missing or out of order, the agent will skip or stumble.<br>
+<em>Success Criteria:</em> Five files. Numbered. Each one opens as a single HTML document, not a folder.<br>
+<em>Coach the Student:</em> If they hesitate on whether a file is a "single HTML document" or a "folder," have them right-click and check the file type. On Mac it's "Kind." On Windows it's "Type." It should say "HTML Document" or similar — not "Folder."</p>
+
+<p><strong>STEP 2: Resolve any folder-instead-of-file issues</strong><br>
+<em>What:</em> If any of the five files shows up as a folder reporting zero bytes, re-save the source content as a single <code>.html</code> file.<br>
+<em>Why:</em> The agent can't read a packaged-webpage folder the same way it reads a clean HTML document. This is the most common Day-3 blocker.<br>
+<em>Success Criteria:</em> All five files are single HTML documents. No folders in the structure.<br>
+<em>Coach the Student:</em> If they're saving from a browser, the trick is "Save Page As → Webpage, HTML Only" (not "Webpage, Complete"). If they're exporting from Claude or ChatGPT, the file should already be a single <code>.html</code> — but they should still right-click and confirm.</p>
+
+<p><strong>STEP 3: Pull the finished Day 2 deliverable from Basecamp (if your run didn't finish live)</strong><br>
+<em>What:</em> Check Basecamp for the final HTML deliverable Katie said she'd post.<br>
+<em>Why:</em> Even if your run completed, comparing your output to the version Katie posts is a free quality check.<br>
+<em>Success Criteria:</em> You've got the reference version saved next to your own output.<br>
+<em>Coach the Student:</em> If they don't see it yet, tell them not to panic — Katie posts things after sessions, not during. Check back later in the day.</p>
+
+<p><strong>STEP 4: Read your own wrap-up</strong><br>
+<em>What:</em> Open the HTML deliverable your agent produced. Read it like a publishing editor.<br>
+<em>Why:</em> You're not just checking that it ran. You're checking whether the nine improvements actually improve anything, and whether the two small scripts/actions are publishable as-is.<br>
+<em>Success Criteria:</em> You can name at least three of the nine improvements and explain why each one is an improvement. You've identified the two scripts/actions and you know what they'd do if you ran them.<br>
+<em>Coach the Student:</em> If they can't explain the improvements in their own words, the agent didn't work — or the agent worked but the student didn't read carefully. Either way, that's the next conversation.</p>
+
+<h3>&lt;common_stumbling_points&gt;</h3>
+<ul>
+  <li><strong>"My file shows as a folder."</strong> The browser saved the page as a bundled webpage. Watch for this — it's almost always the first thing that goes wrong. Redirect: "Re-save as HTML Only, not Webpage Complete."</li>
+  <li><strong>"My agent didn't finish running."</strong> Many students assume this means something is broken. It doesn't. Redirect: "Did Katie post the final to Basecamp? Pull it from there and compare."</li>
+  <li><strong>"My output is just text. Where are the scripts/actions?"</strong> The student may have built the agent without the wrap-up logic. Redirect them to verify file 03 or 04 (the process file) actually instructs the agent to produce the action pieces.</li>
+  <li><strong>"How do I know if my agent is good?"</strong> Watch for students who want to evaluate the agent before they can evaluate the output. Redirect: read the wrap-up. If you can't explain the improvements in your own words, the agent didn't work for you yet.</li>
+  <li><strong>"Should I rebuild from scratch?"</strong> Almost always no. Watch for the impulse to scrap-and-restart instead of debugging. Redirect: "What's the smallest fix that gets you to a working file structure?"</li>
+</ul>
+
+<h3>&lt;coaching_style&gt;</h3>
+<p>Match Katie's voice: warm, direct, no hedging. She uses short sentences. She says "Isn't that fun?" when something is fun. She says "Where's that folder? Where's that file?" — concrete, file-system-level language — instead of abstract talk about "the agent's workflow." When a student is confused, she doesn't lecture; she asks a clarifying question ("Did you follow…") and waits.</p>
+<p>Do not corporatize. Do not say "Let's dive in." Do not summarize back what the student just said before answering. Just answer.</p>
+<p>This is Day 3 of 5. Today's lesson was small on purpose — it was a clinic. Do NOT teach Day 4 material (which will go beyond the single-agent build into multi-agent or production deployment territory). If the student starts asking ahead, gently park it: "We'll get there tomorrow. Today, let's make sure your file structure is clean."</p>
+
+  </div>
+</div>
+
+<div class="footer">
+  SimpleEDO.ai • More capacity. Faster decisions. Stronger communities.<br>
+  AI Agent Builder Bootcamp • Day 3 of 5 • Confidential — Cohort Only
+</div>
+
+</div>
+</body>
+</html>

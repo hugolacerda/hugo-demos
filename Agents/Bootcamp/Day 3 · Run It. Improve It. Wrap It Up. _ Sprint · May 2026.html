@@ -1,0 +1,1350 @@
+<!DOCTYPE html>
+<!-- saved from url=(0119)file:///Users/katiemiltonjordan/Desktop/%23%23OPERATIONS/day3-run-it-improve-it-wrap-it-up-sprint-may-2026.html#slide-1 -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Day 3 · Run It. Improve It. Wrap It Up. | Sprint · May 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="file:///Users/katiemiltonjordan/Desktop/%23%23OPERATIONS/Day%203%20%C2%B7%20Run%20It.%20Improve%20It.%20Wrap%20It%20Up.%20_%20Sprint%20%C2%B7%20May%202026_files/css2" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #0a0a0a;
+            --ivory: #f5f4f0;
+            --white: #ffffff;
+            --stone: #8a8680;
+            --mid: #6b6b6b;
+            --faint: #b5b5b5;
+            --border: #d8d4cc;
+            --rule-soft: #ebe8e2;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Motion hygiene */
+        .slide:not(.active),
+        .slide:not(.active) *,
+        .slide:not(.active) *::before,
+        .slide:not(.active) *::after {
+            animation-play-state: paused !important;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            font-feature-settings: "ss01", "cv11";
+            font-weight: 400;
+            color: var(--noir);
+            background: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ═══════════ DECK SHELL ═══════════ */
+        .deck { position: relative; width: 100vw; height: 100vh; overflow: hidden; }
+
+        .slide {
+            position: absolute; inset: 0;
+            display: flex; align-items: center; justify-content: center;
+            padding: 40px 56px;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateX(40px);
+            overflow-y: auto;
+        }
+        .slide.active { opacity: 1 !important; pointer-events: all; transform: translateX(0) !important; z-index: 2; }
+        .slide.exiting { opacity: 0 !important; transform: translateX(-40px) !important; z-index: 1; }
+
+        .slide-inner { width: 100%; max-width: 1280px; height: calc(100vh - 80px); display: flex; }
+
+        .bg-white { background: var(--white); }
+        .bg-ivory { background: var(--ivory); }
+
+        /* ═══════════ RAMS SHELL ═══════════ */
+        .rams {
+            width: 100%; height: 100%;
+            display: flex; flex-direction: column;
+            padding: 0 8px;
+        }
+        .rams-top, .rams-bottom {
+            display: flex; justify-content: space-between; align-items: center;
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--noir);
+            flex-shrink: 0;
+        }
+        .rams-top { padding-bottom: 14px; border-bottom: 1px solid var(--noir); }
+        .rams-bottom { padding-top: 14px; border-top: 1px solid var(--noir); margin-top: auto; }
+        .rams-bottom .folio { letter-spacing: 0.04em; }
+        .rams-bottom > * { flex: 1; }
+        .rams-bottom > *:nth-child(2) { text-align: center; }
+        .rams-bottom > *:nth-child(3) { text-align: right; }
+
+        .rams-body {
+            flex: 1; display: flex; align-items: center;
+            padding: 48px 0 32px 0;
+            min-height: 0;
+        }
+        .rams-body.center { justify-content: center; text-align: center; }
+        .rams-body.top { align-items: flex-start; padding-top: 36px; }
+        .rams-body-inner { width: 100%; max-width: 1040px; }
+        .rams-body-inner.wide { max-width: 1200px; }
+
+        /* ═══════════ TYPE SCALE ═══════════ */
+        .t-display { font-weight: 800; font-size: clamp(67px, 8.0vw, 125px); line-height: 0.94; letter-spacing: -0.038em; color: var(--noir); }
+        .t-h1 { font-weight: 800; font-size: clamp(58px, 6.2vw, 86px); line-height: 0.96; letter-spacing: -0.036em; color: var(--noir); }
+        .t-h2 { font-weight: 700; font-size: clamp(38px, 3.9vw, 58px); line-height: 1.05; letter-spacing: -0.032em; color: var(--noir); }
+        .t-h3 { font-weight: 700; font-size: 31px; line-height: 1.15; letter-spacing: -0.020em; color: var(--noir); }
+        .t-h4 { font-weight: 600; font-size: 23px; line-height: 1.25; letter-spacing: -0.015em; color: var(--noir); }
+        .t-lede { font-weight: 400; font-size: 23px; line-height: 1.55; letter-spacing: -0.005em; color: var(--noir); }
+        .t-body { font-weight: 400; font-size: 18px; line-height: 1.65; letter-spacing: -0.003em; color: var(--noir); }
+        .t-small { font-weight: 400; font-size: 16px; line-height: 1.55; letter-spacing: -0.002em; color: var(--noir); }
+        .t-label { font-weight: 500; font-size: 12px; line-height: 1.0; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); }
+        .t-stone { color: var(--stone); }
+        .t-mid { color: var(--mid); }
+        .italic { font-style: italic; }
+
+        .kicker { font-weight: 500; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); margin-bottom: 20px; }
+        .lede { max-width: 680px; }
+
+        /* Mono-styled inline text */
+        .mono {
+            font-family: 'Inter', sans-serif;
+            font-variant-numeric: tabular-nums;
+            font-feature-settings: "ss01", "cv11";
+            font-size: 16px;
+            letter-spacing: -0.003em;
+            color: var(--noir);
+        }
+
+        /* ═══════════ CARDS GRID ═══════════ */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            margin-top: 32px;
+            padding-top: 20px;
+            border-top: 1px solid var(--noir);
+        }
+        .cards-grid.two-col { grid-template-columns: 1fr 1fr; gap: 24px 40px; }
+        .cards-grid.three-by-two { grid-template-columns: 1fr 1fr 1fr; gap: 22px 32px; }
+        .cards-grid .card.span-full { grid-column: 1 / -1; }
+        .card { display: flex; flex-direction: column; }
+        .card .card-num { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone); margin-bottom: 12px; padding-top: 4px; }
+        .card .card-title { font-weight: 700; font-size: 24px; line-height: 1.15; letter-spacing: -0.020em; color: var(--noir); margin-bottom: 10px; }
+        .card .card-desc { font-weight: 400; font-size: 16px; line-height: 1.55; color: var(--noir); letter-spacing: -0.003em; }
+        .card .card-sublist { margin-top: 12px; display: flex; flex-direction: column; gap: 4px; }
+        .card .card-sublist span { font-size: 14px; color: var(--stone); letter-spacing: -0.003em; line-height: 1.5; }
+        .card.active { border-top: 2px solid var(--noir); padding-top: 10px; margin-top: -12px; }
+
+        /* ═══════════ CONTRAST ═══════════ */
+        .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; width: 100%; margin-top: 32px; border-top: 1px solid var(--noir); }
+        .contrast-col { padding: 28px 40px 8px 0; }
+        .contrast-col + .contrast-col { border-left: 1px solid var(--border); padding-left: 40px; }
+        .contrast-col .col-label { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); margin-bottom: 24px; }
+        .contrast-col .col-list { list-style: none; }
+        .contrast-col .col-list li {
+            font-weight: 400; font-size: 18px; line-height: 1.55;
+            color: var(--noir); padding: 14px 0;
+            border-top: 1px solid var(--border);
+            letter-spacing: -0.003em;
+        }
+        .contrast-col .col-list li:first-child { border-top: none; }
+        .contrast-col.muted .col-list li { color: var(--mid); }
+
+        /* ═══════════ NUM LIST ═══════════ */
+        .num-list { width: 100%; max-width: 1000px; margin-top: 28px; }
+        .num-item {
+            display: grid;
+            grid-template-columns: 68px 1fr;
+            gap: 24px;
+            padding: 16px 0;
+            border-top: 1px solid var(--border);
+            align-items: baseline;
+        }
+        .num-item:first-child { border-top: 1px solid var(--noir); }
+        .num-item:last-child { border-bottom: 1px solid var(--border); }
+        .num-item .n { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; color: var(--noir); text-transform: uppercase; font-variant-numeric: tabular-nums; padding-top: 2px; }
+        .num-item .num-body { font-weight: 400; font-size: 18px; line-height: 1.55; color: var(--mid); letter-spacing: -0.003em; }
+        .num-item .num-body strong { font-weight: 600; color: var(--noir); }
+
+        /* ═══════════ SPLIT LAYOUT ═══════════ */
+        .split-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; width: 100%; align-items: center; }
+
+        /* ═══════════ MOCK / EXAMPLE CARD ═══════════ */
+        .mock-card {
+            width: 100%;
+            background: var(--white);
+            border: 1px solid var(--noir);
+            overflow: hidden;
+            max-width: 480px;
+        }
+        .mock-label {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--noir);
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--noir);
+        }
+        .mock-body { padding: 6px 16px 14px 16px; }
+
+        .ex-block {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .ex-block:last-child { border-bottom: none; }
+        .ex-label {
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 6px;
+        }
+        .ex-text {
+            font-weight: 400; font-size: 16px; line-height: 1.55;
+            color: var(--noir); letter-spacing: -0.003em;
+        }
+        .ex-text strong { font-weight: 600; }
+        .ex-text.mono { font-size: 14px; line-height: 1.65; }
+
+        /* ═══════════ TABLE (advisor library, etc.) ═══════════ */
+        .table {
+            width: 100%;
+            border-top: 1px solid var(--noir);
+            margin-top: 24px;
+        }
+        .table-row {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: baseline;
+        }
+        .table-row:last-child { border-bottom: 1px solid var(--noir); }
+        .table-row .table-key {
+            font-size: 14px; font-weight: 600;
+            letter-spacing: -0.005em;
+            color: var(--noir);
+            line-height: 1.35;
+        }
+        .table-row .table-val {
+            font-size: 15px; font-weight: 400;
+            color: var(--mid);
+            line-height: 1.5;
+            letter-spacing: -0.003em;
+        }
+        .table-row .table-val strong { color: var(--noir); font-weight: 600; }
+
+        /* ═══════════ SNAPSHOT STRIP (v0 → v1 → v2 → v3) ═══════════ */
+        .snap-strip {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            width: 100%;
+            margin-top: 28px;
+        }
+        .snap {
+            border: 1px solid var(--border);
+            background: var(--white);
+            padding: 16px 18px 18px 18px;
+            position: relative;
+        }
+        .snap.final {
+            border: 2px solid var(--noir);
+            background: var(--ivory);
+        }
+        .snap .snap-tag {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 10px;
+        }
+        .snap.final .snap-tag { color: var(--noir); }
+        .snap .snap-name {
+            font-family: 'SF Mono', Menlo, ui-monospace, monospace;
+            font-size: 13px; font-weight: 500;
+            color: var(--noir);
+            margin-bottom: 8px;
+        }
+        .snap .snap-desc {
+            font-size: 13px; font-weight: 400;
+            color: var(--mid);
+            line-height: 1.45;
+            letter-spacing: -0.003em;
+        }
+        .snap .snap-arrow {
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translate(50%, -50%);
+            color: var(--stone);
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2;
+            background: var(--white);
+            padding: 0 4px;
+        }
+        .snap:last-child .snap-arrow { display: none; }
+
+        /* ═══════════ FLOW DIAGRAM ═══════════ */
+        .flow {
+            width: 100%;
+            max-width: 360px;
+            display: flex; flex-direction: column;
+            align-items: stretch;
+        }
+        .flow-step {
+            border: 1px solid var(--border);
+            padding: 14px 18px;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.35;
+            letter-spacing: -0.003em;
+            color: var(--noir);
+            text-align: center;
+            background: var(--white);
+        }
+        .flow-step.emphatic {
+            border: 2px solid var(--noir);
+            font-weight: 700;
+        }
+        .flow-step .flow-tag {
+            display: block;
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 6px;
+        }
+        .flow-connector {
+            width: 1px;
+            height: 16px;
+            background: var(--border);
+            margin: 0 auto;
+            position: relative;
+        }
+        .flow-connector::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid var(--border);
+        }
+
+        /* ═══════════ PROMPT BLOCK ═══════════ */
+        .prompt-block {
+            border: 1px solid var(--noir);
+            background: var(--ivory);
+            overflow: hidden;
+            width: 100%;
+        }
+        .prompt-block-head {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 8px 14px 8px 18px;
+            background: var(--noir);
+            color: var(--ivory);
+            border-bottom: 1px solid var(--noir);
+        }
+        .prompt-block-title {
+            font-size: 11px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            color: var(--ivory);
+        }
+        .prompt-block-copy {
+            background: transparent;
+            border: 1px solid rgba(245,244,240,0.4);
+            color: var(--ivory);
+            padding: 5px 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 10px; font-weight: 700;
+            letter-spacing: 0.18em; text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+        .prompt-block-copy:hover {
+            background: var(--ivory);
+            color: var(--noir);
+            border-color: var(--ivory);
+        }
+        .prompt-block-copy.copied {
+            background: var(--ivory);
+            color: var(--noir);
+            border-color: var(--ivory);
+        }
+        .prompt-block pre {
+            margin: 0;
+            padding: 16px 20px;
+            font-family: 'SF Mono', Menlo, ui-monospace, monospace;
+            font-size: 12.5px;
+            line-height: 1.5;
+            color: var(--noir);
+            white-space: pre-wrap;
+            letter-spacing: -0.002em;
+        }
+
+        /* ═══════════ DIVIDER ═══════════ */
+        .divider-meta {
+            font-size: 12px; font-weight: 500;
+            letter-spacing: 0.22em; text-transform: uppercase;
+            color: var(--stone); margin-top: 28px;
+        }
+
+        /* ═══════════ NAV ═══════════ */
+        .deck-ui {
+            position: fixed;
+            bottom: 20px;
+            left: 0; right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            z-index: 100;
+            pointer-events: none;
+        }
+        .deck-ui > * { pointer-events: auto; }
+        .deck-counter { font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--noir); font-variant-numeric: tabular-nums; }
+        .deck-dots { display: flex; gap: 7px; }
+        .deck-dots .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.2s; }
+        .deck-dots .dot.active { background: var(--noir); }
+        .deck-arrows { display: flex; gap: 8px; }
+        .deck-arrow {
+            width: 28px; height: 28px;
+            border: 1px solid var(--noir);
+            background: transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 17px;
+            color: var(--noir);
+            display: flex; align-items: center; justify-content: center;
+            transition: background 0.2s, color 0.2s;
+        }
+        .deck-arrow:hover { background: var(--noir); color: var(--white); }
+
+        .deck-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: var(--noir);
+            z-index: 101;
+            transition: width 0.5s ease;
+        }
+
+        /* ═══════════ STAGGER ═══════════ */
+        .stagger { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+        .slide.active .stagger { opacity: 1; transform: translateY(0); }
+        .slide.active .stagger:nth-child(1) { transition-delay: 0.10s; }
+        .slide.active .stagger:nth-child(2) { transition-delay: 0.18s; }
+        .slide.active .stagger:nth-child(3) { transition-delay: 0.26s; }
+        .slide.active .stagger:nth-child(4) { transition-delay: 0.34s; }
+        .slide.active .stagger:nth-child(5) { transition-delay: 0.42s; }
+        .slide.active .stagger:nth-child(6) { transition-delay: 0.50s; }
+        .slide.active .stagger:nth-child(7) { transition-delay: 0.58s; }
+        .slide.active .stagger:nth-child(8) { transition-delay: 0.66s; }
+
+        .num-list .num-item.stagger,
+        .cards-grid .card.stagger,
+        .contrast-col .col-list li.stagger,
+        .snap-strip .snap.stagger {
+            opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .slide.active .num-list .num-item.stagger,
+        .slide.active .cards-grid .card.stagger,
+        .slide.active .contrast-col .col-list li.stagger,
+        .slide.active .snap-strip .snap.stagger { opacity: 1; transform: translateY(0); }
+        .slide.active .num-list .num-item:nth-child(1).stagger,
+        .slide.active .cards-grid .card:nth-child(1).stagger,
+        .slide.active .contrast-col .col-list li:nth-child(1).stagger,
+        .slide.active .snap-strip .snap:nth-child(1).stagger { transition-delay: 0.14s; }
+        .slide.active .num-list .num-item:nth-child(2).stagger,
+        .slide.active .cards-grid .card:nth-child(2).stagger,
+        .slide.active .contrast-col .col-list li:nth-child(2).stagger,
+        .slide.active .snap-strip .snap:nth-child(2).stagger { transition-delay: 0.22s; }
+        .slide.active .num-list .num-item:nth-child(3).stagger,
+        .slide.active .cards-grid .card:nth-child(3).stagger,
+        .slide.active .contrast-col .col-list li:nth-child(3).stagger,
+        .slide.active .snap-strip .snap:nth-child(3).stagger { transition-delay: 0.30s; }
+        .slide.active .num-list .num-item:nth-child(4).stagger,
+        .slide.active .cards-grid .card:nth-child(4).stagger,
+        .slide.active .contrast-col .col-list li:nth-child(4).stagger,
+        .slide.active .snap-strip .snap:nth-child(4).stagger { transition-delay: 0.38s; }
+        .slide.active .num-list .num-item:nth-child(5).stagger,
+        .slide.active .cards-grid .card:nth-child(5).stagger { transition-delay: 0.46s; }
+        .slide.active .cards-grid .card:nth-child(6).stagger { transition-delay: 0.54s; }
+
+    </style>
+</head>
+<body>
+
+<div class="deck">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         01 · TITLE
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory active">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Katie Milton Jordan</div>
+                    <div>Day 03 &nbsp;/&nbsp; Sprint · May 2026</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner">
+                        <div class="kicker stagger">Run It. Improve It. Wrap It Up.</div>
+                        <h1 class="t-display stagger">Run, improve,<br>wrap&nbsp;up.</h1>
+                        <p class="t-lede t-mid stagger" style="margin-top: 28px; max-width: 740px;">Yesterday you queued thirty-six agents. Today you learn how to run them, how to improve them, and how to close the loop — with two more agents you already&nbsp;own.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">01</div>
+                    <div>Day 03 Opens</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         02 · YESTERDAY / TODAY
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Where We Are</div>
+                    <div>Day 01 · Day 02 · Day 03</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Recap</div>
+                        <h2 class="t-h2">You can build them.<br>You can name them. Now run&nbsp;them.</h2>
+                        <div class="contrast-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                            <div class="contrast-col muted">
+                                <div class="col-label">Day 01 · Build</div>
+                                <ul class="col-list">
+                                    <li class="stagger">Five files, always the same.</li>
+                                    <li class="stagger">The Agent Builder writes them.</li>
+                                    <li class="stagger">You shipped one agent.</li>
+                                </ul>
+                            </div>
+                            <div class="contrast-col muted">
+                                <div class="col-label">Day 02 · Map</div>
+                                <ul class="col-list">
+                                    <li class="stagger">Six pillars by six deliverables.</li>
+                                    <li class="stagger">Thirty-six cards in <em>To Do.</em></li>
+                                    <li class="stagger">A fleet, not a one-off.</li>
+                                </ul>
+                            </div>
+                            <div class="contrast-col">
+                                <div class="col-label">Day 03 · Run</div>
+                                <ul class="col-list">
+                                    <li class="stagger">You run an agent end-to-end.</li>
+                                    <li class="stagger">You improve it with the <span style="white-space: nowrap;">3-3-3</span> method.</li>
+                                    <li class="stagger">You close the loop with a project wrap-up.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="t-body t-mid stagger" style="margin-top: 28px; max-width: 820px;">Building an agent is the start. Running one teaches you what it’s actually like to work with one. Improving one is how the work compounds. <strong style="font-weight: 600; color: var(--noir);"><span style="white-space: nowrap;">3-3-3</span> and the project wrap-up are themselves agents</strong> — you don’t do continuous improvement by hand, you have agents for&nbsp;it.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">02</div>
+                    <div>Recap</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         03 · AGENDA
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Day 03 &nbsp;/&nbsp; Agenda</div>
+                    <div>Three Items</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Today’s session</div>
+                        <h2 class="t-h2">Agenda.</h2>
+
+                        <div class="agenda-list" style="margin-top: 32px; max-width: 940px;">
+                            <!-- Item 01 -->
+                            <div class="stagger" style="display: grid; grid-template-columns: 80px 1fr 220px; gap: 32px; padding: 26px 0; border-top: 1px solid var(--noir); align-items: baseline;">
+                                <div style="font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: var(--noir); padding-top: 4px;">01.</div>
+                                <div>
+                                    <div style="font-size: 26px; font-weight: 600; letter-spacing: -0.018em; color: var(--noir); line-height: 1.2;">Running an agent.</div>
+                                    <div style="font-size: 17px; color: var(--mid); margin-top: 8px; line-height: 1.5;">The trigger phrase, the five-file traversal, what your role is in run 1, 2, and 3. Then I’ll run yours, live.</div>
+                                </div>
+                                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-align: right; padding-top: 6px;">Walkthrough + Demo</div>
+                            </div>
+                            <!-- Item 02 -->
+                            <div class="stagger" style="display: grid; grid-template-columns: 80px 1fr 220px; gap: 32px; padding: 26px 0; border-top: 1px solid var(--rule-soft); align-items: baseline;">
+                                <div style="font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: var(--noir); padding-top: 4px;">02.</div>
+                                <div>
+                                    <div style="font-size: 26px; font-weight: 600; letter-spacing: -0.018em; color: var(--noir); line-height: 1.2;">The <span style="white-space: nowrap;">3-3-3</span> Method.</div>
+                                    <div style="font-size: 17px; color: var(--mid); margin-top: 8px; line-height: 1.5;">Pick an advisor, derive a rubric, run three rounds of three improvements. The agent that improves any artifact — including your other agents.</div>
+                                </div>
+                                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-align: right; padding-top: 6px;">Walkthrough + Demo</div>
+                            </div>
+                            <!-- Item 03 -->
+                            <div class="stagger" style="display: grid; grid-template-columns: 80px 1fr 220px; gap: 32px; padding: 26px 0; border-top: 1px solid var(--rule-soft); border-bottom: 1px solid var(--noir); align-items: baseline;">
+                                <div style="font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: var(--noir); padding-top: 4px;">03.</div>
+                                <div>
+                                    <div style="font-size: 26px; font-weight: 600; letter-spacing: -0.018em; color: var(--noir); line-height: 1.2;">The Project Wrap-Up.</div>
+                                    <div style="font-size: 17px; color: var(--mid); margin-top: 8px; line-height: 1.5;">Closeout invoice, improvements catalog, workflow packaging, artifact inventory. The agent that closes the loop — and feeds the next one.</div>
+                                </div>
+                                <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--stone); text-align: right; padding-top: 6px;">Walkthrough + Demo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">03</div>
+                    <div>Agenda</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         04 · PART 1 DIVIDER — RUNNING AN AGENT
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 01</div>
+                    <div>Running an Agent</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner">
+                        <div class="kicker stagger">Part 01</div>
+                        <h1 class="t-display stagger" style="margin-top: 10px;">Running an&nbsp;agent.</h1>
+                        <p class="t-lede t-mid stagger" style="margin-top: 24px; max-width: 700px; margin-left: auto; margin-right: auto;">A trigger phrase. A folder. A finished deliverable. No setup, no copy-paste, no “remind it what we’re doing.” You say the phrase — the agent does the work.</p>
+                        <div class="divider-meta stagger">If you can name it, you can run it.</div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">04</div>
+                    <div>Part 01 Opens</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         05 · HOW TO RUN AN AGENT — TWO STEPS
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 01 &nbsp;/&nbsp; How To Run One</div>
+                    <div>Two Steps</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">It’s as hard as it needs to&nbsp;be</div>
+                        <h2 class="t-h2">Two steps to run any&nbsp;agent.</h2>
+                        <p class="t-body t-mid stagger" style="margin-top: 12px; max-width: 760px;">No setup. No prompt to write. No context to paste. You open one file, you say one sentence, and the agent does the&nbsp;rest.</p>
+
+                        <div class="cards-grid two-col" style="margin-top: 32px;">
+                            <div class="card stagger">
+                                <div class="card-num">Step 01</div>
+                                <div class="card-title">Open the start-here file.</div>
+                                <div class="card-desc">In the agent’s folder, open <span class="mono" style="font-weight: 600;">01-start-here.html</span>. That’s the only file you ever open to run an agent — the front door. Cowork picks up the folder as your working&nbsp;context.</div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Step 02</div>
+                                <div class="card-title">Say “Let’s run this agent.”</div>
+                                <div class="card-desc">Five words. The agent reads its own start-here, golden example, process, context, and quality — in that order — then goes to&nbsp;work.</div>
+                            </div>
+                        </div>
+
+                        <p class="t-body stagger" style="margin-top: 28px; max-width: 820px;"><strong style="font-weight: 600;">That’s the whole interface.</strong> Everything else — the five-file traversal, the questions it asks, the quality gates — happens because you opened the right file and said the right&nbsp;sentence.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">05</div>
+                    <div>How To Run An Agent</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         06 · PART 2 DIVIDER — THE <span style="white-space: nowrap;">3-3-3</span> METHOD
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02</div>
+                    <div>The <span style="white-space: nowrap;">3-3-3</span> Method</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner">
+                        <div class="kicker stagger">Part 02</div>
+                        <h1 class="t-display stagger" style="margin-top: 10px;">The <span style="white-space: nowrap;">3-3-3</span>&nbsp;Method.</h1>
+                        <p class="t-lede t-mid stagger" style="margin-top: 24px; max-width: 720px; margin-left: auto; margin-right: auto;">A second agent. Point it at any artifact — including the agent you just ran — and it produces nine targeted improvements in three rounds of three. With an advisor, a rubric, and a snapshot at the end of every round.</p>
+                        <div class="divider-meta stagger">Iteration beats one-shot. Action produces information.</div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">06</div>
+                    <div>Part 02 Opens</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         07 · WHY ITERATE — ACTION PRODUCES INFORMATION
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; Principle</div>
+                    <div>Why Three Rounds</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The principle</div>
+                        <h2 class="t-h2">One pass at nine&nbsp;ideas<br>is worse than three passes at&nbsp;three.</h2>
+
+                        <div class="contrast-grid">
+                            <div class="contrast-col muted">
+                                <div class="col-label">One Big Pass</div>
+                                <ul class="col-list">
+                                    <li class="stagger">You guess at nine improvements before the artifact has changed.</li>
+                                    <li class="stagger">Half of them turn out to be the wrong call once the surface moves.</li>
+                                    <li class="stagger">You can’t see which idea actually moved the rubric.</li>
+                                    <li class="stagger">Output is hard to diff. Hard to learn from.</li>
+                                </ul>
+                            </div>
+                            <div class="contrast-col">
+                                <div class="col-label">Three Rounds Of Three</div>
+                                <ul class="col-list">
+                                    <li class="stagger">Round 1 changes the surface and reveals what to fix in Round 2.</li>
+                                    <li class="stagger">Round 2 deepens what Round 1 surfaced.</li>
+                                    <li class="stagger">Round 3 polishes and harmonizes what’s left.</li>
+                                    <li class="stagger">Every round is a snapshot. The artifact teaches you what to do next.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">07</div>
+                    <div>Why Three Rounds</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         08 · ADVISOR + RUBRIC + 3×3
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; Structure</div>
+                    <div>Three Inputs</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The structure</div>
+                        <h2 class="t-h2">An advisor. A rubric.<br>Three rounds of&nbsp;three.</h2>
+                        <p class="t-body t-mid" style="margin-top: 8px; max-width: 760px;">Without an advisor, “better” is the agent’s taste. With one, it’s a methodology. The advisor IS the&nbsp;rubric.</p>
+
+                        <div class="cards-grid">
+                            <div class="card stagger">
+                                <div class="card-num">Step 01</div>
+                                <div class="card-title">Pick the advisor.</div>
+                                <div class="card-desc">The agent proposes three candidates matched to the artifact type — landing page, dashboard, training doc, strategy memo. You pick one. <strong style="font-weight: 600;">Peep Laja</strong> for conversion. <strong style="font-weight: 600;">Tufte</strong> for data viz. <strong style="font-weight: 600;">Minto</strong> for memos.</div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Step 02</div>
+                                <div class="card-title">Derive the rubric.</div>
+                                <div class="card-desc">Four to six scorable criteria pulled straight from the advisor’s published methodology. Stays stable across all three rounds — <strong style="font-weight: 600;">honest movement, not moving goalposts.</strong></div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Step 03</div>
+                                <div class="card-title">Run the loop.</div>
+                                <div class="card-desc">Three rounds. Three improvements per round. Re-read the artifact between each round — never work from a stale mental model. Score, snapshot, append to the log. Repeat.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">08</div>
+                    <div>Three Inputs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         09 · WHAT YOU GET — SNAPSHOTS + LOG
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; Output</div>
+                    <div>Four Snapshots, One Log</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">What falls out</div>
+                        <h2 class="t-h2">Four snapshots. One log.<br>The original&nbsp;untouched.</h2>
+                        <p class="t-body t-mid" style="margin-top: 8px; max-width: 760px;">The source artifact is <strong style="font-weight: 600;">never edited directly</strong>. The agent works on copies, frozen at every round. You can diff v1 against v2 against v3 and see exactly what each round&nbsp;moved.</p>
+
+                        <div class="snap-strip">
+                            <div class="snap stagger">
+                                <div class="snap-tag">Baseline</div>
+                                <div class="snap-name">v0-baseline.html</div>
+                                <div class="snap-desc">Untouched copy of the input. The control. Frozen the moment the run starts.</div>
+                                <div class="snap-arrow">→</div>
+                            </div>
+                            <div class="snap stagger">
+                                <div class="snap-tag">Round 01</div>
+                                <div class="snap-name">v1.html</div>
+                                <div class="snap-desc">3 improvements applied. Establishes new surface area for Round 02 to deepen.</div>
+                                <div class="snap-arrow">→</div>
+                            </div>
+                            <div class="snap stagger">
+                                <div class="snap-tag">Round 02</div>
+                                <div class="snap-name">v2.html</div>
+                                <div class="snap-desc">3 more improvements. Six cumulative. Goes deeper into what v1 revealed.</div>
+                                <div class="snap-arrow">→</div>
+                            </div>
+                            <div class="snap stagger final">
+                                <div class="snap-tag">Round 03 · Final</div>
+                                <div class="snap-name">v3.html</div>
+                                <div class="snap-desc">All 9 improvements. Polished, harmonized. The shippable artifact.</div>
+                            </div>
+                        </div>
+
+                        <div class="stagger" style="margin-top: 28px; padding: 18px 22px; border-left: 3px solid var(--noir); background: var(--ivory); display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center;">
+                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--noir);">The Primary Deliverable</div>
+                            <div style="font-size: 16px; line-height: 1.55; color: var(--noir);"><strong style="font-weight: 600;">improvement-log.html</strong> — rubric card, scoring matrix (v0 → R1 → R2 → R3 → Δ), nine before/after cards, and a closing narrative explaining where the lifts landed and why.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">09</div>
+                    <div>Four Snapshots, One Log</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         10 · ADVISORS BY ARTIFACT TYPE
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; Library</div>
+                    <div>Advisors By Artifact Type</div>
+                </div>
+                <div class="rams-body top">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The advisor library</div>
+                        <h2 class="t-h2">A landing page needs different eyes<br>than a dashboard.</h2>
+                        <p class="t-body t-mid" style="margin-top: 8px; max-width: 760px;">The agent proposes three. You pick. Or you name your own — the library grows with the&nbsp;system.</p>
+
+                        <div class="table">
+                            <div class="table-row stagger">
+                                <div class="table-key">Landing / sales page</div>
+                                <div class="table-val"><strong>Peep Laja</strong> (CXL conversion) · <strong>Alex Hormozi</strong> (offer) · <strong>April Dunford</strong> (positioning) · <strong>Joanna Wiebe</strong> (copy)</div>
+                            </div>
+                            <div class="table-row stagger">
+                                <div class="table-key">Design / UX craft</div>
+                                <div class="table-val"><strong>Oliver Reichenstein</strong> (typography) · <strong>Luke Wroblewski</strong> (forms / mobile) · <strong>Steve Krug</strong> (scannability)</div>
+                            </div>
+                            <div class="table-row stagger">
+                                <div class="table-key">Dashboard / data viz</div>
+                                <div class="table-val"><strong>Edward Tufte</strong> (data-ink) · <strong>Stephen Few</strong> (perceptual clarity) · <strong>Cole Knaflic</strong> (narrative viz)</div>
+                            </div>
+                            <div class="table-row stagger">
+                                <div class="table-key">Training / start-here doc</div>
+                                <div class="table-val"><strong>Barbara Minto</strong> (pyramid principle) · <strong>Julie Dirksen</strong> (learning design) · <strong>Chip &amp; Dan Heath</strong> (stickiness)</div>
+                            </div>
+                            <div class="table-row stagger">
+                                <div class="table-key">Strategy memo / business case</div>
+                                <div class="table-val"><strong>Richard Rumelt</strong> (strategy kernel) · <strong>Roger Martin</strong> (integrative thinking) · <strong>Barbara Minto</strong> (structure)</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">10</div>
+                    <div>Advisor Library</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         11 · <span style="white-space: nowrap;">3-3-3</span> PROMPT — COPY-PASTE
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; The Trigger</div>
+                    <div>One Line</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker stagger">The <span style="white-space: nowrap;">3-3-3</span> trigger</div>
+                        <h2 class="t-h2 stagger">Point the method at any HTML&nbsp;file.</h2>
+                        <p class="t-body t-mid stagger" style="margin-top: 12px; max-width: 760px;">No setup. No context dump. The agent reads its own start-here, golden example, and process before doing anything — then runs the eleven steps autonomously. ~23 minutes from advisor pick to v3.</p>
+
+                        <div class="prompt-block stagger" style="margin-top: 28px; max-width: 1080px;">
+                            <div class="prompt-block-head">
+                                <span class="prompt-block-title">Prompt · <span style="white-space: nowrap;">3-3-3</span> Method · ~23 min</span>
+                                <button class="prompt-block-copy" type="button" onclick="copyPrompt(this)">Copy</button>
+                            </div>
+                            <pre>Read the 3-3-3-method agent and apply it to [path-to-your-file.html].</pre>
+                        </div>
+
+                        <div class="cards-grid stagger" style="grid-template-columns: 1fr 1fr; gap: 24px 40px; margin-top: 36px; padding-top: 20px;">
+                            <div class="card">
+                                <div class="card-num">What you do</div>
+                                <div class="card-title">Pick the advisor. Confirm the rubric.</div>
+                                <div class="card-desc">The agent proposes three candidates and derives a rubric from the one you pick. You confirm the criteria read right — or adjust before it starts. <strong style="font-weight: 600;">~3 minutes of your time.</strong></div>
+                            </div>
+                            <div class="card">
+                                <div class="card-num">What it does</div>
+                                <div class="card-title">Three rounds, autonomously.</div>
+                                <div class="card-desc">Default mode runs all three rounds without mid-flight check-ins. You walk away. You come back to v3, an improvement log, and the matrix that shows exactly where each round lifted the score.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">11</div>
+                    <div>The <span style="white-space: nowrap;">3-3-3</span> Prompt</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         12 · PART 2 DEMO — APPLY <span style="white-space: nowrap;">3-3-3</span> RECURSIVELY
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 02 &nbsp;/&nbsp; Live Demo</div>
+                    <div><span style="white-space: nowrap;">3-3-3</span> The Agent We Just Ran</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Live</div>
+                        <h2 class="t-h1 stagger">Now let’s improve&nbsp;it.</h2>
+                        <p class="t-lede t-mid stagger" style="margin-top: 18px; max-width: 820px;">I’m going to point <span style="white-space: nowrap;">3-3-3</span> at the deliverable we just produced — or at one of the agent’s own files. The same method works on the artifact and on the&nbsp;agent itself.</p>
+
+                        <div class="stagger" style="margin-top: 28px; max-width: 820px; background: var(--ivory); border: 1px solid var(--border); border-left: 4px solid var(--noir); padding: 18px 22px; display: grid; grid-template-columns: 130px 1fr; gap: 24px; align-items: center;">
+                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--noir);">Today’s Demo</div>
+                            <div style="font-size: 17px; color: var(--noir); line-height: 1.5;">
+                                <span style="color: var(--stone);">Target ·</span> <strong style="font-weight: 600;">the artifact we just produced</strong>
+                                &nbsp;&nbsp;<span style="color: var(--faint);">|</span>&nbsp;&nbsp;
+                                <span style="color: var(--stone);">Advisor ·</span> <strong style="font-weight: 600;">picked from the agent’s three candidates</strong>
+                                &nbsp;&nbsp;<span style="color: var(--faint);">|</span>&nbsp;&nbsp;
+                                <span style="color: var(--stone);">Output ·</span> <strong style="font-weight: 600;">v3 + improvement log</strong>
+                            </div>
+                        </div>
+
+                        <p class="t-body t-mid stagger" style="margin-top: 24px; max-width: 820px;">Watch what happens in Round 2. Round 1 changed the surface; Round 2’s suggestions exist <em>because</em> Round 1 ran. That’s the principle in&nbsp;action.</p>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">12</div>
+                    <div>Part 02 Demo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         13 · PART 3 DIVIDER — PROJECT WRAP-UP
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-ivory">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 03</div>
+                    <div>The Project Wrap-Up</div>
+                </div>
+                <div class="rams-body center">
+                    <div class="rams-body-inner">
+                        <div class="kicker stagger">Part 03</div>
+                        <h1 class="t-display stagger" style="margin-top: 10px;">Project&nbsp;Wrap-Up.</h1>
+                        <p class="t-lede t-mid stagger" style="margin-top: 24px; max-width: 720px; margin-left: auto; margin-right: auto;">A third agent. Run it at the end of any project — including this sprint. It catalogs cost, improvements, workflows, and artifacts into a single closeout report. The work isn’t done until the wrap-up is&nbsp;run.</p>
+                        <div class="divider-meta stagger">Closing the loop is itself the&nbsp;loop.</div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">13</div>
+                    <div>Part 03 Opens</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         14 · WHAT THE WRAP-UP CATALOGS
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 03 &nbsp;/&nbsp; The Output</div>
+                    <div>Four Sections</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">What it produces</div>
+                        <h2 class="t-h2">A single <span class="mono" style="font-size: 0.85em; font-weight: 700;">wrap-up.html</span><br>in your project&nbsp;folder.</h2>
+                        <p class="t-body t-mid" style="margin-top: 8px; max-width: 760px;">Trigger phrase: <strong style="font-weight: 600;">“Run project wrap-up.”</strong> The agent scans the project folder, builds the report, and saves it next to the&nbsp;work.</p>
+
+                        <div class="cards-grid three-by-two" style="grid-template-columns: 1fr 1fr;">
+                            <div class="card stagger">
+                                <div class="card-num">Section 01</div>
+                                <div class="card-title">Embedded invoice.</div>
+                                <div class="card-desc">Before/after cost. Traditional cost of producing the same scope by hand vs. your actual investment with agents. Numbers, not adjectives.</div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Section 02</div>
+                                <div class="card-title">Improvements catalog.</div>
+                                <div class="card-desc">Every system change made during the project. New agents, edited rubrics, updated context files, new house-style rules. The receipts of the work.</div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Section 03</div>
+                                <div class="card-title">Suggested next improvements.</div>
+                                <div class="card-desc">Forward-looking. Patterns the agent observed across the project that didn’t make it into v1 but should land in v2. The seed of the next sprint.</div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Section 04</div>
+                                <div class="card-title">Workflow packaging + inventory.</div>
+                                <div class="card-desc">If a repeatable workflow emerged, it gets packaged as a new agent or template. Plus a complete inventory of every file created or modified during the project.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">14</div>
+                    <div>What It Catalogs</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         15 · CLOSING THE LOOP
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 03 &nbsp;/&nbsp; The Loop</div>
+                    <div>Wrap-Up Feeds The Next Run</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">The closed loop</div>
+                        <h2 class="t-h2">The wrap-up isn’t a report.<br>It’s the next sprint’s&nbsp;input.</h2>
+
+                        <div class="num-list">
+                            <div class="num-item stagger">
+                                <div class="n">01</div>
+                                <div class="num-body"><strong>Run an agent.</strong> The deliverable lands. You move the card from <em>Doing</em> to <em>Done.</em></div>
+                            </div>
+                            <div class="num-item stagger">
+                                <div class="n">02</div>
+                                <div class="num-body"><strong>Apply <span style="white-space: nowrap;">3-3-3</span> if the artifact warrants it.</strong> The improvement log captures what changed and why — one row per improvement.</div>
+                            </div>
+                            <div class="num-item stagger">
+                                <div class="n">03</div>
+                                <div class="num-body"><strong>Run the wrap-up at end-of-project.</strong> It pulls every improvement, every new agent, every system change into one catalog.</div>
+                            </div>
+                            <div class="num-item stagger">
+                                <div class="n">04</div>
+                                <div class="num-body"><strong>The catalog lands in your continuous-improvement file.</strong> Tier 1 improvements auto-apply. Tier 2 wait for one-line approval. Tier 3 wait for a conversation.</div>
+                            </div>
+                            <div class="num-item stagger">
+                                <div class="n">05</div>
+                                <div class="num-body"><strong>The next agent you run is better than the last one</strong> — not because you remembered, but because the system did.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">15</div>
+                    <div>Closing The Loop</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         16 · PART 3 DEMO — RUN THE WRAP-UP
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Part 03 &nbsp;/&nbsp; Live Demo</div>
+                    <div>Wrap Up The Sprint</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker">Live</div>
+                        <h2 class="t-h1 stagger">Now let’s wrap it&nbsp;up.</h2>
+                        <p class="t-lede t-mid stagger" style="margin-top: 18px; max-width: 820px;">I’ll run the project-wrap-up agent on the work we’ve done in this sprint so far. You’ll see the invoice section come together, the improvements catalog populate from the agents we built, and the suggested-next list start writing&nbsp;Day&nbsp;04.</p>
+
+                        <div class="stagger" style="margin-top: 28px; max-width: 820px; background: var(--ivory); border: 1px solid var(--border); border-left: 4px solid var(--noir); padding: 18px 22px; display: grid; grid-template-columns: 130px 1fr; gap: 24px; align-items: center;">
+                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--noir);">Today’s Demo</div>
+                            <div style="font-size: 17px; color: var(--noir); line-height: 1.5;">
+                                <span style="color: var(--stone);">Trigger ·</span> <strong style="font-weight: 600;">“Run project wrap-up.”</strong>
+                                &nbsp;&nbsp;<span style="color: var(--faint);">|</span>&nbsp;&nbsp;
+                                <span style="color: var(--stone);">Project ·</span> <strong style="font-weight: 600;">sprint-may4</strong>
+                                &nbsp;&nbsp;<span style="color: var(--faint);">|</span>&nbsp;&nbsp;
+                                <span style="color: var(--stone);">Output ·</span> <strong style="font-weight: 600;">wrap-up.html in this folder</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">16</div>
+                    <div>Part 03 Demo</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         17 · HOMEWORK + DAY 4 TEASER
+         ═══════════════════════════════════════════════════════════ -->
+    <div class="slide bg-white">
+        <div class="slide-inner">
+            <div class="rams">
+                <div class="rams-top">
+                    <div>Closing</div>
+                    <div>Homework</div>
+                </div>
+                <div class="rams-body">
+                    <div class="rams-body-inner wide">
+                        <div class="kicker stagger">Before our next session</div>
+                        <h2 class="t-h1 stagger" style="margin-top: 10px;">Your homework.</h2>
+                        <p class="t-lede t-mid stagger" style="margin-top: 16px; max-width: 720px;">Three tasks. They follow the same arc as today — run, improve, wrap&nbsp;up.</p>
+
+                        <div class="cards-grid" style="margin-top: 28px;">
+                            <div class="card stagger">
+                                <div class="card-num">Task 01</div>
+                                <div class="card-title">Run an agent end-to-end.</div>
+                                <div class="card-desc">Pick one card from your <em>Doing</em> column. Run the agent. Answer its questions in full sentences. Move the card to <em>Done</em>. <strong style="font-weight: 600;">This is Run 01 — expect it to ask a lot.</strong></div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Task 02</div>
+                                <div class="card-title">Apply <span style="white-space: nowrap;">3-3-3</span> to it.</div>
+                                <div class="card-desc">Point the <span style="white-space: nowrap;">3-3-3</span> method at the deliverable you just produced — or at the agent’s own start-here file. Pick the advisor from the three the agent proposes. Let it run. <strong style="font-weight: 600;">Bring v3 and the improvement log to next session.</strong></div>
+                            </div>
+                            <div class="card stagger">
+                                <div class="card-num">Task 03</div>
+                                <div class="card-title">Run the project wrap-up.</div>
+                                <div class="card-desc">On any one project — this sprint, a client, a personal one. Trigger phrase: <strong style="font-weight: 600;">“Run project wrap-up.”</strong> Save <span class="mono">wrap-up.html</span> in the project folder. Skim the suggested-next list before next session.</div>
+                            </div>
+                        </div>
+
+                        <!-- Day 04 teaser -->
+                        <div class="stagger" style="margin-top: 32px; padding: 18px 22px; background: var(--noir); color: var(--ivory); display: grid; grid-template-columns: 130px 1fr; gap: 24px; align-items: center;">
+                            <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,244,240,0.65);">Day 04 Preview</div>
+                            <div style="font-size: 16px; line-height: 1.5;">
+                                <strong style="font-weight: 600;">Scheduling and the swarm.</strong>
+                                <span style="color: rgba(245,244,240,0.72);"> &nbsp;Once an agent has graduated, it doesn’t need you to start it. Tomorrow we put your fleet on a schedule and point a swarm at the rest of the&nbsp;Kanban.</span>
+                            </div>
+                        </div>
+
+                        <div class="stagger" style="margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 13px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--stone);">Katie Milton Jordan &nbsp;·&nbsp; katie@katiemiltonjordan.com &nbsp;·&nbsp; katiemiltonjordan.com</div>
+                    </div>
+                </div>
+                <div class="rams-bottom">
+                    <div>AI Agent Sprint</div>
+                    <div class="folio">17</div>
+                    <div>Closing · Homework</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div><!-- /.deck -->
+
+<div class="deck-progress" id="progress" style="width: 5.88235%;"></div>
+
+<div class="deck-ui">
+    <div class="deck-counter" id="deckCounter">01 &nbsp;/&nbsp; 17</div>
+    <div class="deck-dots" id="deckDots"><button class="dot active" aria-label="Go to slide 1"></button><button class="dot" aria-label="Go to slide 2"></button><button class="dot" aria-label="Go to slide 3"></button><button class="dot" aria-label="Go to slide 4"></button><button class="dot" aria-label="Go to slide 5"></button><button class="dot" aria-label="Go to slide 6"></button><button class="dot" aria-label="Go to slide 7"></button><button class="dot" aria-label="Go to slide 8"></button><button class="dot" aria-label="Go to slide 9"></button><button class="dot" aria-label="Go to slide 10"></button><button class="dot" aria-label="Go to slide 11"></button><button class="dot" aria-label="Go to slide 12"></button><button class="dot" aria-label="Go to slide 13"></button><button class="dot" aria-label="Go to slide 14"></button><button class="dot" aria-label="Go to slide 15"></button><button class="dot" aria-label="Go to slide 16"></button><button class="dot" aria-label="Go to slide 17"></button><button class="dot" aria-label="Go to slide 1"></button><button class="dot" aria-label="Go to slide 2"></button><button class="dot" aria-label="Go to slide 3"></button><button class="dot" aria-label="Go to slide 4"></button><button class="dot" aria-label="Go to slide 5"></button><button class="dot" aria-label="Go to slide 6"></button><button class="dot" aria-label="Go to slide 7"></button><button class="dot" aria-label="Go to slide 8"></button><button class="dot" aria-label="Go to slide 9"></button><button class="dot" aria-label="Go to slide 10"></button><button class="dot" aria-label="Go to slide 11"></button><button class="dot" aria-label="Go to slide 12"></button><button class="dot" aria-label="Go to slide 13"></button><button class="dot" aria-label="Go to slide 14"></button><button class="dot" aria-label="Go to slide 15"></button><button class="dot" aria-label="Go to slide 16"></button><button class="dot" aria-label="Go to slide 17"></button></div>
+    <div class="deck-arrows">
+        <button class="deck-arrow" id="prevBtn" aria-label="Previous slide">←</button>
+        <button class="deck-arrow" id="nextBtn" aria-label="Next slide">→</button>
+    </div>
+</div>
+
+<script>
+/* ═══════════ COPY PROMPT (house style) ═══════════ */
+function copyPrompt(btn) {
+    const block = btn.closest('.prompt-block');
+    if (!block) return;
+    const pre = block.querySelector('pre');
+    if (!pre) return;
+    const text = pre.innerText;
+    const finish = () => {
+        btn.classList.add('copied');
+        btn.textContent = 'Copied';
+        setTimeout(() => {
+            btn.classList.remove('copied');
+            btn.textContent = 'Copy';
+        }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(finish, () => fallbackCopy(text, finish));
+    } else {
+        fallbackCopy(text, finish);
+    }
+}
+function fallbackCopy(text, done) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    document.body.removeChild(ta);
+}
+
+/* ═══════════ DECK NAV ═══════════ */
+(function(){
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    const dotsContainer = document.getElementById('deckDots');
+    const counter = document.getElementById('deckCounter');
+    const progress = document.getElementById('progress');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let current = 0;
+    let isAnimating = false;
+
+    /* Clean initial state */
+    slides.forEach((s, i) => {
+        s.classList.remove('active', 'exiting');
+        if (i === 0) s.classList.add('active');
+    });
+
+    /* Hash-based start */
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#slide-')) {
+        const n = parseInt(hash.replace('#slide-', ''));
+        if (n >= 1 && n <= total) {
+            current = n - 1;
+            slides[0].classList.remove('active');
+            slides[current].classList.add('active');
+        }
+    }
+
+    for (let i = 0; i < total; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === current ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+    }
+    const dots = dotsContainer.querySelectorAll('.dot');
+
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
+    function update() {
+        slides.forEach((s, i) => {
+            s.classList.remove('active', 'exiting');
+            if (i === current) s.classList.add('active');
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        counter.innerHTML = pad(current + 1) + ' &nbsp;/&nbsp; ' + pad(total);
+        progress.style.width = ((current + 1) / total * 100) + '%';
+        try { history.replaceState(null, '', '#slide-' + (current + 1)); } catch(e) {}
+    }
+
+    function goTo(i) {
+        if (isAnimating || i === current || i < 0 || i >= total) return;
+        isAnimating = true;
+        const prev = slides[current];
+        current = i;
+        prev.classList.add('exiting');
+        prev.classList.remove('active');
+        setTimeout(() => {
+            prev.classList.remove('exiting');
+            update();
+            isAnimating = false;
+        }, 500);
+    }
+
+    function next() { goTo(current + 1); }
+    function prevFn() { goTo(current - 1); }
+
+    prevBtn.addEventListener('click', prevFn);
+    nextBtn.addEventListener('click', next);
+
+    document.addEventListener('keydown', (e) => {
+        if (e.target.closest('button') || e.target.closest('a')) return;
+        if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+        if (e.key === 'ArrowLeft') { e.preventDefault(); prevFn(); }
+        if (e.key === 'Home') { goTo(0); }
+        if (e.key === 'End') { goTo(total - 1); }
+    });
+
+    update();
+})();
+</script>
+
+
+
+</body></html>

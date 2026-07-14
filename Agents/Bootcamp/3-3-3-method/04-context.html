@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-3-3 Context · Reference Specification</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --noir: #0a0a0a;
+    --stone: #8a8680;
+    --mid: #6b6b6b;
+    --light: #b0b0b0;
+    --border: #d8d4cc;
+    --wash: #f7f7f7;
+    --white: #ffffff;
+}
+body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--noir);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+}
+header.sig-line { height: 2px; background: var(--noir); }
+nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+.nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    color: var(--noir);
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover { color: var(--noir); }
+.hero {
+    padding: 6rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.hero-content { max-width: 720px; }
+.hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+}
+.hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--noir);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: italic; color: var(--stone); }
+.hero p {
+    font-size: 1rem;
+    color: var(--stone);
+    line-height: 1.8;
+    max-width: 640px;
+}
+section {
+    padding: 4.5rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.section-container { max-width: 720px; }
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 0.75rem;
+}
+section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+section .lede {
+    font-size: 0.95rem;
+    color: var(--stone);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+}
+section h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin: 2.5rem 0 0.75rem 0;
+    letter-spacing: -0.005em;
+}
+h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 1.5rem 0 0.5rem 0;
+}
+p, li { color: var(--mid); line-height: 1.7; font-size: 0.95rem; }
+ul, ol { padding-left: 1.1rem; margin: 0.6rem 0 0.5rem; }
+li { margin-bottom: 0.4rem; }
+strong { color: var(--noir); font-weight: 600; }
+em { font-style: italic; }
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 0.12rem 0.35rem;
+    border-radius: 2px;
+}
+pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 1.25rem 1.5rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.rule-card { border-top: 1px solid var(--border); padding: 1.75rem 0; }
+.rule-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin-bottom: 0.4rem;
+}
+.rule-card h5 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.005em;
+}
+.rule-card p { margin-bottom: 0.6rem; }
+.rule-group { margin-bottom: 2.5rem; }
+.rule-group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 2rem 0 0.25rem 0;
+}
+table.minimal {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.82rem;
+}
+table.minimal thead th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    padding: 0.75rem 1rem 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+table.minimal tbody td {
+    padding: 0.875rem 1rem 0.875rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--mid);
+    line-height: 1.55;
+    vertical-align: top;
+}
+table.minimal tbody td.highlight { color: var(--noir); font-weight: 600; }
+table.minimal tbody td.num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+}
+footer {
+    padding: 4.5rem 2rem 3.5rem;
+    text-align: center;
+    color: var(--light);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    font-family: 'JetBrains Mono', monospace;
+}
+footer .foot-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+footer .foot-nav a {
+    color: var(--stone);
+    text-decoration: none;
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+footer .foot-nav a:hover { color: var(--noir); }
+footer .foot-meta { color: var(--light); text-transform: uppercase; letter-spacing: 0.08em; }
+@media (max-width: 768px) {
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-top: 4rem; padding-bottom: 3rem; }
+    .hero h1 { font-size: 2rem; }
+    section h2 { font-size: 1.4rem; }
+    .nav-links { display: none; }
+    table.minimal { font-size: 0.75rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="sig-line"></header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-logo">The 3-3-3 Method · Context</div>
+        <ul class="nav-links">
+            <li><a href="#inputs">Inputs</a></li>
+            <li><a href="#taxonomy">Taxonomy</a></li>
+            <li><a href="#log">Log Format</a></li>
+            <li><a href="#patterns">Patterns</a></li>
+            <li><a href="#principles">Principles</a></li>
+            <li><a href="#quick">Reference</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Production System · Context</div>
+        <h1>The 3-3-3 Method<br><em>— Context</em></h1>
+        <p>The reference spec for what the agent operates on, what it produces, and what "good" looks like. Input requirements, the ten-category improvement taxonomy, the improvement-log format, implementation patterns, and the six core principles.</p>
+    </div>
+</div>
+
+<section id="inputs">
+    <div class="section-container">
+        <div class="section-label">Section 1 · Inputs</div>
+        <h2>What the agent operates on.</h2>
+        <p class="lede">The 3-3-3 Method operates on a single, self-contained HTML artifact. Understanding what constitutes valid input is essential to the agent's success.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Required Input</div>
+            <h5>One HTML file.</h5>
+            <p>Can be a dashboard, report, visualization, training document, marketing page, one-pager, START-HERE, or any self-contained HTML artifact. The file must be complete enough to run independently in a browser — no external dependencies beyond Google Fonts or standard libraries. JavaScript is optional — static HTML/CSS documents (training docs, marketing pages) are fully supported.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Minimum Viable Input</div>
+            <h5>What the file must contain.</h5>
+            <ul>
+                <li><strong>HTML structure</strong> — Semantic markup with meaningful sections, headers, and data containers.</li>
+                <li><strong>CSS</strong> — A working style system (variables, layout, responsive design).</li>
+                <li><strong>JavaScript (optional)</strong> — Logic that processes or displays data. Not required for static documents like training docs or marketing pages.</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Ideal Input</div>
+            <h5>A working artifact that could be significantly enhanced.</h5>
+            <p>The method works best on files that:</p>
+            <ul>
+                <li>Are functionally complete and error-free</li>
+                <li>Have a clear purpose and audience</li>
+                <li>Lack depth features (drill-down, detail views, cross-filtering)</li>
+                <li>Are missing power-user features (export, search, comparison)</li>
+                <li>Could benefit from enhanced interactivity or data storytelling</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Out of Scope</div>
+            <h5>What the method does not do.</h5>
+            <p>The 3-3-3 Method does not fix bugs, refactor architecture, or change the core data model. It adds features on top of a working foundation. If the input file has fundamental issues (broken layout, broken JavaScript logic, missing data), those must be resolved before improvement rounds can proceed.</p>
+        </div>
+    </div>
+</section>
+
+<section id="taxonomy">
+    <div class="section-container">
+        <div class="section-label">Section 2 · Taxonomy</div>
+        <h2>The ten improvement categories.</h2>
+        <p class="lede">Each category is a class of user-facing improvements that make the artifact more powerful, more accessible, or more insightful. Categories 1–3 appear in Round 1, 4–6 in Round 2, 7–10 in Round 3 — a progression of increasing complexity and decreasing user frequency.</p>
+
+        <table class="minimal">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Round</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">1</td><td class="highlight">Drill-Down & Detail</td><td>Click aggregate data and see underlying details. Click-to-drill panels, expandable rows, modal detail views.</td><td class="num">R1</td></tr>
+                <tr><td class="num">2</td><td class="highlight">Auto-Generated Narratives</td><td>Turn data into natural-language summaries that update dynamically. Executive paragraphs, insight bullets, trend narratives.</td><td class="num">R1</td></tr>
+                <tr><td class="num">3</td><td class="highlight">Sortable & Filterable Tables</td><td>Click-to-sort columns, inline filters, search-within-table, sticky headers on scroll.</td><td class="num">R1</td></tr>
+                <tr><td class="num">4</td><td class="highlight">Hierarchical Expansion</td><td>Nested organizational relationships. Manager → supervisor → site, nested tree expand/collapse.</td><td class="num">R2</td></tr>
+                <tr><td class="num">5</td><td class="highlight">Export & Portability</td><td>Copy-to-clipboard summary, print CSS, CSV/JSON export, shareable URL parameters.</td><td class="num">R2</td></tr>
+                <tr><td class="num">6</td><td class="highlight">Anomaly & Outlier Detection</td><td>Statistical flagging. 2+ SD outlier highlighting, pulsing alert dots, trend-break detection.</td><td class="num">R2</td></tr>
+                <tr><td class="num">7</td><td class="highlight">Statistical Depth</td><td>Correlation matrices, regression lines, percentile bands, distribution histograms.</td><td class="num">R3</td></tr>
+                <tr><td class="num">8</td><td class="highlight">Visual Benchmarking</td><td>Goal lines at percentiles, quadrant coloring, peer overlays, industry benchmark bands.</td><td class="num">R3</td></tr>
+                <tr><td class="num">9</td><td class="highlight">Search & Navigation</td><td>Type-ahead search, keyboard shortcuts, jump-to-section nav, highlight-on-map or in-table.</td><td class="num">R3</td></tr>
+                <tr><td class="num">10</td><td class="highlight">Cross-Component Linking</td><td>Click matrix cell → scatter updates. Filter in one view → all views sync. Coordinated interaction.</td><td class="num">R3</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Distribution across rounds.</h3>
+        <div class="rule-card">
+            <div class="rule-number">Round 1 · Categories 1–3</div>
+            <h5>Drill-Down · Narratives · Sort & Filter.</h5>
+            <p>Foundation interactivity. Let the user pull apart the data and read the story it tells.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Round 2 · Categories 4–6</div>
+            <h5>Hierarchies · Export · Anomaly Detection.</h5>
+            <p>Deepen the model. Introduce structure, portability, and statistical flagging.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Round 3 · Categories 7–10</div>
+            <h5>Statistics · Benchmarking · Search · Linking.</h5>
+            <p>Power tools. Cross-component orchestration and analytical depth that make the artifact feel professional.</p>
+        </div>
+    </div>
+</section>
+
+<section id="log">
+    <div class="section-container">
+        <div class="section-label">Section 3 · Log Format</div>
+        <h2>The improvement-log spec.</h2>
+        <p class="lede">A single HTML file — <code>improvement-log.html</code> — scaffolded at Step 0 and populated across Steps 4, 7, and 10. The canonical reference is <code>02-golden-example.html</code>. Match that structure exactly.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">File Location</div>
+            <h5>One log per run.</h5>
+            <p>Stored in the run folder:</p>
+<pre>runs/{NN}-{advisor-slug}/improvement-log.html</pre>
+        </div>
+
+        <h3>Log shape · top to bottom.</h3>
+        <p>Six ordered sections — same order every time.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">1 · Label + Title</div>
+            <h5>Who the reviewer is, what the pass is about.</h5>
+            <p><code>3-3-3 Methodology · Reviewer: {Advisor Name}</code> label, then an H1 naming the artifact and the pass (e.g., "Training Package Landing Page — Typographic Pass"), then a 1–2 sentence subtitle framing what this pass was focused on and what came before it (if stacked).</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">2 · Summary Block — "Read This First"</div>
+            <h5>Dark-background block placed before the rubric.</h5>
+            <p>Contains: label "Summary · Read this first", headline "{Advisor}-graded: {v0 avg} → {v3 avg}", a narrative paragraph (2–4 sentences) explaining where the biggest lifts landed, which dimensions moved most, and why, then 4 summary stat tiles (rubric avg lift, improvements shipped, biggest-Δ dimension, one characteristic metric like "4 → 3 active display weights"). This is the most-read block in the log, so it leads. Populated only at the very end of the run (Step 10) — written last, displayed first.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">3 · Rubric Card</div>
+            <h5>4–6 dimensions with one-line definitions.</h5>
+            <p>A single boxed block listing the 4–6 rubric dimensions the advisor is scoring against, each with a short one-line definition. This anchors all subsequent scores.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">4 · Scoring Matrix</div>
+            <h5>One table. Rows = dimensions. Columns = versions.</h5>
+            <p>Columns: <code>Baseline (v0)</code>, <code>R1 (v1)</code>, <code>R2 (v2)</code>, <code>R3 Final (v3)</code>, <code>Δ</code>. Bottom row = Average. Populated progressively: v0 at Step 1, R1 at Step 4, R2 at Step 7, R3+Δ at Step 10.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">5 · Three Round Sections</div>
+            <h5>Round 1, 2, 3 — each with 3 improvement cards.</h5>
+            <p>"Round 1 — {short theme}", "Round 2 — {short theme}", "Round 3 — {short theme}", each with a one-line sub-subtitle explaining the round's strategic focus. Under each round, 3 improvement cards (see below).</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">6 · Teach-Through-The-Framework Memo</div>
+            <h5>Required closing section. The log is a teaching artifact.</h5>
+            <p>Required closing section placed at the very bottom of the log, after the three round sections. This is where the agent teaches the user the advisor's framework through the specific edits that were just made. It must contain:</p>
+            <ul>
+                <li>A 2–3 sentence plain-English restatement of the advisor's core mental model (e.g., Rider/Elephant/Path, or 45–75ch measure, or Pains/Gains/Jobs).</li>
+                <li>For each of the 9 improvements, a one-line "What to spot next time" teaching bullet that names the pattern, the cue that should have triggered it, and the corrective move.</li>
+                <li>A 3–5 item "Self-review checklist" the user can run on future artifacts without the agent.</li>
+            </ul>
+            <p>The purpose is educational: the user should finish the log knowing <em>how the advisor sees the world</em>, not just what the agent changed. This section makes the log a teaching artifact, not just a changelog.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement Card · 9 Total</div>
+            <h5>One bordered card per improvement.</h5>
+            <ul>
+                <li><strong>imp-label</strong> — "Improvement N · {Rubric dimension touched}" (e.g., "Improvement 3 · Reading Experience")</li>
+                <li><strong>h3</strong> — One-line title of the change, stated as the decision (e.g., "Body weight 300 → 400 (readability over fashion)")</li>
+                <li><strong>Rationale paragraph</strong> — 2–4 sentences explaining why this change matters in the advisor's frame. Quote or paraphrase the advisor's principle.</li>
+                <li><strong>Before/After code grid</strong> — Two columns. Left: red-border BEFORE with the prior code. Right: green-border AFTER with the new code. Both in monospace. Keep snippets tight — just enough to show the delta.</li>
+            </ul>
+            <h4>Example card HTML (from golden example)</h4>
+<pre>&lt;div class="imp"&gt;
+  &lt;div class="imp-label"&gt;Improvement 3 · Reading Experience&lt;/div&gt;
+  &lt;h3&gt;Body weight 300 → 400 (readability over fashion)&lt;/h3&gt;
+  &lt;p&gt;Inter 300 on white is thin, low-contrast, fashionable.
+     Reichenstein: body weight exists to be read, not admired...&lt;/p&gt;
+  &lt;div class="grid"&gt;
+    &lt;div class="before"&gt;&lt;strong&gt;Before&lt;/strong&gt;body { font-weight: 300; }&lt;/div&gt;
+    &lt;div class="after"&gt;&lt;strong&gt;After&lt;/strong&gt;body { font-weight: 400; }&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Design System · Match the Golden Example</div>
+            <h5>Fonts, colors, labels — match verbatim.</h5>
+            <p><strong>Fonts:</strong> Inter (body), JetBrains Mono (labels, code, numeric cells). <strong>Colors:</strong> black (#000), white, grey scale (grey-100 → grey-700), green (#4a7c59) for AFTER/delta-positive, red (#dc2626) for BEFORE. <strong>Labels:</strong> 11px mono, 0.12em letter-spacing, uppercase, grey-500. <strong>Scoring matrix:</strong> monospace right-aligned numbers, green delta column, grey-100 Average row. <strong>Summary:</strong> black background, white text, 4-column stat grid with 32px mono stat values.</p>
+        </div>
+    </div>
+</section>
+
+<section id="patterns">
+    <div class="section-container">
+        <div class="section-label">Section 4 · Patterns</div>
+        <h2>Implementation patterns.</h2>
+        <p class="lede">The agent adds features to the HTML artifact following strict patterns. These patterns ensure new code integrates cleanly with existing code, survives filter changes, and maintains the artifact's integrity.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">CSS Pattern</div>
+            <h5>Insert before the closing <code>&lt;/style&gt;</code> tag.</h5>
+            <ul>
+                <li>Use the artifact's existing CSS variable names for colors (e.g., <code>--primary</code>, <code>--text</code>)</li>
+                <li>Add <code>@keyframes</code> for animations</li>
+                <li>Add <code>@media print</code> for print-friendly styles</li>
+                <li>Add <code>@media (max-width: 768px)</code> for responsive adjustments</li>
+                <li>Namespace new class names to avoid conflicts (e.g., <code>.drill-down-modal</code>, <code>.filter-badge</code>)</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">HTML Pattern</div>
+            <h5>Insert new sections in logical positions.</h5>
+            <ul>
+                <li>New sections go between existing sections</li>
+                <li>New controls go near their related components (e.g., a sort button near the table header)</li>
+                <li>Overlays, panels, and modals go at the end of the body, just before <code>&lt;/script&gt;</code></li>
+                <li>Preserve all existing HTML; never delete or move existing elements</li>
+                <li>Use semantic HTML (e.g., <code>&lt;button&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;dialog&gt;</code>)</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">JavaScript Pattern</div>
+            <h5>Insert before the closing <code>&lt;/script&gt;</code> tag.</h5>
+            <ul>
+                <li>Write discrete functions for each feature (e.g., <code>enableDrillDown()</code>, <code>addSearch()</code>)</li>
+                <li>Register new update functions in the master update function (called on filter change or initialization)</li>
+                <li>Add event listeners in the <code>DOMContentLoaded</code> block</li>
+                <li>Use the artifact's existing data structures — don't create parallel data stores</li>
+                <li>Reference the artifact's existing variables (e.g., <code>data</code>, <code>filteredData</code>, <code>selectedFilters</code>)</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Integration Checklist</div>
+            <h5>Verify after every feature.</h5>
+            <p>After implementing each new feature, verify: CSS added and styled correctly, HTML container/element created and positioned logically, JavaScript function written and working, function called from the master update function (or on appropriate event), event listeners registered (click, input, change, etc.), feature survives filter changes (re-called when filters update), and no console errors or warnings.</p>
+        </div>
+
+        <h3>Example · Adding a search feature.</h3>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 1 · Add CSS</div>
+            <h5>Style the search box.</h5>
+<pre>/* Search feature */
+.search-box {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}</pre>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 2 · Add HTML</div>
+            <h5>Markup for the input.</h5>
+<pre>&lt;div class="search-box"&gt;
+  &lt;input type="text" id="search" placeholder="Search..."&gt;
+&lt;/div&gt;</pre>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 3 · Add JavaScript</div>
+            <h5>Wire the listener and integrate.</h5>
+<pre>function enableSearch() {
+  const searchInput = document.getElementById('search');
+  searchInput.addEventListener('input', (e) =&gt; {
+    const query = e.target.value.toLowerCase();
+    // Filter data based on query
+    updateDisplay();
+  });
+}
+
+// In DOMContentLoaded:
+document.addEventListener('DOMContentLoaded', () =&gt; {
+  enableSearch();
+  updateDisplay();
+});</pre>
+        </div>
+    </div>
+</section>
+
+<section id="principles">
+    <div class="section-container">
+        <div class="section-label">Section 5 · Principles</div>
+        <h2>Six core principles.</h2>
+        <p class="lede">These principles ensure improvements are meaningful, user-centered, and aligned with the artifact's purpose. They keep the agent honest across every round.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Principle 01</div>
+            <h5>Rubric Before Rounds.</h5>
+            <p>Define what "better" means before suggesting improvements. An advisor-derived rubric anchors all three rounds, keeps the agent from drifting into taste-based edits, and gives the scoring matrix a measurable standard.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 02</div>
+            <h5>Action Produces Information.</h5>
+            <p>The core principle. Each round reveals opportunities invisible before. When the user clicks to drill down, sorts a table, or performs a search, they gain new information or capability. Improvements should never be decorative — they should enable the user to do or understand something new.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 03</div>
+            <h5>Surgical, Not Radical.</h5>
+            <p>Edit, don't rewrite. Preserve what works. The agent never rewrites the entire artifact, redesigns the layout, or changes the data model. It adds targeted features to the existing foundation — faster, safer, and respectful of the original design intent.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 04</div>
+            <h5>Connected, Not Siloed.</h5>
+            <p>New features should link to existing ones wherever possible. A drill-down modal should respect the current filters. A search feature should update the table. An export function should include the current selections. Siloed features feel disconnected and limit user value.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 05</div>
+            <h5>Data-Driven, Not Decorative.</h5>
+            <p>Every improvement should help the user understand the data better, not just look nicer. Colors, animations, badges, and visual effects should serve a purpose (highlighting outliers, showing state). Avoid cosmetic changes that add no information value.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 06</div>
+            <h5>Export-Ready.</h5>
+            <p>The artifact should be able to communicate its insights outside of itself. Users should be able to copy summaries, download filtered data, print reports, or share states via URL. The artifact's value extends beyond the browser window.</p>
+        </div>
+    </div>
+</section>
+
+<section id="quick">
+    <div class="section-container">
+        <div class="section-label">Quick Reference</div>
+        <h2>File structure and tracked metrics.</h2>
+        <p class="lede">The canonical on-disk shape of a run, plus the metrics the agent tracks across rounds.</p>
+
+        <h3>File structure after a full cycle.</h3>
+<pre>project-folder/
+├── artifact.html                          (original source — untouched)
+└── runs/
+    └── 01-{advisor-slug}/
+        ├── v0-baseline.html               (copy of source at run start)
+        ├── v1.html                        (after Round 1: improvements 1-3)
+        ├── v2.html                        (after Round 2: improvements 4-6)
+        ├── v3.html                        (after Round 3: improvements 7-9, final)
+        └── improvement-log.html           (rubric, scoring matrix, 9 cards, summary)
+
+# Multi-expert? Sequential stacking adds another run folder:
+    └── 02-{next-advisor-slug}/
+        ├── v0-baseline.html               (hard-copy of 01's v3.html)
+        ├── v1.html / v2.html / v3.html
+        └── improvement-log.html</pre>
+
+        <h3>Key metrics to track.</h3>
+        <div class="rule-card">
+            <div class="rule-number">Lines of Code</div>
+            <h5>BEFORE and AFTER for each round.</h5>
+            <p>HTML + CSS + JS. Record both raw line counts and the delta per round.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Features Added</div>
+            <h5>Count and name each feature per round.</h5>
+            <p>Three per round, nine total. Each named in the improvement log and mapped to a rubric dimension.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Time to Implement</div>
+            <h5>Optional; helps understand complexity.</h5>
+            <p>Track only if useful for estimating future runs. Not required for the log.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">User Impact</div>
+            <h5>Qualitative description of what the user can now do.</h5>
+            <p>One sentence per improvement, phrased from the user's point of view: "Can now drill from site totals to individual-day records in two clicks."</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-nav">
+        <a href="01-start-here.html">01 · Start Here</a>
+        <a href="02-golden-example.html">02 · Golden Example</a>
+        <a href="03-process.html">03 · Process</a>
+        <a href="04-context.html">04 · Context</a>
+        <a href="05-quality.html">05 · Quality</a>
+    </div>
+    <div class="foot-meta">3-3-3 Method · Context Specification · 2026</div>
+</footer>
+
+</body>
+</html>

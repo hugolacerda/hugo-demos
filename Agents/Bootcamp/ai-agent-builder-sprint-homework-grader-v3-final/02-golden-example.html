@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Builder Sprint Grader · Golden Example</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink:#0a0a0a; --ink-soft:#2a2a2a; --mid:#5a5a5a; --muted:#8a8a8a;
+  --faint:#b5b5b5; --rule:#e6e6e6; --paper:#ffffff; --wash:#f6f6f4;
+  --accent:#d8481f; --good:#177245; --warn:#b7791f; --bad:#b42318;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;line-height:1.55;color:var(--ink);background:var(--paper);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+header.sig-line{height:1px;background:var(--ink)}
+nav{border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:100;background:rgba(255,255,255,.94);backdrop-filter:blur(8px)}
+.nav-container{display:flex;align-items:center;justify-content:space-between;padding:1.125rem 2.5rem;max-width:1440px;margin:0 auto}
+.nav-logo{font-size:.8125rem;font-weight:600;color:var(--ink);display:flex;align-items:center;gap:.625rem}
+.nav-logo:before{content:"";width:10px;height:10px;background:var(--accent);border-radius:50%;display:inline-block}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.75rem;font-weight:500}
+.nav-links a:hover{color:var(--ink)}
+.hero{padding:6.5rem 2.5rem 5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto}
+.hero-content{display:grid;grid-template-columns:150px minmax(0,1fr);gap:3rem;max-width:1120px}
+.hero-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--accent);padding-top:1.35rem}
+.hero-label span{display:block;color:var(--muted);font-weight:500;margin-top:.5rem}
+h1{font-size:clamp(2.25rem,4.6vw,3.625rem);font-weight:650;line-height:1.02;letter-spacing:-.038em;margin-bottom:1.75rem;max-width:920px}
+.hero p{font-size:1.0625rem;color:var(--mid);max-width:760px}
+main{counter-reset:section}
+section{padding:5rem 2.5rem;border-bottom:1px solid var(--rule);max-width:1440px;margin:0 auto;counter-increment:section}
+section:last-of-type{border-bottom:none}
+.section-container{max-width:1120px}
+h2{font-size:clamp(1.625rem,2.6vw,2rem);font-weight:650;line-height:1.08;letter-spacing:-.028em;margin-bottom:1.5rem}
+h2:before{content:counter(section, decimal-leading-zero);display:block;font-size:.6875rem;font-weight:700;letter-spacing:.14em;color:var(--accent);margin-bottom:1.125rem}
+h3{font-size:1.1875rem;font-weight:650;line-height:1.2;letter-spacing:-.018em;margin:3rem 0 .875rem}
+h4{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:1.75rem 0 .625rem}
+p,li{color:var(--mid);font-size:.9375rem;line-height:1.6;letter-spacing:-.004em}
+p{margin-bottom:.875rem}
+ul,ol{margin-left:1.25rem;margin-bottom:1rem}
+li{margin-bottom:.375rem}
+strong{color:var(--ink);font-weight:650}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.8125rem;color:var(--ink);background:var(--wash);padding:.125rem .375rem;border-radius:2px}
+.rule-group,.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0 2.5rem;margin-bottom:2.5rem}
+.rule-card{border-top:1px solid var(--ink);padding:1.125rem 0 1.5rem}
+.rule-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.rule-card h5{font-size:.9375rem;font-weight:650;line-height:1.35;letter-spacing:-.012em;margin-bottom:.5rem}
+.rule-card p{font-size:.875rem}
+.data-table{width:100%;border-collapse:collapse;margin:1.25rem 0 2.5rem;font-size:.8125rem}
+.data-table th{text-align:left;padding:.75rem 1rem .75rem 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em}
+.data-table td{padding:.875rem 1rem .875rem 0;border-bottom:1px solid var(--rule);color:var(--mid);vertical-align:top;line-height:1.55}
+.data-table tr:last-child td{border-bottom:1px solid var(--ink)}
+.flow{display:flex;border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);margin:1.5rem 0 2.5rem}
+.flow-step{flex:1;padding:1.25rem 1.25rem;border-right:1px solid var(--rule);position:relative}
+.flow-step:last-child{border-right:none}
+.flow-step:not(:last-child):after{content:"→";position:absolute;right:-.55em;top:50%;transform:translateY(-50%);background:var(--paper);color:var(--accent);font-weight:700}
+.flow-number{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:.5rem}
+.flow-title{font-size:.9375rem;font-weight:650;margin-bottom:.375rem}
+.callout{background:var(--wash);border-left:3px solid var(--accent);padding:1.25rem 1.5rem;margin:1.25rem 0 2rem}
+.good{border-left-color:var(--good)} .warn{border-left-color:var(--warn)} .bad{border-left-color:var(--bad)}
+.badge{display:inline-block;font-size:.6875rem;text-transform:uppercase;letter-spacing:.12em;font-weight:700;border:1px solid var(--rule);padding:.25rem .5rem;margin-right:.375rem}
+footer{padding:4rem 2.5rem;max-width:1440px;margin:0 auto;color:var(--muted);font-size:.75rem;border-top:1px solid var(--rule);display:flex;justify-content:space-between}
+@media(max-width:900px){.hero,.section{padding:3rem 1.5rem}.hero-content{grid-template-columns:1fr;gap:1rem}.nav-links{display:none}.nav-container{padding:1rem 1.5rem}.flow{flex-direction:column}.flow-step{border-right:none;border-bottom:1px solid var(--rule)}}
+</style>
+
+</head>
+<body>
+<header class="sig-line"></header>
+
+<nav><div class="nav-container">
+<div class="nav-logo">AI Agent Builder Sprint Grader / Golden Example</div>
+<ul class="nav-links">
+<li><a href="01-start-here.html">Start Here</a></li>
+<li><a href="02-golden-example.html">Golden Example</a></li>
+<li><a href="03-process.html">Process</a></li>
+<li><a href="04-context.html">Context</a></li>
+<li><a href="05-quality.html">Quality</a></li>
+</ul>
+</div></nav>
+
+<main>
+<div class="hero"><div class="hero-content">
+<div class="hero-label">Specification<span>What done looks like</span></div>
+<div><h1>Golden Example.</h1><p>A model grading result showing how the internal instructor report and external student report should look after reviewing a Friday batch.</p></div>
+</div></div>
+
+<section id="example-input"><div class="section-container">
+<h2>Golden Example — Input Packet</h2>
+<p>This example shows what the grader should produce after reviewing a fictional Friday batch. It is the specification by example for the internal and external outputs.</p>
+<div class="callout"><p><strong>Batch:</strong> Week 1, Day 01–Day 5. <strong>Students:</strong> Avery, Morgan, Sam. <strong>Submissions:</strong> HTML files from Basecamp grouped by student and agent.</p></div>
+<table class="data-table"><thead><tr><th>Student</th><th>Agent submitted</th><th>Files present</th><th>Status</th></tr></thead><tbody>
+<tr><td>Avery</td><td>grant-scout-agent</td><td>01, 02, 03, 04, 05</td><td>Complete</td></tr>
+<tr><td>Avery</td><td>board-brief-agent</td><td>01, 03, 04, 05</td><td>Incomplete — missing 02</td></tr>
+<tr><td>Morgan</td><td>donor-followup-agent</td><td>01, 02, 03, 04, 05</td><td>Complete</td></tr>
+<tr><td>Sam</td><td>newsletter-agent</td><td>01, 02, 03, 04, 05</td><td>Complete</td></tr>
+</tbody></table>
+</div></section>
+
+<section id="internal-output"><div class="section-container">
+<h2>Golden Example — Internal Instructor HTML</h2>
+<div class="callout good"><p><strong>Recommended winners:</strong> Most Agents Built — Avery, with 1 complete eligible agent and 1 incomplete agent noted. Best Agent Built — Morgan, donor-followup-agent, 91/100.</p></div>
+<table class="data-table"><thead><tr><th>Rank</th><th>Student</th><th>Agent</th><th>Score</th><th>Eligibility</th><th>Instructor note</th></tr></thead><tbody>
+<tr><td>1</td><td>Morgan</td><td>donor-followup-agent</td><td>91</td><td>Eligible</td><td>Strongest process/context/quality alignment. Clear recurring use case.</td></tr>
+<tr><td>2</td><td>Sam</td><td>newsletter-agent</td><td>86</td><td>Eligible</td><td>Very usable; quality file needs sharper blockers.</td></tr>
+<tr><td>3</td><td>Avery</td><td>grant-scout-agent</td><td>82</td><td>Eligible</td><td>Good structure; context references inputs process never uses.</td></tr>
+<tr><td>—</td><td>Avery</td><td>board-brief-agent</td><td>Not scored</td><td>Incomplete</td><td>Missing golden example; does not count for awards.</td></tr>
+</tbody></table>
+<h3>Copy/paste announcement</h3>
+<div class="callout"><p>Congratulations to this week’s AI Agent Builder Sprint standouts. Our Most Agents Built recognition goes to Avery for consistent building momentum across the week. Our Best Agent Built recognition goes to Morgan for the donor-followup-agent, which showed the strongest combination of clear purpose, complete five-file structure, practical process logic, and deployable quality gates.</p></div>
+</div></section>
+
+<section id="external-output"><div class="section-container">
+<h2>Golden Example — External Student HTML</h2>
+<p>The external version shares recognition and learning without exposing private ranking notes, instructor concerns, or prize language.</p>
+<div class="rule-group">
+<div class="rule-card"><div class="rule-number">Morgan</div><h5>Best Agent Built</h5><p>Your donor-followup-agent showed excellent structure, clear process logic, and a strong quality file. Next improvement: make the context file even more specific about source data and required inputs.</p></div>
+<div class="rule-card"><div class="rule-number">Avery</div><h5>Most Agents Built</h5><p>You showed strong building momentum and submitted multiple agent concepts. One submission is incomplete because it is missing the golden example, so your next move is to finish the five-file package before expanding volume.</p></div>
+<div class="rule-card"><div class="rule-number">Sam</div><h5>Strong Submission</h5><p>Your newsletter-agent is complete and practical. To strengthen it, make the quality gates more objective so another AI session can judge pass/fail without guessing.</p></div>
+</div>
+</div></section>
+
+
+<section id="internal-report-template"><div class="section-container">
+<h2>Internal Report Template</h2>
+<p>Use this exact structure for the instructor-facing HTML report.</p>
+<table class="data-table"><thead><tr><th>Section</th><th>Purpose</th><th>Required content</th></tr></thead><tbody>
+<tr><td>Executive Decision Summary</td><td>Fast winner review.</td><td>Recommended winners, reason, caveats, confidence level.</td></tr>
+<tr><td>Batch Integrity Check</td><td>Trust the inputs.</td><td>Total students, total agents, complete agents, incomplete agents, ambiguous files.</td></tr>
+<tr><td>Most Agents Built Leaderboard</td><td>Quantity award.</td><td>Eligible count, incomplete count, tie-breaker status.</td></tr>
+<tr><td>Best Agent Built Leaderboard</td><td>Quality award.</td><td>Rank, student, agent, score, strongest evidence, concern.</td></tr>
+<tr><td>Individual Scorecards</td><td>Audit trail.</td><td>Gate scores, evidence, blockers, next action.</td></tr>
+<tr><td>Instructor Discretion Notes</td><td>Final judgment.</td><td>Close calls, ambiguity, recommended overrides if any.</td></tr>
+<tr><td>Copy/Paste Announcement</td><td>Public posting.</td><td>Winner names and recognition language without prize details.</td></tr>
+</tbody></table>
+</div></section>
+
+</main>
+<footer><div>AI Agent Builder Sprint Homework Grader</div><div>v1 · May 2026</div></footer>
+</body></html>

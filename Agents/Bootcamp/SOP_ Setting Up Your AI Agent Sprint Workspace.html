@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<!-- saved from url=(0107)file:///Users/katiemiltonjordan/Desktop/%23%23OPERATIONS/sop-setting-up-your-ai-agent-sprint-workspace.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOP: Setting Up Your AI Agent Sprint Workspace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="file:///Users/katiemiltonjordan/Desktop/%23%23OPERATIONS/SOP_%20Setting%20Up%20Your%20AI%20Agent%20Sprint%20Workspace_files/css2" rel="stylesheet">
+
+    <style>
+        :root {
+            --noir: #0a0a0a;
+            --ivory: #f5f4f0;
+            --white: #ffffff;
+            --stone: #8a8680;
+            --charcoal: #1a1a1a;
+            --border: #d8d4cc;
+            --claude-orange: #da7756;
+            --claude-cream: #faf6f0;
+            --blush: #e8d5cc;
+            --blush-bg: #f0ddd4;
+            --mauve: #d4b8ac;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'DM Sans', -apple-system, sans-serif;
+            background: var(--ivory);
+            color: var(--charcoal);
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* ═══ BROADSHEET HEADER ═══ */
+        .bs-top-rule { margin: 40px 80px 0; border: none; border-top: 3px solid var(--noir); }
+        .bs-masthead { margin: 0 80px; padding: 20px 0 16px; display: flex; justify-content: space-between; align-items: baseline; }
+        .bs-pub-name { font-family: 'Instrument Serif', serif; font-size: 16px; color: var(--noir); text-transform: uppercase; letter-spacing: 0.15em; }
+        .bs-edition { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--stone); letter-spacing: 0.05em; }
+        .bs-mid-rule { margin: 0 80px; border: none; border-top: 1px solid var(--border); }
+        .bs-bottom-rule { margin: 0 80px; border: none; border-top: 3px solid var(--noir); }
+
+        /* ═══ HERO ═══ */
+        .hero {
+            padding: 48px 48px 0 80px;
+            max-width: 640px;
+        }
+        .hero h1 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-size: 52px;
+            color: var(--noir);
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+        .hero-sub {
+            font-size: 18px;
+            color: var(--charcoal);
+            line-height: 1.7;
+            max-width: 540px;
+            opacity: 0.8;
+        }
+
+        /* ═══ STEP SECTION ═══ */
+        .step-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            padding: 80px 48px 80px 80px;
+            align-items: center;
+            min-height: 640px;
+        }
+
+        .step-copy {
+            max-width: 480px;
+            margin: 0 auto;
+        }
+        .step-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 12px;
+        }
+        .step-copy h2 {
+            font-family: 'Instrument Serif', serif;
+            font-weight: 400;
+            font-size: 36px;
+            color: var(--noir);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+        .step-copy p {
+            font-size: 16px;
+            color: var(--charcoal);
+            line-height: 1.7;
+            opacity: 0.8;
+            margin-bottom: 16px;
+        }
+        .step-callout {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px 16px;
+            background: var(--white);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-top: 20px;
+        }
+        .step-callout-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--claude-orange);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+        .step-callout-icon::after {
+            content: '→';
+            color: var(--white);
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .step-callout p {
+            font-size: 14px;
+            margin: 0;
+            opacity: 1;
+            color: var(--charcoal);
+        }
+
+        /* ═══ IMAGE FRAME ═══ */
+        .img-frame {
+            background: var(--blush-bg);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            min-height: 520px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .img-frame::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 280px;
+            height: 280px;
+            border: 1px solid rgba(218,119,86,0.12);
+            border-radius: 50%;
+        }
+        .img-frame::after {
+            content: '';
+            position: absolute;
+            bottom: -80px;
+            left: -40px;
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(218,119,86,0.1);
+            border-radius: 50%;
+        }
+        .img-frame .arc-deco {
+            position: absolute;
+            top: 40%;
+            left: -100px;
+            width: 340px;
+            height: 340px;
+            border: 1px solid rgba(0,0,0,0.04);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .img-frame-inner {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+
+        .img-frame.sage { background: #dde5d8; }
+        .img-frame.sage::before { border-color: rgba(100,130,90,0.12); }
+        .img-frame.sage::after { border-color: rgba(100,130,90,0.1); }
+
+        .img-frame.slate { background: #d8dde5; }
+        .img-frame.slate::before { border-color: rgba(90,110,140,0.12); }
+        .img-frame.slate::after { border-color: rgba(90,110,140,0.1); }
+
+        .img-frame.warm { background: #e5ddd8; }
+        .img-frame.warm::before { border-color: rgba(160,120,90,0.12); }
+        .img-frame.warm::after { border-color: rgba(160,120,90,0.1); }
+
+        .img-frame.lavender { background: #ddd8e5; }
+        .img-frame.lavender::before { border-color: rgba(124,111,170,0.12); }
+        .img-frame.lavender::after { border-color: rgba(124,111,170,0.1); }
+
+        /* ═══ UI CARD ═══ */
+        .ui-card {
+            background: var(--white);
+            border-radius: 14px;
+            box-shadow: 0 12px 48px rgba(0,0,0,0.10), 0 2px 4px rgba(0,0,0,0.04);
+            overflow: hidden;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* ═══ FOLDER TREE MOCK ═══ */
+        .tree { padding: 24px 20px; }
+        .tree-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .tree-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 0;
+            font-size: 13px;
+            color: var(--charcoal);
+        }
+        .tree-item.indent-1 { padding-left: 24px; }
+        .tree-item.indent-2 { padding-left: 48px; }
+        .tree-item.bold { font-weight: 500; color: var(--noir); }
+        .tree-item.muted { color: var(--stone); font-size: 12px; }
+        .tree-folder {
+            width: 14px;
+            height: 12px;
+            background: #eec87c;
+            border-radius: 2px;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .tree-folder::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: 0;
+            width: 7px;
+            height: 3px;
+            background: #eec87c;
+            border-radius: 2px 2px 0 0;
+        }
+        .tree-folder.blue { background: #7caad4; }
+        .tree-folder.blue::before { background: #7caad4; }
+        .tree-folder.green { background: #7cc47a; }
+        .tree-folder.green::before { background: #7cc47a; }
+        .tree-folder.purple { background: #a07cc4; }
+        .tree-folder.purple::before { background: #a07cc4; }
+        .tree-folder.orange { background: var(--claude-orange); }
+        .tree-folder.orange::before { background: var(--claude-orange); }
+        .tree-folder.stone { background: var(--stone); }
+        .tree-folder.stone::before { background: var(--stone); }
+        .tree-file {
+            width: 12px;
+            height: 14px;
+            background: var(--ivory);
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .tree-connector {
+            width: 16px;
+            height: 1px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        /* ═══ GAAPC CARD ═══ */
+        .gaapss-grid {
+            padding: 20px;
+        }
+        .gaapss-header {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .gaapss-row {
+            display: grid;
+            grid-template-columns: 28px 1fr;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+            align-items: start;
+        }
+        .gaapss-row:last-child { border-bottom: none; }
+        .gaapss-letter {
+            font-family: 'Instrument Serif', serif;
+            font-size: 22px;
+            color: var(--noir);
+            line-height: 1;
+        }
+        .gaapss-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--noir);
+            margin-bottom: 2px;
+        }
+        .gaapss-desc {
+            font-size: 12px;
+            color: var(--stone);
+            line-height: 1.5;
+        }
+
+        /* ═══ RESPONSIBILITY CARD ═══ */
+        .resp-card { padding: 20px; }
+        .resp-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .resp-example {
+            background: var(--ivory);
+            border-radius: 8px;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+        }
+        .resp-role {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--noir);
+            margin-bottom: 6px;
+        }
+        .resp-areas {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .resp-tag {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            background: var(--white);
+            color: var(--charcoal);
+        }
+
+        /* ═══ FLOW MOCK ═══ */
+        .flow-card { padding: 20px; }
+        .flow-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--stone);
+            margin-bottom: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+        .flow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+        }
+        .flow-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+        .flow-dot.g { background: #dde5d8; color: #4a6340; }
+        .flow-dot.a1 { background: #ddd8e5; color: #5a4a6e; }
+        .flow-dot.a2 { background: #d8dde5; color: #4a5a6e; }
+        .flow-dot.p { background: var(--blush-bg); color: #8a5040; }
+        .flow-dot.si { background: #e5e0d0; color: #6a5a40; }
+        .flow-dot.sh { background: #d8e5d8; color: #3a5a3a; }
+        .flow-text {
+            font-size: 13px;
+            color: var(--charcoal);
+            line-height: 1.4;
+        }
+        .flow-text strong { color: var(--noir); font-weight: 500; }
+        .flow-arrow {
+            width: 1px;
+            height: 12px;
+            background: var(--border);
+            margin-left: 13px;
+        }
+
+        /* ═══ CHAT MOCK ═══ */
+        .chat-card-body { padding: 14px 16px; min-height: 200px; }
+        .chat-msg { display: flex; gap: 8px; margin-bottom: 12px; }
+        .chat-avatar { width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; }
+        .chat-avatar.user { background: var(--noir); }
+        .chat-avatar.ai { background: linear-gradient(135deg, var(--claude-orange), #c4603f); }
+        .chat-bubble { max-width: 300px; }
+        .chat-bubble.user-bg { background: var(--ivory); padding: 8px 12px; border-radius: 10px 10px 10px 4px; font-size: 12px; color: var(--charcoal); line-height: 1.5; }
+        .chat-bubble.ai-text { font-size: 12px; color: var(--charcoal); line-height: 1.5; }
+        .chat-todo { background: #fafaf8; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-top: 8px; }
+        .chat-todo-title { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--stone); margin-bottom: 6px; }
+        .chat-todo-item { display: flex; align-items: center; gap: 6px; padding: 3px 0; font-size: 11px; color: var(--charcoal); }
+        .chat-todo-box { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid var(--border); flex-shrink: 0; }
+        .chat-todo-box.done { background: #28c840; border-color: #28c840; position: relative; }
+        .chat-todo-box.done::after { content: ''; position: absolute; left: 2px; top: 0px; width: 4px; height: 7px; border: solid var(--white); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); }
+        .chat-todo-box.active { border-color: var(--claude-orange); background: rgba(218,119,86,0.06); }
+
+        .cowork-card-topbar { padding: 10px 14px; border-bottom: 1px solid #eee; display: flex; align-items: center; justify-content: space-between; }
+        .cowork-card-topbar-title { font-size: 13px; font-weight: 500; color: var(--noir); }
+        .cowork-model-tag { font-size: 10px; padding: 2px 6px; border-radius: 4px; background: var(--ivory); color: var(--stone); border: 1px solid var(--border); margin-left: 6px; }
+        .cowork-card-input { padding: 10px 14px; border-top: 1px solid #eee; display: flex; align-items: center; gap: 8px; }
+        .cowork-card-input-field { flex: 1; padding: 8px 12px; border-radius: 8px; background: #fafaf8; border: 1px solid var(--border); font-size: 12px; color: var(--stone); }
+        .cowork-card-send { width: 26px; height: 26px; border-radius: 6px; background: var(--noir); display: flex; align-items: center; justify-content: center; }
+        .cowork-card-send-arrow { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-bottom: 6px solid var(--white); }
+
+        /* ═══ DIVIDER ═══ */
+        .section-divider-line {
+            max-width: 100%;
+            margin: 0 48px 0 80px;
+            border: none;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+
+        /* ═══ FOOTER ═══ */
+        .footer {
+            padding: 48px;
+            border-top: 1px solid rgba(0,0,0,0.06);
+        }
+        .footer-name { font-family: 'Instrument Serif', serif; font-size: 21px; color: var(--noir); margin-bottom: 4px; }
+        .footer-title { font-size: 14px; color: var(--stone); }
+        .footer-sig { margin-top: 14px; width: 32px; height: 1px; background: var(--stone); transform: rotate(-3deg); }
+
+        /* ═══ RESPONSIVE ═══ */
+        @media (max-width: 900px) {
+            .step-section { grid-template-columns: 1fr; gap: 32px; padding: 48px 24px; min-height: auto; }
+            .step-copy { max-width: none; padding-right: 0; }
+            .img-frame { min-height: 400px; }
+            .hero { padding: 40px 24px 0; }
+            .hero h1 { font-size: 38px; }
+            .bs-top-rule { margin: 32px 24px 0; }
+            .bs-masthead { margin: 0 24px; }
+            .bs-mid-rule { margin: 0 24px; }
+            .bs-bottom-rule { margin: 0 24px; }
+            .footer { padding: 36px 24px; }
+            .section-divider-line { margin: 0 24px; }
+        }
+
+        @media print {
+            body { background: white; }
+            .step-section { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BROADSHEET HEADER -->
+    <hr class="bs-top-rule">
+    <div class="bs-masthead">
+        <span class="bs-pub-name">Standard Operating Procedure</span>
+        <span class="bs-edition">v1.0 · February 2026</span>
+    </div>
+    <hr class="bs-mid-rule">
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>Setting Up Your AI Agent Sprint Workspace</h1>
+        <p class="hero-sub">Four steps. Fifteen minutes. Create your Operate folder, set up the value chain folders that mirror how your business operates, build the GAAPC structure inside each one, and point Claude at it. By the end you will have an organized workspace with a Chief of Staff operating system on top.</p>
+    </div>
+
+    <hr class="bs-bottom-rule" style="margin-top: 48px;">
+
+    <!-- ═══ STEP 1: CREATE YOUR OPERATE FOLDER ═══ -->
+    <section class="step-section">
+        <div class="step-copy">
+            <div class="step-num">Step 01</div>
+            <h2>Create Your Operate Folder</h2>
+            <p>Create a folder called <strong>Operate</strong> at the top level of your user directory. On Mac that is your home folder — the same level as Desktop, Documents, and Downloads. On Windows, put it inside your user folder.</p>
+            <p>This is your single workspace. Everything you do with Claude lives here. One folder, one source of truth. Do not scatter files across Desktop, Downloads, or random project folders. Operate is home base.</p>
+            <div class="step-callout">
+                <div class="step-callout-icon"></div>
+                <p>Mac: <strong>~/Operate</strong>. Windows: <strong>C:\Users\YourName\Operate</strong>. Keep it at the top level so it is easy to find.</p>
+            </div>
+        </div>
+        <div class="img-frame">
+            <div class="arc-deco"></div>
+            <div class="img-frame-inner">
+                <div class="ui-card">
+                    <div class="tree">
+                        <div class="tree-title">Your Home Folder</div>
+                        <div class="tree-item muted"><span class="tree-folder stone"></span> Desktop</div>
+                        <div class="tree-item muted"><span class="tree-folder stone"></span> Documents</div>
+                        <div class="tree-item muted"><span class="tree-folder stone"></span> Downloads</div>
+                        <div class="tree-item bold" style="background: rgba(218,119,86,0.06); margin: 4px -8px; padding: 8px; border-radius: 6px;"><span class="tree-folder orange"></span> Operate</div>
+                        <div class="tree-item muted"><span class="tree-folder stone"></span> Pictures</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider-line">
+
+    <!-- ═══ STEP 2: SET UP THE VALUE CHAIN ═══ -->
+    <section class="step-section">
+        <div class="step-copy">
+            <div class="step-num">Step 02</div>
+            <h2>Set Up the Value Chain</h2>
+            <p>As a CEO, your folders are not personal responsibilities — they are the functional areas of the business. The structure mirrors how your company actually operates, from strategy through continuous improvement.</p>
+            <p>Folder 0 is the Chief of Staff. This is the operating system — it sits on top of everything else and orients every work session. Folders 1 through 10 follow the company value chain. The numbers keep them sorted and give Claude a predictable structure to navigate.</p>
+            <div class="step-callout">
+                <div class="step-callout-icon"></div>
+                <p>Create all eleven folders. The Chief of Staff folder is where your operating rules, kanban, and session context live. Every other folder maps to a functional area of the business.</p>
+            </div>
+        </div>
+        <div class="img-frame sage">
+            <div class="arc-deco"></div>
+            <div class="img-frame-inner">
+                <div class="ui-card">
+                    <div class="resp-card">
+                        <div class="resp-title">CEO Value Chain Folders</div>
+                        <div class="resp-example">
+                            <div class="resp-role">Operating System</div>
+                            <div class="resp-areas">
+                                <span class="resp-tag" style="border-color: var(--claude-orange); background: rgba(218,119,86,0.08);">0. Chief of Staff</span>
+                            </div>
+                        </div>
+                        <div class="resp-example" style="margin-bottom: 0;">
+                            <div class="resp-role">Functional Areas</div>
+                            <div class="resp-areas">
+                                <span class="resp-tag">1. Strategy</span>
+                                <span class="resp-tag">2. Products</span>
+                                <span class="resp-tag">3. Marketing</span>
+                                <span class="resp-tag">4. Sales</span>
+                                <span class="resp-tag">5. Operations</span>
+                                <span class="resp-tag">6. IT</span>
+                                <span class="resp-tag">7. Finance</span>
+                                <span class="resp-tag">8. HR-Admin</span>
+                                <span class="resp-tag">9. Legal</span>
+                                <span class="resp-tag">10. Continuous Improvement</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider-line">
+
+    <!-- ═══ STEP 3: BUILD GAAPC INSIDE EACH ═══ -->
+    <section class="step-section">
+        <div class="step-copy">
+            <div class="step-num">Step 03</div>
+            <h2>Build GAAPC Inside Each One</h2>
+            <p>Every responsibility folder gets the same five subfolders. The mnemonic is <strong>GAAPC</strong>. This structure separates what you are trying to achieve from how you do the work from the work itself.</p>
+            <p><strong>Goals</strong> — what you are trying to achieve in this area. <strong>Advisors</strong> — strategic guidance for how to think about this domain. <strong>Agents</strong> — repeatable processes and SOPs. <strong>Projects</strong> — the actual work, each in its own folder. <strong>Context</strong> — reference material, data, background, signal, and shipped work.</p>
+            <div class="step-callout">
+                <div class="step-callout-icon"></div>
+                <p>You do not need to fill every subfolder on day one. The structure is the scaffold. The content builds over time as you work.</p>
+            </div>
+        </div>
+        <div class="img-frame lavender">
+            <div class="arc-deco"></div>
+            <div class="img-frame-inner">
+                <div class="ui-card">
+                    <div class="gaapss-grid">
+                        <div class="gaapss-header">GAAPC — Inside Every Responsibility</div>
+                        <div class="gaapss-row">
+                            <div class="gaapss-letter">G</div>
+                            <div>
+                                <div class="gaapss-name">Goals</div>
+                                <div class="gaapss-desc">The "why" — what you are trying to achieve</div>
+                            </div>
+                        </div>
+                        <div class="gaapss-row">
+                            <div class="gaapss-letter">A</div>
+                            <div>
+                                <div class="gaapss-name">Advisors</div>
+                                <div class="gaapss-desc">Strategic guidance — how to think about this domain</div>
+                            </div>
+                        </div>
+                        <div class="gaapss-row">
+                            <div class="gaapss-letter">A</div>
+                            <div>
+                                <div class="gaapss-name">Agents</div>
+                                <div class="gaapss-desc">Repeatable processes — SOPs and workflows</div>
+                            </div>
+                        </div>
+                        <div class="gaapss-row">
+                            <div class="gaapss-letter">P</div>
+                            <div>
+                                <div class="gaapss-name">Projects</div>
+                                <div class="gaapss-desc">The work — each task gets its own folder</div>
+                            </div>
+                        </div>
+                        <div class="gaapss-row">
+                            <div class="gaapss-letter">C</div>
+                            <div>
+                                <div class="gaapss-name">Context</div>
+                                <div class="gaapss-desc">Reference material — data, background, signal, shipped work</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider-line">
+
+    <!-- ═══ STEP 4: THE FULL PICTURE ═══ -->
+    <section class="step-section">
+        <div class="step-copy">
+            <div class="step-num">Step 04</div>
+            <h2>See the Full Picture</h2>
+            <p>Here is what your Operate folder looks like when it is set up. The Chief of Staff folder sits at position zero — the operating system that orients every session. Below it, each functional area contains the full GAAPC structure.</p>
+            <p>When you point Claude at this folder in Cowork, it can navigate the entire business. It knows where to save project files, where to find your SOPs, and where to look for context. The structure does the thinking for you.</p>
+            <div class="step-callout">
+                <div class="step-callout-icon"></div>
+                <p>Point Claude at your Operate folder in Cowork. Start every session by telling Claude to read the Chief of Staff file. This is step 4 of the Getting Started SOP.</p>
+            </div>
+        </div>
+        <div class="img-frame warm">
+            <div class="arc-deco"></div>
+            <div class="img-frame-inner">
+                <div class="ui-card">
+                    <div class="tree">
+                        <div class="tree-title">Operate — CEO Value Chain</div>
+                        <div class="tree-item bold"><span class="tree-folder orange"></span> Operate</div>
+                        <div class="tree-item indent-1 bold" style="background: rgba(218,119,86,0.06); margin: 4px -8px; padding: 6px 8px; border-radius: 6px;"><span class="tree-folder orange"></span> 0. Chief of Staff</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-file"></span> chief-of-staff.html</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-file"></span> kanban.html</div>
+                        <div class="tree-item indent-1 bold"><span class="tree-folder blue"></span> 1. Strategy</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-folder"></span> Goals</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-folder"></span> Advisors</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-folder"></span> Agents</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-folder"></span> Projects</div>
+                        <div class="tree-item indent-2 muted"><span class="tree-folder"></span> Context</div>
+                        <div class="tree-item indent-1 bold"><span class="tree-folder green"></span> 2. Products</div>
+                        <div class="tree-item indent-2 muted" style="color: var(--border);">... same GAAPC structure</div>
+                        <div class="tree-item indent-1 bold"><span class="tree-folder purple"></span> 3. Marketing</div>
+                        <div class="tree-item indent-2 muted" style="color: var(--border);">... same GAAPC structure</div>
+                        <div class="tree-item indent-1 muted"><span class="tree-folder stone"></span> 4. Sales → 10. Continuous Improvement</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider-line">
+
+    <!-- ═══ STEP 5: HOW TO USE IT ═══ -->
+    <section class="step-section">
+        <div class="step-copy">
+            <div class="step-num">Step 05</div>
+            <h2>How the Folders Work Day to Day</h2>
+            <p>Every time you start a new task in Cowork, Claude creates a project folder inside the right responsibility area. The project lives there from start to finish.</p>
+            <p>Over time, the pattern compounds. Goals tell Claude what matters. Advisors tell it how to think. Agents give it repeatable processes. Projects are where the work happens. Context feeds background, signal, and shipped work back in.</p>
+            <div class="step-callout">
+                <div class="step-callout-icon"></div>
+                <p>The folders are empty scaffolding on day one. By week four they are full of context that makes every new project faster.</p>
+            </div>
+        </div>
+        <div class="img-frame slate">
+            <div class="arc-deco"></div>
+            <div class="img-frame-inner">
+                <div class="ui-card">
+                    <div class="flow-card">
+                        <div class="flow-title">How GAAPC Flows</div>
+                        <div class="flow-steps">
+                            <div class="flow-step">
+                                <div class="flow-dot g">G</div>
+                                <div class="flow-text"><strong>Goals</strong> — "Increase qualified leads by 30%"</div>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step">
+                                <div class="flow-dot a1">A</div>
+                                <div class="flow-text"><strong>Advisors</strong> — strategic thinking on lead gen</div>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step">
+                                <div class="flow-dot a2">A</div>
+                                <div class="flow-text"><strong>Agents</strong> — SOP for running a campaign</div>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step">
+                                <div class="flow-dot p">P</div>
+                                <div class="flow-text"><strong>Projects</strong> — "february-linkedin-campaign/"</div>
+                            </div>
+                            <div class="flow-arrow"></div>
+                            <div class="flow-step">
+                                <div class="flow-dot si">C</div>
+                                <div class="flow-text"><strong>Context</strong> — audience data, brand guidelines, shipped work</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="section-divider-line">
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-name">Katie Milton Jordan</div>
+        <div class="footer-title">Standard Operating Procedure · Internal · v1.0 · February 2026</div>
+        <div class="footer-sig"></div>
+    </footer>
+
+
+</body></html>

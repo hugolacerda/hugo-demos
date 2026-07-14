@@ -1,2 +1,55 @@
 _kb/
 KB_*.md
+
+# --- Agents/ (SBV Agent Fleet) -----------------------------------------
+# This folder handles real client financial data. Nothing containing a real
+# client's figures, name, or business details may be tracked. Keep the
+# folder skeletons via .gitkeep; ignore everything placed inside them.
+
+# Operator-dropped source files and agent-generated outputs — always real
+# client data once an engagement runs.
+Agents/**/inputs/*
+!Agents/**/inputs/.gitkeep
+Agents/**/outputs/*
+!Agents/**/outputs/.gitkeep
+
+# Golden examples need manual sanitization before they're safe to track.
+# This is a default-safe gate, not an automatic exclude-forever — once a
+# specific file is sanitized it can be force-added deliberately.
+Agents/**/02-golden-examples/*
+!Agents/**/02-golden-examples/.gitkeep
+
+# Known naming deviation (see Agents/CLAUDE.md "Five-file structure"): these
+# three agents use a *file* named 02-golden-example(s).md instead of a
+# 02-golden-examples/ folder, so the wildcard rule above doesn't reach them.
+# Each one was confirmed during inventory to contain real client data
+# (real names and/or real financial figures) and must stay untracked until
+# individually sanitized.
+Agents/01-Foundation/SBV-Intake/02-golden-example.md
+Agents/01-Foundation/SBV-Observations/02-golden-examples.md
+Agents/02-Assembly/SBV-VB-Summary/02-golden-examples.md
+
+# Shared source docs, per-engagement working folders, final client
+# deliverables, and internal analysis logs — all real client content.
+Agents/ExampleDocuments/
+Agents/Engagements/
+Agents/Deliverables/
+Agents/_session-logs/
+
+# Flagged in the June 2026 pre-commit audit: real client/business names or
+# real financial figures embedded directly in otherwise-trackable files, or
+# unverified content. Excluded pending a manual redaction pass.
+Agents/Combined Documents.pdf
+Agents/Combined Documents 2.pdf
+Agents/Bootcamp/*.mp4
+Agents/00-chief-of-staff/chief-of-staff.md
+Agents/00-chief-of-staff/agent-registry.md
+Agents/02-Assembly/SBV-Earnings-Value/01-start-here.md
+Agents/02-Assembly/SBV-Earnings-Value/03-process.md
+Agents/02-Assembly/SBV-Earnings-Value/04-context.md
+Agents/02-Assembly/SBV-Report-Narrative/01-start-here.md
+Agents/02-Assembly/SBV-Report-Narrative/03-process.md
+Agents/02-Assembly/SBV-Report-Narrative/04-context.md
+
+# macOS clutter picked up while browsing these folders.
+Agents/**/.DS_Store

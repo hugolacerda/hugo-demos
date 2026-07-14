@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-3-3 Quality · Gates & Rubric</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --noir: #0a0a0a;
+    --stone: #8a8680;
+    --mid: #6b6b6b;
+    --light: #b0b0b0;
+    --border: #d8d4cc;
+    --wash: #f7f7f7;
+    --white: #ffffff;
+}
+body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--noir);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+}
+header.sig-line { height: 2px; background: var(--noir); }
+nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+.nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    color: var(--noir);
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover { color: var(--noir); }
+.hero {
+    padding: 6rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.hero-content { max-width: 720px; }
+.hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+}
+.hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--noir);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: italic; color: var(--stone); }
+.hero p {
+    font-size: 1rem;
+    color: var(--stone);
+    line-height: 1.8;
+    max-width: 640px;
+}
+section {
+    padding: 4.5rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.section-container { max-width: 720px; }
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 0.75rem;
+}
+section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+section .lede {
+    font-size: 0.95rem;
+    color: var(--stone);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+}
+section h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin: 2.75rem 0 0.75rem 0;
+    letter-spacing: -0.005em;
+}
+h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 1.5rem 0 0.5rem 0;
+}
+p, li { color: var(--mid); line-height: 1.7; font-size: 0.95rem; }
+ul, ol { padding-left: 1.1rem; margin: 0.6rem 0 0.5rem; }
+li { margin-bottom: 0.4rem; }
+strong { color: var(--noir); font-weight: 600; }
+em { font-style: italic; }
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 0.12rem 0.35rem;
+    border-radius: 2px;
+}
+pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 1.25rem 1.5rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.note-card {
+    background: var(--wash);
+    border-left: 2px solid var(--noir);
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+}
+.note-card .note-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin-bottom: 0.35rem;
+}
+.note-card p { color: var(--mid); font-size: 0.9rem; line-height: 1.65; margin: 0; }
+.rule-card { border-top: 1px solid var(--border); padding: 1.75rem 0; }
+.rule-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin-bottom: 0.4rem;
+}
+.rule-card h5 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.005em;
+}
+.rule-card p { margin-bottom: 0.6rem; }
+.rule-group { margin-bottom: 2.5rem; }
+.rule-group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 2rem 0 0.25rem 0;
+}
+table.minimal {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.82rem;
+}
+table.minimal thead th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    padding: 0.75rem 1rem 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+table.minimal tbody td {
+    padding: 0.875rem 1rem 0.875rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--mid);
+    line-height: 1.55;
+    vertical-align: top;
+}
+table.minimal tbody td.highlight { color: var(--noir); font-weight: 600; }
+table.minimal tbody td.num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+}
+.checklist { list-style: none; padding-left: 0; margin: 1rem 0; }
+.checklist li {
+    padding: 0.55rem 0 0.55rem 1.75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    color: var(--mid);
+    font-size: 0.9rem;
+}
+.checklist li:before {
+    content: "□";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--stone);
+    font-family: 'JetBrains Mono', monospace;
+}
+.checklist li:last-child { border-bottom: 1px solid var(--border); }
+.threshold-block {
+    background: var(--noir);
+    color: var(--white);
+    padding: 2rem 2.25rem;
+    margin: 2rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+.threshold-block .threshold-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 0.4rem;
+}
+.threshold-block .threshold-text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.2rem;
+    color: var(--white);
+    line-height: 1.3;
+}
+.threshold-block .threshold-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--white);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+}
+footer {
+    padding: 4.5rem 2rem 3.5rem;
+    text-align: center;
+    color: var(--light);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    font-family: 'JetBrains Mono', monospace;
+}
+footer .foot-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+footer .foot-nav a {
+    color: var(--stone);
+    text-decoration: none;
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+footer .foot-nav a:hover { color: var(--noir); }
+footer .foot-meta { color: var(--light); text-transform: uppercase; letter-spacing: 0.08em; }
+@media (max-width: 768px) {
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-top: 4rem; padding-bottom: 3rem; }
+    .hero h1 { font-size: 2rem; }
+    section h2 { font-size: 1.4rem; }
+    .nav-links { display: none; }
+    table.minimal { font-size: 0.75rem; }
+    .threshold-block { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="sig-line"></header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-logo">The 3-3-3 Method · Quality</div>
+        <ul class="nav-links">
+            <li><a href="#gates">Gates</a></li>
+            <li><a href="#rubric">Rubric</a></li>
+            <li><a href="#verify">Verification</a></li>
+            <li><a href="#scoring">Scoring Guide</a></li>
+            <li><a href="#quick">Reference</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Production System · Quality</div>
+        <h1>The 3-3-3 Method<br><em>— Quality</em></h1>
+        <p>Gates, scoring rubric, and the verification checklist that decides whether a run is production-quality. All nine gates must pass, and the weighted rubric must score at least 80/100.</p>
+    </div>
+</div>
+
+<section id="gates">
+    <div class="section-container">
+        <div class="section-label">Section 1 · Gate Checks</div>
+        <h2>Nine pass/fail gates.</h2>
+        <p class="lede">All gates must pass. Failure on any gate blocks progression. Gates run at specific moments across the 11-step loop — before, during, and after each round.</p>
+
+        <div class="note-card">
+            <div class="note-label">Two Rubrics in Play</div>
+            <p>Step 1 creates a project-specific success rubric for the artifact being improved. This file contains the production-quality rubric for whether the agent executed the 3-3-3 method well. Both matter.</p>
+        </div>
+
+        <table class="minimal">
+            <thead>
+                <tr>
+                    <th>Gate</th>
+                    <th>Name</th>
+                    <th>Check</th>
+                    <th>When</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">G0</td><td class="highlight">Rubric Defined + Advisor File Exists</td><td>An advisor-derived rubric exists before suggestions begin, AND the advisor file exists in the domain <code>Advisors/</code> folder (e.g. <code>3. Marketing/2. Advisors/miller-storybrand-advisor.html</code>). If the advisor file is missing at Step 0, the agent must create it before continuing — no exceptions. The improvement log references the rubric in every round's scoring matrix column.</td><td>Before Step 2; again at Step 10</td></tr>
+                <tr><td class="num">G1</td><td class="highlight">File Integrity</td><td>Target HTML file opens in a browser without errors. No unclosed tags, no JavaScript syntax errors.</td><td>After Steps 3, 6, 9</td></tr>
+                <tr><td class="num">G2</td><td class="highlight">Feature Count</td><td>Each round adds exactly 3 features. No more, no fewer.</td><td>After Steps 3, 6, 9</td></tr>
+                <tr><td class="num">G3</td><td class="highlight">Integration Verified</td><td>Every new function is called from the master update function or its equivalent. New features respond to filter changes.</td><td>After Steps 3, 6, 9</td></tr>
+                <tr><td class="num">G4</td><td class="highlight">Log Round Populated</td><td>A properly formatted improvement-log HTML file exists for each completed round.</td><td>After Steps 4, 7, 10</td></tr>
+                <tr><td class="num">G5</td><td class="highlight">Comparison Accuracy</td><td>Line counts in the improvement log match the actual file. Feature descriptions match what was implemented. Rubric scoring reflects the current artifact honestly.</td><td>After Steps 4, 7, 10</td></tr>
+                <tr><td class="num">G6</td><td class="highlight">No Regression</td><td>Pre-existing features still work after each round. Existing charts render, filters apply, click handlers fire.</td><td>After Steps 3, 6, 9</td></tr>
+                <tr><td class="num">G7</td><td class="highlight">Targeted Edits Only</td><td>No full-file rewrites occurred. Changes are additive (CSS added, HTML inserted, JS functions appended, integration points updated).</td><td>After Steps 3, 6, 9</td></tr>
+                <tr><td class="num">G8</td><td class="highlight">Round Progression</td><td>Each round's improvements are informed by the previous round. Round 2 suggestions reference what Round 1 revealed. Round 3 builds on both.</td><td>After Steps 5, 8</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="rubric">
+    <div class="section-container">
+        <div class="section-label">Section 2 · Weighted Rubric</div>
+        <h2>Scored out of 100 points.</h2>
+        <p class="lede">Three bands — Implementation, Documentation, Method Adherence — totaling 100 points. Pass threshold is 80/100.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Band 1 · Implementation</div>
+            <h5>Implementation Quality — 40 points max · Q1–Q4.</h5>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Band 2 · Documentation</div>
+            <h5>Documentation Quality — 30 points max · Q5–Q8.</h5>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Band 3 · Adherence</div>
+            <h5>Method Adherence — 30 points max · Q9–Q11.</h5>
+        </div>
+
+        <h3>Implementation Quality · 40 pts.</h3>
+        <table class="minimal">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Check</th>
+                    <th>Pts</th>
+                    <th>Criteria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">Q1</td><td class="highlight">Feature Depth</td><td class="num">15</td><td>Each improvement is substantive, not cosmetic. <strong>15</strong>=all 3 add real analytical or navigational capability. <strong>10</strong>=2 substantive, 1 minor. <strong>5</strong>=mostly cosmetic. <strong>0</strong>=no real value added.</td></tr>
+                <tr><td class="num">Q2</td><td class="highlight">Code Integration</td><td class="num">10</td><td>New features are properly wired into existing architecture. <strong>10</strong>=all use existing data structures, respect filter state, integrate with master update. <strong>5</strong>=some features work independently of filters. <strong>0</strong>=disconnected islands.</td></tr>
+                <tr><td class="num">Q3</td><td class="highlight">Cross-Component Linking</td><td class="num">10</td><td>Features connect to each other and to existing components. <strong>10</strong>=multiple click-through paths between components. <strong>5</strong>=some linking. <strong>0</strong>=all features siloed.</td></tr>
+                <tr><td class="num">Q4</td><td class="highlight">Error Handling</td><td class="num">5</td><td>Features handle empty data, missing values, edge cases. <strong>5</strong>=graceful degradation. <strong>3</strong>=mostly handles edges. <strong>0</strong>=breaks on empty data.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Documentation Quality · 30 pts.</h3>
+        <table class="minimal">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Check</th>
+                    <th>Pts</th>
+                    <th>Criteria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">Q5</td><td class="highlight">Comparison Specificity</td><td class="num">10</td><td>Before/after descriptions are concrete (function names, line counts, specific behaviors). <strong>10</strong>=precise and verifiable. <strong>5</strong>=somewhat vague. <strong>0</strong>=generic hand-waving.</td></tr>
+                <tr><td class="num">Q6</td><td class="highlight">Impact Articulation</td><td class="num">10</td><td>Each improvement's Impact statement explains user-facing value in terms of what decision or action the user can now take. <strong>10</strong>=actionable insights. <strong>5</strong>=theoretical benefits. <strong>0</strong>=no impact statements.</td></tr>
+                <tr><td class="num">Q7</td><td class="highlight">Cumulative Narrative</td><td class="num">10</td><td>The closing summary includes a coherent narrative of the full transformation arc and the final advisor-rubric scoring matrix (v0→v3→Δ). <strong>10</strong>=tells the story of where lifts landed and why, matching the golden example. <strong>5</strong>=lists stats only. <strong>0</strong>=missing.</td></tr>
+                <tr><td class="num">Q8</td><td class="highlight">Teach-Through-The-Framework Memo</td><td class="num">10</td><td>After the Summary Block, the log includes a teaching memo restating the advisor's mental model, giving a "what to spot next time" bullet for each of the 9 improvements (pattern + cue + corrective move), and closing with a 3–5 item self-review checklist. The user should leave knowing <em>how the advisor sees the world</em>. <strong>10</strong>=full memo. <strong>5</strong>=partial. <strong>0</strong>=missing.</td></tr>
+            </tbody>
+        </table>
+
+        <h3>Method Adherence · 30 pts.</h3>
+        <table class="minimal">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Check</th>
+                    <th>Pts</th>
+                    <th>Criteria</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">Q9</td><td class="highlight">Round Distinctiveness</td><td class="num">10</td><td>Each round has a distinct character (Round 1=foundation, Round 2=deepening, Round 3=polish). <strong>10</strong>=clear progression in sophistication. <strong>5</strong>=some overlap. <strong>0</strong>=all rounds suggest similar improvements.</td></tr>
+                <tr><td class="num">Q10</td><td class="highlight">Informed by Previous Round</td><td class="num">10</td><td>Round 2 and 3 suggestions explicitly reference what the previous round enabled or revealed. <strong>10</strong>=clear causal chain. <strong>5</strong>=some references. <strong>0</strong>=rounds are independent.</td></tr>
+                <tr><td class="num">Q11</td><td class="highlight">Category Coverage</td><td class="num">10</td><td>Across all 9 improvements, at least 5 different taxonomy categories are represented. <strong>10</strong>=6+ categories. <strong>7</strong>=5 categories. <strong>5</strong>=4 categories. <strong>3</strong>=3 categories. <strong>0</strong>=fewer than 3.</td></tr>
+            </tbody>
+        </table>
+
+        <div class="threshold-block">
+            <div>
+                <div class="threshold-label">Pass Threshold</div>
+                <div class="threshold-text">All 9 gates pass + score ≥ 80/100 to advance.</div>
+            </div>
+            <div class="threshold-num">80 / 100 MIN</div>
+        </div>
+    </div>
+</section>
+
+<section id="verify">
+    <div class="section-container">
+        <div class="section-label">Section 3 · Per-Round Verification</div>
+        <h2>Run after each round.</h2>
+        <p class="lede">After Steps 3, 6, and 9 — the three implementation points — run this eight-item checklist before writing the improvement log.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Post-Implementation Checklist</div>
+            <h5>Eight checks after Steps 3, 6, 9.</h5>
+            <ul class="checklist">
+                <li>Count total lines and compare to pre-round count</li>
+                <li>Verify all new functions exist (grep for function names)</li>
+                <li>Verify master update function calls new update functions</li>
+                <li>Verify <code>DOMContentLoaded</code> block includes new event listeners</li>
+                <li>Verify no JavaScript syntax errors (check for unclosed braces, missing semicolons)</li>
+                <li>Verify new CSS doesn't conflict with existing styles</li>
+                <li>Verify new HTML elements have proper IDs referenced by JavaScript</li>
+                <li>Quick functional check: Do filters still cause all components to update?</li>
+            </ul>
+        </div>
+
+        <div class="note-card">
+            <div class="note-label">Tip</div>
+            <p>Run this checklist immediately after implementing features and again after the improvement log is written. A quick 2-minute pass can catch integration issues before moving to the next round.</p>
+        </div>
+    </div>
+</section>
+
+<section id="scoring">
+    <div class="section-container">
+        <div class="section-label">Section 4 · Scoring Guide</div>
+        <h2>What the score means.</h2>
+        <p class="lede">Use the rubric above to assign points. Sum all scores (Implementation + Documentation + Method Adherence). The threshold for production quality is 80/100.</p>
+
+        <div class="note-card">
+            <div class="note-label">Important</div>
+            <p>This 80/100 threshold judges whether <strong>the agent executed the method well</strong>. Separately, the Step 1 project rubric judges whether <strong>the artifact actually got better</strong> in the ways the user cares about. Don't conflate the two.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">90–100 · Exceptional</div>
+            <h5>Compelling transformation story.</h5>
+            <p>All improvements are deeply integrated, cross-linked, and the improvement log tells a compelling transformation story. The artifact is dramatically more powerful. Every gate passes with high confidence. Documentation is detailed and narrative-driven.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">80–89 · Strong</div>
+            <h5>Solid, well-integrated, minor gaps.</h5>
+            <p>Improvements are solid, well-integrated, and documented. Minor gaps in linking or coverage. All gates pass. Comparison files are clear and specific. Some features may lack cross-component relationships, but the overall arc is clear.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">70–79 · Adequate</div>
+            <h5>Works but disconnected or thin.</h5>
+            <p>Improvements work but some feel disconnected or the documentation is thin. Most gates pass. May have minor regressions or features that don't respond to filter changes. Comparison files exist but lack detail or narrative coherence.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Below 70 · Needs Rework</div>
+            <h5>Gates fail, integration issues, vague docs.</h5>
+            <p>Features may be cosmetic, poorly integrated, or documentation doesn't accurately reflect changes. One or more gates fail. Integration issues prevent filters from triggering updates on new components. Comparison files are missing, inaccurate, or vague.</p>
+        </div>
+
+        <div class="note-card">
+            <div class="note-label">When a Round Scores Below 80</div>
+            <p>Do not advance to the next round. Rework the failing components, re-test the gates, and rescore. The 3-3-3 method is predicated on building strong foundations; weak rounds create cascading issues downstream.</p>
+        </div>
+    </div>
+</section>
+
+<section id="quick">
+    <div class="section-container">
+        <div class="section-label">Quick Reference</div>
+        <h2>Gate and rubric acronyms.</h2>
+        <p class="lede">The at-a-glance summary you'll reach for during a live run.</p>
+
+        <h3>Gate acronyms.</h3>
+        <div class="rule-card">
+            <div class="rule-number">G0 · Rubric + Advisor Library Gate</div>
+            <h5>Before Step 2 and again in Step 10.</h5>
+            <p>Ensures the project-specific rubric exists, is used throughout the run, AND that the advisor file exists in the domain <code>Advisors/</code> folder. If the advisor file is missing, the agent must create it in Step 0 before deriving the rubric. This makes the methodology reusable across future runs instead of living only in this run's log.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">G1–G7 · Implementation Gates</div>
+            <h5>Check after each round's implementation.</h5>
+            <p>Run after Steps 3, 6, and 9. All must pass before moving forward.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">G8 · Progression Gate</div>
+            <h5>Check after suggestion phases.</h5>
+            <p>Run after Steps 5 and 8. Ensures each round builds on the previous one.</p>
+        </div>
+
+        <h3>Rubric acronyms.</h3>
+        <div class="rule-card">
+            <div class="rule-number">Q1–Q4 · 40 pts · Implementation Quality</div>
+            <h5>Substantive, integrated, cross-linked, robust.</h5>
+            <p>Measures whether new code is substantive, integrated, cross-linked, and robust.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Q5–Q8 · 30 pts · Documentation Quality</div>
+            <h5>Detailed, impactful, teaches the framework.</h5>
+            <p>Measures whether the improvement log is detailed, impactful, and tells a coherent story — including the Teach-Through-The-Framework memo.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Q9–Q11 · 30 pts · Method Adherence</div>
+            <h5>Distinct, informed, and covers the taxonomy.</h5>
+            <p>Measures whether each round is distinct, informed by the previous, and represents coverage of the taxonomy.</p>
+        </div>
+
+        <div class="note-card">
+            <div class="note-label">Passing Criteria</div>
+            <p><strong>All 9 gates must pass AND quality rubric score ≥ 80/100</strong> to advance to the next round or declare the project complete.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-nav">
+        <a href="01-start-here.html">01 · Start Here</a>
+        <a href="02-golden-example.html">02 · Golden Example</a>
+        <a href="03-process.html">03 · Process</a>
+        <a href="04-context.html">04 · Context</a>
+        <a href="05-quality.html">05 · Quality</a>
+    </div>
+    <div class="foot-meta">3-3-3 Method · Quality Framework · 2026</div>
+</footer>
+
+</body>
+</html>

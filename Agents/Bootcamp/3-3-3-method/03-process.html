@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-3-3 Process · Eleven Steps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+    --noir: #0a0a0a;
+    --stone: #8a8680;
+    --mid: #6b6b6b;
+    --light: #b0b0b0;
+    --border: #d8d4cc;
+    --wash: #f7f7f7;
+    --white: #ffffff;
+}
+body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--noir);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+}
+header.sig-line { height: 2px; background: var(--noir); }
+nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+}
+.nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1rem;
+    color: var(--noir);
+}
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+}
+.nav-links a {
+    text-decoration: none;
+    color: var(--light);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover { color: var(--noir); }
+.hero {
+    padding: 6rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.hero-content { max-width: 720px; }
+.hero-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 1.5rem;
+}
+.hero h1 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 2.75rem;
+    font-weight: 400;
+    line-height: 1.15;
+    color: var(--noir);
+    margin-bottom: 1.25rem;
+    letter-spacing: -0.01em;
+}
+.hero h1 em { font-style: italic; color: var(--stone); }
+.hero p {
+    font-size: 1rem;
+    color: var(--stone);
+    line-height: 1.8;
+    max-width: 640px;
+}
+section {
+    padding: 4.5rem 4rem 4.5rem 8%;
+    border-bottom: 1px solid var(--border);
+}
+.section-container { max-width: 720px; }
+.section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    margin-bottom: 0.75rem;
+}
+section h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.75rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 1rem;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+}
+section .lede {
+    font-size: 0.95rem;
+    color: var(--stone);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+}
+section h3 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin: 2.5rem 0 0.75rem 0;
+}
+h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 1.5rem 0 0.5rem 0;
+}
+p, li { color: var(--mid); line-height: 1.7; font-size: 0.95rem; }
+ul, ol { padding-left: 1.1rem; margin: 0.6rem 0 0.5rem; }
+li { margin-bottom: 0.4rem; }
+strong { color: var(--noir); font-weight: 600; }
+em { font-style: italic; }
+code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 0.12rem 0.35rem;
+    border-radius: 2px;
+}
+pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--noir);
+    background: var(--wash);
+    padding: 1.25rem 1.5rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 0.75rem 0;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.rule-card { border-top: 1px solid var(--border); padding: 1.75rem 0; }
+.rule-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin-bottom: 0.4rem;
+}
+.rule-card h5 {
+    font-family: 'Instrument Serif', serif;
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--noir);
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.005em;
+}
+.rule-card p { margin-bottom: 0.6rem; }
+.rule-card .tagline {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: var(--stone);
+    margin-bottom: 0.75rem;
+}
+.rule-card .outcome {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--noir);
+    margin-top: 0.9rem;
+    padding-top: 0.65rem;
+    border-top: 1px dashed var(--border);
+}
+.rule-card .outcome span { color: var(--stone); font-weight: 500; }
+.rule-group { margin-bottom: 2.5rem; }
+.rule-group-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    margin: 2rem 0 0.25rem 0;
+}
+table.minimal {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem;
+    font-size: 0.85rem;
+}
+table.minimal thead th {
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--stone);
+    padding: 0.75rem 1rem 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+}
+table.minimal tbody td {
+    padding: 0.875rem 1rem 0.875rem 0;
+    border-top: 1px solid var(--border);
+    color: var(--mid);
+    line-height: 1.55;
+    vertical-align: top;
+}
+table.minimal tbody td.highlight { color: var(--noir); font-weight: 600; }
+table.minimal tbody td.num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--noir);
+}
+.checklist { list-style: none; padding-left: 0; margin: 1rem 0; }
+.checklist li {
+    padding: 0.55rem 0 0.55rem 1.75rem;
+    border-top: 1px solid var(--border);
+    position: relative;
+    color: var(--mid);
+    font-size: 0.9rem;
+}
+.checklist li:before {
+    content: "□";
+    position: absolute;
+    left: 0.25rem;
+    color: var(--stone);
+    font-family: 'JetBrains Mono', monospace;
+}
+.checklist li:last-child { border-bottom: 1px solid var(--border); }
+footer {
+    padding: 4.5rem 2rem 3.5rem;
+    text-align: center;
+    color: var(--light);
+    font-size: 0.7rem;
+    letter-spacing: 0.03em;
+    font-family: 'JetBrains Mono', monospace;
+}
+footer .foot-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+footer .foot-nav a {
+    color: var(--stone);
+    text-decoration: none;
+    font-family: 'Instrument Serif', serif;
+    font-size: 0.95rem;
+    letter-spacing: 0;
+    text-transform: none;
+}
+footer .foot-nav a:hover { color: var(--noir); }
+footer .foot-meta { color: var(--light); text-transform: uppercase; letter-spacing: 0.08em; }
+@media (max-width: 768px) {
+    .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .hero { padding-top: 4rem; padding-bottom: 3rem; }
+    .hero h1 { font-size: 2rem; }
+    section h2 { font-size: 1.4rem; }
+    .nav-links { display: none; }
+    table.minimal { font-size: 0.78rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="sig-line"></header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-logo">The 3-3-3 Method · Process</div>
+        <ul class="nav-links">
+            <li><a href="#phase-0">Phase 0</a></li>
+            <li><a href="#phase-1">Phase 1</a></li>
+            <li><a href="#phase-2">Phase 2</a></li>
+            <li><a href="#phase-3">Phase 3</a></li>
+            <li><a href="#edge">Edge Cases</a></li>
+            <li><a href="#quick">Reference</a></li>
+            <li><a href="#principles">Principles</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">Production System · Process</div>
+        <h1>The 3-3-3 Method<br><em>— Process</em></h1>
+        <p>Step-by-step execution guide for Claude agents enhancing any HTML document — dashboards, training documents, marketing pages, reports, or interactive artifacts — through three coordinated rounds of improvement.</p>
+    </div>
+</div>
+
+<section id="phase-0">
+    <div class="section-container">
+        <div class="section-label">Phase 0 · Initialization</div>
+        <h2>Catalog, baseline, advisor, rubric.</h2>
+        <p class="lede">Before beginning any improvement work, establish a complete understanding of the artifact you're enhancing.</p>
+
+        <div class="rule-group">
+            <div class="rule-group-title">Init · Catalog & Baseline</div>
+
+            <div class="rule-card">
+                <div class="rule-number">Step · Init</div>
+                <h5>Read everything. Map the file.</h5>
+                <ul>
+                    <li><strong>Read all 5 agent files</strong> (00 through 04) to understand the complete methodology and context taxonomy.</li>
+                    <li><strong>Read the target HTML file completely.</strong> For files &gt;5000 lines, use <code>offset/limit</code> parameters strategically. Use grep to locate function definitions and key sections.</li>
+                    <li><strong>Create a baseline catalog</strong> including: total line count, number of JavaScript functions, interactive components (buttons, inputs, click handlers), external libraries and frameworks, data sources and how data flows through the artifact.</li>
+                    <li><strong>Identify the master update function.</strong> This is the function called when state changes (e.g., <code>updateAllCharts()</code>, <code>render()</code>, <code>refresh()</code>). All Round 1, 2, and 3 features must integrate by being called from this function. If no master function exists, you will create one in Phase 1.</li>
+                    <li><strong>Set up a tracking list</strong> with all 11 steps marked as pending.</li>
+                </ul>
+                <h4>Initialization checklist</h4>
+                <ul class="checklist">
+                    <li>Read all methodology files (00–04)</li>
+                    <li>Complete file read (in sections if necessary)</li>
+                    <li>Baseline metrics documented</li>
+                    <li>Master update function identified</li>
+                    <li>11-step progress tracker created</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="rule-group">
+            <div class="rule-group-title">Step 0 · Select Advisor & Create Snapshots</div>
+
+            <div class="rule-card">
+                <div class="rule-number">Step 0</div>
+                <h5>The advisor IS the rubric.</h5>
+                <p>The advisor is the named expert whose methodology provides the rubric. Before any scoring, propose 3 candidates matched to the artifact type and let the user choose.</p>
+                <ul>
+                    <li><strong>Propose 3 advisor candidates.</strong> Landing / sales page → Peep Laja (CRO), Harry Dry (copy), April Dunford (positioning). Design / typography / UX craft → Oliver Reichenstein, Dieter Rams, Edward Tufte. Dashboard / data viz → Edward Tufte, Stephen Few, Cole Nussbaumer Knaflic. Training / start-here docs → Julie Dirksen, Cathy Moore, Andy Matuschak. Strategy memo / business case → Richard Rumelt, Roger Martin, Jeff Bezos (6-pager).</li>
+                    <li><strong>Advisor selection</strong> — propose 3 advisor options with rationale, pick the single most impactful one, and proceed. User can override at end-of-run review.</li>
+                    <li><strong>Check the user's advisor library</strong> — look in <code>3. Marketing/2. Advisors/</code>, <code>4. Sales/Advisors/</code>, and any other domain <code>Advisors/</code> folder relevant to the artifact. Search by author slug (e.g., <code>heath-switch-advisor.html</code>). If the advisor already exists, read it to derive the rubric in Step 1.</li>
+                    <li><strong>If the advisor does NOT exist: create the advisor file before continuing.</strong> Save it to the domain-appropriate Advisors folder. Match the existing advisor-file format in that folder (HTML in Marketing, MD in Sales). The file must contain: masthead with advisor name + domain, 2–3 sentence intro, the 4–6 scorable rubric dimensions (this IS what the 3-3-3 agent will read back on future runs), the advisor's core mental models / frameworks, 4–6 signature moves, 3–5 common mistakes the advisor would flag. This makes the advisor reusable.</li>
+                    <li><strong>Create the run folder</strong> at <code>runs/{NN}-{advisor-slug}/</code> next to the source file. NN is a zero-padded sequence number (01, 02…).</li>
+                    <li><strong>Copy the input into the run folder</strong> as <code>v0-baseline.html</code>. If prior runs exist and the user wants sequential stacking, v0 is a hard-copy of the prior run's <code>v3.html</code>.</li>
+                    <li><strong>Create an empty <code>improvement-log.html</code></strong> in the run folder, scaffolded to match the golden example (rubric card, scoring matrix with v0 column, empty round sections).</li>
+                    <li><strong>Never edit the source file.</strong> All edits in Steps 3, 6, 9 apply to the per-round snapshots inside the run folder only.</li>
+                </ul>
+                <div class="outcome"><span>Outcome ·</span> Advisor confirmed by user. Run folder created with v0-baseline.html and scaffolded improvement-log.html. Source file untouched.</div>
+            </div>
+        </div>
+
+        <div class="rule-group">
+            <div class="rule-group-title">Step 1 · Derive Rubric From Advisor</div>
+
+            <div class="rule-card">
+                <div class="rule-number">Step 1</div>
+                <h5>4–6 scorable criteria from published methodology.</h5>
+                <p>The rubric is derived from the chosen advisor's published methodology — not invented. Read the advisor's frameworks, heuristics, and published criteria, then translate them into 4–6 scorable dimensions for this artifact.</p>
+                <ul>
+                    <li><strong>Extract 4–6 criteria from the advisor's published work.</strong> Peep Laja → Clarity, Relevance, Value, Friction, Distraction, Anxiety. Reichenstein → Typographic Hierarchy, Vertical Rhythm, Type Discipline, Reading Experience, Content-First, Macrotypography. Tufte → Data-Ink Ratio, Small Multiples, Chartjunk, Layering & Separation.</li>
+                    <li><strong>Score the baseline snapshot against each criterion</strong> (0–10 per criterion) before suggesting any improvements.</li>
+                    <li><strong>Keep the rubric stable across all 3 rounds.</strong> Do not change the criteria mid-run unless the user changes the advisor.</li>
+                    <li><strong>Rescore at Steps 4, 7, and 10</strong> using the same criteria to show honest movement.</li>
+                </ul>
+                <div class="outcome"><span>Outcome ·</span> Advisor-derived rubric recorded with baseline scores, before any suggestions are made.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="phase-1">
+    <div class="section-container">
+        <div class="section-label">Phase 1 · Round 1</div>
+        <h2>Foundation improvements.</h2>
+        <p class="lede">The first round establishes foundational interactivity and context. Focus on the highest-impact gaps that unlock downstream possibilities.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 2 · Suggest 3 improvements</div>
+            <h5>Analyze against the rubric and gap categories.</h5>
+            <p>Review the artifact against the Step 1 rubric and four key gap categories (see <code>04-context.html</code> for the full taxonomy):</p>
+            <table class="minimal">
+                <thead>
+                    <tr><th>Gap Category</th><th>What to Look For</th><th>Example Questions</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td class="highlight">Interactivity Gaps</td><td>Data shown but not actionable or explorable</td><td>Can users drill down? Click to filter? Sort dynamically?</td></tr>
+                    <tr><td class="highlight">Missing Context</td><td>Numbers lack benchmarks, comparisons, narrative</td><td>Is performance vs. target shown? Past vs. present? Best vs. worst?</td></tr>
+                    <tr><td class="highlight">Navigation Gaps</td><td>Users struggle to find specific items quickly</td><td>Is there search? Filtering? Logical grouping?</td></tr>
+                    <tr><td class="highlight">Export Gaps</td><td>Insights cannot leave the artifact</td><td>Can insights be copied? Printed? Downloaded?</td></tr>
+                </tbody>
+            </table>
+            <h4>Suggestion format</h4>
+            <p>For each of the 3 improvements, provide:</p>
+            <ul>
+                <li><strong>Name:</strong> short, descriptive title</li>
+                <li><strong>Description:</strong> 2–3 sentence explanation of what it adds</li>
+                <li><strong>Why It Matters:</strong> user-facing value or analytical benefit</li>
+                <li><strong>Rubric Link:</strong> which rubric criterion this improves most</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Default mode: run the full 3-round loop end-to-end without check-ins. Present proposals in the improvement log, implement, and continue. User reviews at the end. Only pause mid-run if the user explicitly requested per-round confirmation in the brief.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 3 · Implement 3 improvements</div>
+            <h5>Copy v0 → v1, then edit v1 only.</h5>
+            <h4>Implementation pattern</h4>
+            <p>For each improvement, add code in this order:</p>
+            <ul>
+                <li><strong>CSS Styles</strong> — insert before <code>&lt;/style&gt;</code>. Use the color palette from the design system. Follow existing naming conventions.</li>
+                <li><strong>HTML Elements</strong> — insert in the appropriate location in the body. Match existing markup patterns and indentation.</li>
+                <li><strong>JavaScript Functions</strong> — insert before <code>&lt;/script&gt;</code>. Use descriptive function names. Comment non-obvious logic.</li>
+                <li><strong>Integration</strong> — add function calls to the master update function. Ensure new features are initialized on page load.</li>
+                <li><strong>Event Listeners</strong> — attach to appropriate elements in the initialization block. Test click handlers, change listeners, form submissions.</li>
+            </ul>
+            <h4>Implementation guidelines</h4>
+            <ul>
+                <li><strong>First, copy <code>v0-baseline.html</code> to <code>v1.html</code></strong> inside the run folder. This preserves v0 as the untouched starting point.</li>
+                <li><strong>All Edit operations target <code>v1.html</code></strong> — never the source file, never v0.</li>
+                <li><strong>Use targeted Edit operations</strong> — never rewrite the entire file.</li>
+                <li><strong>One improvement at a time</strong> — implement, verify, document before moving to the next.</li>
+                <li><strong>Preserve existing functionality</strong> — your additions should not break anything.</li>
+                <li><strong>Keep consistency</strong> — match the existing code style, spacing, and structure.</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> All 3 Round 1 improvements applied to v1.html. v0-baseline.html is untouched. Verify v1 still loads and functions correctly.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 4 · Write improvement-log.html (Round 1)</div>
+            <h5>Document the transformation.</h5>
+            <p>Create a new file documenting the transformation. Include:</p>
+            <ul>
+                <li><strong>Before/After Metrics</strong> — line count: X → Y (Z new lines added), number of functions: X → Y, interactive components: X → Y.</li>
+                <li><strong>For each improvement (1–3):</strong> improvement name and brief description, code locations (file section, line ranges if helpful), before/after narrative (1–2 paragraphs), <strong>impact statement</strong> — how this changes the user experience.</li>
+                <li><strong>Rubric Scorecard</strong> — score the current artifact against each Step 1 rubric criterion. Note where the biggest gaps still remain heading into Round 2.</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Improvement log written and saved at /path/to/artifact/improvement-log.html with the Round 1 section populated.</div>
+        </div>
+    </div>
+</section>
+
+<section id="phase-2">
+    <div class="section-container">
+        <div class="section-label">Phase 2 · Round 2</div>
+        <h2>Deepening improvements.</h2>
+        <p class="lede">The second round builds on Round 1's foundation, creating connections between new features and introducing analytical depth.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 5 · Suggest 3 more improvements</div>
+            <h5>Round 2 thinking.</h5>
+            <p>Re-read the target file — it has changed since Round 1. Look for opportunities that Round 1 created and for rubric criteria that still score weakly:</p>
+            <ul>
+                <li><strong>Cross-component connections</strong> — can new components interact with existing ones? Example: Clicking a cell in a new data matrix drives an existing chart.</li>
+                <li><strong>Drill-down patterns</strong> — can aggregate views now support more granular exploration? Example: Manager-level view → drill to supervisor level.</li>
+                <li><strong>Export & communication</strong> — can the artifact now export insights? Example: Copy insights to clipboard, print-friendly CSS, downloadable data.</li>
+                <li><strong>Statistical methods</strong> — can analytical depth increase? Example: Anomaly detection, correlation matrices, trend analysis.</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Document 3 improvements that leverage Round 1's new features in the improvement log, then implement. No mid-run confirmation.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 6 · Implement 3 improvements</div>
+            <h5>Copy v1 → v2. Integrate with Round 1.</h5>
+            <p>Follow the same pattern as Step 3, with special attention to:</p>
+            <ul>
+                <li><strong>Integration with Round 1 features</strong> — new functions should call (or be called by) Round 1 functions. Event listeners should trigger related updates across components.</li>
+                <li><strong>Dependency management</strong> — ensure Round 1 features are always available before Round 2 features try to use them.</li>
+                <li><strong>Master function updates</strong> — add calls to new Round 2 functions in the master update function.</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Before editing, copy v1.html to v2.html. All 3 Round 2 improvements applied to v2.html. v1 stays frozen as the Round-1 artifact.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 7 · Append Round 2 to improvement-log.html</div>
+            <h5>Same format as Round 1.</h5>
+            <p>Document improvements 4–6 and rescore the snapshot against the advisor's rubric.</p>
+            <div class="outcome"><span>Outcome ·</span> Round 2 section appended at /path/to/artifact/improvement-log.html.</div>
+        </div>
+    </div>
+</section>
+
+<section id="phase-3">
+    <div class="section-container">
+        <div class="section-label">Phase 3 · Round 3</div>
+        <h2>Polish and power features.</h2>
+        <p class="lede">The final round adds the "wow" features — sophisticated analytical capabilities, visual intelligence, and instant access patterns that make the artifact feel like a professional tool.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 8 · Suggest 3 final improvements</div>
+            <h5>Round 3 thinking.</h5>
+            <p>Re-read the file again (now significantly larger and more feature-rich). Focus on the highest remaining rubric gaps and on:</p>
+            <ul>
+                <li><strong>Statistical depth</strong> — correlation matrices between key metrics, regression lines or trend forecasting, benchmarking overlays (industry standard, peer comparison), anomaly highlighting and root cause analysis.</li>
+                <li><strong>Visual intelligence</strong> — goal lines and performance bands on charts, quadrant analysis (2×2 matrices with interpretation), color coding for status, variance, or performance tiers, sparklines or micro-trends next to scalar values.</li>
+                <li><strong>Instant access</strong> — search/type-ahead for finding specific items, keyboard shortcuts for power users, favoriting or pinning high-value views.</li>
+                <li><strong>Cross-component orchestration</strong> — one component interaction drives multiple downstream updates, cascading filters across the entire artifact, state synchronization across independent views.</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Document 3 high-impact, sophisticated improvements in the improvement log and implement. These should feel like professional polish. No mid-run confirmation.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 9 · Implement 3 improvements</div>
+            <h5>Copy v2 → v3. Edit v3 only.</h5>
+            <p>First, copy <code>v2.html</code> to <code>v3.html</code>. Edit <code>v3.html</code> only — never the source file, never earlier snapshots. Use grep strategically to locate insertion points. Ensure all new features integrate cleanly with Round 1 and Round 2 edits.</p>
+            <div class="outcome"><span>Outcome ·</span> All 3 Round 3 improvements applied to v3.html. v0, v1, v2 all untouched. Verify full functionality.</div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Step 10 · Finalize improvement-log.html</div>
+            <h5>Final log format.</h5>
+            <p>Finalize the log so it matches the golden example (<code>02-golden-example.html</code>):</p>
+            <ul>
+                <li><strong>Improvements 7–9</strong> documented individually as before/after code grid cards.</li>
+                <li><strong>Scoring matrix</strong> fully populated: v0 → v1 → v2 → v3 → Δ for each rubric dimension, plus Average row.</li>
+                <li><strong>Closing summary block</strong> (mandatory): short headline restating the final average score (e.g., "Reichenstein-graded: 5.8 → 8.0"); narrative paragraph — where the biggest lifts landed, which dimensions moved most, and why; summary stat tiles (rubric avg lift, improvements shipped, biggest-Δ dimension, any before/after count that matters).</li>
+            </ul>
+            <div class="outcome"><span>Outcome ·</span> Final improvement log completed at /path/to/artifact/improvement-log.html. All 11 steps complete. Source file untouched.</div>
+        </div>
+    </div>
+</section>
+
+<section id="edge">
+    <div class="section-container">
+        <div class="section-label">Reference · Edge Cases</div>
+        <h2>Special scenarios.</h2>
+        <p class="lede">Strategies for non-standard inputs and situations where the default loop needs adjustment.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 1 · Large files (&gt;5000 lines)</div>
+            <h5>Don't read the entire file at once.</h5>
+            <ul>
+                <li>Read the file in sections (e.g., first 1000 lines, then 1001–2000)</li>
+                <li>Use grep to locate function definitions, event listeners, and the master update function</li>
+                <li>Create a map of where code should be inserted</li>
+                <li>Read strategically around insertion points</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 2 · No master update function</div>
+            <h5>Create one.</h5>
+            <p>In Step 3, before implementing the first improvement:</p>
+            <ul>
+                <li>Create a function (e.g., <code>updateArtifact()</code>) that calls all initialization and update functions in sequence</li>
+                <li>Call it from <code>DOMContentLoaded</code></li>
+                <li>Use this function as the integration point for all Round 1, 2, and 3 features</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 3 · Non-interactive starting file</div>
+            <h5>Round 1 should add interactivity first.</h5>
+            <p>Focus improvements on:</p>
+            <ul>
+                <li>Click handlers and filtering</li>
+                <li>Dynamic content rendering</li>
+                <li>Form inputs that drive state changes</li>
+            </ul>
+            <p>Round 2 and 3 then build analysis and power features on top of this interactive foundation.</p>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 4 · User wants to skip a round</div>
+            <h5>Allow it.</h5>
+            <p>If a user says "skip Round 2, go straight to Round 3":</p>
+            <ul>
+                <li>Implement only the requested round(s)</li>
+                <li>Still write an improvement log documenting what was completed</li>
+                <li>Note in the comparison that earlier rounds were skipped</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 5 · Improvement requires restructuring</div>
+            <h5>Suggest an alternative.</h5>
+            <p>If an improvement would require rewriting &gt;30% of the file:</p>
+            <ul>
+                <li>Explain the constraint to the user</li>
+                <li>Propose an alternative improvement that achieves similar value with less disruption</li>
+                <li>Document reasoning in the log, then implement</li>
+            </ul>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Edge Case 6 · Context compaction mid-run</div>
+            <h5>Recover your state.</h5>
+            <p>If context resets during a multi-step run:</p>
+            <ul>
+                <li>Re-read the latest round's snapshot (<code>v1.html</code>, <code>v2.html</code>, or <code>v3.html</code>) in the run folder</li>
+                <li>Re-read the advisor-derived rubric (Step 1)</li>
+                <li>Re-read the last completed round in <code>improvement-log.html</code></li>
+                <li>Identify which step is incomplete</li>
+                <li>Resume from the next incomplete step with full context</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="quick">
+    <div class="section-container">
+        <div class="section-label">Quick Reference</div>
+        <h2>The eleven steps at a glance.</h2>
+        <p class="lede">One row per step. Phase, task, and output for the entire loop.</p>
+        <table class="minimal">
+            <thead>
+                <tr><th>Phase</th><th>Step</th><th>Task</th><th>Output</th></tr>
+            </thead>
+            <tbody>
+                <tr><td class="num">0</td><td class="highlight">Init</td><td>Catalog & identify master function</td><td>Baseline metrics, 11-step tracker</td></tr>
+                <tr><td class="num">0</td><td class="highlight">0</td><td>Propose 3 advisors, user picks; create run folder + v0-baseline</td><td><code>runs/{NN}-{advisor-slug}/v0-baseline.html</code> + scaffolded <code>improvement-log.html</code></td></tr>
+                <tr><td class="num">0</td><td class="highlight">1</td><td>Derive 4–6 criterion rubric from advisor's published methodology</td><td>Advisor rubric + baseline scores</td></tr>
+                <tr><td class="num">1</td><td class="highlight">2</td><td>Suggest 3 improvements against advisor rubric</td><td>3 suggestions (awaiting approval)</td></tr>
+                <tr><td class="num">1</td><td class="highlight">3</td><td>Copy v0→v1, edit v1.html only — CSS, HTML, JS, integration</td><td>v1.html with 3 improvements applied</td></tr>
+                <tr><td class="num">1</td><td class="highlight">4</td><td>Populate Round 1 in improvement-log.html + rescore</td><td>Round 1 before/after documented</td></tr>
+                <tr><td class="num">2</td><td class="highlight">5</td><td>Suggest 3 more improvements (leverage Round 1 + rubric gaps)</td><td>3 suggestions (awaiting approval)</td></tr>
+                <tr><td class="num">2</td><td class="highlight">6</td><td>Copy v1→v2, edit v2.html only (with Round 1 integration)</td><td>v2.html with 6 cumulative improvements</td></tr>
+                <tr><td class="num">2</td><td class="highlight">7</td><td>Append Round 2 to improvement-log.html + rescore</td><td>Round 2 before/after documented</td></tr>
+                <tr><td class="num">3</td><td class="highlight">8</td><td>Suggest 3 final improvements (highest remaining gaps)</td><td>3 suggestions (awaiting approval)</td></tr>
+                <tr><td class="num">3</td><td class="highlight">9</td><td>Copy v2→v3, edit v3.html only (polished, integrated)</td><td>v3.html — final snapshot with all 9 improvements</td></tr>
+                <tr><td class="num">3</td><td class="highlight">10</td><td>Finalize improvement-log.html with cumulative progress + final score</td><td>Complete improvement log + transformation narrative</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="principles">
+    <div class="section-container">
+        <div class="section-label">Principles</div>
+        <h2>Seven rules that keep the method honest.</h2>
+        <p class="lede">These are the guardrails. Violate any one and the comparison chain breaks.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Principle 0</div>
+            <h5>Never edit the source file.</h5>
+            <p>All edits apply to per-round snapshots inside <code>runs/{NN}-{advisor-slug}/</code> (v1 for R1, v2 for R2, v3 for R3). The source file and v0-baseline are immutable — preserved so the user can diff across rounds, compare before/after visually, or run another advisor's pass.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 1</div>
+            <h5>One improvement at a time.</h5>
+            <p>Implement, verify, and document each improvement before moving to the next. This makes debugging easier and keeps the artifact stable.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 2</div>
+            <h5>Preserve existing functionality.</h5>
+            <p>Your additions should never break what was already working. Use targeted edits, not wholesale rewrites.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 3</div>
+            <h5>Integration is everything.</h5>
+            <p>A feature that isn't wired into the master update function is incomplete. Always ensure new code is called and receives data.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 4</div>
+            <h5>Build on your own work.</h5>
+            <p>Round 2 features should leverage Round 1. Round 3 features should leverage both. Cross-component linking multiplies value.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 5</div>
+            <h5>Document as you go.</h5>
+            <p>Improvement logs are not afterthoughts — they capture the transformation for the user and provide recovery points if context resets.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">Principle 6</div>
+            <h5>Communicate constraints.</h5>
+            <p>If an improvement is impossible, too disruptive, or blocked by architecture, explain why and propose an alternative.</p>
+        </div>
+
+        <h3>Final checklist</h3>
+        <p>Before declaring all 11 steps complete:</p>
+        <ul class="checklist">
+            <li>Source file untouched</li>
+            <li>All snapshots (v0→v3) saved to the run folder and loading without errors</li>
+            <li>All Round 1, 2, 3 features are integrated and functional</li>
+            <li>Improvement log (improvement-log.html) covers all 9 improvements</li>
+            <li>Advisor's rubric used to score every round</li>
+            <li>Cumulative progress narrative is complete</li>
+            <li>No pre-existing functionality was broken</li>
+        </ul>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-nav">
+        <a href="01-start-here.html">01 · Start Here</a>
+        <a href="02-golden-example.html">02 · Golden Example</a>
+        <a href="03-process.html">03 · Process</a>
+        <a href="04-context.html">04 · Context</a>
+        <a href="05-quality.html">05 · Quality</a>
+    </div>
+    <div class="foot-meta">3-3-3 Method · Process · 2026</div>
+</footer>
+
+</body>
+</html>

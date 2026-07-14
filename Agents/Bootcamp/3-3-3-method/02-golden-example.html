@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3-3-3 Golden Example · Agent Builder Pass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=DM+Sans:wght@400;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --noir: #0a0a0a;
+        --stone: #8a8680;
+        --mid: #6b6b6b;
+        --light: #b0b0b0;
+        --border: #d8d4cc;
+        --wash: #f7f7f7;
+        --white: #ffffff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        line-height: 1.6;
+        color: var(--noir);
+        background: var(--white);
+    }
+
+    header.sig-line { height: 2px; background: var(--noir); }
+
+    nav {
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .nav-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+    }
+
+    .nav-logo {
+        font-family: 'Instrument Serif', serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--noir);
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        list-style: none;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--light);
+        font-size: 0.75rem;
+        letter-spacing: 0.03em;
+    }
+
+    .nav-links a:hover { color: var(--noir); }
+
+    .hero {
+        padding: 4rem 2.5rem 3rem 2.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .hero-content { max-width: 960px; }
+
+    .hero-eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--stone);
+        margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 2.75rem;
+        font-weight: 400;
+        margin-bottom: 1.25rem;
+        color: var(--noir);
+        letter-spacing: -0.01em;
+    }
+
+    .hero h1 em { font-style: italic; color: var(--stone); }
+
+    .hero p {
+        font-size: 1rem;
+        color: var(--stone);
+        line-height: 1.8;
+        max-width: 760px;
+    }
+
+    section {
+        padding: 3rem 2.5rem;
+        border-bottom: 1px solid var(--border);
+    }
+
+    .section-container { max-width: none; }
+
+    .section-container > h2 + p,
+    .section-container > p { max-width: 760px; }
+
+    section h2 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 1.75rem;
+        font-weight: 400;
+        margin-bottom: 2.5rem;
+        color: var(--noir);
+        letter-spacing: -0.01em;
+    }
+
+    section h3 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 1.25rem;
+        font-weight: 400;
+        margin: 3rem 0 1.5rem 0;
+        color: var(--noir);
+    }
+
+    h4 {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+        margin: 1.5rem 0 0.5rem 0;
+    }
+
+    .rule-card {
+        border-top: 1px solid var(--border);
+        padding: 1.5rem 0;
+    }
+
+    .rule-number {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+        margin-bottom: 0.25rem;
+    }
+
+    .rule-card h5 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: var(--noir);
+        margin-bottom: 0.5rem;
+    }
+
+    .rule-card p { color: var(--mid); line-height: 1.7; margin-bottom: 0.5rem; }
+
+    .rule-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 0 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .rule-group-title {
+        grid-column: 1 / -1;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+        margin-bottom: 1rem;
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        gap: 0 2.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1rem 0 2rem;
+        font-size: 0.875rem;
+    }
+
+    .data-table th {
+        text-align: left;
+        padding: 0.75rem 1rem 0.75rem 0;
+        border-bottom: 1px solid var(--noir);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+    }
+
+    .data-table td {
+        padding: 0.75rem 1rem 0.75rem 0;
+        border-bottom: 1px solid var(--border);
+        color: var(--mid);
+        line-height: 1.6;
+        vertical-align: top;
+    }
+
+    .data-table td:last-child,
+    .data-table th:last-child { padding-right: 0; }
+
+    .data-table td strong { color: var(--noir); }
+
+    .data-table tr.avg-row td {
+        border-top: 2px solid var(--noir);
+        border-bottom: none;
+        padding-top: 1rem;
+        color: var(--noir);
+        font-weight: 600;
+    }
+
+    p, li { color: var(--mid); line-height: 1.7; }
+    p { margin-bottom: 0.75rem; }
+    ul, ol { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+    li { margin-bottom: 0.375rem; }
+    strong { color: var(--noir); }
+    em { font-style: italic; }
+
+    code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--noir);
+        background: var(--wash);
+        padding: 0.15rem 0.35rem;
+    }
+
+    pre {
+        background: var(--wash);
+        border: 1px solid var(--border);
+        padding: 1.25rem;
+        margin: 1rem 0 2rem;
+        overflow-x: auto;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        color: var(--noir);
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    .summary-block {
+        background: var(--noir);
+        color: var(--white);
+        padding: 3.5rem 3rem;
+        margin: 0 0 3rem 0;
+    }
+
+    .summary-block h4 {
+        color: var(--stone);
+        margin-top: 0;
+    }
+
+    .summary-block h2 {
+        font-family: 'Instrument Serif', serif;
+        font-size: 2rem;
+        font-weight: 400;
+        color: var(--white);
+        margin-bottom: 1.25rem;
+        letter-spacing: -0.01em;
+        line-height: 1.2;
+    }
+
+    .summary-block .narrative {
+        font-size: 0.95rem;
+        color: var(--light);
+        line-height: 1.75;
+        max-width: 700px;
+        margin-bottom: 2.5rem;
+    }
+
+    .stat-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        border-top: 1px solid #2a2a2a;
+        padding-top: 2rem;
+    }
+
+    .stat .stat-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.75rem;
+        font-weight: 500;
+        color: var(--white);
+        margin-bottom: 0.35rem;
+        letter-spacing: -0.02em;
+    }
+
+    .stat .stat-lbl {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+        line-height: 1.4;
+    }
+
+    .code-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-top: 1rem;
+    }
+
+    .code-grid .code-col .code-label {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.65rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--stone);
+        margin-bottom: 0.4rem;
+    }
+
+    footer {
+        padding: 4.5rem 2rem;
+        text-align: center;
+        color: var(--light);
+        font-size: 0.75rem;
+        letter-spacing: 0.03em;
+    }
+
+    footer .foot-nav {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-bottom: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    footer .foot-nav a {
+        color: var(--stone);
+        text-decoration: none;
+        font-family: 'Instrument Serif', serif;
+        font-size: 0.9rem;
+    }
+
+    footer .foot-nav a:hover { color: var(--noir); }
+
+    @media (max-width: 900px) {
+        .stat-grid { grid-template-columns: repeat(2, 1fr); }
+        .code-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 768px) {
+        .hero, section { padding-left: 1.5rem; padding-right: 1.5rem; }
+        .hero h1 { font-size: 2rem; }
+        section h2 { font-size: 1.375rem; }
+        .nav-links { display: none; }
+        .rule-group, .card-grid { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+
+<header class="sig-line"></header>
+
+<nav>
+    <div class="nav-container">
+        <div class="nav-logo">The 3-3-3 Method · Golden Example</div>
+        <ul class="nav-links">
+            <li><a href="#summary">Summary</a></li>
+            <li><a href="#rubric">Rubric</a></li>
+            <li><a href="#matrix">Matrix</a></li>
+            <li><a href="#round-1">Round 1</a></li>
+            <li><a href="#round-2">Round 2</a></li>
+            <li><a href="#round-3">Round 3</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="hero">
+    <div class="hero-content">
+        <div class="hero-eyebrow">3-3-3 Methodology · Advisor: Expert Agent Builder</div>
+        <h1>The 3-3-3 Method Start-Here<br><em>— Agent Architecture Pass</em></h1>
+        <p>Nine improvements to the 3-3-3 Method's own start-here document, scored against five agent-design dimensions. The question: does the document that trains the agent actually work as agent instructions? Content restructuring, missing guardrails, ambiguous phrasing, buried prerequisites, and scope confusion — not a single CSS property changed.</p>
+    </div>
+</div>
+
+<section id="summary">
+    <div class="section-container">
+        <div class="summary-block">
+            <h4>Summary · Read this first</h4>
+            <h2>Agent-builder-graded: 5.4 → 7.8</h2>
+            <p class="narrative">The biggest lifts landed on Failure Mode Coverage (+3) and Instruction Precision (+3) — the two dimensions that determine whether an agent can execute without human rescue. The preflight block moved from buried-at-bottom to lead position. Dashboard-specific language was generalized. Two missing fallback paths were added. The agent levels taxonomy moved to an appendix where it can't interrupt execution flow.</p>
+            <div class="stat-grid">
+                <div class="stat">
+                    <div class="stat-num">+2.4</div>
+                    <div class="stat-lbl">Rubric avg lift</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">9 / 9</div>
+                    <div class="stat-lbl">Improvements shipped</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">+3</div>
+                    <div class="stat-lbl">Instruction Precision Δ</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">0</div>
+                    <div class="stat-lbl">CSS properties changed</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="rubric">
+    <div class="section-container">
+        <h4>Rubric · Agent Architecture</h4>
+        <h2>Five dimensions of agent instruction quality</h2>
+        <p>These are the criteria the artifact is scored against at v0, R1, R2, and R3 Final. Same rubric every round — honest movement, not moving goalposts. Derived from first principles of agent design: an instruction document succeeds when the agent can execute it without ambiguity, recover from edge cases without human rescue, and produce consistent outputs across diverse inputs.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">01 · Instruction Precision</div>
+            <h5>Can the agent unambiguously follow every step?</h5>
+            <p>No room for interpretation drift. Every verb has one meaning. Every reference points to exactly one thing. "Surgical edits" is vague; "find-and-replace on specific selectors" is precise.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">02 · Failure Mode Coverage</div>
+            <h5>Are the known failure modes anticipated with explicit guardrails?</h5>
+            <p>What happens when the advisor doesn't exist? When the artifact type isn't in the table? When a round produces no meaningful improvement? Every fork needs a path.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">03 · Information Architecture</div>
+            <h5>Does the document structure match the agent's reading order?</h5>
+            <p>An agent reads top-to-bottom. If a prerequisite appears after the step that needs it, the agent will skip it. Critical information must appear before the first point of use.</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">04 · Human-Agent Boundary</div>
+            <h5>Are handoff points between human and agent explicit?</h5>
+            <p>Zone 1/2/3 boundaries must specify the interaction pattern — does the agent pause and wait, present options, or proceed with a default? "You confirm" is incomplete without "here's how."</p>
+        </div>
+        <div class="rule-card">
+            <div class="rule-number">05 · Generality</div>
+            <h5>Do the instructions work across the full range of inputs?</h5>
+            <p>Language tied to one artifact type (dashboards, slide decks) causes the agent to pattern-match on that type. Instructions should be artifact-agnostic unless a specific callout is needed.</p>
+        </div>
+    </div>
+</section>
+
+<section id="matrix">
+    <div class="section-container">
+        <h4>v0 → v1 → v2 → v3 → Δ</h4>
+        <h2>Scoring matrix</h2>
+        <p>Same rubric, scored four times. The Average row tells the story: 5.4 → 7.8, a +2.4 lift over three rounds.</p>
+
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Dimension</th>
+                    <th>Baseline</th>
+                    <th>R1</th>
+                    <th>R2</th>
+                    <th>R3 Final</th>
+                    <th>Δ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>Instruction Precision</strong></td><td>6</td><td>7</td><td>8</td><td>9</td><td>+3</td></tr>
+                <tr><td><strong>Failure Mode Coverage</strong></td><td>4</td><td>5</td><td>6</td><td>7</td><td>+3</td></tr>
+                <tr><td><strong>Information Architecture</strong></td><td>5</td><td>7</td><td>7</td><td>8</td><td>+3</td></tr>
+                <tr><td><strong>Human-Agent Boundary</strong></td><td>7</td><td>7</td><td>8</td><td>8</td><td>+1</td></tr>
+                <tr><td><strong>Generality</strong></td><td>5</td><td>5</td><td>7</td><td>7</td><td>+2</td></tr>
+                <tr class="avg-row"><td>Average</td><td>5.4</td><td>6.2</td><td>7.2</td><td>7.8</td><td>+2.4</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section id="round-1">
+    <div class="section-container">
+        <h4>Round 1 · Establish</h4>
+        <h2>Fix reading order, close the advisor lookup gap, add the first missing fallback</h2>
+        <p>An agent builder's first pass always addresses the same question: will the agent even read the right things in the right order before it starts working? Round 1 is structural.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 1 · Information Architecture</div>
+            <h5>Move the preflight block above execution instructions</h5>
+            <p>The preflight ("Read all three files before any work begins") was buried below the file manifest, the time budget table, and the copy-paste prompt. An agent reading top-to-bottom hits the prompt — "Read the 3-3-3-method agent and apply it to [path]" — and starts executing before it ever reaches the preflight. Moved the entire preflight block to immediately after the manifest table, before the file listing.</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before (structure)</div>
+<pre>Part A · Manifest
+  ├── What this agent produces
+  ├── Run folder contents (table)
+  ├── Estimated time (table)
+  ├── Files in this package
+  ├── How to run this agent     ← agent starts here
+  │     └── Copy-paste prompt
+  └── Mandatory Preflight       ← too late</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After (structure)</div>
+<pre>Part A · Manifest
+  ├── What this agent produces
+  ├── Run folder contents (table)
+  ├── Estimated time (table)
+  ├── Mandatory Preflight       ← before any action
+  ├── Files in this package
+  └── How to run this agent
+        └── Copy-paste prompt</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 2 · Instruction Precision</div>
+            <h5>Add an explicit cross-reference from Step 0 to the advisor lookup table</h5>
+            <p>Step 0 says "Propose 3 candidate advisors based on artifact type" but doesn't say where to find the candidates. The advisor-by-artifact-type table lives in Part B under "The right advisor depends on the work" — a human finds it by scanning; an agent may not. Added a direct pointer: "Consult the advisor table in Part B § The right advisor depends on the work."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;h5&gt;Select advisor + check library +
+create run folder&lt;/h5&gt;
+&lt;p&gt;Propose 3 candidate advisors based
+on artifact type. Human picks one.&lt;/p&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;h5&gt;Select advisor + check library +
+create run folder&lt;/h5&gt;
+&lt;p&gt;Consult the advisor table in Part B
+(§ The right advisor depends on the
+work). Propose 3 candidate advisors
+matched to the artifact type. Human
+picks one.&lt;/p&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 3 · Failure Mode Coverage</div>
+            <h5>Add a fallback path when the artifact type isn't in the advisor table</h5>
+            <p>The advisor table covers five artifact types (landing page, design/UX, dashboard, training doc, strategy memo). An agent given an API reference doc, an email template, or a CLI help page has no guidance. Added a fallback row and an explicit instruction: "If the artifact doesn't match a row, describe it in one sentence and propose 3 advisors from the closest matching row. State which row you adapted from and why."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;!-- Table ends after 5 rows --&gt;
+&lt;tr&gt;&lt;td&gt;Strategy memo&lt;/td&gt;
+  &lt;td&gt;Rumelt · Martin · Minto&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;tr&gt;&lt;td&gt;Strategy memo&lt;/td&gt;
+  &lt;td&gt;Rumelt · Martin · Minto&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;Other / unlisted
+&lt;/strong&gt;&lt;/td&gt;
+  &lt;td&gt;Describe the artifact in one
+  sentence. Pick the closest row
+  above. Propose 3 advisors from
+  that row. State which row you
+  adapted and why.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="round-2">
+    <div class="section-container">
+        <h4>Round 2 · Deepen</h4>
+        <h2>Specify interaction patterns, define "surgical," and generalize dashboard language</h2>
+        <p>With reading order fixed and the first fallback added, Round 2 targets the instructions an agent will actually execute: what does "confirm" mean in practice? What counts as a surgical edit? And why does an anti-degradation protocol reference a JavaScript function that most artifacts won't have?</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 4 · Human-Agent Boundary</div>
+            <h5>Specify the interaction pattern for advisor selection</h5>
+            <p>Zone 2 says "The agent drafts, you confirm" but never defines the mechanic. Does the agent pause? Present a numbered list? Proceed with a default after 30 seconds? An agent without an explicit pattern will either barrel through without asking or present options inconsistently each time. Added: "Present the 3 candidates in a numbered list. State which one you'd pick as default and why. Wait for the human to confirm or override before continuing to Step 1."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;div class="rule-number"&gt;Zone 2&lt;/div&gt;
+&lt;h5&gt;The agent drafts, you confirm&lt;/h5&gt;
+&lt;p&gt;Judgment calls where the agent
+takes a swing.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The advisor: Agent proposes 3
+  candidates matched to the artifact
+  type. You pick — or name your
+  own.&lt;/li&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;div class="rule-number"&gt;Zone 2&lt;/div&gt;
+&lt;h5&gt;The agent drafts, you confirm&lt;/h5&gt;
+&lt;p&gt;Judgment calls where the agent
+takes a swing. For each, the agent
+presents its recommendation and
+waits for approval.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The advisor: Present 3 candidates
+  in a numbered list. State which
+  you'd pick as default and why.
+  Wait for the human to confirm
+  or override.&lt;/li&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 5 · Instruction Precision</div>
+            <h5>Replace "surgical edits only" with a concrete definition</h5>
+            <p>"Surgical edits only — never rewrite" is the right principle but an incomplete instruction. An agent interprets "surgical" differently depending on its training data. One might consider replacing three paragraphs to be surgical; another might refuse to change more than one line. Replaced with: "Use targeted find-and-replace on specific elements, selectors, or text blocks. Each edit must map to exactly one improvement. Never regenerate the entire file from scratch."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;p&gt;Copy v0-baseline.html to v1.html.
+Apply the 3 improvements to v1.html.
+Surgical edits only — never
+rewrite. v0 stays untouched.&lt;/p&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;p&gt;Copy v0-baseline.html to v1.html.
+Apply the 3 improvements to v1.html.
+Use targeted find-and-replace on
+specific elements, selectors, or
+text blocks. Each edit must map to
+exactly one improvement. Never
+regenerate the file from scratch.
+v0 stays untouched.&lt;/p&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 6 · Generality</div>
+            <h5>Generalize Protocol 04 from dashboard-specific to artifact-agnostic</h5>
+            <p>Protocol 04 reads: "verify new functions are called from <code>updateAllCharts()</code> or the equivalent master function." This is dashboard-specific language. An agent improving a training document, a process file, or a strategy memo will either skip this protocol entirely (no charts) or try to find a JavaScript function that doesn't exist. Generalized to: "Verify every new element is reachable — called from a master function, linked from navigation, or visible in the document flow. Orphaned code and orphaned content are both dead."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;h5&gt;Test integration points&lt;/h5&gt;
+&lt;p&gt;After each round, verify new
+functions are called from
+updateAllCharts() or the equivalent
+master function. Orphaned code is
+dead code.&lt;/p&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;h5&gt;Test integration points&lt;/h5&gt;
+&lt;p&gt;After each round, verify every new
+element is reachable — called from
+a master function, linked from
+navigation, or visible in the
+document flow. Orphaned code and
+orphaned content are both dead.&lt;/p&gt;</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="round-3">
+    <div class="section-container">
+        <h4>Round 3 · Polish</h4>
+        <h2>Resolve scope ambiguity, add the stall-out fallback, relocate the taxonomy</h2>
+        <p>Round 3 cleans up the remaining issues that Rounds 1 and 2 surfaced: a scope statement that contradicts the preflight, no path for when a round produces diminishing returns, and a classification sidebar that interrupts execution training.</p>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 7 · Generality</div>
+            <h5>Make the scope statement explicit about internal vs. customer-facing artifacts</h5>
+            <p>The hero says "Works on dashboards, training documents, marketing pages, reports — any HTML file." But Preflight 03 says internal files must use the house style while customer-facing files use a brand style. Can the agent improve a customer-facing page? Yes — but the improvement log it writes <em>about</em> the run is internal and must use house style. This distinction was implicit. Made it explicit: "The target artifact can be any HTML file — internal or customer-facing. The run folder and improvement log are always internal documents in the house style."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;p&gt;A rubric-first, eleven-step
+method... Works on dashboards,
+training documents, marketing pages,
+reports — any HTML file.&lt;/p&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;p&gt;A rubric-first, eleven-step
+method... Works on any HTML file —
+internal or customer-facing. The
+target artifact keeps its own style;
+the run folder and improvement log
+are always internal documents in the
+house style.&lt;/p&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 8 · Failure Mode Coverage</div>
+            <h5>Add a diminishing-returns protocol for late rounds</h5>
+            <p>No guidance for when Round 2 or Round 3 can't find three meaningful improvements. An agent will invent marginal changes to fill the quota — exactly the "miniature font tweaks" failure mode. Added Protocol 06: "If a round cannot identify 3 improvements that each move a rubric dimension by at least 0.5, stop at fewer. Log why the remaining slots are empty. Two strong improvements beat three filler changes."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before</div>
+<pre>&lt;!-- Five protocols, no diminishing-
+returns guidance --&gt;
+&lt;div class="rule-number"&gt;Protocol
+05&lt;/div&gt;
+&lt;h5&gt;Improvement-log fidelity&lt;/h5&gt;</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After</div>
+<pre>&lt;div class="rule-number"&gt;Protocol
+05&lt;/div&gt;
+&lt;h5&gt;Improvement-log fidelity&lt;/h5&gt;
+...
+&lt;div class="rule-number"&gt;Protocol
+06&lt;/div&gt;
+&lt;h5&gt;Diminishing returns&lt;/h5&gt;
+&lt;p&gt;If a round cannot identify 3
+improvements that each move a rubric
+dimension by at least 0.5, stop at
+fewer. Log why the remaining slots
+are empty. Two strong improvements
+beat three filler changes.&lt;/p&gt;</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="rule-card">
+            <div class="rule-number">Improvement 9 · Information Architecture</div>
+            <h5>Relocate the agent-levels taxonomy out of the execution training</h5>
+            <p>The "Level 4 classification" section and seven-row agent-levels table sit in the middle of Part B, between the anti-degradation protocols and Part C. An agent reading Part B to understand how to execute the method hits a taxonomy sidebar that doesn't affect execution. It's useful reference but it interrupts flow. Moved to a standalone callout at the end of Part B with an explicit note: "This classification is for reference. It does not affect how the agent executes the 3-3-3 method."</p>
+            <div class="code-grid">
+                <div class="code-col">
+                    <div class="code-label">Before (structure)</div>
+<pre>Part B · Agent Training
+  ├── Core principle
+  ├── Advisor → rubric
+  ├── Advisor table
+  ├── The execution loop (11 steps)
+  ├── Five protocols
+  ├── Level 4 classification  ← here
+  │     └── Agent levels table
+  └── (end of Part B)</pre>
+                </div>
+                <div class="code-col">
+                    <div class="code-label">After (structure)</div>
+<pre>Part B · Agent Training
+  ├── Core principle
+  ├── Advisor → rubric
+  ├── Advisor table
+  ├── The execution loop (11 steps)
+  ├── Six protocols
+  └── (end of Part B)
+
+Appendix · Classification
+  └── Level 4 + agent levels table
+      "For reference. Does not affect
+       execution."</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="foot-nav">
+        <a href="01-start-here.html">01 · Start Here</a>
+        <a href="02-golden-example.html">02 · Golden Example</a>
+        <a href="03-process.html">03 · Process</a>
+        <a href="04-context.html">04 · Context</a>
+        <a href="05-quality.html">05 · Quality</a>
+    </div>
+    <p>The 3-3-3 Method · Golden Example · 2026</p>
+</footer>
+
+</body>
+</html>

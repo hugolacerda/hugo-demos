@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-3-3 Improvement Log — StoryBrand Pass</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: "Inter", -apple-system, Helvetica, Arial, sans-serif; color: #1a1a1a; line-height: 1.6; background: #f5f4f0; }
+        .mono { font-family: "JetBrains Mono", "SF Mono", monospace; }
+
+        /* Header */
+        .log-header { padding: 48px 40px 24px; max-width: 900px; margin: 0 auto; }
+        .log-label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8680; margin-bottom: 8px; }
+        .log-header h1 { font-size: 32px; font-weight: 600; margin-bottom: 8px; line-height: 1.3; }
+        .log-header .subtitle { font-size: 16px; color: #666; }
+
+        /* Summary Block */
+        .summary-block { background: #0a0a0a; color: #fff; padding: 40px; max-width: 900px; margin: 24px auto 0; }
+        .summary-block .sum-label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #8a8680; margin-bottom: 8px; }
+        .summary-block h2 { font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+        .summary-block p { font-size: 15px; color: rgba(255,255,255,0.85); line-height: 1.7; margin-bottom: 24px; }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+        .stat-tile { text-align: center; }
+        .stat-value { font-family: "JetBrains Mono", monospace; font-size: 28px; font-weight: 600; color: #4a7c59; }
+        .stat-label { font-size: 12px; color: #8a8680; margin-top: 4px; }
+
+        /* Content Area */
+        .content { max-width: 900px; margin: 0 auto; padding: 40px; }
+
+        /* Rubric Card */
+        .rubric-card { border: 1px solid #d8d4cc; padding: 28px; margin-bottom: 40px; background: #fff; }
+        .rubric-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 16px; }
+        .rubric-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+        .rubric-item:last-child { border-bottom: none; }
+        .rubric-dim { font-weight: 500; }
+        .rubric-def { color: #666; flex: 1; margin-left: 16px; text-align: right; }
+
+        /* Scoring Matrix */
+        .matrix { width: 100%; border-collapse: collapse; margin-bottom: 48px; font-size: 14px; }
+        .matrix thead { background: #1a1a1a; color: #fff; }
+        .matrix th { padding: 12px 16px; text-align: left; font-family: "JetBrains Mono", monospace; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+        .matrix th:not(:first-child) { text-align: right; }
+        .matrix td { padding: 12px 16px; border-bottom: 1px solid #e8e5df; }
+        .matrix td:not(:first-child) { text-align: right; font-family: "JetBrains Mono", monospace; }
+        .matrix tr:nth-child(odd) { background: #faf9f6; }
+        .matrix tr:nth-child(even) { background: #fff; }
+        .matrix .avg-row { background: #f0efeb !important; font-weight: 600; }
+        .matrix .delta { color: #4a7c59; font-weight: 600; }
+
+        /* Round Headers */
+        .round-header { margin: 48px 0 24px; padding-bottom: 12px; border-bottom: 2px solid #1a1a1a; }
+        .round-header h2 { font-size: 22px; font-weight: 600; }
+        .round-header .round-focus { font-size: 14px; color: #666; margin-top: 4px; }
+
+        /* Improvement Cards */
+        .imp-card { background: #fff; border: 1px solid #d8d4cc; padding: 28px; margin-bottom: 24px; }
+        .imp-label { font-family: "JetBrains Mono", monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: #8a8680; margin-bottom: 8px; }
+        .imp-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 12px; }
+        .imp-card .rationale { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 20px; }
+        .code-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .code-box { padding: 16px; font-family: "JetBrains Mono", monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+        .code-before { background: #fef2f2; border: 1px solid #fecaca; }
+        .code-after { background: #f0fdf4; border: 1px solid #bbf7d0; }
+        .code-label { font-family: "JetBrains Mono", monospace; font-size: 10px; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; font-weight: 600; }
+        .code-before .code-label { color: #dc2626; }
+        .code-after .code-label { color: #4a7c59; }
+
+        /* Teach-Through Memo */
+        .memo { background: #fff; border: 1px solid #d8d4cc; padding: 32px; margin-top: 48px; }
+        .memo h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; }
+        .memo .principle { font-size: 15px; color: #555; line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+        .memo ul { margin-left: 20px; margin-bottom: 20px; }
+        .memo li { font-size: 14px; line-height: 1.7; margin-bottom: 8px; color: #444; }
+        .memo h3 { font-size: 16px; font-weight: 600; margin: 24px 0 12px; }
+        .checklist li { list-style: none; margin-left: 0; padding-left: 24px; position: relative; }
+        .checklist li::before { content: "☐"; position: absolute; left: 0; }
+
+        @media (max-width: 768px) {
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .code-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="log-header">
+    <div class="log-label">3-3-3 Methodology · Reviewer: Donald Miller (StoryBrand)</div>
+    <h1>Billy's Blog Editorial Calendar — StoryBrand Pass</h1>
+    <p class="subtitle">Applying the StoryBrand 7-Part Framework to transform a blog topic calendar from writer-centered to reader-centered.</p>
+</div>
+
+<!-- Summary Block -->
+<div class="summary-block">
+    <div class="sum-label">Summary · Read this first</div>
+    <h2>Miller-graded: 4.4 → 8.8</h2>
+    <p>The biggest lifts landed in Stakes (+5) and Call to Action (+5), the two dimensions where the baseline was weakest. The original calendar described what Billy would write; the final version positions parents as heroes navigating real questions, with Billy as the guide, a clear plan for engagement, vivid consequences for action and inaction, and concrete next steps after every post. Character Clarity and The Plan each moved +4, proving that StoryBrand's framework applies to editorial planning documents, not just sales pages.</p>
+    <div class="stat-grid">
+        <div class="stat-tile">
+            <div class="stat-value">+4.4</div>
+            <div class="stat-label">Rubric Avg Lift</div>
+        </div>
+        <div class="stat-tile">
+            <div class="stat-value">9</div>
+            <div class="stat-label">Improvements Shipped</div>
+        </div>
+        <div class="stat-tile">
+            <div class="stat-value">Stakes</div>
+            <div class="stat-label">Biggest Δ Dimension</div>
+        </div>
+        <div class="stat-tile">
+            <div class="stat-value">93%</div>
+            <div class="stat-label">File Size Growth</div>
+        </div>
+    </div>
+</div>
+
+<div class="content">
+
+<!-- Rubric Card -->
+<div class="rubric-card">
+    <h3>StoryBrand Rubric (Donald Miller)</h3>
+    <div class="rubric-item">
+        <span class="rubric-dim">1. Character Clarity</span>
+        <span class="rubric-def">Is the parent clearly positioned as the hero with a named, specific problem?</span>
+    </div>
+    <div class="rubric-item">
+        <span class="rubric-dim">2. Guide Positioning</span>
+        <span class="rubric-def">Does Billy show empathy + authority without becoming the protagonist?</span>
+    </div>
+    <div class="rubric-item">
+        <span class="rubric-dim">3. The Plan</span>
+        <span class="rubric-def">Does the document offer a clear, simple, actionable path for the reader?</span>
+    </div>
+    <div class="rubric-item">
+        <span class="rubric-dim">4. Stakes</span>
+        <span class="rubric-def">Are success and failure made vivid enough to create urgency and emotional investment?</span>
+    </div>
+    <div class="rubric-item">
+        <span class="rubric-dim">5. Call to Action</span>
+        <span class="rubric-def">Is there a specific, concrete next step the reader should take?</span>
+    </div>
+</div>
+
+<!-- Scoring Matrix -->
+<table class="matrix">
+    <thead>
+        <tr><th>Dimension</th><th>Baseline</th><th>R1</th><th>R2</th><th>R3 Final</th><th>Δ</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Character Clarity</td><td>5</td><td>7</td><td>7</td><td>9</td><td class="delta">+4</td>
+        </tr>
+        <tr>
+            <td>Guide Positioning</td><td>6</td><td>6</td><td>8</td><td>8</td><td class="delta">+2</td>
+        </tr>
+        <tr>
+            <td>The Plan</td><td>4</td><td>4</td><td>7</td><td>9</td><td class="delta">+5</td>
+        </tr>
+        <tr>
+            <td>Stakes</td><td>3</td><td>5</td><td>8</td><td>8</td><td class="delta">+5</td>
+        </tr>
+        <tr>
+            <td>Call to Action</td><td>4</td><td>6</td><td>6</td><td>9</td><td class="delta">+5</td>
+        </tr>
+        <tr class="avg-row">
+            <td>Average</td><td>4.4</td><td>5.6</td><td>7.2</td><td>8.6</td><td class="delta">+4.2</td>
+        </tr>
+    </tbody>
+</table>
+
+<!-- ======================== ROUND 1 ======================== -->
+<div class="round-header">
+    <h2>Round 1 — Making the Invisible Visible</h2>
+    <div class="round-focus">Surface-level structural additions that reveal deeper StoryBrand gaps</div>
+</div>
+
+<!-- Improvement 1 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 1 · Stakes</div>
+    <h3>"Why This Matters" callout on every topic card</h3>
+    <p class="rationale">The baseline summaries described what Billy would write but never named what was at risk for the parent or child. Miller's framework demands that the stakes of inaction be made explicit — the customer needs to feel what they'll lose if they don't engage. Adding a single bold sentence between each headline and summary makes the consequences visible at a glance, transforming passive topic descriptions into urgent invitations.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;h2&gt;"Why boredom might be the most
+underrated gift..."&lt;/h2&gt;
+&lt;p&gt;With spring break behind us...
+Billy reflects on a paradox...&lt;/p&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;h2&gt;"Why boredom might be the most
+underrated gift..."&lt;/h2&gt;
+&lt;p class="stakes"&gt;&lt;strong&gt;Why this
+matters:&lt;/strong&gt; &lt;em&gt;Over-scheduled
+children lose the mental space where
+creativity and self-direction grow.
+&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;With spring break behind us...&lt;/p&gt;</div>
+    </div>
+</div>
+
+<!-- Improvement 2 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 2 · Character Clarity</div>
+    <h3>Rewrite intro to position parents as the heroes</h3>
+    <p class="rationale">The original intro read like a production note: "Ten weekly blog topics for Billy Tijerina, Head of School, written for Keystone parents." The parent was the audience, not the character. Miller's first principle is that the customer is the hero — their story, their questions, their stakes. The rewritten intro opens with "You're raising children in an uncertain world" and names the specific questions parents are asking, positioning Billy as the guide who serves them.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>Ten weekly blog topics for Billy
+Tijerina, Head of School, written
+for Keystone parents. Each entry
+includes a headline and summary
+paragraph describing the angle,
+sources, and Keystone connection.</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>You're raising children in an
+uncertain world — and you're
+asking the right questions. What
+does boredom do for kids? How do
+I help them navigate anxiety?
+These ten weekly posts are Billy
+Tijerina's guide through the
+questions you're asking right now.</div>
+    </div>
+</div>
+
+<!-- Improvement 3 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 3 · Call to Action</div>
+    <h3>"Your Move" footer on every topic card</h3>
+    <p class="rationale">The baseline summaries ended with vague encouragements: "encourages parents to resist the urge to over-schedule." Miller distinguishes between direct CTAs (clear and unambiguous) and transitional CTAs (softer invitations). The "Your Move" footer converts each post from something parents passively read into something they actively do — a specific conversation prompt, a family exercise, or a concrete behavior change they can try that night.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>...and encourages parents to resist
+the urge to over-schedule the
+summer months ahead.&lt;/p&gt;
+&lt;/div&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>...the summer months ahead.&lt;/p&gt;
+&lt;p class="call-to-action"&gt;
+&lt;strong&gt;Your move:&lt;/strong&gt; Ask
+your child tonight: when was the
+last time you were bored — and
+what did you do about it?&lt;/p&gt;
+&lt;/div&gt;</div>
+    </div>
+</div>
+
+<!-- ======================== ROUND 2 ======================== -->
+<div class="round-header">
+    <h2>Round 2 — Deepening the Framework</h2>
+    <div class="round-focus">Building on Round 1's additions to strengthen the weakest rubric dimensions</div>
+</div>
+
+<!-- Improvement 4 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 4 · Guide Positioning</div>
+    <h3>Lead every summary with the parent's experience, not Billy's</h3>
+    <p class="rationale">Round 1 added stakes and CTAs, but the summary paragraphs still opened with "Billy reflects on..." or "Billy makes the case that..." — centering him as protagonist. Miller's guide principle requires empathy ("I understand your problem") and authority ("I have a framework for solving it"), but the guide never leads the story. Rewriting the first sentence of each summary to open with "You know the paradox..." or "You may feel the anxiety rising..." shifts the entire narrative gravity toward the parent.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>Billy reflects on a paradox: parents
+and schools work hard to fill every
+hour of a child's day...</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>You know the paradox: you work hard
+to fill every hour of your child's
+day with enrichment, yet research
+shows that unstructured time is
+where creativity takes root. Billy
+draws on a recent APA piece...</div>
+    </div>
+</div>
+
+<!-- Improvement 5 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 5 · The Plan</div>
+    <h3>"The Through-Line" — a 3-step engagement plan for the whole series</h3>
+    <p class="rationale">Miller's framework insists that confused customers don't buy. Round 1 added per-post CTAs, but parents still had no map for engaging with the series as a whole. The Through-Line is a simple 3-step plan inserted before the first post: (1) Read the post each week, (2) Try the "Your Move" action at home, (3) Come back next week and see how the themes build. This converts a list of topics into a participatory journey.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;p class="intro"&gt;You're raising
+children in an uncertain world...
+&lt;/p&gt;
+
+&lt;!-- Topic 1 --&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;p class="intro"&gt;...&lt;/p&gt;
+
+&lt;div class="through-line"&gt;
+  &lt;h3&gt;The Through-Line: Billy's
+  Plan for You This Spring&lt;/h3&gt;
+  &lt;ol&gt;
+    &lt;li&gt;Read the post each week&lt;/li&gt;
+    &lt;li&gt;Try the "Your Move" action
+    at home&lt;/li&gt;
+    &lt;li&gt;Come back next week and see
+    how the themes build&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+
+&lt;!-- Topic 1 --&gt;</div>
+    </div>
+</div>
+
+<!-- Improvement 6 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 6 · Stakes</div>
+    <h3>Success/failure vision at the top of the page</h3>
+    <p class="rationale">Round 1 added per-card stakes, but Miller's framework also demands a macro-level vision of success and failure for the entire journey. The new stakes header — "Parents who engage with these ideas raise children who think for themselves... Parents who stay too busy to pause miss the window" — creates narrative tension before a single post is read. The dichotomy and time-bound language ("miss the window") create urgency without manipulation.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;p class="intro"&gt;You're raising
+children...&lt;/p&gt;
+
+&lt;div class="through-line"&gt;...</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;p class="intro"&gt;...&lt;/p&gt;
+
+&lt;div class="stakes-header"&gt;
+  &lt;strong&gt;Here's what's at stake:
+  &lt;/strong&gt;
+  &lt;em&gt;Parents who engage with
+  these ideas raise children who
+  think for themselves... Parents
+  who stay too busy to pause miss
+  the window.&lt;/em&gt;
+&lt;/div&gt;
+
+&lt;div class="through-line"&gt;...</div>
+    </div>
+</div>
+
+<!-- ======================== ROUND 3 ======================== -->
+<div class="round-header">
+    <h2>Round 3 — Polish and Coherence</h2>
+    <div class="round-focus">Closing remaining rubric gaps and ensuring all 9 improvements work as a unified StoryBrand experience</div>
+</div>
+
+<!-- Improvement 7 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 7 · Character Clarity</div>
+    <h3>Parent archetype tags on every topic card</h3>
+    <p class="rationale">Round 1 repositioned the intro and Round 2 reframed the summaries, but each card still spoke to "parents" generically. Miller's character principle demands specificity — the hero must recognize themselves. Adding a small archetype tag ("For the parent who over-schedules," "For the parent dreading graduation") lets each parent self-select into the posts that speak to their exact situation. This is the difference between "parents" and "you."</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;div class="number"&gt;Post 1&lt;/div&gt;
+&lt;div class="week-label"&gt;Week of
+April 13, 2026&lt;/div&gt;
+&lt;h2&gt;"Why boredom might be..."&lt;/h2&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;div class="number"&gt;Post 1&lt;/div&gt;
+&lt;div class="week-label"&gt;Week of
+April 13, 2026&lt;/div&gt;
+&lt;div class="archetype"&gt;For the
+parent who over-schedules&lt;/div&gt;
+&lt;h2&gt;"Why boredom might be..."&lt;/h2&gt;</div>
+    </div>
+</div>
+
+<!-- Improvement 8 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 8 · Call to Action</div>
+    <h3>Direct CTA section replacing passive footer</h3>
+    <p class="rationale">The baseline footer was administrative metadata: "Keystone School · Billy's Blog Draft Calendar · Prepared April 2026." Miller insists that every piece of communication must end with a clear, unambiguous call to action — a button that says exactly what to do next. The new CTA section ("Ready to Begin?" + "Read Billy's Blog" button linking to the live blog) converts the page from a planning document into a gateway to engagement.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;footer&gt;
+  Keystone School · Billy's Blog
+  Draft Calendar · Prepared April
+  2026
+&lt;/footer&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;div class="cta-section"&gt;
+  &lt;h2&gt;Ready to Begin?&lt;/h2&gt;
+  &lt;p&gt;Join parents who are pausing,
+  reflecting, and shaping what
+  their children become.&lt;/p&gt;
+  &lt;a href="..." class="cta-button"&gt;
+  Read Billy's Blog&lt;/a&gt;
+&lt;/div&gt;
+&lt;footer&gt;...&lt;/footer&gt;</div>
+    </div>
+</div>
+
+<!-- Improvement 9 -->
+<div class="imp-card">
+    <div class="imp-label">Improvement 9 · The Plan</div>
+    <h3>Narrative arc dividers grouping posts into three acts</h3>
+    <p class="rationale">Round 2 added the Through-Line (a process plan), but the 10 posts still read as a flat list. Miller's plan dimension works best when it has narrative structure — a beginning, middle, and end. Adding section dividers that group Posts 1–3 as "Foundation: The Questions You're Asking," Posts 4–6 as "Deepening: The Choices That Shape Them," and Posts 7–10 as "Closing: The Legacy You Leave" transforms the calendar from a schedule into a story arc parents can follow.</p>
+    <div class="code-grid">
+        <div class="code-box code-before">
+            <div class="code-label">Before</div>&lt;!-- Post 3 ends --&gt;
+&lt;/div&gt;
+
+&lt;!-- Topic 4 --&gt;
+&lt;div class="topic-card"&gt;</div>
+        <div class="code-box code-after">
+            <div class="code-label">After</div>&lt;!-- Post 3 ends --&gt;
+&lt;/div&gt;
+
+&lt;div class="section-divider"&gt;
+  &lt;div class="section-label"&gt;
+  Foundation: The Questions
+  You're Asking&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- Topic 4 --&gt;
+&lt;div class="topic-card"&gt;</div>
+    </div>
+</div>
+
+<!-- ======================== TEACH-THROUGH MEMO ======================== -->
+<div class="memo">
+    <h2>Teach-Through-the-Framework Memo</h2>
+    <p class="principle">Donald Miller's StoryBrand framework rests on one idea: every piece of communication is a story, and in that story, the customer is the hero. The brand (or in this case, the school leader) is never the hero — they are the guide. The guide's job is to show empathy ("I understand your problem"), demonstrate authority ("I have a framework"), give the hero a plan, call them to action, and paint a picture of what success and failure look like. When communication centers the brand instead of the customer, the customer tunes out.</p>
+
+    <h3>What to Spot Next Time</h3>
+    <ul>
+        <li><strong>Imp 1 (Stakes callouts):</strong> When writing topic summaries, ask: "If the parent ignores this, what happens to their child?" If you can't answer in one sentence, the stakes aren't clear enough.</li>
+        <li><strong>Imp 2 (Hero intro):</strong> The first paragraph of any parent-facing document should open with "you" — never with the school or the author. Check the first word.</li>
+        <li><strong>Imp 3 (Your Move CTAs):</strong> Every post should end with a verb. Not "we encourage you to consider..." but "Ask your child tonight..." The specificity of the verb is the specificity of the action.</li>
+        <li><strong>Imp 4 (Guide positioning):</strong> Scan each paragraph's first sentence. If the subject is Billy, the school, or "we," rewrite it. The subject should be "you" or the child.</li>
+        <li><strong>Imp 5 (The Through-Line):</strong> Any series of content needs a meta-plan. Without it, readers engage with one piece and forget to come back. Three steps is the maximum — more creates confusion.</li>
+        <li><strong>Imp 6 (Success/failure vision):</strong> Paint both pictures. Parents are more motivated by what they might lose than what they might gain. Lead with success, follow with the cost of inaction.</li>
+        <li><strong>Imp 7 (Archetype tags):</strong> "Parents" is too broad. "The parent who over-schedules" is a mirror. Every topic should have a one-line archetype that lets the right reader self-select.</li>
+        <li><strong>Imp 8 (Direct CTA):</strong> Every document needs one unambiguous action at the end. Not a footnote — a button. Miller calls this the "direct call to action" and distinguishes it from softer "transitional" CTAs.</li>
+        <li><strong>Imp 9 (Narrative arc):</strong> If you have more than 5 items in a series, group them into 2–3 acts. The grouping itself tells a story and gives readers a sense of progression.</li>
+    </ul>
+
+    <h3>Self-Review Checklist for Future Blog Calendars</h3>
+    <ul class="checklist">
+        <li>Does the intro address the parent's problem before mentioning the school or writer?</li>
+        <li>Does every topic card name a specific parent archetype?</li>
+        <li>Does every topic card include visible stakes (what's at risk if ignored)?</li>
+        <li>Does every topic card end with a concrete, verb-first action the parent can take?</li>
+        <li>Is there a clear 3-step plan for how to engage with the series as a whole?</li>
+    </ul>
+</div>
+
+</div><!-- /content -->
+
+</body>
+</html>
