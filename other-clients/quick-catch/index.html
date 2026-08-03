@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Catch | AI Wildlife Concierge</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #1f3b2c;
+      --forest-deep: #16291f;
+      --moss: #5c7a52;
+      --moss-light: #8ea583;
+      --cream: #f6f2e7;
+      --cream-deep: #ece3d0;
+      --clay: #a8471f;
+      --clay-deep: #8a3a19;
+      --ink: #2a2823;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--cream);
+      line-height: 1.6;
+      padding-bottom: 48px;
+    }
+
+    .display {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 600;
+      line-height: 1.08;
+    }
+
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--clay);
+    }
+
+    /* ---------- Top bar ---------- */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 30px;
+      background: var(--forest-deep);
+      border-bottom: 1px solid rgba(168,71,31,0.35);
+    }
+    .topbar img { height: 40px; width: auto; display: block; border-radius: 5px; }
+    .demo-tag {
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--cream);
+      border: 1px solid rgba(245,241,230,0.4);
+      border-radius: 100px;
+      padding: 5px 14px;
+    }
+    .demo-tag b { color: var(--clay); font-weight: 600; }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      position: relative;
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 9vh 30px 0;
+      text-align: center;
+      color: var(--cream);
+      background:
+        linear-gradient(180deg, rgba(22,41,31,0.80) 0%, rgba(22,41,31,0.48) 38%, rgba(31,59,44,0.68) 100%),
+        url('https://quick-catch.com/wp-content/uploads/2016/08/professional-snake-removal-team-jacksonville.jpg') center/cover no-repeat;
+    }
+    .hero .eyebrow { color: var(--clay); text-shadow: 0 1px 6px rgba(0,0,0,0.45); }
+    .hero h1 {
+      font-size: clamp(38px, 6vw, 74px);
+      margin: 18px auto 14px;
+      max-width: 15ch;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5), 0 1px 3px rgba(0,0,0,0.35);
+    }
+    .hero h1 em { font-style: italic; color: var(--moss-light); }
+    .hero p.lede {
+      max-width: 56ch;
+      margin: 0 auto;
+      font-size: clamp(16px, 1.7vw, 19px);
+      font-weight: 300;
+      color: rgba(245,241,230,0.92);
+      text-shadow: 0 1px 10px rgba(0,0,0,0.45);
+    }
+
+    .scroll-cue {
+      margin-top: 34px;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: var(--cream);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      animation: bob 2.4s ease-in-out infinite;
+    }
+    .scroll-cue .chev {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1px solid rgba(245,241,230,0.55);
+      display: grid; place-items: center;
+      font-size: 16px;
+    }
+    @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(7px); } }
+    @media (prefers-reduced-motion: reduce) {
+      .scroll-cue { animation: none; }
+    }
+
+    /* ---------- Intro / features ---------- */
+    .section { max-width: 1080px; margin: 0 auto; padding: 70px 30px 0; }
+    .intro { text-align: center; }
+    .intro .eyebrow { color: var(--clay-deep); }
+    .intro h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      color: var(--forest);
+      margin: 12px auto 16px;
+      max-width: 22ch;
+    }
+    .intro p {
+      max-width: 62ch;
+      margin: 0 auto;
+      color: #525549;
+      font-weight: 300;
+      font-size: 17px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-top: 46px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid var(--cream-deep);
+      border-top: 3px solid var(--clay);
+      border-radius: 4px;
+      padding: 30px 26px;
+      text-align: left;
+      box-shadow: 0 14px 30px -22px rgba(31,59,44,0.5);
+    }
+    .card .num {
+      font-family: 'Fraunces', serif;
+      font-size: 30px;
+      color: var(--moss);
+      line-height: 1;
+    }
+    .card h3 {
+      font-family: 'Fraunces', serif;
+      font-weight: 600;
+      font-size: 23px;
+      color: var(--forest);
+      margin: 10px 0 8px;
+    }
+    .card p { font-size: 15px; font-weight: 300; color: #5a5d51; }
+
+    /* ---------- What we handle strip ---------- */
+    .scope {
+      max-width: 1080px;
+      margin: 56px auto 0;
+      padding: 0 30px;
+    }
+    .scope-box {
+      background: #fff;
+      border: 1px solid var(--cream-deep);
+      border-radius: 6px;
+      padding: 24px 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .scope-box p {
+      font-size: 14px;
+      color: #5a5d51;
+      max-width: 62ch;
+    }
+    .scope-box strong { color: var(--forest); }
+    .scope-box .redirects {
+      font-size: 13px;
+      color: var(--clay-deep);
+      font-weight: 500;
+    }
+
+    /* ---------- Pointer to the live widget ---------- */
+    .widget-pointer {
+      max-width: 1080px;
+      margin: 64px auto 0;
+      padding: 0 30px;
+      text-align: center;
+    }
+    .widget-pointer .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--forest);
+      color: var(--cream);
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+    .widget-pointer .badge .dot {
+      width: 9px; height: 9px; border-radius: 50%;
+      background: #f0a860;
+      box-shadow: 0 0 0 0 rgba(240,168,96,0.7);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(240,168,96,0.6); }
+      70% { box-shadow: 0 0 0 9px rgba(240,168,96,0); }
+      100% { box-shadow: 0 0 0 0 rgba(240,168,96,0); }
+    }
+    .widget-pointer p {
+      margin-top: 14px;
+      color: var(--moss);
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      max-width: 1080px;
+      margin: 56px auto 0;
+      padding: 26px 30px 0;
+      border-top: 1px solid var(--cream-deep);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px 40px;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: #6a6d60;
+    }
+    footer a { color: var(--forest); text-decoration: none; }
+    footer a:hover { color: var(--clay-deep); }
+    footer .contact { display: flex; flex-wrap: wrap; gap: 6px 22px; }
+
+    @media (max-width: 720px) {
+      .cards { grid-template-columns: 1fr; }
+      body { padding-bottom: 40px; }
+      .topbar { padding: 12px 18px; }
+      .section { padding-top: 54px; }
+      .scope-box { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <img src="https://quick-catch.com/wp-content/uploads/2024/07/logo-2.jpg" alt="Quick Catch">
+    <span class="demo-tag">AI Wildlife Concierge &middot; <b>Demo</b></span>
+  </header>
+
+  <section class="hero">
+    <span class="eyebrow">Quick Catch &middot; Jacksonville &amp; North Florida</span>
+    <h1 class="display">Your Wildlife Concierge, <em>on call day and night</em></h1>
+    <p class="lede">Meet our AI assistant, here to answer questions about raccoons, snakes, rodents, and pests, point you toward the right help fast, and guide you to a service estimate in moments.</p>
+    <div class="scroll-cue">
+      <span>Chat below</span>
+      <span class="chev">&#x2193;</span>
+    </div>
+  </section>
+
+  <section class="section intro">
+    <span class="eyebrow">How it helps</span>
+    <h2 class="display">A calmer first step for every visitor</h2>
+    <p>Instead of routing every visitor straight to a phone call, the concierge listens first, answers what it can, and guides each person toward the right next step, whether that's an urgent call or a service estimate.</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="num">01</div>
+        <h3>Answers, instantly</h3>
+        <p>Service area, what we handle, and what to expect from an estimate. Clear answers the moment someone asks, day or night.</p>
+      </div>
+      <div class="card">
+        <div class="num">02</div>
+        <h3>Qualifies before it connects</h3>
+        <p>Urgent situations get fast-tracked straight to a call. Everything else is gently guided toward requesting a service estimate.</p>
+      </div>
+      <div class="card">
+        <div class="num">03</div>
+        <h3>True to Quick Catch</h3>
+        <p>Trained on our services and service area, reflecting the same careful, family-owned tone our team leads with in every real conversation.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="scope">
+    <div class="scope-box">
+      <p><strong>We handle:</strong> raccoons, snakes, squirrels, rodents, bats, armadillos, opossums, wild hogs, bees &amp; wasps, and other nuisance wildlife, plus full pest control and exclusion services.</p>
+      <p class="redirects">Dogs/cats &rarr; City of Jacksonville Animal Control (904-630-CITY)<br>Alligators &rarr; FWC Nuisance Gator Hotline (866-FWC-GATOR)</p>
+    </div>
+  </div>
+
+  <div class="widget-pointer">
+    <span class="badge"><span class="dot"></span> The concierge is live on this page</span>
+    <p>&#x2193; &nbsp; Try it in the chat window below &nbsp; &#x2193;</p>
+  </div>
+
+  <footer>
+    <span>Quick Catch &middot; Jacksonville, FL</span>
+    <div class="contact">
+      <a href="tel:9048596585">(904) 859-6585</a>
+      <span>12627 San Jose Blvd.</span>
+    </div>
+  </footer>
+
+  <!-- MeclabsAI ADS widget (floats center-bottom, scrolls with the page) -->
+  <script async src="https://meclabsai.com/embed/chat.js?appId=iib7TKelUyxvRkYy91tc"></script>
+
+</body>
+</html>
