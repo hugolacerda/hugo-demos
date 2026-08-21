@@ -53,3 +53,20 @@ Agents/02-Assembly/SBV-Report-Narrative/04-context.md
 
 # macOS clutter picked up while browsing these folders.
 Agents/**/.DS_Store
+
+# --- Nancy-Delivery fork (added 2026-08-21) ---------------------------
+# Client-Index.md is the decoder ring: it is the ONE file that maps a
+# codename to the real business, and it now also holds the customer
+# mapping (real names and private home addresses). It must never be
+# tracked, on any branch, under any circumstances.
+Agents/Nancy-Delivery/Client-Index.md
+Agents/Nancy-Delivery/Client-Index.pdf
+
+# Engagement inputs and outputs. The 'Agents/**/outputs/*' rule above
+# matches 'Outputs/' only because macOS git is case-insensitive by
+# default — it would NOT match on a Linux checkout or CI runner. Spelled
+# out here so the protection does not depend on filesystem behaviour.
+Agents/Nancy-Delivery/Inputs/*
+!Agents/Nancy-Delivery/Inputs/README.md
+Agents/Nancy-Delivery/Outputs/*
+!Agents/Nancy-Delivery/Outputs/README.md
