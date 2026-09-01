@@ -1,0 +1,945 @@
+<title>The Value Workshop Funnel</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --paper:#FBFAF6; --cream:#F3EEE3; --navy:#0E1F3D; --ember:#B84E36; --ember-ink:#A8442E;
+    --ink:#241F1A; --ink-soft:#5B5449; --ink-faint:#8B8375; --line:#E2DACB;
+    --live:#3E7A4F; --live-bg:#E7F0E4; --pend:#A6721A; --pend-bg:#FBF0DA;
+    --flag:#B33A2E; --flag-bg:#FBEAE5;
+    --card:#FFFFFF; --shadow:0 1px 2px rgba(14,31,61,.06),0 6px 20px -8px rgba(14,31,61,.10);
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --paper:#0B1526; --cream:#14233C; --navy:#1B2C4A; --ember:#D97B5F; --ember-ink:#E08D72;
+    --ink:#EDE7DA; --ink-soft:#B3AB9A; --ink-faint:#7C7566; --line:#2A3A57;
+    --live:#7BC98C; --live-bg:#16281B; --pend:#E0A83E; --pend-bg:#2E230D;
+    --flag:#E2685A; --flag-bg:#331815;
+    --card:#101D33; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.5);
+  }}
+  :root[data-theme="dark"]{
+    --paper:#0B1526; --cream:#14233C; --navy:#1B2C4A; --ember:#D97B5F; --ember-ink:#E08D72;
+    --ink:#EDE7DA; --ink-soft:#B3AB9A; --ink-faint:#7C7566; --line:#2A3A57;
+    --live:#7BC98C; --live-bg:#16281B; --pend:#E0A83E; --pend-bg:#2E230D;
+    --flag:#E2685A; --flag-bg:#331815;
+    --card:#101D33; --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px -12px rgba(0,0,0,.5);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:'Source Sans 3',Verdana,Geneva,sans-serif;font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:920px;margin:0 auto;padding:56px 28px 96px}
+  h1,h2,h3,h4{font-family:'Source Serif 4',Georgia,serif;font-weight:600;color:var(--ink);text-wrap:balance}
+  .mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+  p{color:var(--ink-soft)}
+  a{color:var(--ember-ink)}
+  :focus-visible{outline:2px solid var(--ember);outline-offset:2px;border-radius:3px}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.11em;
+    text-transform:uppercase;color:var(--ember-ink);margin:0 0 14px}
+  h1.title{font-size:42px;line-height:1.12;margin:0 0 8px}
+  .datestamp{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-faint);margin:0 0 20px}
+  .dek{font-size:18px;max-width:64ch;margin:0 0 34px}
+
+  .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);
+    border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .stat{background:var(--card);padding:18px}
+  .stat .n{font-family:'Source Serif 4',Georgia,serif;font-size:25px;font-variant-numeric:tabular-nums;
+    color:var(--ink);display:block;margin-bottom:3px}
+  .stat .l{font-size:12.5px;color:var(--ink-faint)}
+
+  section{margin-top:64px}
+  h2.section-title{font-size:22px;margin:0 0 6px}
+  .section-note{color:var(--ink-faint);font-size:14px;margin:0 0 26px;max-width:70ch}
+  hr.rule{border:none;border-top:1px solid var(--line);margin:64px 0 0}
+
+  /* sender callout */
+  .callout{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--ember);
+    border-radius:8px;padding:22px 26px;margin-top:34px;box-shadow:var(--shadow)}
+  .callout h3{margin:0 0 8px;font-size:17px;font-family:'Source Sans 3',sans-serif}
+  .callout p{margin:0;font-size:14.5px;max-width:72ch}
+  .callout .who{display:inline-block;margin:12px 0 12px;padding:10px 16px;background:var(--cream);
+    border:1px solid var(--line);border-radius:6px;font-size:14.5px;color:var(--ink)}
+  .callout .who b{font-weight:600}
+
+  /* flow diagram, plain HTML and CSS, no fixed coordinates */
+  figure.diagram{margin:26px 0 8px;padding:0}
+  figcaption{font-size:13.5px;color:var(--ink-faint);margin-top:18px;max-width:70ch}
+  .flow{display:flex;flex-direction:column;align-items:stretch}
+  .flow-row{display:grid;gap:14px}
+  .flow-row.one{grid-template-columns:1fr;max-width:420px;margin:0 auto;width:100%}
+  .flow-row.two{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+  .fnode{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line);
+    border-radius:8px;padding:15px 17px;min-width:0}
+  .fnode.is-live{border-left-color:var(--live)}
+  .fnode.is-pend{border-left-color:var(--pend)}
+  .fnode.is-start{border-left-color:var(--ember);background:var(--cream)}
+  .fnode.is-event{border-left-color:var(--ink-faint);background:var(--cream)}
+  .fn-status{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;
+    margin:0 0 7px;line-height:1.3}
+  .fn-status.live{color:var(--live)}
+  .fn-status.pend{color:var(--pend)}
+  .fn-status.plain{color:var(--ember-ink)}
+  .fn-title{font-size:16px;margin:0 0 5px;line-height:1.3;font-family:'Source Serif 4',Georgia,serif}
+  .fn-sub{font-size:13.5px;margin:0;color:var(--ink-soft);line-height:1.5}
+  .fn-note{font-size:12.5px;margin:9px 0 0;color:var(--ink-faint);line-height:1.5;
+    padding-top:9px;border-top:1px solid var(--line)}
+  .flow-link{display:flex;flex-direction:column;align-items:center;gap:7px;padding:11px 0}
+  .fl-line{width:2px;height:14px;background:var(--line);flex:none}
+  .fl-label{font-size:12.5px;color:var(--ink-faint);text-align:center;max-width:46ch;
+    line-height:1.45;padding:0 4px;text-wrap:balance}
+  .fl-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+    border-top:6px solid var(--ink-faint);flex:none}
+
+  .pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;
+    letter-spacing:.03em;text-transform:uppercase;padding:4px 11px 4px 9px;border-radius:100px}
+  .pill::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+  .pill-live{background:var(--live-bg);color:var(--live)}
+  .pill-pend{background:var(--pend-bg);color:var(--pend)}
+
+  /* sequence */
+  .wf{border-left:3px solid var(--line);padding-left:26px}
+  .wf.is-live{border-left-color:var(--live)}
+  .wf.is-pend{border-left-color:var(--pend)}
+  .wf-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .wf-num{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-faint)}
+  h3.wf-title{font-size:24px;margin:0}
+  .wf-purpose{font-size:15.5px;max-width:68ch;margin:0 0 20px}
+  .wf-when{font-size:13.5px;color:var(--ink-faint);margin:0 0 22px;max-width:68ch}
+  .wf-when b{color:var(--ink);font-weight:600}
+
+  .steps{margin:0 0 28px;padding:0;list-style:none}
+  .step{display:grid;grid-template-columns:158px 1fr;gap:18px;padding:13px 0;border-top:1px solid var(--line)}
+  .step:first-child{border-top:none}
+  .step .when{font-size:13px;color:var(--ink);font-weight:600;padding-top:1px}
+  .step .what{font-size:14.5px;color:var(--ink-soft)}
+  .step .what b{color:var(--ink);font-weight:600}
+  /* mini flow, same language as the main diagram, scaled down. Always vertical. */
+  .mflow{display:flex;flex-direction:column;align-items:stretch;margin:0 0 22px;max-width:640px}
+  .mstep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--line);
+    border-radius:7px;padding:13px 16px;min-width:0}
+  .mstep.tone-live{border-left-color:var(--live)}
+  .mstep.tone-pend{border-left-color:var(--pend)}
+  .ms-when{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--ember-ink);margin:0 0 6px;line-height:1.35}
+  .ms-lead{font-size:14.5px;font-weight:600;color:var(--ink);margin:0 0 4px;line-height:1.4}
+  .ms-desc{font-size:13.5px;margin:0;color:var(--ink-soft);line-height:1.55}
+  .marrow{position:relative;display:flex;flex-direction:column;align-items:center;
+    margin-left:22px;height:24px;justify-content:flex-end}
+  .marrow::before{content:"";width:2px;height:100%;background:var(--line);position:absolute}
+  .marrow span{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+    border-top:6px solid var(--ink-faint);position:relative;margin-top:8px}
+  .flag{display:block;margin:0 0 24px;font-size:13px;color:var(--flag);
+    background:var(--flag-bg);border-radius:5px;padding:9px 12px;max-width:66ch}
+  .flag.pend{color:var(--pend);background:var(--pend-bg)}
+
+  /* email accordions */
+  .previews{margin:0 0 8px}
+  .previews-label{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--ink-faint);margin:0 0 12px}
+  .previews-label .hint{text-transform:none;letter-spacing:0;font-family:'Source Sans 3',sans-serif;
+    font-size:12.5px;color:var(--ink-faint);opacity:.85}
+  details.email{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    margin-bottom:12px;overflow:hidden}
+  details.email[open]{box-shadow:var(--shadow)}
+  summary.email-sum{cursor:pointer;list-style:none;padding:16px 20px;display:grid;
+    grid-template-columns:auto 1fr;gap:12px;align-items:start}
+  summary.email-sum::-webkit-details-marker{display:none}
+  summary.email-sum::before{content:"▸";color:var(--ember);font-size:14px;
+    transition:transform .15s ease;display:inline-block;padding-top:3px}
+  details.email[open] summary.email-sum::before{transform:rotate(90deg)}
+  .em-timing{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--ember-ink);margin:0 0 5px}
+  .em-subj-line{font-size:15.5px;color:var(--ink);margin:0}
+  .em-subj-line .lbl{font-family:'IBM Plex Mono',monospace;font-size:11.5px;
+    color:var(--ink-faint);letter-spacing:.06em;text-transform:uppercase;margin-right:7px}
+  .em-subj-line .val{font-family:'Source Serif 4',Georgia,serif;font-weight:600}
+  .em-frame-wrap{border-top:1px solid var(--line);background:#f5f5f5}
+  .em-frame,.opt-frame{width:100%;border:0;display:block;background:#f5f5f5;
+    height:var(--h-wide)}
+  @media (max-width:780px){.em-frame,.opt-frame{height:var(--h-mid)}}
+  @media (max-width:600px){.em-frame,.opt-frame{height:var(--h-narrow)}}
+  .em-foot{font-size:12.5px;color:var(--ink-faint);padding:11px 20px;
+    border-top:1px solid var(--line);background:var(--cream);margin:0}
+  @media (prefers-reduced-motion:reduce){summary.email-sum::before{transition:none}}
+
+  /* decision */
+  .decision{background:var(--card);border:2px solid var(--ember);border-radius:10px;
+    padding:32px 30px 28px;box-shadow:var(--shadow)}
+  .d-eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ember-ink);margin:0 0 10px}
+  .decision h2{font-size:25px;margin:0 0 12px}
+  .d-lede{font-size:15.5px;max-width:68ch;margin:0 0 26px}
+  .current{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;
+    margin-bottom:34px}
+  .cur{background:var(--cream);border:1px solid var(--line);border-radius:7px;padding:14px 16px}
+  .cur .who{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+    color:var(--ink-faint);margin:0 0 5px}
+  .cur .gets{font-size:14.5px;color:var(--ink);margin:0}
+
+  .opt-block{border:1px solid var(--line);border-radius:9px;overflow:hidden;margin-bottom:20px;
+    background:var(--paper)}
+  .opt-head{padding:18px 22px;background:var(--cream);border-bottom:1px solid var(--line)}
+  .opt-top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+  .opt-let{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ember-ink);
+    letter-spacing:.09em;font-weight:600}
+  .opt-head h4{margin:0;font-size:19px}
+  .opt-src{font-size:12px;color:var(--ink-faint);font-family:'IBM Plex Mono',monospace}
+  .opt-note{font-size:14px;color:var(--ink-soft);margin:0;max-width:70ch}
+  .opt-note b{color:var(--ink);font-weight:600}
+
+  .d-ask{margin-top:28px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:15.5px;color:var(--ink)}
+  .d-ask b{font-weight:600}
+  .d-sub{font-size:14px;color:var(--ink-soft);margin:10px 0 0;max-width:70ch}
+
+  /* closing checklist */
+  .closing{background:var(--card);border:1px solid var(--line);border-radius:8px;
+    padding:8px 26px;box-shadow:var(--shadow)}
+  .ci{display:grid;grid-template-columns:26px 1fr;gap:14px;padding:18px 0;
+    border-top:1px solid var(--line)}
+  .ci:first-child{border-top:none}
+  .ci-n{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ember-ink);padding-top:2px}
+  .ci h4{margin:0 0 4px;font-size:15.5px;font-family:'Source Sans 3',sans-serif}
+  .ci p{margin:0;font-size:14px;max-width:70ch}
+
+  footer{margin-top:72px;padding-top:22px;border-top:1px solid var(--line);
+    font-size:12px;color:var(--ink-faint)}
+  footer p{font-size:12px;color:var(--ink-faint)}
+</style>
+
+<div class="wrap">
+
+  <div class="eyebrow">Strategic Business Valuations &nbsp;·&nbsp; Business Value Workshop</div>
+  <h1 class="title">The Value Workshop Funnel</h1>
+  <p class="datestamp">August 31, 2026</p>
+  <p class="dek">Everything that happens automatically from the moment someone signs up for the workshop through the follow-up after it ends. Every email is shown here exactly as the recipient receives it. There is one open decision at the bottom that needs your call.</p>
+
+  <div class="stat-strip">
+    <div class="stat"><span class="n">4</span><span class="l">automatic sequences</span></div>
+    <div class="stat"><span class="n">8</span><span class="l">emails, all viewable below</span></div>
+    <div class="stat"><span class="n">3</span><span class="l">running now</span></div>
+    <div class="stat"><span class="n">1</span><span class="l">decision for you</span></div>
+  </div>
+
+  <div class="callout">
+    <h3>Every email currently comes from Nancy</h3>
+    <p>All eight emails below send under Nancy's name and address:</p>
+    <div class="who"><b>Nancy Hallett</b> &nbsp;·&nbsp; nancy@strategicbusinessvaluations.com</div>
+    <p>This was set when the emails were first built and has not been revisited since. If you would rather some or all of these come from you, or from a general company address, flag it and we will change it. Otherwise we will take no news as confirmation that Nancy is right for all of them.</p>
+  </div>
+
+  <!-- ================= DIAGRAM ================= -->
+  <section>
+    <h2 class="section-title">How it fits together</h2>
+    <p class="section-note">Signing up starts two sequences at once. What happens after the workshop depends on whether the person actually showed up, which we mark by hand once the session ends.</p>
+
+    <figure class="diagram">
+      <div class="flow">
+
+        <div class="flow-row one">
+          <div class="fnode is-start">
+            <p class="fn-status plain">Starting point</p>
+            <h4 class="fn-title">Someone signs up</h4>
+            <p class="fn-sub">On the workshop landing page. One session date per round.</p>
+          </div>
+        </div>
+
+        <div class="flow-link">
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-label">This starts two sequences at the same time</span>
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-arrow" aria-hidden="true"></span>
+        </div>
+
+        <div class="flow-row two">
+          <div class="fnode is-live">
+            <p class="fn-status live">Running</p>
+            <h4 class="fn-title">Confirmation email</h4>
+            <p class="fn-sub">One email, sent right away. You get an alert at the same time.</p>
+          </div>
+          <div class="fnode is-live">
+            <p class="fn-status live">Running</p>
+            <h4 class="fn-title">Reminder sequence</h4>
+            <p class="fn-sub">Three emails, sent 3 days, 1 day and 1 hour before the session.</p>
+          </div>
+        </div>
+
+        <div class="flow-link">
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-label">Then the session date arrives</span>
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-arrow" aria-hidden="true"></span>
+        </div>
+
+        <div class="flow-row one">
+          <div class="fnode is-event">
+            <p class="fn-status plain">The event</p>
+            <h4 class="fn-title">The workshop runs</h4>
+            <p class="fn-sub">Live on Zoom. Afterwards we mark who attended and who did not.</p>
+          </div>
+        </div>
+
+        <div class="flow-link">
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-label">That mark decides which follow-up they get</span>
+          <span class="fl-line" aria-hidden="true"></span>
+          <span class="fl-arrow" aria-hidden="true"></span>
+        </div>
+
+        <div class="flow-row two">
+          <div class="fnode is-pend">
+            <p class="fn-status pend">Paused, waiting on you</p>
+            <h4 class="fn-title">They attended</h4>
+            <p class="fn-sub">Two emails, 3 hours and 3 days after the session. The scorecard is the only ask.</p>
+            <p class="fn-note">Currently switched off while the decision below is open.</p>
+          </div>
+          <div class="fnode is-pend">
+            <p class="fn-status pend">Not turned on yet</p>
+            <h4 class="fn-title">They did not attend</h4>
+            <p class="fn-sub">Two emails, 3 hours and 3 days after. They get the recording plus the scorecard.</p>
+            <p class="fn-note">Waiting on the decision at the bottom of this page.</p>
+          </div>
+        </div>
+
+      </div>
+      <figcaption>Both post-workshop sequences are paused right now. The decision at the end of this document affects what both say, so we held both rather than turn one on and rebuild it again in a week.</figcaption>
+    </figure>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= 01 CONFIRMATION ================= -->
+  <section>
+    <div class="wf is-live">
+      <div class="wf-head">
+        <span class="wf-num">01</span>
+        <h3 class="wf-title">Confirmation</h3>
+        <span class="pill pill-live">Running</span>
+      </div>
+      <p class="wf-purpose">The immediate handshake. Confirms the person's spot, sends you a heads-up that someone registered, and adds them to the sales tracker so they are not lost.</p>
+
+      <div class="mflow">
+        <div class="mstep tone-live">
+          <p class="ms-when">Right away</p>
+          <p class="ms-lead">You get an alert</p>
+          <p class="ms-desc">The new registrant's name, email, phone and which session they picked.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-live">
+          <p class="ms-when">Right away</p>
+          <p class="ms-lead">They get a confirmation email</p>
+          <p class="ms-desc">Sent from Nancy, confirming their spot.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-live">
+          <p class="ms-when">Right away</p>
+          <p class="ms-lead">They are added to the sales tracker</p>
+          <p class="ms-desc">Logged as a new lead so nobody falls through the cracks.</p>
+        </div>
+      </div>
+      <p class="flag">Two copy items in this email. It tells people the date and access details are "coming shortly," which made sense when dates were still being set per round but is out of date now that we know the date at signup. And the subject line still contains a dash, which we are removing everywhere. Both are quick changes once you confirm the wording.</p>
+
+      <div class="previews">
+        <p class="previews-label">The email they receive <span class="hint">(click a header to collapse)</span></p>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">Sent right away</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">You're Registered: Is Your Business Worth What You Think It Is?</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1608px;--h-mid:1271px;--h-wide:1245px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;You&#x27;re registered, {{contact.first_name}}.&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;We&#x27;ve got your spot for the free workshop, &lt;em&gt;Is Your Business Worth What You Think It Is?&lt;/em&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;margin-top: 14px;&quot;&gt;Date and access details will be sent to you shortly once the session is confirmed. Keep an eye on your inbox.&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:24px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;&lt;strong&gt;What you&#x27;ll learn in this session&lt;/strong&gt;&lt;/p&gt;&lt;table cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:4px 0;font-size:14px;line-height:1.6;color:#444444;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;‣&amp;nbsp; How buyers actually evaluate your business&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:4px 0;font-size:14px;line-height:1.6;color:#444444;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;‣&amp;nbsp; The difference between a profitable business and a valuable one&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:4px 0;font-size:14px;line-height:1.6;color:#444444;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;‣&amp;nbsp; The key factors that increase, or quietly reduce, your valuation&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:4px 0;font-size:14px;line-height:1.6;color:#444444;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;‣&amp;nbsp; Why risk matters more than most owners realize&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:4px 0;font-size:14px;line-height:1.6;color:#444444;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;‣&amp;nbsp; How to start closing the gap between where you are and where you want to be&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;margin-top: 4px;&quot;&gt;Questions in the meantime? Reply to this email or visit us at &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com&quot;&gt;strategicbusinessvaluations.com&lt;/a&gt;.&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;margin: 24px 0 0;&quot;&gt;Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot;&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">Note: the live subject line still has a dash in it. The version shown here is the corrected wording we plan to use.</p>
+</details>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= 02 REMINDERS ================= -->
+  <section>
+    <div class="wf is-live">
+      <div class="wf-head">
+        <span class="wf-num">02</span>
+        <h3 class="wf-title">Reminders</h3>
+        <span class="pill pill-live">Running</span>
+      </div>
+      <p class="wf-purpose">Three nudges counting down to the session, each one shorter and more urgent than the last, ending with the join link in front of them an hour before we start.</p>
+      <p class="wf-when">Confirmed switched on and sending as of August 28. The current round is September 9, 2026 at 11:00 AM Eastern. <b>Updating the date for a new round is still a manual step on our end</b> (not yet the one-click update we'd like it to be) but the sequence itself runs on its own once that's set.</p>
+
+      <div class="mflow">
+        <div class="mstep tone-live">
+          <p class="ms-when">3 Days Before</p>
+          <p class="ms-lead">First reminder</p>
+          <p class="ms-desc">The join link, plus buttons to add the session to their calendar.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-live">
+          <p class="ms-when">1 Day Before</p>
+          <p class="ms-lead">Second reminder</p>
+          <p class="ms-desc">The same links. Also asks them to reply with their own guess at what their business is worth.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-live">
+          <p class="ms-when">1 Hour Before</p>
+          <p class="ms-lead">Final reminder</p>
+          <p class="ms-desc">Just the join link, nothing competing with it.</p>
+        </div>
+      </div>
+
+      <div class="previews">
+        <p class="previews-label">The three reminders, in order <span class="hint">(click a header to collapse)</span></p>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">3 Days Before the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Reminder: Business Value Workshop in 3 days</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1208px;--h-mid:1079px;--h-wide:1052px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;
+        &lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot;&gt;
+                  &lt;strong&gt;
+                    &lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;
+                  &lt;/strong&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;
+                &lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;
+                  &lt;strong&gt;Hi {{contact.first_name}},&lt;/strong&gt;
+                &lt;/h1&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;Your workshop is in 3 days, &lt;strong&gt;{{contact.webinar_session_label}}&lt;/strong&gt;. &lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;
+                  &lt;em&gt;Is Your Business Worth What You Think It Is?&lt;/em&gt;
+                &lt;/p&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;
+                          &lt;strong&gt;Join here&lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;
+                          &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://us02web.zoom.us/j/81095016615&quot; title=&quot;Join Zoom Meeting&quot;&gt;Join Zoom Meeting&lt;/a&gt;
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin-bottom:32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;
+                          &lt;strong&gt;Add it to your calendar&lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;
+                          &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://calendar.google.com/calendar/render?action=TEMPLATE&amp;amp;text=Is+Your+Business+Worth+What+You+Think+It+Is%3F&amp;amp;dates=20260909T150000Z/20260909T160000Z&amp;amp;details=Join+here%3A+https%3A%2F%2Fus02web.zoom.us%2Fj%2F81095016615&amp;amp;location=Zoom&quot;&gt;Google Calendar&lt;/a&gt;&amp;nbsp;&amp;nbsp;·&amp;nbsp;&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&amp;amp;rru=addevent&amp;amp;startdt=2026-09-09T15:00:00Z&amp;amp;enddt=2026-09-09T16:00:00Z&amp;amp;subject=Is%20Your%20Business%20Worth%20What%20You%20Think%20It%20Is%3F&amp;amp;body=Join%20here%3A%20https%3A%2F%2Fus02web.zoom.us%2Fj%2F81095016615&amp;amp;location=Zoom&quot;&gt;Outlook&lt;/a&gt;&amp;nbsp;&amp;nbsp;·&amp;nbsp;&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/6a95eb1ee68555d6d5f41fc3.ics&quot;&gt;Apple / Other&lt;/a&gt;
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;Questions before then? Reply to this email or visit us at &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com&quot;&gt;strategicbusinessvaluations.com&lt;/a&gt;. &lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot;&gt;Nancy Hallett, CVA&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot;&gt;Strategic Business Valuations&lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;
+                  &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">The calendar buttons point at whichever date the current round is set to.</p>
+</details>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">1 Day Before the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Tomorrow: Is Your Business Worth What You Think It Is?</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1082px;--h-mid:975px;--h-wide:944px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Tomorrow&#x27;s the day, {{contact.first_name}}.&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;Your session is tomorrow, &lt;strong&gt;{{contact.webinar_session_label}}&lt;/strong&gt;. Come with questions if you have them, we leave time for them.&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Join here&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://us02web.zoom.us/j/81095016615&quot; title=&quot;Join Zoom Meeting&quot;&gt;Join Zoom Meeting&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;See you there. Questions before then? Reply to this email or visit us at &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com&quot;&gt;strategicbusinessvaluations.com&lt;/a&gt;.&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot;&gt;Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot;&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">This is the one that asks them to reply with their own valuation guess.</p>
+</details>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">1 Hour Before the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Starting in 1 hour: join link inside</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1106px;--h-mid:1026px;--h-wide:968px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;
+        &lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot;&gt;
+                  &lt;strong&gt;
+                    &lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;
+                  &lt;/strong&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;
+                &lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;
+                  &lt;strong&gt;Starting in 1 hour, {{contact.first_name}}.&lt;/strong&gt;
+                &lt;/h1&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;Your session starts in an hour, &lt;strong&gt;{{contact.webinar_session_label}}&lt;/strong&gt;. Grab your coffee and jump in when you&#x27;re ready.&lt;/p&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;
+                          &lt;strong&gt;Join here&lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;
+                          &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://us02web.zoom.us/j/81095016615&quot; title=&quot;Join Zoom Meeting&quot;&gt;Join Zoom Meeting&lt;/a&gt;
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;See you soon. Questions before then? Reply to this email or visit us at &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com&quot;&gt;strategicbusinessvaluations.com&lt;/a&gt;. &lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 24px 0 0;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot;&gt;Nancy Hallett, CVA&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot;&gt;Strategic Business Valuations&lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;
+                  &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">Deliberately stripped down. The join link is the only thing to click.</p>
+</details>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= 03 ATTENDEES ================= -->
+  <section>
+    <div class="wf is-pend">
+      <div class="wf-head">
+        <span class="wf-num">03</span>
+        <h3 class="wf-title">Attendee follow-up</h3>
+        <span class="pill pill-pend">Paused, waiting on you</span>
+      </div>
+      <p class="wf-purpose">For the people who showed up. Thanks them 3 hours after the session, moves them forward in the sales tracker, then follows up once more 3 days later. They only get the Value Builder link, since they already sat through the session and do not need the recording.</p>
+      <p class="wf-when">This sequence ran from August 12 through late August but is currently switched off. Same reason as the no-show sequence below: it depends on the decision at the bottom of this page, and rebuilding it twice seemed worse than pausing it once.</p>
+
+      <div class="mflow">
+        <div class="mstep tone-pend">
+          <p class="ms-when">3 Hours After</p>
+          <p class="ms-lead">Thank-you email</p>
+          <p class="ms-desc">The Value Builder scorecard link, and a note that Nancy will follow up with next steps.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-pend">
+          <p class="ms-when">3 Days After</p>
+          <p class="ms-lead">One more nudge</p>
+          <p class="ms-desc">Re-shares the scorecard, and offers a call instead for anyone who would rather just talk it through.</p>
+        </div>
+      </div>
+      <p class="flag pend">The two gaps above are the intended timing. This sequence was tested with shorter gaps before it first went live, and we are re-confirming those test settings were put back to 3 hours and 3 days before switching it back on.</p>
+
+      <div class="previews">
+        <p class="previews-label">Both attendee emails <span class="hint">(click a header to collapse)</span></p>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">3 Hours After the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Thanks for joining today</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1353px;--h-mid:1119px;--h-wide:1119px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;
+        &lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;strong&gt;
+                    &lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;
+                  &lt;/strong&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;
+                &lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;
+                  &lt;strong&gt;Thanks for joining today, {{contact.first_name}}.&lt;/strong&gt;
+                &lt;/h1&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Thank you so much for joining our webinar today. I really appreciate you taking the time to be part of the session.&lt;/p&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;strong&gt;Missed the link? &lt;br&gt;Here&#x27;s the Value Builder score &lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;br&gt;Get a clearer picture of where your business stands.
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;br&gt;
+                          &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=thankyou_email&quot; title=&quot;Get My Value Builder Score&quot;&gt;
+                            &lt;strong&gt;Get My Value Builder Score&lt;/strong&gt;
+                          &lt;/a&gt;
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;br&gt;I&#x27;ll be following up soon with some next steps.
+                &lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;br&gt;Strategic Business Valuations
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;
+                  &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">This is Option A in the decision section below: the scorecard is the only ask.</p>
+</details>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">3 Days After the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Still thinking about your number?</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1181px;--h-mid:1025px;--h-wide:1025px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Still thinking about your number, {{contact.first_name}}?&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Here’s the Value Builder assessment link again:&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=final_valuebuilder&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;See My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;A few minutes for a clearer snapshot&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Prefer to skip the assessment and just talk it through? Reply to this email and we’ll set up a quick call.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">Offers a call as an alternative for anyone who would rather talk than fill in a form.</p>
+</details>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= 04 NO SHOWS ================= -->
+  <section>
+    <div class="wf is-pend">
+      <div class="wf-head">
+        <span class="wf-num">04</span>
+        <h3 class="wf-title">No-show follow-up</h3>
+        <span class="pill pill-pend">Not turned on yet</span>
+      </div>
+      <p class="wf-purpose">For the people who registered but did not show. They get the recording so they can catch up, plus the Value Builder scorecard, then a second reminder 3 days later. This is the sequence the decision below affects, which is why it has not been switched on.</p>
+
+      <div class="mflow">
+        <div class="mstep tone-pend">
+          <p class="ms-when">3 Hours After</p>
+          <p class="ms-lead">&quot;Sorry we missed you&quot; email</p>
+          <p class="ms-desc">The recording so they can catch up, plus the scorecard.</p>
+        </div>
+        <div class="marrow" aria-hidden="true"><span></span></div>
+        <div class="mstep tone-pend">
+          <p class="ms-when">3 Days After</p>
+          <p class="ms-lead">Final follow-up</p>
+          <p class="ms-desc">Resurfaces both links and invites a reply.</p>
+        </div>
+      </div>
+      <p class="flag pend">The exact timing on these two emails has not been re-checked since they were built, so the real gaps may differ slightly from the 3 hours and 3 days shown. We will confirm before switching this on.</p>
+
+      <div class="previews">
+        <p class="previews-label">Both no-show emails. The recording link shows as a placeholder because a new video goes up each round. <span class="hint">(click a header to collapse)</span></p>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">3 Hours After the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Sorry we missed you!</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1548px;--h-mid:1265px;--h-wide:1265px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Hi {{contact.first_name}},&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Sorry we missed you at today&#x27;s Business Value Workshop, I know schedules get busy.&lt;br&gt;&lt;br&gt;The good news: I recorded the full session, so you can watch it whenever works for you.&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Watch the Recording&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;[LINK TO YOUTUBE RECORDING]&lt;br&gt;&lt;br&gt;While you&#x27;re at it, here&#x27;s the same next step I shared with everyone who attended:&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=thankyou_email&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;Get My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;Get a clearer picture of where your business stands.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;I&#x27;ll be here if you have any questions.&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">This is Option C in the decision section below: recording first, then the scorecard.</p>
+</details>
+        <details class="email" open>
+  <summary class="email-sum">
+    <div>
+      <p class="em-timing">3 Days After the Webinar</p>
+      <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Still wondering about the value of your business?</span></p>
+    </div>
+  </summary>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1381px;--h-mid:1117px;--h-wide:1090px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Hi {{contact.first_name}},&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;Just checking in, in case the workshop recording is still sitting in your inbox unwatched, here&#x27;s the link again:&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Watch The Recording&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;[LINK TO YOUTUBE RECORDING]&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;And if you haven&#x27;t gotten your Value Builder score yet, it only takes a few minutes:&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=final_valuebuilder&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;See My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;Get a clearer picture of where your business stands.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;If you&#x27;d rather just talk it through, reply to this email, and we&#x27;ll find a time.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <p class="em-foot">Same per-round recording placeholder.</p>
+</details>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= DECISION ================= -->
+  <section>
+    <div class="decision">
+      <p class="d-eyebrow">Decision needed</p>
+      <h2>What should the follow-up emails ask people to do?</h2>
+      <p class="d-lede">After the workshop we can point people at the recording, at the Value Builder scorecard, or at both. Right now both follow-up sequences are paused so we don't build them twice, once now and once after your call. Below are the three ways it could go, each shown as the full email the person would actually receive.</p>
+
+      <div class="current">
+        <div class="cur">
+          <p class="who">Attendees got, before pausing</p>
+          <p class="gets">The scorecard only</p>
+        </div>
+        <div class="cur">
+          <p class="who">No-shows would get, once switched on</p>
+          <p class="gets">The recording and the scorecard</p>
+        </div>
+      </div>
+
+      <div class="opt-block">
+  <div class="opt-head">
+    <div class="opt-top"><span class="opt-let">OPTION A</span><h4>The scorecard only</h4><span class="opt-src">Real email, sent to attendees before pausing</span></div>
+    <p class="opt-note"><b>One ask, nothing competing with it.</b> This is the strongest pull toward the scorecard, which is the step that actually starts a conversation. The trade-off is that anyone who wanted to watch a replay first has nowhere to go.</p>
+  </div>
+  <iframe style="--h-narrow:1353px;--h-mid:1119px;--h-wide:1119px" class="opt-frame" loading="lazy" sandbox="allow-same-origin" title="Option A: The scorecard only" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;
+        &lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;strong&gt;
+                    &lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;
+                  &lt;/strong&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;
+                &lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;
+                  &lt;strong&gt;Thanks for joining today, {{contact.first_name}}.&lt;/strong&gt;
+                &lt;/h1&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Thank you so much for joining our webinar today. I really appreciate you taking the time to be part of the session.&lt;/p&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;strong&gt;Missed the link? &lt;br&gt;Here&#x27;s the Value Builder score &lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;br&gt;Get a clearer picture of where your business stands.
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                          &lt;br&gt;
+                          &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=thankyou_email&quot; title=&quot;Get My Value Builder Score&quot;&gt;
+                            &lt;strong&gt;Get My Value Builder Score&lt;/strong&gt;
+                          &lt;/a&gt;
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;br&gt;I&#x27;ll be following up soon with some next steps.
+                &lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;
+                  &lt;br&gt;Strategic Business Valuations
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;
+                  &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+</div>
+      <div class="opt-block">
+  <div class="opt-head">
+    <div class="opt-top"><span class="opt-let">OPTION B</span><h4>The recording only</h4><span class="opt-src">Mockup, not built yet</span></div>
+    <p class="opt-note"><b>The easiest yes, and the softest ask.</b> Good for someone who has gone cold, since watching a video asks almost nothing of them. The cost is that the scorecard moves into the video description, one click further away, where far fewer people will find it.</p>
+  </div>
+  <iframe style="--h-narrow:1352px;--h-mid:1142px;--h-wide:1142px" class="opt-frame" loading="lazy" sandbox="allow-same-origin" title="Option B: The recording only" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;
+        &lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+          &lt;tbody&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot;&gt;
+                  &lt;strong&gt;
+                    &lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;
+                  &lt;/strong&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;
+                &lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;
+                  &lt;strong&gt;Hi {{contact.first_name}},&lt;/strong&gt;
+                &lt;/h1&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;Sorry we missed you at today&#x27;s Business Value Workshop, I know schedules get busy.&lt;br&gt;&lt;br&gt;The good news: I recorded the full session, so you can watch it whenever works for you.&lt;/p&gt;
+                &lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;
+                  &lt;tbody&gt;
+                    &lt;tr&gt;
+                      &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot;&gt;
+                          &lt;strong&gt;Watch the Recording&lt;/strong&gt;
+                        &lt;/p&gt;
+                        &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;
+                          &lt;br&gt;[LINK TO YOUTUBE RECORDING]&lt;br&gt;&lt;br&gt;The Value Builder scorecard is linked in the video description if you want to go a step further.
+                        &lt;/p&gt;
+                      &lt;/td&gt;
+                    &lt;/tr&gt;
+                  &lt;/tbody&gt;
+                &lt;/table&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot;&gt;I&#x27;ll be here if you have any questions.&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 24px 0 0;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot;&gt;Nancy Hallett, CVA&lt;/p&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot;&gt;Strategic Business Valuations&lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+              &lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;
+                &lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;
+                  &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;
+                &lt;/p&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/tbody&gt;
+        &lt;/table&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+</div>
+      <div class="opt-block">
+  <div class="opt-head">
+    <div class="opt-top"><span class="opt-let">OPTION C</span><h4>Both, recording first</h4><span class="opt-src">Real email, ready to send to no-shows</span></div>
+    <p class="opt-note"><b>What the no-show emails say today.</b> Covers both intentions in one send: catch up on what you missed, then go a step further. The usual risk with two asks in one email is that fewer people do either one.</p>
+  </div>
+  <iframe style="--h-narrow:1548px;--h-mid:1265px;--h-wide:1265px" class="opt-frame" loading="lazy" sandbox="allow-same-origin" title="Option C: Both, recording first" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Hi {{contact.first_name}},&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Sorry we missed you at today&#x27;s Business Value Workshop, I know schedules get busy.&lt;br&gt;&lt;br&gt;The good news: I recorded the full session, so you can watch it whenever works for you.&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Watch the Recording&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;[LINK TO YOUTUBE RECORDING]&lt;br&gt;&lt;br&gt;While you&#x27;re at it, here&#x27;s the same next step I shared with everyone who attended:&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=thankyou_email&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;Get My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;Get a clearer picture of where your business stands.&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;I&#x27;ll be here if you have any questions.&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe>
+</div>
+
+      <div class="d-ask">
+        <b>The question:</b> keep the split as it is, with attendees getting the scorecard alone and no-shows getting both? Or make both groups get the same thing?
+        <p class="d-sub">There is a reasonable case for the current split. Attendees already saw the content, so a recording link is redundant for them, while a no-show has nothing yet and the recording is the only thing that catches them up. If that logic holds for you, this just needs a yes and we switch both sequences back on. Either way, nothing else changes, this only affects email wording.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <!-- ================= CLOSING ================= -->
+  <section>
+    <h2 class="section-title">Before the next round</h2>
+    <p class="section-note">Three things on our side, listed so you know where they stand.</p>
+    <div class="closing">
+      <div class="ci">
+        <span class="ci-n">1</span>
+        <div>
+          <h4>Your call on the follow-up emails</h4>
+          <p>The only item that needs you. Once you pick a direction, both post-workshop sequences get switched back on and the workshop funnel is complete end to end.</p>
+        </div>
+      </div>
+      <div class="ci">
+        <span class="ci-n">2</span>
+        <div>
+          <h4>Confirm the sender on all eight emails</h4>
+          <p>Everything currently goes out as Nancy. Flag it if you want any of them coming from you or from a general company address instead.</p>
+        </div>
+      </div>
+      <div class="ci">
+        <span class="ci-n">3</span>
+        <div>
+          <h4>One check on our end, no action needed from you</h4>
+          <p>We still need to re-check the timing gaps on the two no-show emails before switching that sequence on. Quick, and will be done before it's turned back on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Every email shown on this page is rendered from the actual email as built, not a description of it. Prepared by Hugo. Questions or changes, just reply and we will get them in before the next round.</p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var sel = 'iframe.em-frame, iframe.opt-frame';
+  function fit(f) {
+    try {
+      var d = f.contentDocument;
+      if (!d || !d.body) return;
+      // Collapse first: documentElement.scrollHeight is floored at the frame's own
+      // height, so measuring without shrinking can only ever grow the frame.
+      var prev = f.style.height;
+      f.style.height = '60px';
+      var h = d.body.scrollHeight || d.documentElement.scrollHeight;
+      if (h > 0) { f.style.height = h + 'px'; } else { f.style.height = prev; }
+    } catch (e) { /* keep the CSS fallback height */ }
+  }
+  function fitAll() { document.querySelectorAll(sel).forEach(fit); }
+  document.querySelectorAll(sel).forEach(function (f) {
+    f.addEventListener('load', function () { fit(f); });
+  });
+  document.querySelectorAll('details.email').forEach(function (d) {
+    d.addEventListener('toggle', function () { if (d.open) setTimeout(fitAll, 60); });
+  });
+  var t;
+  window.addEventListener('resize', function () { clearTimeout(t); t = setTimeout(fitAll, 150); });
+  window.addEventListener('load', fitAll);
+  setTimeout(fitAll, 300);
+})();
+</script>
