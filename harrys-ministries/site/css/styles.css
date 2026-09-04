@@ -403,6 +403,116 @@ details > summary::-webkit-details-marker { display: none; }
   .trust__lead { font-size: var(--fs-500); }
 }
 
+/* ==========================================================================
+   Interior pages. Everything below composes the patterns above; no new tokens.
+   ========================================================================== */
+
+/* Page intro: the light-ground opener used where the outline gives no photo. */
+.page-intro { background: var(--surface-card); border-bottom: var(--hairline); }
+.page-intro__inner { padding: 56px var(--gutter) 48px; }
+.page-title {
+  font-size: var(--fs-875); line-height: var(--lh-heading); letter-spacing: var(--ls-heading);
+  max-width: 24ch; margin: 0 0 var(--space-4);
+}
+.prose { font-size: var(--fs-400); line-height: var(--lh-body); color: var(--text-prose); max-width: var(--measure-prose); }
+.prose + .prose { margin-top: var(--space-5); }
+.prose-block .section-title { margin-bottom: var(--space-4); }
+.section__cta { margin-top: 26px; }
+.section-title--small { font-size: var(--fs-600); max-width: none; }
+
+/* A flagged pending section: dashed hairline frame, eyebrow reads "Pending". */
+.pending { border: 1px dashed var(--border-strong); border-radius: var(--radius-panel); background: var(--surface-card); padding: 26px 28px 28px; }
+.pending .section-title { margin-bottom: var(--space-2); }
+.pending .need--block { margin-top: var(--space-4); }
+.pending--follow { margin-top: var(--space-6); }
+
+/* Programs index on the Programs page: anchor list in the rail's voice. */
+.toc { margin-top: var(--space-7); }
+.toc__list { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-5); }
+.toc__link {
+  display: inline-flex; align-items: baseline; gap: var(--space-3); min-height: var(--tap-min);
+  padding: 0 var(--space-2); color: var(--text-body); font-weight: var(--fw-semibold); font-size: var(--fs-300);
+  border-bottom: 2px solid transparent;
+}
+.toc__link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+/* Program sheets: the specimen index expanded, one bordered sheet per entry. */
+.sheets { display: grid; gap: var(--space-7); }
+.sheet {
+  display: grid; grid-template-columns: var(--rail-width) 1fr;
+  border: var(--hairline); background: var(--surface-card); scroll-margin-top: 80px;
+}
+.sheet__side { padding: 26px 26px 0; border-right: var(--hairline); background: var(--surface-sunken); display: flex; flex-direction: column; }
+.sheet__side .specimen__alt { margin-bottom: var(--space-6); }
+.sheet__photo { margin: auto -26px 0; height: 220px; border-top: var(--hairline); border-bottom: 0; }
+.sheet__body { padding: 30px 34px 34px; min-width: 0; }
+.sheet__sub {
+  margin: 0 0 var(--space-2); font-family: var(--font-mono); font-size: var(--fs-mono); font-weight: var(--fw-medium);
+  letter-spacing: var(--ls-mono); text-transform: uppercase; color: var(--accent);
+}
+.sheet__body .need--block { margin: 0 0 22px; }
+.sheet__cta { margin-top: var(--space-1); }
+
+/* Two-column split: provide/provide on Visit, the giving panels, the contact form. */
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-7); align-items: start; margin-top: var(--space-7); }
+.split > * { min-width: 0; }
+.split__col--card { background: var(--surface-card); border: var(--hairline); border-radius: var(--radius-panel); padding: 26px 28px 28px; }
+.split__head { font-size: var(--fs-600); line-height: var(--lh-title); letter-spacing: var(--ls-heading); margin: 0 0 var(--space-3); }
+.split__col .need--block { margin-top: var(--space-2); }
+.split--contact { grid-template-columns: 1.3fr 1fr; gap: var(--space-9); margin-top: 0; }
+.split--give { margin-top: 0; }
+.split--give .section__cta { margin-top: var(--space-6); }
+
+/* Numbered facts as a vertical list (Home's strip items, stacked). */
+.factlist { display: grid; gap: var(--space-3); margin-top: var(--space-5); }
+.factlist .facts__item { font-size: var(--fs-400); color: var(--text-prose); }
+.factlist .need { max-width: 52ch; }
+.building__grid--top { align-items: start; }
+
+/* Contact form. Flat fields, hairline borders, 44px controls. */
+.form { display: grid; gap: var(--space-5); margin-top: var(--space-5); }
+.form__honeypot { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.field { display: grid; gap: 6px; }
+.field__label { font-size: var(--fs-300); font-weight: var(--fw-semibold); color: var(--text-body); }
+.field__input {
+  width: 100%; min-height: var(--tap-min); padding: 10px 12px;
+  font: inherit; font-size: var(--fs-400); color: var(--text-body); background: var(--surface-card);
+  border: var(--hairline-strong); border-radius: var(--radius-panel);
+  transition: border-color var(--dur-color) var(--ease);
+}
+.field__input:hover { border-color: var(--accent-secondary); }
+.field__input:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 1px; border-color: var(--accent); }
+.field__input--area { resize: vertical; min-height: 160px; line-height: var(--lh-body); }
+.form .cta-row { margin-top: var(--space-2); }
+.form-sent {
+  margin: var(--space-4) 0 0; padding: 14px 16px; border: 1px solid var(--accent); border-radius: var(--radius-panel);
+  background: var(--surface-card); color: var(--text-body); font-size: var(--fs-400);
+}
+.form-sent .need { margin-inline: 2px; }
+
+/* Direct channels list. */
+.channels { margin: var(--space-5) 0 0; display: grid; gap: var(--space-4); }
+.channels__row dt { margin: 0 0 2px; }
+.channels__row dd { margin: 0; }
+.channels__value { font-size: var(--fs-400); color: var(--text-prose); display: inline-flex; align-items: center; min-height: var(--tap-min); }
+
+@media (max-width: 800px) {
+  .sheet { grid-template-columns: 1fr; }
+  .sheet__side { border-right: 0; border-bottom: var(--hairline); padding: 22px 22px 0; }
+  .sheet__photo { margin: 0 -22px; height: 200px; }
+  .sheet__body { padding: 24px 22px 26px; }
+  .split, .split--contact { grid-template-columns: 1fr; gap: var(--space-6); }
+  .split--contact { gap: var(--space-8); }
+  .page-intro__inner { padding: 44px var(--gutter) 40px; }
+  .page-title { font-size: clamp(26px, 5vw + 8px, 34px); }
+}
+@media (max-width: 480px) {
+  .pending, .split__col--card { padding: 20px 18px 22px; }
+  .sheet__cta, .toc__link { width: 100%; justify-content: space-between; }
+  .toc__list { flex-direction: column; gap: 0; }
+  .toc__link { border-bottom: var(--hairline); padding-inline: 0; }
+}
+
 /* --- Reduced motion ------------------------------------------------------ */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

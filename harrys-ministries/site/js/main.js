@@ -59,6 +59,14 @@
     /* ---- Specimen index -------------------------------------------------- */
     var specimen = document.querySelector("[data-specimen]");
     if (specimen) initSpecimen(specimen);
+
+    /* ---- Contact form: show the confirmation after a redirect back -------- */
+    var sent = document.getElementById("form-sent");
+    if (sent && /[?&]sent=1(&|$)/.test(window.location.search)) {
+      sent.hidden = false;
+      sent.setAttribute("tabindex", "-1");
+      sent.focus();
+    }
   });
 
   function initSpecimen(root) {
