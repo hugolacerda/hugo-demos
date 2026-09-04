@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Luz a las Naciones. Field Guide tokens.
+   Values lifted verbatim from the Field Guide Design System (tokens/colors,
+   typography, spacing, shape). Do not round them. Component CSS in styles.css
+   reads only from these variables.
+   ========================================================================== */
+:root {
+  /* --- Colour: teal spine ---------------------------------------------- */
+  --fg-teal-700: #0F766E;
+  --fg-teal-800: #0B5A54;
+  --fg-cyan-800: #155E75;
+
+  /* --- Colour: jungle ground ------------------------------------------- */
+  --fg-ground-900: #0E3A32;
+  --fg-ground-950: #0B2C26;
+  --fg-photo-teal: #1B5A6E;
+
+  /* --- Colour: ink ----------------------------------------------------- */
+  --fg-ink-900: #111827;
+  --fg-ink-800: #1F2937;
+  --fg-ink-700: #374151;
+  --fg-slate-600: #475569;
+
+  /* --- Colour: paper + lines ------------------------------------------- */
+  --fg-white: #FFFFFF;
+  --fg-paper-50: #FAFAF7;
+  --fg-paper-100: #F3F4F6;
+  --fg-line-300: #D6D9DE;
+  --fg-line-400: #B8BCC4;
+
+  /* --- Colour: moss (Whisper-light ground) ----------------------------- */
+  --fg-moss-50: #EDF1E9;
+  --fg-moss-200: #D9DFD6;
+
+  /* --- Colour: naturalist accents. Foliage tiles only, plus the footer
+         column label which the design system sets in sage. ---------------- */
+  --fg-sage-400: #93A896;
+
+  /* --- Colour: text on dark grounds ------------------------------------ */
+  --fg-on-dark-lede: #DCE6E1;
+  --fg-on-dark-body: #C9D8D1;
+  --fg-on-dark-mono: #A9CBD8;
+
+  /* --- Colour: [NEED] marker ------------------------------------------- */
+  --fg-need-bg: #FEF9E7;
+  --fg-need-border: #C08A1E;
+  --fg-need-text: #6E4E0C;
+
+  /* --- Semantic aliases ------------------------------------------------ */
+  --text-body: var(--fg-ink-900);
+  --text-prose: var(--fg-ink-700);
+  --text-muted: var(--fg-slate-600);
+  --text-heading: var(--fg-ink-900);
+  --text-on-dark: var(--fg-white);
+  --text-on-dark-prose: var(--fg-on-dark-body);
+  --text-on-dark-lede: var(--fg-on-dark-lede);
+
+  --surface-page: var(--fg-paper-50);
+  --surface-card: var(--fg-white);
+  --surface-sunken: var(--fg-paper-100);
+  --surface-whisper: var(--fg-moss-50);
+  --surface-dark: var(--fg-ground-900);
+
+  --border-hairline: var(--fg-line-300);
+  --border-strong: var(--fg-line-400);
+  --border-whisper: var(--fg-moss-200);
+  --border-on-dark: rgba(255, 255, 255, 0.1);
+  --border-on-dark-control: rgba(255, 255, 255, 0.45);
+
+  --accent: var(--fg-teal-700);
+  --accent-hover: var(--fg-teal-800);
+  --accent-secondary: var(--fg-cyan-800);
+  --focus-ring: var(--fg-teal-700);
+  --focus-ring-on-dark: var(--fg-white);
+
+  --hero-scrim: linear-gradient(180deg, rgba(14,58,50,0.52) 0%, rgba(14,58,50,0.34) 42%, rgba(11,44,38,0.88) 100%);
+  --ring-on-dark: 0 0 0 1px rgba(255, 255, 255, 0.12);
+  --chip-fill: rgba(255, 255, 255, 0.18);
+
+  /* --- Type ------------------------------------------------------------ */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  --fs-mono-xs: 10.5px;
+  --fs-mono-sm: 11px;
+  --fs-mono: 11.5px;
+  --fs-mono-md: 12px;
+  --fs-100: 13px;
+  --fs-200: 14px;
+  --fs-300: 15px;
+  --fs-350: 15.5px;
+  --fs-400: 16.5px;
+  --fs-450: 17px;
+  --fs-500: 18px;
+  --fs-600: 21px;
+  --fs-700: 26px;
+  --fs-800: 28px;
+  --fs-850: 32px;
+  --fs-875: 34px;
+  --fs-900: 46px;
+
+  --lh-hero: 1.08;
+  --lh-heading: 1.16;
+  --lh-title: 1.2;
+  --lh-lede: 1.55;
+  --lh-body: 1.6;
+
+  --ls-hero: -0.02em;
+  --ls-heading: -0.01em;
+  --ls-tight: -0.015em;
+  --ls-micro: -0.005em;
+  --ls-mono: 0.08em;
+  --ls-mono-sm: 0.06em;
+  --ls-mono-xs: 0.04em;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* --- Space ----------------------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 10px;
+  --space-4: 12px;
+  --space-5: 16px;
+  --space-6: 20px;
+  --space-7: 24px;
+  --space-8: 32px;
+  --space-9: 40px;
+  --space-10: 56px;
+
+  --measure: 1120px;
+  --gutter: 24px;
+  --measure-prose: 62ch;
+  --measure-lede: 58ch;
+  --measure-heading: 28ch;
+  --measure-hero: 20ch;
+
+  --rail-width: 336px;
+  --panel-photo-h: 292px;
+  --tap-min: 44px;
+
+  --section-pad-tight: 20px var(--gutter);
+  --section-pad: 52px var(--gutter) 56px;
+  --section-pad-lead: 64px var(--gutter);
+  --section-pad-hero: 84px var(--gutter) 64px;
+  --section-pad-footer: 56px var(--gutter) 30px;
+
+  /* --- Shape and motion ------------------------------------------------ */
+  --radius-panel: 4px;
+  --radius-control: 6px;
+  --border-accent-w: 3px;
+
+  --hairline: 1px solid var(--border-hairline);
+  --hairline-strong: 1px solid var(--border-strong);
+  --hairline-whisper: 1px solid var(--border-whisper);
+  --hairline-on-dark: 1px solid var(--border-on-dark);
+
+  --dur-color: 120ms;
+  --dur-gap: 140ms;
+  --ease: ease;
+  --flip-dur: 620ms;
+  --flip-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+  --flip-perspective: 1400px;
+  --flip-angle: 78deg;
+
+  --blueprint-grid: repeating-linear-gradient(0deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px);
+  --photo-hatch: repeating-linear-gradient(45deg, rgba(17,24,39,.055) 0 6px, transparent 6px 12px);
+  --photo-hatch-bg: #E4E4DE;
+}
