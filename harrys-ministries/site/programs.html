@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Programs | Luz a las Naciones</title>
+<meta name="description" content="Four things happen at Luz a las Naciones week in and week out: English classes, a yearly gift drive, missionary care, and a girls' program built around identity and courage.">
+<meta name="theme-color" content="#0E3A32">
+
+<!-- Language guard: applies the stored language before first paint so a
+     Spanish visitor never sees an English flash. i18n.js removes the class. -->
+<script>
+(function () {
+  var el = document.documentElement;
+  try {
+    var l = localStorage.getItem("lln_lang");
+    if (l !== "en" && l !== "es") l = "en";
+    el.setAttribute("lang", l);
+    if (l !== "en") el.className += " i18n-pending";
+  } catch (e) { el.setAttribute("lang", "en"); }
+  setTimeout(function () { el.classList.remove("i18n-pending"); }, 1200);
+})();
+</script>
+
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/textures.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="programs">
+
+<a class="skip-link" href="#main" data-i18n="skip.link">Skip to main content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="index.html">Luz a las Naciones</a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Main" data-i18n-attrs="aria-label:nav.label">
+      <ul>
+        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+        <li><a href="our-story.html" data-i18n="nav.story">Our story</a></li>
+        <li><a href="programs.html" aria-current="page" data-i18n="nav.programs">Programs</a></li>
+        <li><a href="visit.html" data-i18n="nav.visit">Visit and host a team</a></li>
+        <li><a href="give.html" data-i18n="nav.give">Give</a></li>
+        <li><a href="contact.html" data-i18n="nav.contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attrs="aria-label:lang.label">
+        <button type="button" data-lang-btn="en" aria-pressed="true" lang="en" aria-label="English" data-i18n-attrs="aria-label:lang.en.aria">EN</button>
+        <button type="button" data-lang-btn="es" aria-pressed="false" lang="es" aria-label="Español" data-i18n-attrs="aria-label:lang.es.aria">ES</button>
+      </div>
+    </div>
+
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav"
+            aria-label="Open and close the main menu" data-i18n-attrs="aria-label:nav.menu.aria">
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span></span>
+      <span data-i18n="nav.menu">Menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Page intro. -->
+  <section class="page-intro" aria-labelledby="page-title">
+    <div class="wrap page-intro__inner">
+      <p class="eyebrow" data-i18n="prog.page.eyebrow">Programs · Index 01-04</p>
+      <h1 id="page-title" class="page-title" data-i18n="prog.page.title">Four things happen here, week in and week out</h1>
+      <p class="lede" data-i18n="prog.page.lede">A visiting team can usually plug into at least one of them directly.</p>
+      <nav class="toc" aria-label="Index" data-i18n-attrs="aria-label:prog.page.toc">
+        <ol class="toc__list">
+          <li><a class="toc__link" href="#english-classes"><span class="specimen__num" aria-hidden="true">01</span><span data-i18n="prog.ec.title">English Classes</span></a></li>
+          <li><a class="toc__link" href="#princesas-y-valientes"><span class="specimen__num" aria-hidden="true">02</span><span data-i18n="prog.pv.title">Princesses and Valiant Ones</span></a></li>
+          <li><a class="toc__link" href="#el-regalo-perfecto"><span class="specimen__num" aria-hidden="true">03</span><span data-i18n="prog.rp.title">The Perfect Gift</span></a></li>
+          <li><a class="toc__link" href="#atencion-a-misioneros"><span class="specimen__num" aria-hidden="true">04</span><span data-i18n="prog.mc.title">Missionary Care</span></a></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- The specimen index expanded: one full sheet per program, in index order. Whisper at the edges. -->
+  <section class="tex tex--page" aria-labelledby="sheets-title">
+    <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
+    <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
+    <div class="wrap section--lead section">
+      <h2 id="sheets-title" class="visually-hidden" data-i18n="nav.programs">Programs</h2>
+      <ol class="sheets">
+
+        <li class="sheet" id="english-classes">
+          <div class="sheet__side">
+            <p class="eyebrow specimen__entry" data-i18n="prog.entry.1">Entry 01 of 04</p>
+            <h3 class="specimen__title" data-i18n="prog.ec.title">English Classes</h3>
+            <p class="specimen__alt" data-alt-lang lang="es" data-i18n="prog.ec.alt">Clases de Inglés</p>
+            <div class="photo-slot sheet__photo" role="img" aria-label="[NEED: photo of an English class in session]" data-i18n-attrs="aria-label:prog.ec.photo"><span class="photo-slot__label" aria-hidden="true" data-i18n="prog.ec.photo">[NEED: photo of an English class in session]</span></div>
+          </div>
+          <div class="sheet__body">
+            <p class="specimen__text" data-i18n="prog.ec.body">Free English lessons for Spanish-speaking neighbors in Poptún.</p>
+            <p class="specimen__need"><span class="need" data-i18n="prog.ec.need">[NEED: who teaches it, how many students, how often it meets]</span></p>
+            <h4 class="sheet__sub" data-i18n="prog.help.title">How you can help</h4>
+            <p class="need need--block" data-i18n="prog.help.need">[NEED: which of these actually apply to this program: bring a team, give supplies, support facility or program costs, sponsor materials. Confirm per program before listing any of them.]</p>
+            <a class="btn btn--secondary sheet__cta" href="contact.html"><span data-i18n="prog.ask">Ask about this program</span><svg class="btn__arrow" aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></a>
+          </div>
+        </li>
+
+        <li class="sheet" id="princesas-y-valientes">
+          <div class="sheet__side">
+            <p class="eyebrow specimen__entry" data-i18n="prog.entry.2">Entry 02 of 04</p>
+            <h3 class="specimen__title" data-i18n="prog.pv.title">Princesses and Valiant Ones</h3>
+            <p class="specimen__alt" data-alt-lang lang="es" data-i18n="prog.pv.alt">Princesas y Valientes</p>
+            <div class="photo-slot sheet__photo" role="img" aria-label="[NEED: photo of a Princesas y Valientes session]" data-i18n-attrs="aria-label:prog.pv.photo"><span class="photo-slot__label" aria-hidden="true" data-i18n="prog.pv.photo">[NEED: photo of a Princesas y Valientes session]</span></div>
+          </div>
+          <div class="sheet__body">
+            <p class="specimen__text" data-i18n="prog.pv.body">A program for local girls, built around identity and courage rather than a single lesson plan.</p>
+            <p class="specimen__need"><span class="need" data-i18n="prog.pv.need">[NEED: how often it runs, how many girls, one specific story or moment]</span></p>
+            <h4 class="sheet__sub" data-i18n="prog.help.title">How you can help</h4>
+            <p class="need need--block" data-i18n="prog.help.need">[NEED: which of these actually apply to this program: bring a team, give supplies, support facility or program costs, sponsor materials. Confirm per program before listing any of them.]</p>
+            <a class="btn btn--secondary sheet__cta" href="contact.html"><span data-i18n="prog.ask">Ask about this program</span><svg class="btn__arrow" aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></a>
+          </div>
+        </li>
+
+        <li class="sheet" id="el-regalo-perfecto">
+          <div class="sheet__side">
+            <p class="eyebrow specimen__entry" data-i18n="prog.entry.3">Entry 03 of 04</p>
+            <h3 class="specimen__title" data-i18n="prog.rp.title">The Perfect Gift</h3>
+            <p class="specimen__alt" data-alt-lang lang="es" data-i18n="prog.rp.alt">El Regalo Perfecto</p>
+            <div class="photo-slot sheet__photo" role="img" aria-label="[NEED: photo of the gift drive]" data-i18n-attrs="aria-label:prog.rp.photo"><span class="photo-slot__label" aria-hidden="true" data-i18n="prog.rp.photo">[NEED: photo of the gift drive]</span></div>
+          </div>
+          <div class="sheet__body">
+            <p class="specimen__text" data-i18n="prog.rp.body">A yearly gift drive in Poptún that puts something wonderful in a child's hands.</p>
+            <p class="specimen__need"><span class="need" data-i18n="prog.rp.need">[NEED: timing, how gifts are chosen or funded, a specific number from a past year]</span></p>
+            <h4 class="sheet__sub" data-i18n="prog.help.title">How you can help</h4>
+            <p class="need need--block" data-i18n="prog.help.need">[NEED: which of these actually apply to this program: bring a team, give supplies, support facility or program costs, sponsor materials. Confirm per program before listing any of them.]</p>
+            <a class="btn btn--secondary sheet__cta" href="contact.html"><span data-i18n="prog.ask">Ask about this program</span><svg class="btn__arrow" aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></a>
+          </div>
+        </li>
+
+        <li class="sheet" id="atencion-a-misioneros">
+          <div class="sheet__side">
+            <p class="eyebrow specimen__entry" data-i18n="prog.entry.4">Entry 04 of 04</p>
+            <h3 class="specimen__title" data-i18n="prog.mc.title">Missionary Care</h3>
+            <p class="specimen__alt" data-alt-lang lang="es" data-i18n="prog.mc.alt">Atención a Misioneros</p>
+            <div class="photo-slot sheet__photo" role="img" aria-label="[NEED: photo of the kitchen or the bunk room]" data-i18n-attrs="aria-label:prog.mc.photo"><span class="photo-slot__label" aria-hidden="true" data-i18n="prog.mc.photo">[NEED: photo of the kitchen or the bunk room]</span></div>
+          </div>
+          <div class="sheet__body">
+            <p class="specimen__text" data-i18n="prog.mc.body">A meal, a bed, and a breather for missionaries passing through the region.</p>
+            <p class="specimen__need"><span class="need" data-i18n="prog.mc.need">[NEED: how often this happens, roughly how many missionaries per year]</span></p>
+            <h4 class="sheet__sub" data-i18n="prog.help.title">How you can help</h4>
+            <p class="need need--block" data-i18n="prog.help.need">[NEED: which of these actually apply to this program: bring a team, give supplies, support facility or program costs, sponsor materials. Confirm per program before listing any of them.]</p>
+            <a class="btn btn--secondary sheet__cta" href="contact.html"><span data-i18n="prog.ask">Ask about this program</span><svg class="btn__arrow" aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></a>
+          </div>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- FAQ, plain. -->
+  <section class="section--card" aria-labelledby="faq-title">
+    <div class="wrap section">
+      <h2 id="faq-title" class="section-title" data-i18n="faq.title">Common questions</h2>
+      <div class="faq">
+        <details>
+          <summary><span data-i18n="prog.faq.q1">Can a visiting team serve directly in one of these programs?</span><span class="faq__sign" aria-hidden="true">+</span></summary>
+          <div class="faq__answer"><p><span class="need" data-i18n="prog.faq.a1.need">[NEED: real answer from Harry or Gary]</span></p></div>
+        </details>
+        <details>
+          <summary><span data-i18n="prog.faq.q2">Can a donor support a specific program?</span><span class="faq__sign" aria-hidden="true">+</span></summary>
+          <div class="faq__answer">
+            <p data-i18n="prog.faq.a2">That depends on how giving is set up, which is still being decided.</p>
+            <p><span class="need" data-i18n="prog.faq.a2.need">[NEED: donation mechanism decision]</span></p>
+            <p><a class="inline-link" href="give.html"><span data-i18n="faq.a3.link">Go to Give</span><svg aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></a></p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next-step band: three steps and two CTAs, never one. Whisper light. -->
+  <section class="tex tex--whisper" aria-labelledby="next-title">
+    <div class="fg-whisper-light tex__tile" aria-hidden="true"></div>
+    <div class="wrap section">
+      <p class="eyebrow" data-i18n="next.eyebrow">Next step</p>
+      <h2 id="next-title" class="section-title" data-i18n="next.title">What happens after you contact us</h2>
+      <p class="lede" data-i18n="next.lede">Every visit and every gift keeps the door open to the next team.</p>
+      <ol class="steps">
+        <li><span class="steps__label" data-i18n="step.1.label">Step 01</span><p data-i18n="step.1">Send your dates or your question.</p></li>
+        <li><span class="steps__label" data-i18n="step.2.label">Step 02</span><p><span data-i18n="step.2a">We reply within </span><span class="need" data-i18n="step.2.need">[NEED: X]</span><span data-i18n="step.2b"> business days.</span></p></li>
+        <li><span class="steps__label" data-i18n="step.3.label">Step 03</span><p data-i18n="step.3">We confirm next steps together.</p></li>
+      </ol>
+      <div class="cta-row">
+        <a class="btn btn--primary" href="contact.html">
+          <span data-i18n="next.cta.trip">Plan a trip</span>
+          <span class="btn__chip" aria-hidden="true"><svg class="btn__arrow" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg></span>
+        </a>
+        <a class="btn btn--secondary" href="give.html">
+          <span data-i18n="next.cta.support">Support the work</span>
+          <svg class="btn__arrow" aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="square"><path d="M2.5 7h8"/><path d="M7 3.5 10.5 7 7 10.5"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer: Foliage dark in the margins, content inside a solid frame panel. -->
+<footer class="site-footer tex tex--dark on-dark">
+  <div class="fg-plate tex__tile" aria-hidden="true"></div>
+  <div class="wrap site-footer__inner">
+    <div class="site-footer__frame">
+      <div class="site-footer__grid">
+        <div class="site-footer__col">
+          <p class="site-footer__wordmark">Luz a las Naciones</p>
+          <p class="site-footer__blurb" data-i18n="footer.blurb">A mission center run by Harry in Poptún, Guatemala since 2018.</p>
+        </div>
+        <div class="site-footer__col">
+          <h2 class="eyebrow eyebrow--on-dark" data-i18n="footer.contact">Contact</h2>
+          <ul class="site-footer__links">
+            <li><a href="mailto:redes@luzalasnaciones.org">redes@luzalasnaciones.org</a></li>
+            <li><a href="tel:+17202347679">+1 (720) 234-7679</a></li>
+          </ul>
+          <span class="need" data-i18n="footer.contact.need">[NEED: confirm whether +1 (720) 234-7679 is Harry's own number or a US forwarding line before publishing it as a direct line to Harry.]</span>
+        </div>
+        <div class="site-footer__col">
+          <h2 class="eyebrow eyebrow--on-dark" data-i18n="footer.follow">Follow</h2>
+          <ul class="site-footer__links">
+            <li><span>Facebook</span></li>
+            <li><span>Telegram</span></li>
+          </ul>
+          <span class="need" data-i18n="footer.follow.need">[NEED: current, working Facebook and Telegram links. The ones on file are from an old archived snapshot.]</span>
+        </div>
+      </div>
+      <p class="site-footer__note" data-i18n="footer.note">Copy marked [NEED] is unconfirmed and is shown on purpose rather than invented. Photo slots name the shot that belongs there until the real photographs from Poptún arrive.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/i18n.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
