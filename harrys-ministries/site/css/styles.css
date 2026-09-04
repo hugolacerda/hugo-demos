@@ -508,9 +508,9 @@ details > summary::-webkit-details-marker { display: none; }
 }
 @media (max-width: 480px) {
   .pending, .split__col--card { padding: 20px 18px 22px; }
-  .sheet__cta, .toc__link { width: 100%; justify-content: space-between; }
+  .sheet__cta { width: 100%; justify-content: space-between; }
   .toc__list { flex-direction: column; gap: 0; }
-  .toc__link { border-bottom: var(--hairline); padding-inline: 0; }
+  .toc__link { width: 100%; border-bottom: var(--hairline); padding-inline: 0; }
 }
 
 /* --- Reduced motion ------------------------------------------------------ */
