@@ -1,0 +1,140 @@
+---
+/* The trek (design-decisions.md, scroll-drawn map). Visit page only.
+   A hand-drawn map in the building cross-section's ink style: ScrollTrigger
+   pins the sheet while scrubbing two tweens, DrawSVGPlugin draws the route
+   and MotionPathPlugin walks a marker along it, with a camera group that
+   follows the marker. Content rules: the route starts from an unlabeled,
+   generic point, ends at Poptún, Guatemala, and nothing else is labeled or
+   claimed; the only other text is the drawing's own "not to scale" note.
+   The markup's resting state is the finished drawing (full route, marker at
+   Poptún): that is what prefers-reduced-motion visitors get, untouched. */
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+interface Props { lang: Lang }
+const t = useTranslations(Astro.props.lang);
+const ink = '#0C6B57';
+const mono = 'JetBrains Mono, ui-monospace, monospace';
+---
+<section class="trek" aria-labelledby="trek-title" data-trek>
+  <h2 id="trek-title" class="visually-hidden">{t('visit.trek.title')}</h2>
+  <div class="trek__stage" data-trek-stage>
+    <div class="wrap trek__inner">
+      <div class="trek__sheet">
+        <svg class="trek__svg" viewBox="0 0 1200 640" preserveAspectRatio="xMidYMid meet" role="img" aria-label={t('visit.trek.alt')} font-family={mono}>
+          <g class="trek__camera">
+            <g fill="none" stroke={ink} stroke-linecap="round" stroke-linejoin="round">
+              <!-- ridges, hatched the way the building section hatches its ground -->
+              <g stroke-width="1.1" opacity="0.7">
+                <path d="M70 320 C 110 262, 160 250, 205 296"/>
+                <path d="M150 300 C 190 244, 246 236, 292 282"/>
+                <path d="M235 262 C 280 214, 330 210, 370 250"/>
+                <path d="M520 150 C 560 96, 618 88, 662 138"/>
+                <path d="M610 130 C 650 80, 700 76, 738 120"/>
+                <path d="M690 180 C 730 130, 780 126, 820 170"/>
+              </g>
+              <g stroke-width="0.9" opacity="0.45">
+                <path d="M96 314 l 6 -12 M112 302 l 6 -12 M130 292 l 6 -12 M176 292 l 6 -12 M194 282 l 6 -12 M256 258 l 6 -12 M276 246 l 6 -12 M300 244 l 6 -12"/>
+                <path d="M546 142 l 6 -12 M566 126 l 6 -12 M588 116 l 6 -12 M636 122 l 6 -12 M656 110 l 6 -12 M716 172 l 6 -12 M736 158 l 6 -12 M760 150 l 6 -12"/>
+              </g>
+              <!-- a river, two strokes for width -->
+              <g stroke-width="1.1" opacity="0.6">
+                <path d="M430 30 C 470 120, 380 200, 440 290 S 540 450, 470 610"/>
+                <path d="M446 30 C 486 122, 396 202, 456 292 S 556 452, 486 610"/>
+              </g>
+              <!-- tree marks, the jungle tile's lollipops -->
+              <g stroke-width="1.1" opacity="0.65">
+                <path d="M880 430 v 16 M930 470 v 16 M990 400 v 16 M1060 440 v 16 M1110 380 v 16 M1140 480 v 16 M840 520 v 16 M960 540 v 16 M1030 560 v 16 M1100 530 v 16"/>
+                <circle cx="880" cy="422" r="8"/><circle cx="930" cy="462" r="8"/><circle cx="990" cy="392" r="8"/><circle cx="1060" cy="432" r="8"/><circle cx="1110" cy="372" r="8"/><circle cx="1140" cy="472" r="8"/><circle cx="840" cy="512" r="8"/><circle cx="960" cy="532" r="8"/><circle cx="1030" cy="552" r="8"/><circle cx="1100" cy="522" r="8"/>
+              </g>
+              <!-- the starting point: generic, unlabeled -->
+              <g stroke-width="1.7">
+                <circle cx="120" cy="470" r="7"/>
+                <path d="M112 484 l 16 -28" opacity="0.5"/>
+              </g>
+              <!-- the route -->
+              <path id="trek-path" class="trek__path" stroke-width="2.4" d="M120 470 C 170 440, 190 380, 240 372 S 330 400, 380 360 S 430 250, 500 262 S 600 330, 660 300 S 740 200, 820 236 S 900 330, 960 318 S 1010 290, 1036 296"/>
+              <!-- a footbridge where the route crosses the river -->
+              <path stroke-width="1.1" opacity="0.7" d="M452 268 l 26 -6 M456 280 l 26 -6"/>
+              <!-- Poptún: the one labeled point -->
+              <g stroke-width="1.7">
+                <circle cx="1036" cy="296" r="11"/>
+                <circle cx="1036" cy="296" r="3.5" fill={ink} stroke="none"/>
+                <path d="M1036 285 v -12" stroke-width="1.1" opacity="0.7"/>
+              </g>
+            </g>
+            <text x="1036" y="258" font-size="12" letter-spacing="1" fill={ink} font-weight="500" text-anchor="middle">POPTÚN, GUATEMALA</text>
+            <g class="trek__marker" transform="translate(1036 296)">
+              <circle r="10" fill="#FAFAF7" stroke={ink} stroke-width="2"/>
+              <circle r="4" fill={ink}/>
+            </g>
+          </g>
+          <!-- sheet annotation, outside the camera so it stays put; backed so
+               nothing from the moving layer runs under its letters -->
+          <rect x="1040" y="604" width="146" height="18" fill="#F6F7F4"/>
+          <text x="1176" y="616" font-size="10" letter-spacing="0.8" fill="#475569" text-anchor="end" opacity="0.8">TREK · NOT TO SCALE</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger, reduceMotion } from '../scripts/motion';
+  import { DrawSVGPlugin } from 'gsap/DrawSVGPlugin';
+  import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+  const section = document.querySelector<HTMLElement>('[data-trek]');
+  const stage = section?.querySelector<HTMLElement>('[data-trek-stage]');
+  const svg = section?.querySelector<SVGSVGElement>('.trek__svg');
+  const path = section?.querySelector<SVGPathElement>('#trek-path');
+  const marker = section?.querySelector<SVGGElement>('.trek__marker');
+  const camera = section?.querySelector<SVGGElement>('.trek__camera');
+
+  if (section && stage && svg && path && marker && camera && !reduceMotion) {
+    gsap.registerPlugin(DrawSVGPlugin, MotionPathPlugin);
+    const VW = 1200, VH = 640, ZOOM = 1.35;
+    // Second pass per design-decisions.md: the camera only after the basic
+    // draw-and-track version is verified. Flip to true to enable it.
+    const CAMERA = true;
+    const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--header-h')) || 69;
+
+    // With motion on, the sheet fills its frame and the camera does the
+    // framing; the resting "meet" fit is only needed for the static drawing.
+    if (CAMERA) svg.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+
+    // Camera: keeps the marker centred, zoomed in, with a little lag.
+    let follow: (() => void) | undefined;
+    if (CAMERA) {
+      gsap.set(camera, { scale: ZOOM, transformOrigin: '0 0' });
+      const camX = gsap.quickTo(camera, 'x', { duration: 0.45, ease: 'power2.out' });
+      const camY = gsap.quickTo(camera, 'y', { duration: 0.45, ease: 'power2.out' });
+      follow = () => {
+        const mx = Number(gsap.getProperty(marker, 'x'));
+        const my = Number(gsap.getProperty(marker, 'y'));
+        camX(VW / 2 - mx * ZOOM);
+        camY(VH / 2 - my * ZOOM);
+      };
+    }
+
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      onUpdate: follow,
+      scrollTrigger: {
+        trigger: section,
+        start: () => `top top+=${headerH}`,
+        end: '+=1800',
+        pin: stage,
+        scrub: 0.6,
+        invalidateOnRefresh: true,
+      },
+    });
+    tl.fromTo(path, { drawSVG: '0%' }, { drawSVG: '100%' }, 0)
+      .to(marker, {
+        motionPath: { path, align: path, alignOrigin: [0.5, 0.5], start: 0, end: 1 },
+        immediateRender: true,
+      }, 0);
+    // Snap the camera onto the marker's starting position before any scroll.
+    if (CAMERA) gsap.set(camera, { x: VW / 2 - 120 * ZOOM, y: VH / 2 - 470 * ZOOM });
+    ScrollTrigger.refresh();
+  }
+</script>

@@ -539,6 +539,25 @@
   .faq__a.is-fade-fwd { @apply animate-fade-fwd; }
   .faq__a.is-fade-back { @apply animate-fade-back; }
 
+  /* The trek (Visit only): a map sheet in the blueprint panel's dress,
+     pinned by ScrollTrigger while the route draws. The stage is what pins;
+     it fills the viewport under the header so the sheet sits centred for the
+     whole scrub. Under reduced motion nothing pins and the section is just
+     a drawing at its natural height. */
+  .trek { @apply relative bg-page; }
+  .trek__stage { @apply flex items-center; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); }
+  .trek__inner { @apply w-full py-8 max-sm:py-5; }
+  .trek__sheet { @apply bg-card p-[18px] max-sm:p-3; border: var(--hairline); }
+  .trek__svg {
+    @apply block w-full;
+    height: min(560px, calc(100svh - var(--header-h) - 132px));
+    border: 1px dashed var(--color-hairline); background-color: #F6F7F4; background-image: var(--blueprint-grid);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .trek__stage { min-height: 0; }
+    .trek__svg { height: auto; aspect-ratio: 1200 / 640; }
+  }
+
   /* Two-column split and the bordered card column */
   .split { @apply grid grid-cols-2 gap-6 items-start mt-6 max-lg:grid-cols-1 max-lg:gap-5; }
   .split > * { @apply min-w-0; }

@@ -42,7 +42,7 @@ src/styles/textures.css the six Whisper / Foliage tiles, byte-identical to ../si
 src/i18n/ui.ts          every EN and ES string. `es` is typed against `en`; a missing key fails the build
 src/i18n/utils.ts       page ids and slugs, `href(lang, page)`, `useTranslations`, `localePaths`
 src/layouts/Base.astro  <html lang>, title, description, hreflang alternates, header, footer, scripts
-src/components/         Header, Footer, Hero, Button (C1 / S1), Arrow, Faq (rail), Blueprint, PhotoFrame, Specimen
+src/components/         Header, Footer, Hero, Trek (Visit only), Button (C1 / S1), Arrow, Faq (rail), Blueprint, PhotoFrame, Specimen
 src/pages/[...locale]/  one file per page; each builds twice, once at / and once at /es/
 src/scripts/site.ts     header compaction, mobile nav, rail-and-panel blocks (specimen, FAQ), form-sent status
 src/scripts/motion.ts   GSAP + ScrollTrigger + Lenis, one ticker, one reduced-motion guard
@@ -212,6 +212,46 @@ each panel moves under its own tab as an accordion with no duplicate DOM.
 Under `prefers-reduced-motion` the entry animation is off and the panel
 simply appears. Native `<details>` is no longer used; the ARIA tab pattern
 carries the semantics instead.
+
+## The trek (September 5, 2026, per design-decisions.md, Visit only)
+
+`Trek.astro` sits between Visit's hero and the facility facts and appears
+on no other page (`data-trek` is in exactly two built files, `/visit/` and
+`/es/visit/`). It is an inline SVG on a blueprint-style sheet, drawn in the
+building cross-section's ink: the same accent stroke, 0.9 to 2.4 widths,
+hatched ridges, a two-stroke river with a footbridge where the route
+crosses, the jungle tile's tree marks, and JetBrains Mono labels. The
+route starts at an unlabeled hollow circle, ends at a ringed pin labeled
+"POPTÚN, GUATEMALA", and the only other text is the drawing's own "TREK ·
+NOT TO SCALE" note, the same convention as the building drawing. No
+origin, distance, or duration is drawn or implied. No copy sits beside it.
+
+**Animation.** ScrollTrigger pins the stage for 1800px of scroll under the
+header and scrubs one timeline: DrawSVGPlugin from 0% to 100% on the route
+and MotionPathPlugin walking the marker along the same path, aligned to
+it. Verified headless at 1280x800 and 375x812: the route's dash length
+grows from 41px to the full 1073px across exactly the pin distance, the
+marker travels from the start to Poptún, the stage holds at the header
+line for the whole scrub and releases after, no horizontal overflow.
+
+**Camera, second pass.** Enabled after the basic version was verified
+(`CAMERA` flag at the top of the script). The drawn content lives in a
+`.trek__camera` group scaled 1.35 from the top-left; on every timeline
+update two `gsap.quickTo` tweens move the group so the marker stays at the
+sheet's centre, with 0.45s of lag for the cinematic feel, and the SVG
+switches to `slice` so the zoomed sheet fills its frame. Verified: the
+marker's screen position holds at the frame centre from pin start to pin
+end on both widths while the camera matrix translates.
+
+**Reduced motion.** The markup's resting state is the finished drawing:
+full route, marker at Poptún, `meet` fit so the whole sheet shows, natural
+height, no pin. With `prefers-reduced-motion` emulated in headless Chrome
+the Spanish Visit page showed exactly that: no dasharray on the path,
+marker at the pin, no pin-spacer, the section at its natural height.
+
+**Strings.** Two UI keys were added to `ui.ts` for accessibility only, a
+visually hidden section heading and the SVG's `aria-label`; no content key
+changed.
 
 ## Tokens: what was ported verbatim, what was interpreted
 

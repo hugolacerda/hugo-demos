@@ -123,6 +123,9 @@ const en = {
   'visit.faq.q2': 'What does a typical day look like?',
   'visit.faq.a2': 'Every trip is a little different. Tell us your goals and we will shape the day around them.',
 
+  'visit.trek.title': 'The trek to Poptún',
+  'visit.trek.alt': 'A hand-drawn map. A route is drawn from an unmarked starting point to Poptún, Guatemala.',
+
   /* Give */
   'give.title': 'Give | Luz a las Naciones',
   'give.description': 'Support for Luz a las Naciones comes from a small, dedicated circle. Every gift keeps the lights on, the kitchen stocked, and the door open to the next team.',
@@ -271,6 +274,9 @@ const es: Record<UiKey, string> = {
   'visit.faq.a1': 'Si aún no lo tienes claro, envíanos fechas posibles y nos organizamos en torno a ellas.',
   'visit.faq.q2': '¿Cómo es un día típico?',
   'visit.faq.a2': 'Cada viaje es un poco distinto. Cuéntanos tus objetivos y organizamos el día en torno a ellos.',
+
+  'visit.trek.title': 'El trayecto hasta Poptún',
+  'visit.trek.alt': 'Un mapa dibujado a mano. Un recorrido va desde un punto de partida sin nombre hasta Poptún, Guatemala.',
 
   'give.title': 'Donar | Luz a las Naciones',
   'give.description': 'El apoyo a Luz a las Naciones viene de un círculo pequeño y comprometido. Cada donación mantiene las luces encendidas, la cocina abastecida y la puerta abierta para el próximo equipo.',
