@@ -201,6 +201,9 @@
   --dur-color: 120ms;
   --dur-gap: 140ms;
   --flip-perspective: 1400px;
+  /* Sticky header at rest: 44px tap target + 12px padding above and below
+     + 1px hairline. The hero subtracts it so its first fold is exact. */
+  --header-h: 69px;
 
   --hero-scrim: linear-gradient(180deg, rgba(14,58,50,0.52) 0%, rgba(14,58,50,0.34) 42%, rgba(11,44,38,0.88) 100%);
   --blueprint-grid: repeating-linear-gradient(0deg, rgba(12,107,87,.12) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(12,107,87,.12) 0 1px, transparent 1px 26px);
@@ -383,12 +386,30 @@
     .nav-toggle__text { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
   }
 
-  /* Hero: tinted overlay only, gradient pulled toward the ground colour. */
-  .hero { @apply relative bg-photo-teal text-on-dark overflow-hidden; }
+  /* Hero (design-decisions.md): full-bleed, full-viewport height, copy in
+     the upper portion. The backdrop is meant to be large-scale ink linework
+     in the building drawing's style; until that illustration exists the
+     Foliage line tile (fg-jungle, 170px) is scaled four times and sat under
+     the scrim as a stand-in. Flex column, content not centred: the first
+     fold is the copy, the rest of the height is the illustration. */
+  .hero { @apply relative flex flex-col bg-ground-900 text-on-dark; overflow: clip; min-height: calc(100vh - var(--header-h)); min-height: calc(100svh - var(--header-h)); }
+  .hero__art { @apply absolute inset-0 pointer-events-none; }
+  .hero__art .hero__art-tile { @apply absolute; inset: -12%; background-size: 680px 680px; opacity: 0.6; transform: rotate(-4deg); }
   .hero__scrim { @apply absolute inset-0; background: var(--hero-scrim); }
-  .hero__inner { @apply relative px-gutter pt-[84px] pb-16 max-lg:pt-16 max-lg:pb-[52px] max-sm:pt-14 max-sm:pb-11; }
-  .hero__title { @apply text-900 leading-hero tracking-hero text-on-dark max-w-hero mb-4 max-lg:text-[clamp(32px,6.4vw+8px,46px)]; }
+  /* The copy sticks under the header while the rest of the hero scrolls
+     away beneath it, so Home's emphasis plays out in view. overflow: clip
+     on .hero (not hidden) keeps sticky working. Static under reduced
+     motion: no parallax for anyone who asked for none. */
+  .hero__inner { @apply sticky px-gutter pt-[84px] pb-16 max-lg:pt-16 max-lg:pb-[52px] max-sm:pt-12 max-sm:pb-11; top: var(--header-h); }
+  @media (prefers-reduced-motion: reduce) { .hero__inner { position: relative; top: auto; } }
+  .hero__title { @apply text-900 leading-hero tracking-hero text-on-dark max-w-hero mb-4 max-lg:text-[clamp(32px,6.4vw+8px,48px)]; }
   .hero__sub { @apply text-450 leading-lede text-on-dark-lede max-w-[52ch] mb-[26px]; }
+  /* The one phrase Home's headline leans on. GSAP scales it as the hero
+     scrolls out (src/pages/[...locale]/index.astro); inline-block so the
+     transform applies, origin on the left so it grows into the line's
+     empty side. Static markup is the finished state under reduced motion. */
+  .hero__emph { @apply inline-block; transform-origin: left center; will-change: transform; }
+  .hero__rest { @apply inline; }
 
   /* Empty photo frame. A designed stand-in until the photo audit happens:
      hairline panel, dashed inset, Whisper tile, mono caption. Not a design
@@ -409,9 +430,6 @@
   .photo-frame--dark .photo-frame__inset { border-color: rgba(255, 255, 255, 0.14); }
   .photo-frame--dark .photo-frame__inset::before, .photo-frame--dark .photo-frame__inset::after { border-color: rgba(255, 255, 255, 0.3); }
   .photo-frame--dark .photo-frame__label { @apply text-on-dark-mono; background: rgba(11, 44, 38, 0.55); }
-  /* The hero variant wraps the copy: the frame sits where the photo will. */
-  .photo-frame--hero { @apply items-stretch rounded-panel max-sm:flex-col; }
-  .photo-frame--hero .photo-frame__label { @apply absolute top-0 right-0 m-3.5 max-sm:static max-sm:self-start max-sm:mt-5 max-sm:mx-5 max-sm:mb-0; }
 
   /* Quick facts strip */
   .facts { border-bottom: var(--hairline-whisper); }

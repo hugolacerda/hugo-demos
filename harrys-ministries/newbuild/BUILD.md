@@ -11,8 +11,8 @@ site in `../site/` is untouched and still the live one.
 |---|---|---|
 | Astro | 7.3 | Static site generator, native i18n routing, `output: 'static'`, no adapter |
 | Tailwind CSS | 4.3 via `@tailwindcss/vite` | Tokens as a `@theme` block in `src/styles/global.css` (v4 has no `tailwind.config.js`) |
-| GSAP | 3.15 | Installed, not imported yet. The motion pass is deliberately later work |
-| Lenis | 1.3 | Smooth scroll, initialised in `src/scripts/motion.ts`, skipped under `prefers-reduced-motion` |
+| GSAP | 3.15 | ScrollTrigger (hero emphasis, the trek), DrawSVG + MotionPath (the trek) |
+| Lenis | 1.3 | Smooth scroll, driven by GSAP's ticker in `src/scripts/motion.ts`, skipped under `prefers-reduced-motion` |
 
 No React or other UI framework. Astro islands can take one on later if a
 specific interactive piece needs it.
@@ -45,7 +45,7 @@ src/layouts/Base.astro  <html lang>, title, description, hreflang alternates, he
 src/components/         Header, Footer, Button (C1 / S1), Arrow, Faq, Blueprint, PhotoFrame, Specimen
 src/pages/[...locale]/  one file per page; each builds twice, once at / and once at /es/
 src/scripts/site.ts     header compaction, mobile nav, specimen index, form-sent status
-src/scripts/motion.ts   Lenis. GSAP registration goes here when the motion pass lands
+src/scripts/motion.ts   GSAP + ScrollTrigger + Lenis, one ticker, one reduced-motion guard
 ```
 
 ## Bilingual, how it works now
@@ -164,6 +164,36 @@ needed). `#246B5C` was rejected as indistinguishable from the accent,
 `#327B6C` as too close to the 4.5:1 floor on the hover ground. The building
 drawing's ink and the unused `.fg-paper` tile's linework moved to the new
 accent too, and the blueprint grid's rgba tint follows it.
+
+## Hero (September 5, 2026, per design-decisions.md)
+
+Home and Visit share `Hero.astro`. Full-bleed and full-viewport-height
+(`100svh` minus the 69px resting header, with a `100vh` fallback), a flex
+column with the copy at the top rather than centred: headline, subhead, and
+CTAs finish at 432px of an 800px laptop viewport on Home and at 512px of
+812px on a phone, so nothing essential needs a scroll. The old
+photo-frame-wraps-copy treatment is gone from both pages; `PhotoFrame.astro`
+still serves the specimen panels.
+
+**Backdrop is a stand-in.** The decision is a large-scale illustrated
+treatment in the building drawing's ink style. That illustration does not
+exist yet and was not attempted here: the Foliage line tile (`fg-jungle`,
+cream linework on the dark ground) is scaled four times, rotated 4 degrees,
+and set at 60% under the existing scrim as a placeholder that reads as
+linework rather than a missing image. The real backdrop still needs a
+Claude Design pass; `.hero__art` is the container it drops into.
+
+**Emphasis on Home only.** The headline phrase "not just a check" / "no
+solo un cheque" is wrapped in `.hero__emph` by matching a substring of the
+existing i18n title (the phrase list lives in `index.astro`, not in
+`ui.ts`, so no content string changed). A GSAP timeline scrubbed to the
+hero's scroll-out (start when the hero top meets the viewport top, end when
+its bottom does) scales the phrase to 1.22 from its left edge and drops the
+rest of the headline to 55% opacity. `scripts/motion.ts` now owns GSAP,
+registers ScrollTrigger, and drives Lenis from GSAP's ticker so scrubbing
+stays in sync with smooth scroll. Under `prefers-reduced-motion` neither
+Lenis nor the timeline is created and the static headline is the finished
+state.
 
 ## Tokens: what was ported verbatim, what was interpreted
 

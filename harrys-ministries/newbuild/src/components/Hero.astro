@@ -1,0 +1,33 @@
+---
+/* Hero, shared by Home and Visit (design-decisions.md, hero). Full-bleed and
+   full-viewport-height; the copy and CTAs sit in the upper portion so nothing
+   essential needs a scroll on a laptop. The backdrop is a large-scale
+   illustrated treatment in the building drawing's ink style. What ships
+   here is the existing Foliage line tile (fg-jungle) scaled up as a
+   stand-in: the real illustration still needs a Claude Design pass.
+   `emph` wraps one phrase of the title for Home's scroll-driven emphasis;
+   it must be an exact substring of the title string, or nothing is wrapped. */
+import type { Lang } from '../i18n/utils';
+interface Props { lang: Lang; titleId?: string; title: string; emph?: string; sub: string }
+const { titleId = 'hero-title', title, emph, sub } = Astro.props;
+let before = title, phrase = '', after = '';
+if (emph) {
+  const i = title.indexOf(emph);
+  if (i >= 0) { before = title.slice(0, i); phrase = emph; after = title.slice(i + emph.length); }
+}
+---
+<section class="hero on-dark" aria-labelledby={titleId} data-hero>
+  <div class="hero__art" aria-hidden="true">
+    <div class="hero__art-tile fg-jungle"></div>
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="wrap hero__inner">
+    <h1 id={titleId} class="hero__title">
+      {phrase ? (
+        <><span class="hero__rest">{before}</span><span class="hero__emph">{phrase}</span><span class="hero__rest">{after}</span></>
+      ) : title}
+    </h1>
+    <p class="hero__sub">{sub}</p>
+    <div class="cta-row"><slot /></div>
+  </div>
+</section>
