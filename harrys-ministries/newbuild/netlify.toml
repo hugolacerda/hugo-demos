@@ -1,0 +1,14 @@
+# Netlify build configuration. Local-only for now: no site is created, no
+# domain, no DNS. When the time comes, connecting this folder as the base
+# directory is all Netlify needs; Netlify Forms picks up the contact form
+# from the built HTML (data-netlify="true") at deploy time.
+[build]
+  base = "harrys-ministries/newbuild"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Both locales are pre-rendered directories, so the only redirect needed is
+# the Netlify Forms success URL, which the form's action already handles.

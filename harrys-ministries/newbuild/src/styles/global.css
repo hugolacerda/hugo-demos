@@ -1,0 +1,495 @@
+/* ==========================================================================
+   Luz a las Naciones. Field Guide tokens as a Tailwind v4 theme.
+
+   Tailwind v4 has no tailwind.config.js: the theme IS this @theme block, and
+   every value in it becomes both a CSS variable on :root and a utility class.
+   Values are lifted verbatim from site/css/tokens.css and
+   planning/design-system.md. Nothing is rounded, nothing is new.
+
+   Where a token has no utility namespace (compound values such as a full
+   border shorthand, a gradient, a 3-part padding) it lives in :root below
+   the theme and is consumed by the component layer. See BUILD.md for the
+   full token-to-utility mapping and the places Tailwind pushed back.
+   ========================================================================== */
+@import "tailwindcss";
+@import "./textures.css";
+
+@theme {
+  /* --- Breakpoints ---------------------------------------------------------
+     The old sheet was max-width based (960 / 800 / 720 / 480). Tailwind is
+     min-width based, so each name here is the old cutoff plus one pixel and
+     the max-* variants reproduce the old queries exactly:
+       max-sm  = (width < 481px)  = old  @media (max-width: 480px)
+       max-md  = (width < 721px)  = old  @media (max-width: 720px)
+       max-lg  = (width < 801px)  = old  @media (max-width: 800px)
+       max-xl  = (width < 961px)  = old  @media (max-width: 960px)        */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 481px;
+  --breakpoint-md: 721px;
+  --breakpoint-lg: 801px;
+  --breakpoint-xl: 961px;
+
+  /* --- Colour. Tailwind's default palette is removed on purpose: only Field
+         Guide colours exist as utilities. ---------------------------------- */
+  --color-*: initial;
+
+  /* teal spine */
+  --color-teal-700: #0F766E;
+  --color-teal-800: #0B5A54;
+  --color-cyan-800: #155E75;
+  /* jungle ground */
+  --color-ground-900: #0E3A32;
+  --color-ground-950: #0B2C26;
+  --color-photo-teal: #1B5A6E;
+  /* ink */
+  --color-ink-900: #111827;
+  --color-ink-800: #1F2937;
+  --color-ink-700: #374151;
+  --color-slate-600: #475569;
+  /* paper + lines */
+  --color-white: #FFFFFF;
+  --color-paper-50: #FAFAF7;
+  --color-paper-100: #F3F4F6;
+  --color-line-300: #D6D9DE;
+  --color-line-400: #B8BCC4;
+  /* moss (Whisper-light ground) */
+  --color-moss-50: #EDF1E9;
+  --color-moss-200: #D9DFD6;
+  /* naturalist accent: Foliage tiles and the footer column label */
+  --color-sage-400: #93A896;
+  /* text on dark grounds */
+  --color-on-dark-lede: #DCE6E1;
+  --color-on-dark-body: #C9D8D1;
+  --color-on-dark-mono: #A9CBD8;
+  /* the old [NEED] marker colours are intentionally not ported: the
+     confirmed-only content has no markers left to style. */
+
+  /* semantic aliases, same names as tokens.css minus the text-/surface-
+     prefixes (Tailwind reserves --text-* for font sizes) */
+  --color-body: var(--color-ink-900);
+  --color-prose: var(--color-ink-700);
+  --color-muted: var(--color-slate-600);
+  --color-heading: var(--color-ink-900);
+  --color-on-dark: var(--color-white);
+  --color-on-dark-prose: var(--color-on-dark-body);
+  --color-page: var(--color-paper-50);
+  --color-card: var(--color-white);
+  --color-sunken: var(--color-paper-100);
+  --color-whisper: var(--color-moss-50);
+  --color-dark: var(--color-ground-900);
+  --color-hairline: var(--color-line-300);
+  --color-strong: var(--color-line-400);
+  --color-hairline-whisper: var(--color-moss-200);
+  --color-hairline-on-dark: rgba(255, 255, 255, 0.1);
+  --color-control-on-dark: rgba(255, 255, 255, 0.45);
+  --color-accent: var(--color-teal-700);
+  --color-accent-hover: var(--color-teal-800);
+  --color-accent-secondary: var(--color-cyan-800);
+  --color-focus: var(--color-teal-700);
+  --color-chip: rgba(255, 255, 255, 0.18);
+
+  /* --- Type ------------------------------------------------------------- */
+  --font-*: initial;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+
+  /* Font sizes: the token scale is in px with half-pixel steps, which has no
+     rem equivalent Tailwind would produce on its own. Default text-* sizes
+     are removed so only the Field Guide scale exists. */
+  --text-*: initial;
+  --text-mono-xs: 10.5px;
+  --text-mono-sm: 11px;
+  --text-mono: 11.5px;
+  --text-mono-md: 12px;
+  --text-100: 13px;
+  --text-200: 14px;
+  --text-300: 15px;
+  --text-350: 15.5px;
+  --text-400: 16.5px;
+  --text-450: 17px;
+  --text-500: 18px;
+  --text-600: 21px;
+  --text-700: 26px;
+  --text-800: 28px;
+  --text-850: 32px;
+  --text-875: 34px;
+  --text-900: 46px;
+
+  --leading-*: initial;
+  --leading-hero: 1.08;
+  --leading-heading: 1.16;
+  --leading-title: 1.2;
+  --leading-lede: 1.55;
+  --leading-body: 1.6;
+
+  --tracking-*: initial;
+  --tracking-hero: -0.02em;
+  --tracking-heading: -0.01em;
+  --tracking-tight: -0.015em;
+  --tracking-micro: -0.005em;
+  --tracking-mono: 0.08em;
+  --tracking-mono-sm: 0.06em;
+  --tracking-mono-xs: 0.04em;
+
+  /* Weights: the four token weights (400/500/600/700) are Tailwind's own
+     font-normal / font-medium / font-semibold / font-bold. Nothing to add. */
+
+  /* --- Space -------------------------------------------------------------
+     Tailwind's default 4px spacing scale already contains every value in
+     the token scale, but under different indices. Mapping:
+       space-1  4px  -> 1        space-6  20px -> 5
+       space-2  8px  -> 2        space-7  24px -> 6
+       space-3  10px -> 2.5      space-8  32px -> 8
+       space-4  12px -> 3        space-9  40px -> 10
+       space-5  16px -> 4        space-10 56px -> 14
+     The named tokens below are the ones with a job, not a number. */
+  --spacing-gutter: 24px;
+  --spacing-tap: 44px;
+  --spacing-rail: 336px;
+  --spacing-photo: 292px;
+
+  --container-*: initial;
+  --container-measure: 1120px;
+  --container-prose: 62ch;
+  --container-lede: 58ch;
+  --container-heading: 28ch;
+  --container-hero: 20ch;
+
+  /* --- Shape and motion ------------------------------------------------- */
+  --radius-*: initial;
+  --radius-panel: 4px;
+  --radius-control: 6px;
+  --radius-tag: 3px;
+
+  --shadow-*: initial;
+  --shadow-ring-on-dark: 0 0 0 1px rgba(255, 255, 255, 0.12);
+
+  --ease-*: initial;
+  --ease-fg: ease;
+  --ease-flip: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+  --animate-flip-fwd: specimen-flip-fwd 620ms var(--ease-flip);
+  --animate-flip-back: specimen-flip-back 620ms var(--ease-flip);
+  @keyframes specimen-flip-fwd {
+    from { transform: rotateY(78deg); }
+    to { transform: rotateY(0); }
+  }
+  @keyframes specimen-flip-back {
+    from { transform: rotateY(-78deg); }
+    to { transform: rotateY(0); }
+  }
+}
+
+/* Compound tokens with no utility namespace. Consumed by the component layer. */
+:root {
+  --hairline: 1px solid var(--color-hairline);
+  --hairline-strong: 1px solid var(--color-strong);
+  --hairline-whisper: 1px solid var(--color-hairline-whisper);
+  --hairline-on-dark: 1px solid var(--color-hairline-on-dark);
+  --border-accent-w: 3px;
+
+  --dur-color: 120ms;
+  --dur-gap: 140ms;
+  --flip-perspective: 1400px;
+
+  --hero-scrim: linear-gradient(180deg, rgba(14,58,50,0.52) 0%, rgba(14,58,50,0.34) 42%, rgba(11,44,38,0.88) 100%);
+  --blueprint-grid: repeating-linear-gradient(0deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px);
+  /* Kept from tokens.css for the day a real photo needs a loading ground;
+     the empty-frame treatment below uses the Whisper tile instead. */
+  --photo-hatch: repeating-linear-gradient(45deg, rgba(17,24,39,.055) 0 6px, transparent 6px 12px);
+  --photo-hatch-bg: #E4E4DE;
+}
+
+/* --- Fonts. Self-hosted, copied from site/assets/fonts. -------------------- */
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("/fonts/inter-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("/fonts/inter-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "JetBrains Mono"; font-style: normal; font-weight: 400 600; font-display: swap;
+  src: url("/fonts/jetbrains-mono-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* --- Base ------------------------------------------------------------------ */
+@layer base {
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  body {
+    @apply bg-page text-body font-sans text-400 leading-body;
+  }
+  h1, h2, h3, h4 { @apply text-heading font-bold; }
+  p { text-wrap: pretty; }
+  a { @apply text-accent hover:text-accent-hover; }
+  :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 2px; }
+  .on-dark :focus-visible, .on-dark:focus-visible { outline-color: var(--color-white); }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+
+  /* Lenis smooth scroll (src/scripts/motion.ts). Its recommended base rules. */
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+}
+
+/* --- Components -------------------------------------------------------------
+   Patterns that carry state, pseudo-elements, or three or more properties
+   that always travel together. Everything simpler is utilities in the
+   templates. Values come only from the theme above. */
+@layer components {
+  .wrap { @apply w-full max-w-measure mx-auto px-gutter; }
+  .visually-hidden {
+    position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+  .skip-link {
+    @apply absolute left-gutter z-[200] bg-white text-accent rounded-control font-semibold;
+    top: -100px; padding: 10px 14px; border: var(--hairline-strong);
+  }
+  .skip-link:focus { @apply top-2; }
+
+  /* Textured sections: relative and isolated; the tile is an absolute child. */
+  .tex { @apply relative z-0 isolate; }
+  .tex__tile { @apply absolute inset-0 -z-10 pointer-events-none; }
+  .tex__tile--edge-l, .tex__tile--edge-r { @apply absolute top-0 bottom-0 -z-10 pointer-events-none; width: 150px; }
+  .tex__tile--edge-l { left: 0; -webkit-mask-image: linear-gradient(90deg, #000 0%, transparent 100%); mask-image: linear-gradient(90deg, #000 0%, transparent 100%); }
+  .tex__tile--edge-r { right: 0; -webkit-mask-image: linear-gradient(270deg, #000 0%, transparent 100%); mask-image: linear-gradient(270deg, #000 0%, transparent 100%); }
+
+  /* Type patterns */
+  .eyebrow { @apply mb-2.5 font-mono text-mono font-medium tracking-mono uppercase text-accent; }
+  .eyebrow--on-dark { @apply text-sage-400; }
+  .section-title { @apply text-850 leading-heading tracking-heading max-w-heading mb-2.5 max-md:text-[clamp(26px,5vw+8px,32px)]; }
+  .section-title--lead { @apply text-875 max-w-[30ch]; }
+  .section-title--small { @apply text-600 max-w-none; }
+  .page-title { @apply text-875 leading-heading tracking-heading max-w-[24ch] mb-3 max-lg:text-[clamp(26px,5vw+8px,34px)]; }
+  .lede { @apply text-450 leading-lede text-muted max-w-lede; }
+  .prose { @apply text-400 leading-body text-prose max-w-prose; }
+  .prose + .prose { @apply mt-4; }
+
+  /* Section rhythm. The old compound padding tokens (52px 24px 56px and so
+     on) become one class each, with their narrow-screen treatment inline. */
+  .section { @apply px-gutter pt-[52px] pb-[56px] max-md:pt-11 max-md:pb-12; }
+  .section--lead { @apply px-gutter py-16 max-md:py-[52px]; }
+  .section--card { @apply bg-card; border-top: var(--hairline); }
+  .page-intro { @apply bg-card; border-bottom: var(--hairline); }
+  .page-intro__inner { @apply px-gutter pt-14 pb-12 max-lg:pt-11 max-lg:pb-10; }
+
+  /* Buttons: one solid (C1), one bordered (S1), never equal weight. */
+  .btn {
+    @apply inline-flex items-center justify-center min-h-tap font-sans text-300 font-semibold rounded-control whitespace-nowrap cursor-pointer border-0 no-underline;
+  }
+  .btn__arrow { @apply flex-none; }
+  .btn--primary {
+    @apply gap-3 bg-accent text-on-dark;
+    padding: 8px 10px 8px 20px;
+    transition: background var(--dur-color) var(--ease-fg), gap var(--dur-gap) var(--ease-fg);
+  }
+  .btn--primary:hover { @apply bg-accent-hover text-on-dark gap-4; }
+  .btn--primary .btn__chip { @apply inline-flex items-center justify-center flex-none w-7 h-7 rounded-panel bg-chip; }
+  .btn--primary.btn--on-dark { @apply shadow-ring-on-dark; }
+  .btn--secondary {
+    @apply gap-2.5 bg-card text-accent-secondary;
+    padding: 10px 20px; border: 1px solid var(--color-strong);
+    transition: border-color var(--dur-color) var(--ease-fg), background var(--dur-color) var(--ease-fg), gap var(--dur-gap) var(--ease-fg);
+  }
+  .btn--secondary:hover { @apply border-accent-secondary bg-sunken text-accent-secondary gap-3.5; }
+  .btn--secondary.btn--on-dark { @apply bg-transparent text-on-dark border-control-on-dark; }
+  .btn--secondary.btn--on-dark:hover { @apply border-white text-on-dark bg-white/8; }
+  .cta-row { @apply flex flex-wrap items-center gap-4 max-sm:flex-col max-sm:items-stretch; }
+  .cta-row .btn { @apply max-sm:w-full max-sm:justify-between; }
+  .inline-link { @apply inline-flex items-center gap-2 min-h-tap font-semibold text-accent hover:text-accent-hover; }
+
+  /* Header: wordmark, nav, EN/ES. Sticky, compresses once scrolled. */
+  .site-header { @apply sticky top-0 z-[150] bg-card; border-bottom: var(--hairline); }
+  .site-header__inner {
+    @apply flex items-center gap-8 py-3 max-xl:flex-wrap max-xl:gap-3 max-sm:flex-nowrap max-sm:gap-2;
+    transition: padding var(--dur-gap) var(--ease-fg);
+  }
+  .site-header.is-compact .site-header__inner { @apply py-1.5; }
+  .brand {
+    @apply flex-none inline-flex items-center min-h-tap text-500 font-bold tracking-micro text-body whitespace-nowrap hover:text-body max-xl:flex-1 max-sm:text-450 max-sm:min-w-0 max-sm:overflow-hidden max-sm:text-ellipsis;
+    transition: font-size var(--dur-gap) var(--ease-fg);
+  }
+  .site-header.is-compact .brand { @apply text-450; }
+  .primary-nav { @apply flex-1 max-xl:order-4 max-xl:basis-full max-xl:hidden max-xl:pt-2 max-sm:absolute max-sm:left-0 max-sm:right-0 max-sm:top-full max-sm:bg-card max-sm:pt-2 max-sm:px-gutter max-sm:pb-3; }
+  @media (width < 961px) { .primary-nav { border-top: var(--hairline); } }
+  @media (width < 481px) { .primary-nav { border-top: 0; border-bottom: var(--hairline); } }
+  .primary-nav.is-open { @apply max-xl:block; }
+  .primary-nav ul { @apply flex items-center gap-x-2 gap-y-1 -mx-2 max-xl:flex-col max-xl:items-stretch max-xl:gap-0 max-xl:mx-0; }
+  .primary-nav a { @apply inline-flex items-center min-h-tap min-w-tap px-2 text-body font-medium text-300 whitespace-nowrap hover:text-accent max-xl:min-h-12; }
+  .primary-nav a[aria-current="page"] { @apply text-accent font-semibold; box-shadow: inset 0 -2px 0 var(--color-accent); }
+  @media (width < 961px) { .primary-nav a[aria-current="page"] { box-shadow: inset 3px 0 0 var(--color-accent); } }
+  .primary-nav a:focus-visible { outline-offset: -3px; }
+  .header-actions { @apply flex items-center gap-3 ml-auto max-xl:ml-0 max-xl:order-2; }
+
+  /* Language toggle: sunken shell, white pill on the active language. Links
+     to the other locale's page, not a client-side switch. */
+  .lang-toggle { @apply inline-flex items-center gap-0.5 px-[3px] flex-none rounded-control bg-sunken; }
+  .lang-toggle a {
+    @apply relative inline-flex items-center justify-center min-h-tap min-w-tap px-[11px] rounded-panel bg-transparent text-muted text-100 font-semibold no-underline hover:text-body max-sm:px-2;
+  }
+  .lang-toggle a[aria-current="true"] { @apply bg-card text-body; box-shadow: 0 0 0 1px var(--color-hairline); }
+
+  /* Mobile menu button */
+  .nav-toggle {
+    @apply hidden items-center gap-2 min-h-tap min-w-tap px-3 rounded-control bg-card text-body text-300 font-semibold cursor-pointer max-xl:inline-flex max-xl:order-3 max-sm:px-0 max-sm:justify-center;
+    border: 1px solid var(--color-strong);
+  }
+  .nav-toggle:hover { @apply border-accent-secondary bg-sunken; }
+  .nav-toggle__bars { @apply inline-block w-4 h-3 relative; }
+  .nav-toggle__bars::before, .nav-toggle__bars::after, .nav-toggle__bars span {
+    content: ""; position: absolute; left: 0; right: 0; height: 1.75px; background: currentColor;
+  }
+  .nav-toggle__bars::before { top: 0; }
+  .nav-toggle__bars span { top: 5px; }
+  .nav-toggle__bars::after { bottom: 0; }
+  @media (width < 481px) {
+    .nav-toggle__text { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+  }
+
+  /* Hero: tinted overlay only, gradient pulled toward the ground colour. */
+  .hero { @apply relative bg-photo-teal text-on-dark overflow-hidden; }
+  .hero__scrim { @apply absolute inset-0; background: var(--hero-scrim); }
+  .hero__inner { @apply relative px-gutter pt-[84px] pb-16 max-lg:pt-16 max-lg:pb-[52px] max-sm:pt-14 max-sm:pb-11; }
+  .hero__title { @apply text-900 leading-hero tracking-hero text-on-dark max-w-hero mb-4 max-lg:text-[clamp(32px,6.4vw+8px,46px)]; }
+  .hero__sub { @apply text-450 leading-lede text-on-dark-lede max-w-[52ch] mb-[26px]; }
+
+  /* Empty photo frame. A designed stand-in until the photo audit happens:
+     hairline panel, dashed inset, Whisper tile, mono caption. Not a design
+     choice for the finished site. */
+  .photo-frame { @apply relative flex items-end overflow-hidden bg-sunken; border: var(--hairline); }
+  .photo-frame__tile { @apply absolute inset-0 pointer-events-none; }
+  .photo-frame__inset { @apply absolute inset-2 pointer-events-none; border: 1px dashed var(--color-hairline); }
+  .photo-frame__inset::before, .photo-frame__inset::after {
+    content: ""; position: absolute; width: 10px; height: 10px; border-color: var(--color-strong); border-style: solid;
+  }
+  .photo-frame__inset::before { top: -1px; left: -1px; border-width: 1px 0 0 1px; }
+  .photo-frame__inset::after { bottom: -1px; right: -1px; border-width: 0 1px 1px 0; }
+  .photo-frame__label {
+    @apply relative m-3.5 font-mono text-mono-xs font-medium tracking-mono-xs uppercase text-muted bg-white/85 rounded-tag;
+    padding: 3px 6px;
+  }
+  .photo-frame--dark { @apply bg-ground-900; border-color: var(--color-hairline-on-dark); }
+  .photo-frame--dark .photo-frame__inset { border-color: rgba(255, 255, 255, 0.14); }
+  .photo-frame--dark .photo-frame__inset::before, .photo-frame--dark .photo-frame__inset::after { border-color: rgba(255, 255, 255, 0.3); }
+  .photo-frame--dark .photo-frame__label { @apply text-on-dark-mono; background: rgba(11, 44, 38, 0.55); }
+  /* The hero variant wraps the copy: the frame sits where the photo will. */
+  .photo-frame--hero { @apply items-stretch rounded-panel max-sm:flex-col; }
+  .photo-frame--hero .photo-frame__label { @apply absolute top-0 right-0 m-3.5 max-sm:static max-sm:self-start max-sm:mt-5 max-sm:mx-5 max-sm:mb-0; }
+
+  /* Quick facts strip */
+  .facts { border-bottom: var(--hairline-whisper); }
+  .facts__list { @apply flex flex-wrap gap-x-10 gap-y-2.5 px-gutter py-5 max-w-measure mx-auto max-md:flex-col max-md:gap-2.5; }
+  .facts__item { @apply flex items-baseline gap-[9px] text-350 text-ink-800; }
+  .facts__num { @apply flex-none font-mono text-mono-sm font-medium text-accent; }
+  .factlist { @apply grid gap-2.5 mt-4; }
+  .factlist .facts__item { @apply text-400 text-prose; }
+
+  /* Specimen index: a numbered rail beside one detail panel. */
+  .specimen { @apply grid grid-cols-[var(--spacing-rail)_1fr] bg-card max-lg:grid-cols-1; border: var(--hairline); }
+  .specimen__rail { @apply flex flex-col bg-sunken; border-right: var(--hairline); }
+  @media (width < 801px) { .specimen__rail { border-right: 0; perspective: var(--flip-perspective); } }
+  .specimen__tab {
+    @apply relative flex w-full items-baseline gap-4 text-left bg-transparent border-0 cursor-pointer max-sm:py-[18px] max-sm:pr-[18px] max-sm:pl-[22px];
+    padding: 22px 22px 22px 26px; border-bottom: var(--hairline);
+    transition: background var(--dur-color) var(--ease-fg);
+  }
+  .specimen__tab:hover { background: rgba(255, 255, 255, 0.6); }
+  .specimen__tab[aria-selected="true"] { @apply bg-card; }
+  @media (width < 801px) { .specimen__tab[aria-selected="true"] { border-bottom: 0; } }
+  .specimen__tab[aria-selected="true"]::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--border-accent-w); background: var(--color-accent);
+  }
+  .specimen__tab:focus-visible { outline-offset: -3px; }
+  .specimen__num { @apply flex-none font-mono text-mono-md font-medium tracking-mono-xs text-muted; }
+  .specimen__name { @apply text-500 font-semibold leading-[1.3] tracking-micro text-body max-sm:text-450; }
+  .specimen__railnote { @apply mt-auto font-mono text-mono-sm leading-body text-muted uppercase max-lg:hidden; padding: 22px 26px; }
+  .specimen__stage { @apply min-w-0 max-lg:empty:hidden; perspective: var(--flip-perspective); }
+  .specimen__panel { transform-origin: left center; backface-visibility: hidden; }
+  .specimen__panel[hidden] { display: none; }
+  @media (width < 801px) { .specimen__panel { @apply bg-card; border-bottom: var(--hairline); } .specimen__panel:has(+ .specimen__railnote) { border-bottom: 0; } }
+  .specimen__panel.is-flip-fwd { @apply animate-flip-fwd; }
+  .specimen__panel.is-flip-back { @apply animate-flip-back; }
+  .specimen__photo { @apply h-photo max-lg:h-[220px]; border: 0; border-bottom: var(--hairline); }
+  .specimen__body { @apply pt-[30px] px-[34px] pb-[34px] max-lg:pt-6 max-lg:px-[22px] max-lg:pb-7; }
+  .specimen__entry { @apply mb-3; }
+  .specimen__title { @apply text-800 leading-[1.18] tracking-tight mb-[3px] max-sm:text-700; }
+  .specimen__alt { @apply text-200 text-muted mb-4; }
+  .specimen__text { @apply text-400 leading-body text-prose max-w-prose; }
+
+  /* Building section and the cross-section drawing */
+  .building__grid { @apply grid grid-cols-2 gap-10 items-center max-lg:grid-cols-1 max-lg:gap-8; }
+  .building__grid > * { @apply min-w-0; }
+  .building__grid--top { @apply items-start; }
+  .blueprint { @apply bg-card p-[18px] max-sm:p-3; border: var(--hairline); }
+  .blueprint__scroll { @apply overflow-x-auto; -webkit-overflow-scrolling: touch; }
+  /* The drawing's annotations are 9.5 to 11px on a 640px sheet. Below 560px
+     the sheet pans inside the panel instead of shrinking into a smudge. */
+  .blueprint__sheet { @apply max-lg:min-w-[560px]; border: 1px dashed var(--color-hairline); background-color: #F6F7F4; background-image: var(--blueprint-grid); }
+  .blueprint__sheet img { @apply w-full h-auto aspect-[640/344]; }
+  .blueprint__swipe { @apply hidden max-lg:block mt-3 font-mono text-mono-xs tracking-mono-xs uppercase text-muted; }
+
+  /* FAQ: native details/summary. Plain this round, no texture tier assigned. */
+  .faq { @apply mt-6 max-w-[760px]; }
+  .faq details { border-top: var(--hairline); }
+  .faq details:last-child { border-bottom: var(--hairline); }
+  .faq summary { @apply py-[18px] min-h-tap flex items-center justify-between gap-6 font-semibold text-450 text-body leading-[1.35] hover:text-accent; }
+  .faq__sign { @apply flex-none text-[22px] leading-none text-accent; transition: transform var(--dur-gap) var(--ease-fg); }
+  .faq details[open] .faq__sign { transform: rotate(45deg); }
+  .faq__answer { @apply pb-5 text-muted max-w-prose; }
+  .faq__answer p + p { @apply mt-2; }
+
+  /* Two-column split and the bordered card column */
+  .split { @apply grid grid-cols-2 gap-6 items-start mt-6 max-lg:grid-cols-1 max-lg:gap-5; }
+  .split > * { @apply min-w-0; }
+  .split__col--card { @apply bg-card rounded-panel pt-[26px] px-7 pb-7 max-sm:pt-5 max-sm:px-[18px] max-sm:pb-[22px]; border: var(--hairline); }
+  .split--contact { @apply grid-cols-[1.3fr_1fr] gap-10 mt-0 max-lg:grid-cols-1 max-lg:gap-8; }
+  .split--give { @apply mt-0; }
+
+  /* Contact form: flat fields, hairline borders, 44px controls. */
+  .form { @apply grid gap-4 mt-4; }
+  .form__honeypot { @apply absolute -left-[9999px] w-px h-px overflow-hidden; }
+  .field { @apply grid gap-1.5; }
+  .field__label { @apply text-300 font-semibold text-body; }
+  .field__input {
+    @apply w-full min-h-tap px-3 py-2.5 text-400 text-body bg-card rounded-panel;
+    font: inherit; font-size: var(--text-400); border: var(--hairline-strong);
+    transition: border-color var(--dur-color) var(--ease-fg);
+  }
+  .field__input:hover { @apply border-accent-secondary; }
+  .field__input:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 1px; border-color: var(--color-accent); }
+  .field__input--area { @apply resize-y min-h-40 leading-body; }
+  .form-sent { @apply mt-3 py-3.5 px-4 rounded-panel bg-card text-body text-400; border: 1px solid var(--color-accent); }
+  .channels { @apply mt-4 grid gap-3; }
+  .channels__row dt { @apply mb-0.5; }
+  .channels__value { @apply text-400 text-prose inline-flex items-center min-h-tap; }
+
+  /* Footer: the one Foliage-dark moment, content inside a solid frame. */
+  .site-footer { @apply text-on-dark-prose; }
+  .site-footer__inner { @apply px-gutter pt-14 pb-[30px] max-md:pt-10 max-md:pb-6; }
+  .site-footer__frame { @apply bg-dark rounded-panel pt-8 px-[34px] pb-[26px] max-md:pt-6 max-md:px-5 max-md:pb-5; border: var(--hairline-on-dark); }
+  .site-footer__grid { @apply grid grid-cols-[1.4fr_1fr_1fr] gap-10 max-md:grid-cols-1 max-md:gap-6; }
+  .site-footer__wordmark { @apply text-600 leading-title tracking-heading text-on-dark mb-2.5; }
+  .site-footer__blurb { @apply text-350 leading-body text-on-dark-prose max-w-[34ch] max-md:max-w-none; }
+  .site-footer__links a, .site-footer__links span { @apply inline-flex items-center min-h-tap text-350 text-on-dark-prose; }
+  .site-footer__links a:hover { @apply text-on-dark; }
+  .site-footer__note { @apply mt-8 pt-5 text-100 text-on-dark-prose max-w-[80ch]; border-top: var(--hairline-on-dark); }
+}
+
+/* --- Reduced motion ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  .specimen__panel.is-flip-fwd, .specimen__panel.is-flip-back { animation: none; }
+}

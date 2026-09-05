@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lln-astro-dev",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "exec npx astro dev --host 127.0.0.1 --port \"${PORT:-4321}\""],
+      "port": 4321,
+      "autoPort": true
+    }
+  ]
+}

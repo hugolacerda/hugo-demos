@@ -1,0 +1,27 @@
+{
+  "name": "luz-a-las-naciones",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Luz a las Naciones. Field Guide redesign on Astro, Tailwind, GSAP, and Lenis. Bilingual EN/ES via Astro i18n routing.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.1",
+    "gsap": "^3.15.0",
+    "lenis": "^1.3.26",
+    "tailwindcss": "^4.3.3"
+  },
+  "allowScripts": {
+    "esbuild": true
+  }
+}
