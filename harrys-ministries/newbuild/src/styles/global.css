@@ -432,6 +432,20 @@
   .building__grid { @apply grid grid-cols-2 gap-10 items-center max-lg:grid-cols-1 max-lg:gap-8; }
   .building__grid > * { @apply min-w-0; }
   .building__grid--top { @apply items-start; }
+
+  /* A text block with nothing beside it in its row (Home's "What we do",
+     each page-intro header, Our Story's "The name"). The heading and
+     lede/prose already cap their own measure in ch; without a width on the
+     block that holds them, the block still spans the full wrap and the ch
+     caps just leave dead space to their right. Constrain the block itself
+     to the same left-column width Building's two-column grid produces
+     (grid-cols-2 gap-10: each column is calc(50% - 20px) of the row), so
+     the text sits in the same proportioned zone Building uses elsewhere on
+     these pages, flush left, not centered. Building's own grid collapses
+     to one column at the same 801px breakpoint; this does too. */
+  .text-col { max-width: calc(50% - 20px); }
+  @media (width < 801px) { .text-col { max-width: none; } }
+
   .blueprint { @apply bg-card p-[18px] max-sm:p-3; border: var(--hairline); }
   .blueprint__scroll { @apply overflow-x-auto; -webkit-overflow-scrolling: touch; }
   /* The drawing's annotations are 9.5 to 11px on a 640px sheet. Below 560px

@@ -14,9 +14,11 @@ const t = useTranslations(lang);
 
   <section class="page-intro" aria-labelledby="page-title">
     <div class="wrap page-intro__inner">
-      <p class="eyebrow">{t('story.eyebrow')}</p>
-      <h1 id="page-title" class="page-title">{t('story.h1')}</h1>
-      <p class="lede">{t('story.lede')}</p>
+      <div class="text-col">
+        <p class="eyebrow">{t('story.eyebrow')}</p>
+        <h1 id="page-title" class="page-title">{t('story.h1')}</h1>
+        <p class="lede">{t('story.lede')}</p>
+      </div>
     </div>
   </section>
 
@@ -37,8 +39,10 @@ const t = useTranslations(lang);
 
   <section class="section--card" aria-labelledby="name-title">
     <div class="wrap section">
-      <h2 id="name-title" class="section-title mb-3">{t('story.name.title')}</h2>
-      <p class="prose">{t('story.name.body')}</p>
+      <div class="text-col">
+        <h2 id="name-title" class="section-title mb-3">{t('story.name.title')}</h2>
+        <p class="prose">{t('story.name.body')}</p>
+      </div>
     </div>
   </section>
 

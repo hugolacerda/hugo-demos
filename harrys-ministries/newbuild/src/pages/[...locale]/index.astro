@@ -49,10 +49,12 @@ const t = useTranslations(lang);
     <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
     <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
     <div class="wrap section--lead">
-      <h2 id="what-title" class="section-title section-title--lead">{t('home.what.title')}</h2>
-      <p class="lede">{t('home.what.body')}</p>
-      <div class="mt-[26px]">
-        <Button href={href(lang, 'programs')} variant="secondary">{t('home.what.link')}</Button>
+      <div class="text-col">
+        <h2 id="what-title" class="section-title section-title--lead">{t('home.what.title')}</h2>
+        <p class="lede">{t('home.what.body')}</p>
+        <div class="mt-[26px]">
+          <Button href={href(lang, 'programs')} variant="secondary">{t('home.what.link')}</Button>
+        </div>
       </div>
     </div>
   </section>
