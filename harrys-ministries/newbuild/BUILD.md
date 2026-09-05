@@ -42,9 +42,9 @@ src/styles/textures.css the six Whisper / Foliage tiles, byte-identical to ../si
 src/i18n/ui.ts          every EN and ES string. `es` is typed against `en`; a missing key fails the build
 src/i18n/utils.ts       page ids and slugs, `href(lang, page)`, `useTranslations`, `localePaths`
 src/layouts/Base.astro  <html lang>, title, description, hreflang alternates, header, footer, scripts
-src/components/         Header, Footer, Button (C1 / S1), Arrow, Faq, Blueprint, PhotoFrame, Specimen
+src/components/         Header, Footer, Hero, Button (C1 / S1), Arrow, Faq (rail), Blueprint, PhotoFrame, Specimen
 src/pages/[...locale]/  one file per page; each builds twice, once at / and once at /es/
-src/scripts/site.ts     header compaction, mobile nav, specimen index, form-sent status
+src/scripts/site.ts     header compaction, mobile nav, rail-and-panel blocks (specimen, FAQ), form-sent status
 src/scripts/motion.ts   GSAP + ScrollTrigger + Lenis, one ticker, one reduced-motion guard
 ```
 
@@ -194,6 +194,24 @@ registers ScrollTrigger, and drives Lenis from GSAP's ticker so scrubbing
 stays in sync with smooth scroll. Under `prefers-reduced-motion` neither
 Lenis nor the timeline is created and the static headline is the finished
 state.
+
+## FAQ (September 5, 2026, per design-decisions.md)
+
+The accordion is gone on all six pages. `Faq.astro` now renders the
+specimen rail-and-panel structure: questions as tabs down a sunken rail on
+the left, the open answer beside them, first question open. Deliberately
+not the specimen's presentation: no numbered index, no 3D flip; the answer
+enters with a 260ms fade and an 8px slide in the direction of travel. The
+questions, answers, and links come from exactly the same i18n keys as
+before; nothing in `ui.ts` changed.
+
+`src/scripts/site.ts` generalised the specimen code into one `initRail`
+that both blocks use (`data-rail="flip"` on Programs, `data-rail="fade"`
+on the FAQ): click-only selection, arrow / Home / End keys, and below 800px
+each panel moves under its own tab as an accordion with no duplicate DOM.
+Under `prefers-reduced-motion` the entry animation is off and the panel
+simply appears. Native `<details>` is no longer used; the ARIA tab pattern
+carries the semantics instead.
 
 ## Tokens: what was ported verbatim, what was interpreted
 

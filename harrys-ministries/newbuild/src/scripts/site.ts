@@ -1,6 +1,7 @@
 /* ==========================================================================
-   Site chrome. Sticky header compaction, mobile nav, the specimen index, and
-   the contact form's post-redirect confirmation. No dependencies.
+   Site chrome. Sticky header compaction, mobile nav, the rail-and-panel
+   blocks (specimen index and FAQ), and the contact form's post-redirect
+   confirmation. No dependencies.
    The language toggle is plain links now (real per-locale pages), so there is
    no client-side i18n at all.
    ========================================================================== */
@@ -36,8 +37,8 @@ function init() {
     });
   }
 
-  /* Specimen index */
-  document.querySelectorAll<HTMLElement>('[data-specimen]').forEach(initSpecimen);
+  /* Rail-and-panel blocks: the specimen index (flip) and the FAQ (fade) */
+  document.querySelectorAll<HTMLElement>('[data-rail]').forEach(initRail);
 
   /* Contact form: show the confirmation after Netlify redirects back. */
   const sent = document.getElementById('form-sent');
@@ -48,10 +49,18 @@ function init() {
   }
 }
 
-function initSpecimen(root: HTMLElement) {
-  const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('.specimen__tab'));
-  const panels = Array.from(root.querySelectorAll<HTMLElement>('.specimen__panel'));
-  const stage = root.querySelector<HTMLElement>('.specimen__stage');
+/* A rail of tabs beside a stage of panels. root.dataset.rail picks the
+   panel-entry animation: "flip" (the specimen index's 3D turn, direction
+   following the index) or "fade" (the FAQ's short fade-and-slide). Click-only
+   selection; arrow keys, Home and End move between tabs. Below 800px each
+   panel moves under its own tab as an accordion, no duplicate DOM. */
+function initRail(root: HTMLElement) {
+  const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  const panels = Array.from(root.querySelectorAll<HTMLElement>('[role="tabpanel"]'));
+  const stage = root.querySelector<HTMLElement>('[data-rail-stage]');
+  const anim = root.dataset.rail === 'flip'
+    ? { fwd: 'is-flip-fwd', back: 'is-flip-back' }
+    : { fwd: 'is-fade-fwd', back: 'is-fade-back' };
   const narrow = window.matchMedia('(width < 801px)');
   let current = tabs.findIndex((t) => t.getAttribute('aria-selected') === 'true');
   if (current < 0) current = 0;
@@ -66,11 +75,11 @@ function initSpecimen(root: HTMLElement) {
     panels.forEach((panel, i) => {
       const on = i === next;
       panel.hidden = !on;
-      panel.classList.remove('is-flip-fwd', 'is-flip-back');
+      panel.classList.remove(anim.fwd, anim.back);
       if (on && animate && !reduceMotion.matches) {
         // Restart the keyframe animation even if the same class was just removed.
         void panel.offsetWidth;
-        panel.classList.add(forward ? 'is-flip-fwd' : 'is-flip-back');
+        panel.classList.add(forward ? anim.fwd : anim.back);
       }
     });
     current = next;
@@ -93,8 +102,8 @@ function initSpecimen(root: HTMLElement) {
     });
   });
 
-  // Narrow screens: each panel sits under its own rail row (accordion).
-  // Wide screens: all panels live in the stage column. No duplicate DOM.
+  // Narrow screens: each panel sits under its own tab (accordion).
+  // Wide screens: all panels live in the stage column.
   function place() {
     if (narrow.matches) {
       panels.forEach((panel, i) => {

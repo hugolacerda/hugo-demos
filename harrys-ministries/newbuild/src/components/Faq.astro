@@ -1,6 +1,10 @@
 ---
-/* FAQ: native details/summary, no custom JS. Plain this round; the design
-   system still has no texture tier assigned to it. */
+/* FAQ (design-decisions.md): the Specimen rail-and-panel structure, adapted.
+   Questions down one side, the open answer beside them, no numbered index,
+   and a short fade-and-slide instead of the 3D flip. Same ARIA tab pattern
+   and the same narrow-screen accordion as the specimen index
+   (src/scripts/site.ts, data-rail="fade"). Questions and answers come from
+   the same i18n keys as before; only the presentation changed. */
 import Arrow from './Arrow.astro';
 import type { Lang } from '../i18n/utils';
 import { useTranslations } from '../i18n/utils';
@@ -12,16 +16,22 @@ const t = useTranslations(lang);
 <section class="section--card" aria-labelledby={id}>
   <div class="wrap section">
     <h2 id={id} class="section-title">{t('faq.title')}</h2>
-    <div class="faq">
-      {items.map((item) => (
-        <details>
-          <summary><span>{item.q}</span><span class="faq__sign" aria-hidden="true">+</span></summary>
-          <div class="faq__answer">
+    <div class="faq" data-rail="fade">
+      <div class="faq__rail" role="tablist" aria-orientation="vertical" aria-label={t('faq.title')}>
+        {items.map((item, i) => (
+          <button type="button" role="tab" id={`${id}-q-${i}`} class="faq__q" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`${id}-a-${i}`} tabindex={i === 0 ? 0 : -1}>
+            <span>{item.q}</span><Arrow class="faq__q-arrow" />
+          </button>
+        ))}
+      </div>
+      <div class="faq__stage" data-rail-stage>
+        {items.map((item, i) => (
+          <div role="tabpanel" id={`${id}-a-${i}`} class="faq__a" aria-labelledby={`${id}-q-${i}`} hidden={i !== 0}>
             <p>{item.a}</p>
             {item.link && <p><a class="inline-link" href={item.link.href}><span>{item.link.label}</span><Arrow class="" /></a></p>}
           </div>
-        </details>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>

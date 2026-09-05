@@ -188,6 +188,18 @@
     from { transform: rotateY(-78deg); }
     to { transform: rotateY(0); }
   }
+  /* FAQ panel entry: a short fade with an 8px slide in the direction of
+     travel down the question list. Deliberately not the specimen flip. */
+  --animate-fade-fwd: faq-fade-fwd 260ms var(--ease-fg);
+  --animate-fade-back: faq-fade-back 260ms var(--ease-fg);
+  @keyframes faq-fade-fwd {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes faq-fade-back {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: none; }
+  }
 }
 
 /* Compound tokens with no utility namespace. Consumed by the component layer. */
@@ -497,15 +509,35 @@
   .blueprint__sheet img { @apply w-full h-auto aspect-[640/344]; }
   .blueprint__swipe { @apply hidden max-lg:block mt-3 font-mono text-mono-xs tracking-mono-xs uppercase text-muted; }
 
-  /* FAQ: native details/summary. Plain this round, no texture tier assigned. */
-  .faq { @apply mt-6 max-w-[760px]; }
-  .faq details { border-top: var(--hairline); }
-  .faq details:last-child { border-bottom: var(--hairline); }
-  .faq summary { @apply py-[18px] min-h-tap flex items-center justify-between gap-6 font-semibold text-450 text-body leading-[1.35] hover:text-accent; }
-  .faq__sign { @apply flex-none text-[22px] leading-none text-accent; transition: transform var(--dur-gap) var(--ease-fg); }
-  .faq details[open] .faq__sign { transform: rotate(45deg); }
-  .faq__answer { @apply pb-5 text-muted max-w-prose; }
-  .faq__answer p + p { @apply mt-2; }
+  /* FAQ (design-decisions.md): the specimen rail-and-panel structure without
+     the numbered index or the flip. Questions are tabs down a sunken rail,
+     the open answer sits beside them; below 800px each answer moves under
+     its own question (src/scripts/site.ts). */
+  .faq { @apply mt-6 grid grid-cols-[var(--spacing-rail)_1fr] bg-card max-lg:grid-cols-1; border: var(--hairline); }
+  .faq__rail { @apply flex flex-col bg-sunken; border-right: var(--hairline); }
+  @media (width < 801px) { .faq__rail { border-right: 0; } }
+  .faq__q {
+    @apply relative flex w-full items-start justify-between gap-4 text-left bg-transparent border-0 cursor-pointer font-semibold text-450 leading-[1.35] text-body px-[22px] py-[18px] max-sm:px-[18px];
+    border-bottom: var(--hairline);
+    transition: background var(--dur-color) var(--ease-fg), color var(--dur-color) var(--ease-fg);
+  }
+  .faq__q:hover { @apply text-accent; background: rgba(255, 255, 255, 0.6); }
+  .faq__q[aria-selected="true"] { @apply bg-card text-accent; }
+  .faq__q[aria-selected="true"]::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: var(--border-accent-w); background: var(--color-accent);
+  }
+  @media (width < 801px) { .faq__q[aria-selected="true"] { border-bottom: 0; } }
+  .faq__q:focus-visible { outline-offset: -3px; }
+  .faq__q-arrow { @apply flex-none mt-[7px] opacity-0; transition: opacity var(--dur-color) var(--ease-fg); }
+  .faq__q[aria-selected="true"] .faq__q-arrow { @apply opacity-100; }
+  .faq__stage { @apply min-w-0 max-lg:empty:hidden; }
+  .faq__a { @apply pt-[26px] px-[30px] pb-[30px] text-400 leading-body text-prose max-lg:px-[22px] max-lg:pt-5 max-lg:pb-6; }
+  .faq__a > p { @apply max-w-prose; }
+  .faq__a p + p { @apply mt-2; }
+  .faq__a[hidden] { display: none; }
+  @media (width < 801px) { .faq__a { @apply bg-card; border-bottom: var(--hairline); } .faq__a:last-child { border-bottom: 0; } }
+  .faq__a.is-fade-fwd { @apply animate-fade-fwd; }
+  .faq__a.is-fade-back { @apply animate-fade-back; }
 
   /* Two-column split and the bordered card column */
   .split { @apply grid grid-cols-2 gap-6 items-start mt-6 max-lg:grid-cols-1 max-lg:gap-5; }
@@ -548,5 +580,5 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-  .specimen__panel.is-flip-fwd, .specimen__panel.is-flip-back { animation: none; }
+  .specimen__panel.is-flip-fwd, .specimen__panel.is-flip-back, .faq__a.is-fade-fwd, .faq__a.is-fade-back { animation: none; }
 }
