@@ -34,7 +34,7 @@ shuts it down.
 ```
 astro.config.mjs        static output, i18n (en default at /, es at /es/), Tailwind plugin
 netlify.toml            build command and publish dir. Local-only for now: no site, no domain, no DNS
-public/fonts/           Inter + JetBrains Mono woff2, copied from ../site/assets/fonts
+public/fonts/           Fraunces + Instrument Sans + JetBrains Mono woff2, self-hosted (see Typography)
 public/illustrations/   building-section.svg, copied from ../site; its "[NEED: WIDTH]" label
                         now reads "WIDTH NOT YET MEASURED" (no brackets anywhere)
 src/styles/global.css   the Tailwind theme, base layer, and component layer
@@ -79,6 +79,91 @@ The contact form carries `data-netlify="true"`, a honeypot, and a redirect to
 time. Served anywhere else (including `npm run dev`) the form has no handler.
 Nothing has been deployed, no Netlify site exists, and `site` in
 `astro.config.mjs` is intentionally unset until there is a domain.
+
+## Typography and colour (September 5, 2026, per design-decisions.md)
+
+`design-decisions.md` in this folder supersedes `../planning/design-system.md`
+where they conflict. This pass applied its typography and colour rules; the
+token-mapping section below still describes the first build's port of the
+original tokens and is kept as history.
+
+**Families.** Inter is gone. Fraunces (variable, wght 300 to 900, opsz 9 to
+144) is the display face for h1 to h4, the header wordmark, and the footer
+wordmark. Instrument Sans (variable, wght 400 to 700) is body, UI chrome,
+buttons, forms, nav, the specimen rail, and FAQ questions. JetBrains Mono is
+unchanged. All self-hosted as latin and latin-ext woff2 subsets (Google
+Fonts' static builds, SIL OFL), same `@font-face` pattern as before, with
+`font-optical-sizing: auto` so Fraunces picks its own optical size.
+
+**Spanish, verified not assumed.** Measured with fontTools on the actual
+files: every Spanish glyph (á é í ó ú ñ ü ¿ ¡) is in the U+00C0-00FF block,
+which is in the *latin* subset of both fonts, not latin-ext. Both latin
+files contain all of them. Then checked in the browser on the Spanish
+pages: `document.fonts.check()` returns true for the real page strings in
+both families, and the rendered headings ("existía", "Construyó", "envía",
+"¿Puedo donar...") come from the loaded fonts, not a fallback.
+
+**Type scale re-tune.** The old px values were Inter's. Measured metrics
+(x-height / cap height as a fraction of the em, and the set width of the
+Home headline):
+
+| | x-height | cap height | headline width |
+|---|---|---|---|
+| Inter | 0.546 | 0.728 | 23.84 em |
+| Instrument Sans | 0.510 | 0.720 | 22.71 em |
+| Fraunces | 0.482 | 0.700 | 25.14 em |
+
+Instrument Sans has a 6.6% smaller x-height and sets 4.7% narrower, so the
+sans steps (100 to 500) moved up about one pixel: 17.5px Instrument Sans has
+the x-height Inter had at 16.5px and, because it is narrower, runs the same
+number of characters per line. Fraunces has a 4% shorter cap height and sets
+5.5% wider, and a display serif needs a little more size to carry the same
+weight as a bold sans, so the display steps (600 to 900) moved up one to two
+pixels. `ch`-based measures (20ch, 28ch, 58ch) were left alone: `ch` is the
+font's own zero width, so they re-scale themselves.
+
+| Token | Old (Inter) | New | Used by |
+|---|---|---|---|
+| text-100 | 13px | 14px | footer note, lang toggle |
+| text-200 | 14px | 15px | specimen alt name |
+| text-300 | 15px | 16px | buttons, nav, form labels |
+| text-350 | 15.5px | 16.5px | facts, footer links |
+| text-400 | 16.5px | 17.5px | body, prose, inputs |
+| text-450 | 17px | 18px | lede, FAQ questions |
+| text-500 | 18px | 19px | wordmark, specimen name |
+| text-600 | 21px | 22px | small titles, footer wordmark |
+| text-700 | 26px | 27px | specimen title on phones |
+| text-800 | 28px | 30px | specimen title |
+| text-850 | 32px | 34px | section title |
+| text-875 | 34px | 36px | page title, lead section title |
+| text-900 | 46px | 48px | hero title |
+
+Line heights loosened slightly for Fraunces' taller ascenders and accented
+capitals (hero 1.08 to 1.1, heading 1.16 to 1.18, title 1.2 to 1.22).
+Tracking: Inter's tight negative tracking does not suit an old-style serif,
+so hero went from -0.02em to -0.01em, heading from -0.01em to -0.005em,
+tight from -0.015em to -0.01em. Headings sit at weight 600, not 700:
+Fraunces 700 reads heavier than Inter 700 did. The responsive clamps (26px
+to 32px and so on) were left as they were; they are lower bounds for phones
+and still land under the new desktop sizes.
+
+Non-obvious side effects of the re-tune, all checked in the browser:
+the hero headline in Spanish now wraps to three lines at desktop where it
+was two (the wider serif plus the longer Spanish line); nav items are a
+touch wider so the header still fits six items at 961px and above; the
+specimen rail names and FAQ questions wrap the same as before.
+
+**Colour.** The accent `#0F766E` and secondary `#155E75` were Tailwind's
+stock teal-700 and cyan-800. Replaced with a "canopy" family mixed from the
+ground darks' hue: accent `#0C6B57` (canopy-700), hover `#095041`
+(canopy-800), secondary `#2F7465` (canopy-500). The secondary was chosen on
+screen from six candidates rendered side by side as link text, S1 button
+text and border, and input border, then checked: 5.28:1 on paper, 5.52:1
+on white, 5.01:1 on the sunken hover ground, 5.52:1 as a border (3:1
+needed). `#246B5C` was rejected as indistinguishable from the accent,
+`#327B6C` as too close to the 4.5:1 floor on the hover ground. The building
+drawing's ink and the unused `.fg-paper` tile's linework moved to the new
+accent too, and the blueprint grid's rgba tint follows it.
 
 ## Tokens: what was ported verbatim, what was interpreted
 

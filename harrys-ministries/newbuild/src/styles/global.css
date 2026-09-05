@@ -33,10 +33,13 @@
          Guide colours exist as utilities. ---------------------------------- */
   --color-*: initial;
 
-  /* teal spine */
-  --color-teal-700: #0F766E;
-  --color-teal-800: #0B5A54;
-  --color-cyan-800: #155E75;
+  /* canopy: the accent family, mixed from the same hue as the ground darks
+     (design-decisions.md, colour). Replaces the stock Tailwind teal-700 and
+     cyan-800 the first build imported. canopy-500 is the secondary accent,
+     a lighter, more muted step of the same family, picked in the browser. */
+  --color-canopy-700: #0C6B57;
+  --color-canopy-800: #095041;
+  --color-canopy-500: #2F7465;
   /* jungle ground */
   --color-ground-900: #0E3A32;
   --color-ground-950: #0B2C26;
@@ -82,57 +85,64 @@
   --color-hairline-whisper: var(--color-moss-200);
   --color-hairline-on-dark: rgba(255, 255, 255, 0.1);
   --color-control-on-dark: rgba(255, 255, 255, 0.45);
-  --color-accent: var(--color-teal-700);
-  --color-accent-hover: var(--color-teal-800);
-  --color-accent-secondary: var(--color-cyan-800);
-  --color-focus: var(--color-teal-700);
+  --color-accent: var(--color-canopy-700);
+  --color-accent-hover: var(--color-canopy-800);
+  --color-accent-secondary: var(--color-canopy-500);
+  --color-focus: var(--color-canopy-700);
   --color-chip: rgba(255, 255, 255, 0.18);
 
   /* --- Type ------------------------------------------------------------- */
   --font-*: initial;
-  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
   --font-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
 
   /* Font sizes: the token scale is in px with half-pixel steps, which has no
      rem equivalent Tailwind would produce on its own. Default text-* sizes
-     are removed so only the Field Guide scale exists. */
+     are removed so only the Field Guide scale exists.
+     Re-tuned September 5, 2026 for Instrument Sans (100 to 500, +1px: its
+     x-height is 6.6% smaller than Inter's, so 17.5px sits where Inter 16.5px
+     did) and Fraunces (600 to 900, +1 to +2px: cap height 4% shorter than
+     Inter's, and a display serif needs the extra size to carry the same
+     weight). Mono sizes untouched. Old values in BUILD.md. */
   --text-*: initial;
   --text-mono-xs: 10.5px;
   --text-mono-sm: 11px;
   --text-mono: 11.5px;
   --text-mono-md: 12px;
-  --text-100: 13px;
-  --text-200: 14px;
-  --text-300: 15px;
-  --text-350: 15.5px;
-  --text-400: 16.5px;
-  --text-450: 17px;
-  --text-500: 18px;
-  --text-600: 21px;
-  --text-700: 26px;
-  --text-800: 28px;
-  --text-850: 32px;
-  --text-875: 34px;
-  --text-900: 46px;
+  --text-100: 14px;
+  --text-200: 15px;
+  --text-300: 16px;
+  --text-350: 16.5px;
+  --text-400: 17.5px;
+  --text-450: 18px;
+  --text-500: 19px;
+  --text-600: 22px;
+  --text-700: 27px;
+  --text-800: 30px;
+  --text-850: 34px;
+  --text-875: 36px;
+  --text-900: 48px;
 
   --leading-*: initial;
-  --leading-hero: 1.08;
-  --leading-heading: 1.16;
-  --leading-title: 1.2;
+  --leading-hero: 1.1;
+  --leading-heading: 1.18;
+  --leading-title: 1.22;
   --leading-lede: 1.55;
   --leading-body: 1.6;
 
   --tracking-*: initial;
-  --tracking-hero: -0.02em;
-  --tracking-heading: -0.01em;
-  --tracking-tight: -0.015em;
+  --tracking-hero: -0.01em;
+  --tracking-heading: -0.005em;
+  --tracking-tight: -0.01em;
   --tracking-micro: -0.005em;
   --tracking-mono: 0.08em;
   --tracking-mono-sm: 0.06em;
   --tracking-mono-xs: 0.04em;
 
   /* Weights: the four token weights (400/500/600/700) are Tailwind's own
-     font-normal / font-medium / font-semibold / font-bold. Nothing to add. */
+     font-normal / font-medium / font-semibold / font-bold. Headings sit at
+     600 in Fraunces; its 700 reads heavier than Inter's did. */
 
   /* --- Space -------------------------------------------------------------
      Tailwind's default 4px spacing scale already contains every value in
@@ -193,22 +203,37 @@
   --flip-perspective: 1400px;
 
   --hero-scrim: linear-gradient(180deg, rgba(14,58,50,0.52) 0%, rgba(14,58,50,0.34) 42%, rgba(11,44,38,0.88) 100%);
-  --blueprint-grid: repeating-linear-gradient(0deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(15,118,110,.12) 0 1px, transparent 1px 26px);
+  --blueprint-grid: repeating-linear-gradient(0deg, rgba(12,107,87,.12) 0 1px, transparent 1px 26px), repeating-linear-gradient(90deg, rgba(12,107,87,.12) 0 1px, transparent 1px 26px);
   /* Kept from tokens.css for the day a real photo needs a loading ground;
      the empty-frame treatment below uses the Whisper tile instead. */
   --photo-hatch: repeating-linear-gradient(45deg, rgba(17,24,39,.055) 0 6px, transparent 6px 12px);
   --photo-hatch-bg: #E4E4DE;
 }
 
-/* --- Fonts. Self-hosted, copied from site/assets/fonts. -------------------- */
+/* --- Fonts. Self-hosted variable woff2, latin + latin-ext subsets. ----------
+   Fraunces (display) and Instrument Sans (body, UI) replace Inter per
+   design-decisions.md. Every Spanish glyph (á é í ó ú ñ ü ¿ ¡) is in the
+   latin file's U+00C0-00FF range; latin-ext covers U+0100 upward. Fraunces
+   carries an optical-size axis (9 to 144); browsers apply it automatically
+   via font-optical-sizing: auto. JetBrains Mono unchanged. --------------- */
 @font-face {
-  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
-  src: url("/fonts/inter-latin.woff2") format("woff2");
+  font-family: "Fraunces"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("/fonts/fraunces-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 @font-face {
-  font-family: "Inter"; font-style: normal; font-weight: 400 700; font-display: swap;
-  src: url("/fonts/inter-latin-ext.woff2") format("woff2");
+  font-family: "Fraunces"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("/fonts/fraunces-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("/fonts/instrument-sans-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Instrument Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("/fonts/instrument-sans-latin-ext.woff2") format("woff2");
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
@@ -228,7 +253,7 @@
   body {
     @apply bg-page text-body font-sans text-400 leading-body;
   }
-  h1, h2, h3, h4 { @apply text-heading font-bold; }
+  h1, h2, h3, h4 { @apply text-heading font-display font-semibold; font-optical-sizing: auto; }
   p { text-wrap: pretty; }
   a { @apply text-accent hover:text-accent-hover; }
   :focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 2px; }
@@ -318,7 +343,7 @@
   }
   .site-header.is-compact .site-header__inner { @apply py-1.5; }
   .brand {
-    @apply flex-none inline-flex items-center min-h-tap text-500 font-bold tracking-micro text-body whitespace-nowrap hover:text-body max-xl:flex-1 max-sm:text-450 max-sm:min-w-0 max-sm:overflow-hidden max-sm:text-ellipsis;
+    @apply flex-none inline-flex items-center min-h-tap font-display text-500 font-semibold tracking-micro text-body whitespace-nowrap hover:text-body max-xl:flex-1 max-sm:text-450 max-sm:min-w-0 max-sm:overflow-hidden max-sm:text-ellipsis;
     transition: font-size var(--dur-gap) var(--ease-fg);
   }
   .site-header.is-compact .brand { @apply text-450; }
@@ -494,7 +519,7 @@
   .site-footer__inner { @apply px-gutter pt-14 pb-[30px] max-md:pt-10 max-md:pb-6; }
   .site-footer__frame { @apply bg-dark rounded-panel pt-8 px-[34px] pb-[26px] max-md:pt-6 max-md:px-5 max-md:pb-5; border: var(--hairline-on-dark); }
   .site-footer__grid { @apply grid grid-cols-[1.4fr_1fr_1fr] gap-10 max-md:grid-cols-1 max-md:gap-6; }
-  .site-footer__wordmark { @apply text-600 leading-title tracking-heading text-on-dark mb-2.5; }
+  .site-footer__wordmark { @apply font-display font-semibold text-600 leading-title tracking-heading text-on-dark mb-2.5; }
   .site-footer__blurb { @apply text-350 leading-body text-on-dark-prose max-w-[34ch] max-md:max-w-none; }
   .site-footer__links a, .site-footer__links span { @apply inline-flex items-center min-h-tap text-350 text-on-dark-prose; }
   .site-footer__links a:hover { @apply text-on-dark; }
