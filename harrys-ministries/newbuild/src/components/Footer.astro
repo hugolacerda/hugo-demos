@@ -1,0 +1,43 @@
+---
+/* Footer: Foliage dark in the margins, content inside a solid frame panel so
+   the rich texture never sits under readable text. Contact details are the
+   confirmed ones from 06-contact.md; the social column is cut. */
+import { href, useTranslations, type Lang, type PageId } from '../i18n/utils';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const pages: { id: PageId; key: 'nav.home' | 'nav.story' | 'nav.programs' | 'nav.visit' | 'nav.give' | 'nav.contact' }[] = [
+  { id: 'story', key: 'nav.story' },
+  { id: 'programs', key: 'nav.programs' },
+  { id: 'visit', key: 'nav.visit' },
+  { id: 'give', key: 'nav.give' },
+  { id: 'contact', key: 'nav.contact' },
+];
+---
+<footer class="site-footer tex bg-dark on-dark">
+  <div class="fg-plate tex__tile" aria-hidden="true"></div>
+  <div class="wrap site-footer__inner">
+    <div class="site-footer__frame">
+      <div class="site-footer__grid">
+        <div>
+          <p class="site-footer__wordmark">{t('site.name')}</p>
+          <p class="site-footer__blurb">{t('footer.blurb')}</p>
+        </div>
+        <div>
+          <h2 class="eyebrow eyebrow--on-dark mb-2">{t('footer.contact')}</h2>
+          <ul class="site-footer__links">
+            <li><a href="mailto:redes@luzalasnaciones.org">redes@luzalasnaciones.org</a></li>
+            <li><a href="tel:+17202347679">+1 (720) 234-7679</a></li>
+            <li><span>{t('contact.location')}</span></li>
+          </ul>
+        </div>
+        <div>
+          <h2 class="eyebrow eyebrow--on-dark mb-2">{t('footer.pages')}</h2>
+          <ul class="site-footer__links">
+            {pages.map((p) => <li><a href={href(lang, p.id)}>{t(p.key)}</a></li>)}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

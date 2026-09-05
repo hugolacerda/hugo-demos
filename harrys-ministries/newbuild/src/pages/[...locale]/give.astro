@@ -1,0 +1,47 @@
+---
+/* Give. Content: 05-give.md. Contact-only giving, no payment form, and the
+   warmer of the two reviewed tax-deductibility lines (decided Sept 4, 2026). */
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import Faq from '../../components/Faq.astro';
+import { href, localeFromParams, localePaths, useTranslations } from '../../i18n/utils';
+export const getStaticPaths = localePaths;
+const lang = localeFromParams(Astro.params.locale);
+const t = useTranslations(lang);
+---
+<Base lang={lang} page="give" title={t('give.title')} description={t('give.description')}>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <div class="wrap page-intro__inner">
+      <p class="eyebrow">{t('give.eyebrow')}</p>
+      <h1 id="page-title" class="page-title">{t('give.h1')}</h1>
+      <p class="lede">{t('give.lede')}</p>
+    </div>
+  </section>
+
+  <section class="tex bg-whisper" aria-labelledby="how-title">
+    <div class="fg-whisper-light tex__tile" aria-hidden="true"></div>
+    <div class="wrap section">
+      <div class="split split--give">
+        <div class="split__col--card">
+          <p class="eyebrow">{t('give.how.eyebrow')}</p>
+          <h2 id="how-title" class="visually-hidden">{t('give.how.eyebrow')}</h2>
+          <p class="prose">{t('give.how.body')}</p>
+          <div class="cta-row mt-5">
+            <Button href={href(lang, 'contact')}>{t('give.how.cta')}</Button>
+          </div>
+        </div>
+        <div class="split__col--card">
+          <p class="eyebrow">{t('give.tax.eyebrow')}</p>
+          <p class="prose">{t('give.tax.body')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Faq lang={lang} items={[
+    { q: t('give.faq.q1'), a: t('give.faq.a1') },
+    { q: t('give.faq.q2'), a: t('give.faq.a2'), link: { href: href(lang, 'contact'), label: t('link.contact') } },
+  ]} />
+
+</Base>

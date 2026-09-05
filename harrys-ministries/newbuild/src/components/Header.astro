@@ -1,0 +1,44 @@
+---
+/* Header: wordmark, nav, EN/ES. No tagline, no CTA, no texture. Sticky, full
+   size at the top, compact once scrolled. The language toggle links to the
+   same page in the other locale; both are real static pages. */
+import { href, languages, useTranslations, type Lang, type PageId } from '../i18n/utils';
+interface Props { lang: Lang; page: PageId }
+const { lang, page } = Astro.props;
+const t = useTranslations(lang);
+const nav: { id: PageId; key: 'nav.home' | 'nav.story' | 'nav.programs' | 'nav.visit' | 'nav.give' | 'nav.contact' }[] = [
+  { id: 'home', key: 'nav.home' },
+  { id: 'story', key: 'nav.story' },
+  { id: 'programs', key: 'nav.programs' },
+  { id: 'visit', key: 'nav.visit' },
+  { id: 'give', key: 'nav.give' },
+  { id: 'contact', key: 'nav.contact' },
+];
+const locales = Object.keys(languages) as Lang[];
+---
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href={href(lang, 'home')}>{t('site.name')}</a>
+
+    <nav class="primary-nav" id="primary-nav" aria-label={t('nav.label')}>
+      <ul>
+        {nav.map((item) => (
+          <li><a href={href(lang, item.id)} aria-current={item.id === page ? 'page' : undefined}>{t(item.key)}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <div class="lang-toggle" role="group" aria-label={t('lang.label')}>
+        {locales.map((l) => (
+          <a href={href(l, page)} hreflang={l} lang={l} aria-label={languages[l]} aria-current={l === lang ? 'true' : undefined}>{l.toUpperCase()}</a>
+        ))}
+      </div>
+    </div>
+
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label={t('nav.menu.aria')}>
+      <span class="nav-toggle__bars" aria-hidden="true"><span></span></span>
+      <span class="nav-toggle__text">{t('nav.menu')}</span>
+    </button>
+  </div>
+</header>

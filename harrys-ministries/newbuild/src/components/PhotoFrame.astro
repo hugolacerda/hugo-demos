@@ -1,0 +1,17 @@
+---
+/* Empty photo frame. Every page still has at least one unresolved photo slot
+   and the photo audit has not happened. This is a designed stand-in built
+   from existing tokens (hairline, dashed inset, Whisper tile, mono caption),
+   not a permanent design choice. Swap for a real <img> once a photo exists. */
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+interface Props { lang: Lang; dark?: boolean; class?: string }
+const { lang, dark = false, class: className = '' } = Astro.props;
+const t = useTranslations(lang);
+const cls = ['photo-frame', dark ? 'photo-frame--dark' : '', className].filter(Boolean).join(' ');
+---
+<div class={cls} role="img" aria-label={t('photo.pending.aria')}>
+  <div class:list={['photo-frame__tile', dark ? 'fg-whisper' : 'fg-whisper-light']} aria-hidden="true"></div>
+  <div class="photo-frame__inset" aria-hidden="true"></div>
+  <span class="photo-frame__label" aria-hidden="true">{t('photo.pending')}</span>
+</div>

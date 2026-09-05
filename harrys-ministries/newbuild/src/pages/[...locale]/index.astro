@@ -1,0 +1,82 @@
+---
+/* Home. Content: 01-home.md. The trust strip is cut entirely and nothing
+   replaces it; the page flows from "what we do" straight into the building. */
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import Blueprint from '../../components/Blueprint.astro';
+import Faq from '../../components/Faq.astro';
+import { href, localeFromParams, localePaths, useTranslations } from '../../i18n/utils';
+export const getStaticPaths = localePaths;
+const lang = localeFromParams(Astro.params.locale);
+const t = useTranslations(lang);
+---
+<Base lang={lang} page="home" title={t('home.title')} description={t('home.description')}>
+
+  <!-- Hero. Tinted overlay only. The photo slot is unresolved, so the copy
+       sits inside the empty-frame treatment where the photograph will go. -->
+  <section class="hero on-dark" aria-labelledby="hero-title">
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="wrap hero__inner">
+      <div class="photo-frame photo-frame--dark photo-frame--hero" data-photo-slot>
+        <div class="photo-frame__tile fg-whisper" aria-hidden="true"></div>
+        <div class="photo-frame__inset" aria-hidden="true"></div>
+        <span class="photo-frame__label" aria-hidden="true">{t('photo.pending')}</span>
+        <div class="relative pt-11 px-8 pb-10 max-sm:pt-5 max-sm:px-5 max-sm:pb-7">
+          <h1 id="hero-title" class="hero__title">{t('home.hero.title')}</h1>
+          <p class="hero__sub">{t('home.hero.sub')}</p>
+          <div class="cta-row">
+            <Button href={href(lang, 'visit')} onDark>{t('home.hero.cta.host')}</Button>
+            <Button href={href(lang, 'give')} variant="secondary" onDark>{t('home.hero.cta.support')}</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick facts: three, not four. Whisper light. -->
+  <section class="facts tex bg-whisper" aria-labelledby="facts-title">
+    <div class="fg-whisper-light tex__tile" aria-hidden="true"></div>
+    <h2 id="facts-title" class="visually-hidden">{t('home.facts.title')}</h2>
+    <ul class="facts__list">
+      <li class="facts__item"><span class="facts__num" aria-hidden="true">01</span><span>{t('home.facts.1')}</span></li>
+      <li class="facts__item"><span class="facts__num" aria-hidden="true">02</span><span>{t('home.facts.2')}</span></li>
+      <li class="facts__item"><span class="facts__num" aria-hidden="true">03</span><span>{t('home.facts.3')}</span></li>
+    </ul>
+  </section>
+
+  <!-- What we do. One paragraph and one link, as 01-home.md specifies. -->
+  <section class="tex bg-page" aria-labelledby="what-title">
+    <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
+    <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
+    <div class="wrap section--lead">
+      <h2 id="what-title" class="section-title section-title--lead">{t('home.what.title')}</h2>
+      <p class="lede">{t('home.what.body')}</p>
+      <div class="mt-[26px]">
+        <Button href={href(lang, 'programs')} variant="secondary">{t('home.what.link')}</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- The building. Whisper at the edges only; the cross-section owns the centre. -->
+  <section class="tex bg-page" aria-labelledby="bld-title">
+    <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
+    <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
+    <div class="wrap section">
+      <div class="building__grid">
+        <div>
+          <p class="eyebrow">{t('bld.eyebrow')}</p>
+          <h2 id="bld-title" class="section-title">{t('home.bld.title')}</h2>
+          <p class="lede">{t('home.bld.lede')}</p>
+        </div>
+        <div><Blueprint lang={lang} /></div>
+      </div>
+    </div>
+  </section>
+
+  <Faq lang={lang} items={[
+    { q: t('home.faq.q1'), a: t('home.faq.a1') },
+    { q: t('home.faq.q2'), a: t('home.faq.a2'), link: { href: href(lang, 'contact'), label: t('link.contact') } },
+    { q: t('home.faq.q3'), a: t('home.faq.a3'), link: { href: href(lang, 'give'), label: t('link.give') } },
+  ]} />
+
+</Base>

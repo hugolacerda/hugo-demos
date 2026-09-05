@@ -1,0 +1,50 @@
+---
+/* Our story. Content: 02-our-story.md. Two of the original four sections
+   survive; "Why Poptún" is cut entirely and the name section is the bare
+   confirmed fact. */
+import Base from '../../layouts/Base.astro';
+import Blueprint from '../../components/Blueprint.astro';
+import Faq from '../../components/Faq.astro';
+import { localeFromParams, localePaths, useTranslations } from '../../i18n/utils';
+export const getStaticPaths = localePaths;
+const lang = localeFromParams(Astro.params.locale);
+const t = useTranslations(lang);
+---
+<Base lang={lang} page="story" title={t('story.title')} description={t('story.description')}>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <div class="wrap page-intro__inner">
+      <p class="eyebrow">{t('story.eyebrow')}</p>
+      <h1 id="page-title" class="page-title">{t('story.h1')}</h1>
+      <p class="lede">{t('story.lede')}</p>
+    </div>
+  </section>
+
+  <section class="tex bg-page" aria-labelledby="build-title">
+    <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
+    <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
+    <div class="wrap section">
+      <div class="building__grid">
+        <div>
+          <p class="eyebrow">{t('bld.eyebrow')}</p>
+          <h2 id="build-title" class="section-title">{t('story.build.title')}</h2>
+          <p class="prose">{t('story.build.body')}</p>
+        </div>
+        <div><Blueprint lang={lang} /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section--card" aria-labelledby="name-title">
+    <div class="wrap section">
+      <h2 id="name-title" class="section-title mb-3">{t('story.name.title')}</h2>
+      <p class="prose">{t('story.name.body')}</p>
+    </div>
+  </section>
+
+  <Faq lang={lang} items={[
+    { q: t('story.faq.q1'), a: t('story.faq.a1') },
+    { q: t('story.faq.q2'), a: t('story.faq.a2') },
+  ]} />
+
+</Base>

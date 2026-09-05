@@ -1,0 +1,40 @@
+---
+/* Specimen index: a numbered rail (01-04) beside one detail panel, first
+   entry open. Click-only selection; the panel swap is a CSS 3D flip whose
+   direction follows the index (src/scripts/site.ts). Below 800px the same
+   panels move under their own rail rows as an accordion.
+   Open design question (03-programs.md): with confirmed-only content each
+   panel carries a name, one line, and a photo slot. Whether this expanded
+   sheet or a simpler list fits that better is not decided here. */
+import PhotoFrame from './PhotoFrame.astro';
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+export interface Entry { id: string; name: string; alt?: string; body: string; entryLabel: string }
+interface Props { lang: Lang; entries: Entry[] }
+const { lang, entries } = Astro.props;
+const t = useTranslations(lang);
+const num = (i: number) => String(i + 1).padStart(2, '0');
+---
+<div class="specimen" data-specimen>
+  <div class="specimen__rail" role="tablist" aria-orientation="vertical" aria-label={t('programs.rail.label')}>
+    {entries.map((e, i) => (
+      <button type="button" role="tab" id={`tab-${e.id}`} class="specimen__tab" aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${e.id}`} tabindex={i === 0 ? 0 : -1}>
+        <span class="specimen__num" aria-hidden="true">{num(i)}</span><span class="specimen__name">{e.name}</span>
+      </button>
+    ))}
+    <p class="specimen__railnote" aria-hidden="true">{t('programs.railnote.1')}<br />{t('programs.railnote.2')}</p>
+  </div>
+  <div class="specimen__stage">
+    {entries.map((e, i) => (
+      <section role="tabpanel" id={`panel-${e.id}`} class="specimen__panel" aria-labelledby={`tab-${e.id}`} hidden={i !== 0}>
+        <PhotoFrame lang={lang} class="specimen__photo" />
+        <div class="specimen__body">
+          <p class="eyebrow specimen__entry">{e.entryLabel}</p>
+          <h3 class="specimen__title">{e.name}</h3>
+          {e.alt && <p class="specimen__alt" lang={lang === 'en' ? 'en' : 'es'}>{e.alt}</p>}
+          <p class="specimen__text">{e.body}</p>
+        </div>
+      </section>
+    ))}
+  </div>
+</div>

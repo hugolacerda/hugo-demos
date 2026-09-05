@@ -1,0 +1,26 @@
+---
+/* CTA hierarchy. C1 primary: solid teal, squared 28px chip around the arrow.
+   S1 secondary: real bordered button, bare arrow. Never two primaries in a
+   row; the on-dark variants are for the hero only. */
+import Arrow from './Arrow.astro';
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary';
+  onDark?: boolean;
+  type?: 'button' | 'submit';
+  class?: string;
+}
+const { href, variant = 'primary', onDark = false, type = 'button', class: className = '' } = Astro.props;
+const cls = ['btn', `btn--${variant}`, onDark ? 'btn--on-dark' : '', className].filter(Boolean).join(' ');
+---
+{href ? (
+  <a class={cls} href={href}>
+    <span><slot /></span>
+    {variant === 'primary' ? <span class="btn__chip" aria-hidden="true"><Arrow size={14} /></span> : <Arrow />}
+  </a>
+) : (
+  <button class={cls} type={type}>
+    <span><slot /></span>
+    {variant === 'primary' ? <span class="btn__chip" aria-hidden="true"><Arrow size={14} /></span> : <Arrow />}
+  </button>
+)}

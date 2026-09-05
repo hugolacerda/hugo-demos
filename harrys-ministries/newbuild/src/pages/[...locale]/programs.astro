@@ -1,0 +1,43 @@
+---
+/* Programs. Content: 03-programs.md. Four names and one real line each; every
+   operational detail and the "how you can help" block are cut. Layout is the
+   specimen index; whether a simpler list fits this thinner content better is
+   the open question flagged in the content file, not resolved here. */
+import Base from '../../layouts/Base.astro';
+import Specimen from '../../components/Specimen.astro';
+import Faq from '../../components/Faq.astro';
+import { href, localeFromParams, localePaths, useTranslations } from '../../i18n/utils';
+export const getStaticPaths = localePaths;
+const lang = localeFromParams(Astro.params.locale);
+const t = useTranslations(lang);
+const entries = [
+  { id: 'english-classes', name: t('programs.1.name'), alt: t('programs.1.alt'), body: t('programs.1.body'), entryLabel: t('programs.entry.1') },
+  { id: 'princesas-y-valientes', name: t('programs.2.name'), alt: t('programs.2.alt'), body: t('programs.2.body'), entryLabel: t('programs.entry.2') },
+  { id: 'el-regalo-perfecto', name: t('programs.3.name'), alt: t('programs.3.alt'), body: t('programs.3.body'), entryLabel: t('programs.entry.3') },
+  { id: 'atencion-a-misioneros', name: t('programs.4.name'), alt: t('programs.4.alt'), body: t('programs.4.body'), entryLabel: t('programs.entry.4') },
+];
+---
+<Base lang={lang} page="programs" title={t('programs.title')} description={t('programs.description')}>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <div class="wrap page-intro__inner">
+      <p class="eyebrow">{t('programs.eyebrow')}</p>
+      <h1 id="page-title" class="page-title">{t('programs.h1')}</h1>
+      <p class="lede">{t('programs.lede')}</p>
+    </div>
+  </section>
+
+  <section class="tex bg-page" aria-labelledby="index-title">
+    <div class="fg-whisper-light tex__tile--edge-l" aria-hidden="true"></div>
+    <div class="fg-whisper-light tex__tile--edge-r" aria-hidden="true"></div>
+    <div class="wrap section--lead">
+      <h2 id="index-title" class="visually-hidden">{t('nav.programs')}</h2>
+      <Specimen lang={lang} entries={entries} />
+    </div>
+  </section>
+
+  <Faq lang={lang} items={[
+    { q: t('programs.faq.q1'), a: t('programs.faq.a1'), link: { href: href(lang, 'give'), label: t('link.give') } },
+  ]} />
+
+</Base>

@@ -1,0 +1,78 @@
+---
+/* Contact. Content: 06-contact.md. Netlify Forms (detected from the built
+   HTML at deploy time; there is no handler when served anywhere else). No
+   response-time promise, no social links. */
+import Base from '../../layouts/Base.astro';
+import Button from '../../components/Button.astro';
+import Faq from '../../components/Faq.astro';
+import { href, localeFromParams, localePaths, useTranslations } from '../../i18n/utils';
+export const getStaticPaths = localePaths;
+const lang = localeFromParams(Astro.params.locale);
+const t = useTranslations(lang);
+const action = `${href(lang, 'contact')}?sent=1`;
+---
+<Base lang={lang} page="contact" title={t('contact.title')} description={t('contact.description')}>
+
+  <section class="page-intro" aria-labelledby="page-title">
+    <div class="wrap page-intro__inner">
+      <p class="eyebrow">{t('contact.eyebrow')}</p>
+      <h1 id="page-title" class="page-title mb-0">{t('contact.h1')}</h1>
+    </div>
+  </section>
+
+  <section class="tex bg-page" aria-labelledby="form-title">
+    <div class="wrap section">
+      <div class="split split--contact">
+        <div>
+          <h2 id="form-title" class="section-title">{t('contact.form.title')}</h2>
+          <p class="form-sent" id="form-sent" hidden role="status">{t('contact.form.sent')}</p>
+          <form class="form" name="contact" method="POST" action={action} data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact" />
+            <p class="form__honeypot" aria-hidden="true"><label>{t('contact.form.honeypot')} <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+            <div class="field">
+              <label class="field__label" for="f-name">{t('contact.form.name')}</label>
+              <input class="field__input" id="f-name" name="name" type="text" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-email">{t('contact.form.email')}</label>
+              <input class="field__input" id="f-email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-phone">{t('contact.form.phone')}</label>
+              <input class="field__input" id="f-phone" name="phone" type="tel" autocomplete="tel" />
+            </div>
+            <div class="field">
+              <label class="field__label" for="f-message">{t('contact.form.message')}</label>
+              <textarea class="field__input field__input--area" id="f-message" name="message" rows="6" required></textarea>
+            </div>
+            <div class="cta-row mt-2">
+              <Button type="submit">{t('contact.form.submit')}</Button>
+            </div>
+          </form>
+        </div>
+        <aside class="split__col--card" aria-labelledby="direct-title">
+          <h2 id="direct-title" class="section-title section-title--small">{t('contact.direct.title')}</h2>
+          <dl class="channels">
+            <div class="channels__row">
+              <dt class="eyebrow">{t('contact.direct.email')}</dt>
+              <dd class="m-0"><a class="inline-link" href="mailto:redes@luzalasnaciones.org">redes@luzalasnaciones.org</a></dd>
+            </div>
+            <div class="channels__row">
+              <dt class="eyebrow">{t('contact.direct.phone')}</dt>
+              <dd class="m-0"><a class="inline-link" href="tel:+17202347679">+1 (720) 234-7679</a></dd>
+            </div>
+            <div class="channels__row">
+              <dt class="eyebrow">{t('contact.direct.location')}</dt>
+              <dd class="m-0 channels__value">{t('contact.location')}</dd>
+            </div>
+          </dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <Faq lang={lang} items={[
+    { q: t('contact.faq.q1'), a: t('contact.faq.a1') },
+  ]} />
+
+</Base>

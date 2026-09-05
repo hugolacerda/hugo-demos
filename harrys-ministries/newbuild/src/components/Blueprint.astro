@@ -1,0 +1,16 @@
+---
+/* The building cross-section on its blueprint sheet. On narrow screens the
+   sheet keeps a 560px minimum and pans inside the panel. */
+import type { Lang } from '../i18n/utils';
+import { useTranslations } from '../i18n/utils';
+interface Props { lang: Lang }
+const t = useTranslations(Astro.props.lang);
+---
+<div class="blueprint">
+  <div class="blueprint__scroll">
+    <div class="blueprint__sheet">
+      <img src="/illustrations/building-section.svg" width="640" height="344" alt={t('bld.alt')} loading="lazy" />
+    </div>
+  </div>
+  <p class="blueprint__swipe">{t('bld.swipe')}</p>
+</div>
