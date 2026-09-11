@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SBV — Agent Pipeline Roadmap v8.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --ivory:#F5F0E8; --ivory-lt:#FBF8F3; --midnight:#0E1F3D; --ember:#C4553A; --green:#3E7A4C; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--ivory); color:#222; font-family:'Libre Franklin',sans-serif; font-weight:400; line-height:1.6; }
+.wrap { max-width:880px; margin:0 auto; padding:36px 24px 80px; }
+h1 { font-family:'Playfair Display',serif; font-weight:700; color:var(--midnight); font-size:34px; margin:0 0 6px; }
+h2.section { font-family:'Playfair Display',serif; font-weight:600; color:#fff; background:var(--midnight); padding:14px 20px; border-radius:8px; margin:48px 0 20px; font-size:20px; }
+h3.station { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:22px; margin:0 0 4px; }
+h4 { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:16px; margin:18px 0 6px; }
+.masthead { color:#6a6a6a; font-size:13px; margin-bottom:24px; }
+.meta { display:grid; grid-template-columns:140px 1fr; gap:8px 16px; background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:18px 22px; margin:20px 0 28px; font-size:14px; }
+.meta dt { font-weight:600; color:var(--midnight); }
+.meta dd { margin:0; }
+.point { background:var(--midnight); color:var(--ivory); border-radius:10px; padding:20px 24px; font-size:15px; margin-bottom:28px; }
+.point strong { color:#fff; }
+.newbox { background:#fff; border:2px solid var(--ember); border-radius:10px; padding:20px 24px; margin-bottom:32px; }
+.newbox h4 { color:var(--ember); font-size:17px; margin-top:0; }
+.newbox ul { margin:8px 0 0; padding-left:20px; }
+.newbox li { margin-bottom:10px; font-size:14.5px; }
+.line-list { list-style:none; margin:0; padding:0; }
+.line-list li { display:flex; gap:16px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #E4DCCE; }
+.line-num { font-family:'Playfair Display',serif; font-weight:700; color:var(--ember); font-size:15px; min-width:24px; }
+.line-body strong { color:var(--midnight); }
+.badge { display:inline-block; font-size:10.5px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; padding:3px 9px; border-radius:20px; margin-left:8px; vertical-align:2px; }
+.badge.built { background:#DCEBE0; color:var(--green); }
+.badge.pending { background:#F3E6D8; color:#8A5A2B; }
+.badge.new { background:var(--ember); color:#fff; }
+.card { background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:22px 24px; margin-bottom:22px; }
+.tagrow { margin:6px 0 16px; font-size:13px; color:#666; }
+.tagrow .built-tag { color:var(--green); font-weight:600; }
+.card h5 { font-family:'Playfair Display',serif; color:var(--midnight); font-size:14px; margin:16px 0 6px; }
+.card ul { margin:4px 0 0; padding-left:20px; font-size:14px; }
+.card li { margin-bottom:5px; }
+.note { background:var(--ivory); border-left:4px solid var(--midnight); border-radius:4px; padding:12px 16px; margin-top:14px; font-size:13.5px; }
+.note.ember { border-left-color:var(--ember); }
+.example { font-size:12.5px; color:#888; font-style:italic; margin-top:14px; padding-top:10px; border-top:1px dashed #E4DCCE; }
+.decision { background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:20px 24px; margin-bottom:16px; position:relative; }
+.decision.resolved { border-color:var(--green); background:#FAFDFB; }
+.owner { display:inline-block; font-size:11px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; padding:3px 10px; border-radius:20px; background:var(--midnight); color:#fff; float:right; }
+.owner.nancy { background:var(--ember); }
+.owner.resolved-tag { background:var(--green); }
+.decision h4 { margin-top:0; padding-right:90px; }
+.decision p { font-size:14px; margin:6px 0; }
+.boundary { margin-bottom:18px; }
+.boundary .bname { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:15px; }
+.boundary .bwhy { color:#555; font-size:11px; text-transform:uppercase; letter-spacing:.4px; }
+footer { margin-top:60px; padding-top:20px; border-top:1px solid #E4DCCE; font-size:12px; color:#888; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Agent Pipeline Roadmap</h1>
+<p class="masthead">Strategic Business Valuations &middot; Internal</p>
+
+<div class="meta">
+<dt>Version</dt><dd>v8.0 &mdash; September 10, 2026</dd>
+<dt>Status</dt><dd>Balance Sheet built and run twice on real data &middot; Report Narrative re-run against a corrected client description &middot; Station 05 unchanged since v7</dd>
+<dt>Built for</dt><dd>Nancy &mdash; runs on her own machine</dd>
+<dt>Test engagement</dt><dd>Project Firefly (Express &mdash; still can't exercise Station 05's Full/Certified pieces)</dd>
+<dt>Awaiting</dt><dd>4 items &mdash; all Gary</dd>
+</div>
+
+<div class="point">
+<strong>The point.</strong> The agents produce the draft. Nancy's name goes on the deliverable. Nothing here decides what a business is worth &mdash; that judgment stays where it belongs.
+</div>
+
+<div class="newbox">
+<h4>New in v8</h4>
+<ul>
+<li><strong>The Balance Sheet agent exists.</strong> Gary walked through the actual format live, on a real client's own report, on the call that also covered most of what's below. Built the same day, run twice against Project Firefly's real numbers. It's not wired into the rest of the pipeline yet, and it doesn't feed Earnings &amp; Value or Report Narrative without Hugo's say-so, both deliberate for now.</li>
+<li><strong>Report Narrative has produced a real draft.</strong> The context brief on file for Project Firefly was a labeled test fixture as of v7. It's since been replaced with a real, sourced business description, and the agent ran against it &mdash; the first real end-to-end draft this station has produced for this engagement.</li>
+<li><strong>A proposed industry classification, not yet confirmed.</strong> New capability: Report Narrative can now propose a NAICS code from the client's own business description, the same propose-and-confirm posture as Station 05's sourced multiples. On Firefly, it proposed a retail code against the old placeholder description, then corrected itself to the right kind of code once the description was fixed &mdash; a live example of exactly why nothing here finalizes without a person saying yes.</li>
+<li><strong>The working-capital question on the enterprise-value page has an answer.</strong> Gary specified it directly on the same call: weighted price, accounts receivable minus accounts payable, and an estimated payoff. Built into the Balance Sheet agent's output.</li>
+<li><strong>Decision 06 was already resolved before v7 shipped, and v7 didn't catch it.</strong> Corrected here.</li>
+</ul>
+</div>
+
+<h2 class="section">01 &mdash; Orientation</h2>
+
+<h3 style="font-family:'Playfair Display',serif; color:var(--midnight);">How this actually works</h3>
+<p>The short version, no jargon. Think of it as <strong>an assembly line with stations</strong>. A folder of the client's documents goes in one end. A drafted valuation report comes out the other. Each station does exactly one job, hands its work to the next, and writes down anything it couldn't figure out.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">One job each</h5>
+<p>Every agent produces <strong>one thing</strong> &mdash; a worksheet, a memo, a number, a report. Not "handles the financials." One noun. That's deliberate. An agent with one job either does it or visibly doesn't. An agent with four jobs fails at one of them quietly.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">They never decide</h5>
+<p>No agent chooses a weighting or concludes what a business is worth. Those arrive from Nancy on an input sheet, and the agent <strong>applies</strong> them. The one narrow exception, from v6: a station may propose a sourced starting point, shown with where it came from. A person still confirms or overrides it before it's used for anything &mdash; the agent proposes, it never finalizes. As of v8, this posture now covers two things, not one: Station 05's sourced multiple, and Station 07's proposed NAICS code.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">They flag, they don't fix</h5>
+<p>When something's wrong or missing &mdash; a mislabeled file, a total that doesn't add up, a market value nobody's supplied &mdash; the agent <strong>reports it and keeps going</strong>. It never quietly corrects a number or invents one to fill a gap. Everything it flags lands in one file per client, so nothing gets lost between stations.</p>
+
+<p><strong>What Nancy actually does to run it.</strong> Drop the client's documents into that client's Inputs folder. Tell the first agent the business name. It asks a handful of questions with clickable answers &mdash; no typing paragraphs &mdash; and sets up the folders. Then run the agents in order. Each one finishes by showing her what it made, telling her what needs her eyes, and asking whether to continue.</p>
+
+<h2 class="section">02 &mdash; The line</h2>
+<h3 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:19px; margin-bottom:4px;">Eight stations, in order</h3>
+<p style="font-size:13.5px; color:#666; margin-top:0;">Each hands off to the next. Nancy reviews at the end &mdash; and can stop at any station.</p>
+
+<ul class="line-list">
+<li><span class="line-num">01</span><div class="line-body"><strong>Intake</strong> &mdash; Sets up the client. Checks the documents make sense.</div></li>
+<li><span class="line-num">02</span><div class="line-body"><strong>Recast Worksheet</strong> &mdash; Normalizes the P&amp;L. Produces SDE and EBITDA.</div></li>
+<li><span class="line-num">03</span><div class="line-body"><strong>Balance Sheet</strong><span class="badge built">Built &middot; run twice</span> &mdash; Transferable assets vs. what the owner keeps, cash-free/debt-free, real estate and fixed assets at market value where supplied, an enterprise-value bridge to net owner equity.</div></li>
+<li><span class="line-num">04</span><div class="line-body"><strong>Revenue &amp; Customers</strong> &mdash; Who the revenue comes from, and how concentrated.</div></li>
+<li><span class="line-num">05</span><div class="line-body"><strong>Value Builder Summary</strong> &mdash; The eight drivers, written up.</div></li>
+<li><span class="line-num">06</span><div class="line-body"><strong>Observations</strong> &mdash; Where the quantitative and qualitative work meet.</div></li>
+<li><span class="line-num">07</span><div class="line-body"><strong>Earnings &amp; Value</strong> &mdash; Weights, sources or applies the multiple, DCF where it applies.</div></li>
+<li><span class="line-num">08</span><div class="line-body"><strong>Report Narrative</strong><span class="badge built">Real draft produced</span> &mdash; Assembles everything into the draft report.</div></li>
+<li><span class="line-num">&mdash;</span><div class="line-body"><strong>Human</strong> &mdash; Nancy reviews &amp; signs. Judgment, edits, sign-off. The part that isn't automated and won't be.</div></li>
+</ul>
+
+<p style="font-size:13.5px; color:#555; margin-top:16px;"><strong>This is the order things run, not yet the order the folders are named.</strong> Balance Sheet now exists, which was the condition v7 set for doing the rename &mdash; "once, when Balance Sheet actually exists, rather than twice." That rename hasn't happened yet; it's Hugo's call when to do it, not something this version of the roadmap did for him. Until then, the station cards below use the folder numbers actually on disk today, not the target order shown above.</p>
+
+<h2 class="section">03 &mdash; The team</h2>
+<p style="font-size:13.5px; color:#666;">Every card links to that agent's real output from the Project Firefly test run &mdash; for red pen. Examples carry a live client's figures and are sent separately by email rather than published here.</p>
+
+<div class="card">
+<h3 class="station">Intake</h3>
+<div class="tagrow"><span class="built-tag">Built &middot; run for real &middot; standing context reconfirmed</span></div>
+<p>Sets the engagement up, reads every source document before anything else touches them, and opens the flags file the whole team writes to. The only agent that knows the client's real name.</p>
+<h5>What it needs from you</h5>
+<ul><li>Which tier &mdash; Express or Full</li><li>SDE, EBITDA, or both</li><li>The client's documents in the Inputs folder</li></ul>
+<h5>What you get back</h5>
+<ul><li>A codename, suggested from what the business does</li><li>The valuation date, proposed and confirmed with you</li><li>The folder structure, ready for every other agent</li><li>A flags file, if it found problems &mdash; stated as fact</li></ul>
+<div class="example">No change since v7.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Recast Worksheet</h3>
+<div class="tagrow"><span class="built-tag">Rebuilt · run for real on Aug 31 · verified</span></div>
+<p>Takes the client's P&amp;L exactly as their bookkeeper wrote it, adds back what a buyer wouldn't inherit, and produces normalized earnings. The foundation everything else stands on.</p>
+<h5>What it needs from you</h5>
+<ul><li>Profit &amp; loss statements &mdash; two years minimum, three preferred</li><li>Twelve full months per statement, or the run stops</li><li>An add-backs file, if you have one</li><li>Replacement compensation for the EBITDA Adjustment</li></ul>
+<h5>What you get back</h5>
+<ul><li>One worksheet per year, a multi-year comparison, a summary with SDE and EBITDA</li></ul>
+<div class="note ember">Caveat on Firefly, unchanged since Aug 31: no add-backs file supplied, so SDE is understated. Officer's compensation alone is the single largest line on the P&amp;L.</div>
+<div class="example">No change since v7.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Balance Sheet <span class="badge new">New since v7</span></h3>
+<div class="tagrow"><span class="built-tag">Built &amp; run Sept 10 &middot; first live run, unreviewed</span></div>
+<p>Recasts the client's balance sheet to a seller's estimated fair market value: what it's actually worth in a sale, not what the books say it cost. Bridges from Earnings &amp; Value's range to what the owner actually walks away with, cash-free and debt-free.</p>
+<h5>What it needs from you</h5>
+<ul>
+<li>The client's balance sheet</li>
+<li>An advisor or owner estimate of real estate and fixed-asset market value &mdash; never guessed if missing</li>
+<li>Earnings &amp; Value's Range of Value for this engagement, already produced by Station 07</li>
+</ul>
+<h5>What you get back</h5>
+<ul>
+<li>A recast table: book value, adjustment, seller's estimated market value, for every asset and liability line</li>
+<li>Real estate broken out on its own, separate from other fixed assets</li>
+<li>Every distinct long-term debt on its own line, never collapsed into one</li>
+<li>An Enterprise Value / Net Owner Equity bridge: starting price, plus receivables minus payables, minus estimated debt payoff, plus real estate if it's part of the sale</li>
+</ul>
+<p><strong>Two treatments for fixed assets, on purpose.</strong> The going-concern price from Earnings &amp; Value never separately prices vehicles or equipment &mdash; "we value cash flow, not vehicles." This agent's own recast does the opposite, marking them to market individually, because it's answering a different question: what does the owner walk away with in an asset sale. The two are kept deliberately separate; this agent's numbers don't feed Earnings &amp; Value's.</p>
+<p><strong>Asset Method: prepared for, not built.</strong> This agent produces exactly the recast data an Asset Method valuation would need. It does not compute one. Whether Asset Method becomes a real, standard section is Decision 07 below &mdash; unresolved, though this agent existing means the technical blocker on that decision is now gone.</p>
+<div class="note ember">Caveats on Firefly, current as of Sept 10: no market-value estimate exists yet for the real estate ($372,098 book) or the fixed assets ($3,384 net of depreciation) &mdash; both flagged, neither guessed. One combined depreciation account couldn't be split between the building and the vehicles. A $71,500 property sub-account isn't clearly explained. A $101,500 shareholder loan was zeroed out as a judgment call Nancy may want to revisit.</div>
+<div class="example">Firefly example &mdash; recast table + Net Owner Equity bridge. Sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Revenue &amp; Customer Concentration</h3>
+<div class="tagrow"><span class="built-tag">Built &middot; rebuilt from source</span></div>
+<p>Ranks who the revenue actually comes from. Concentration is one of the eight drivers, and it's the one a buyer asks about first.</p>
+<h5>What it needs from you</h5>
+<ul><li>Income by customer, per year</li></ul>
+<h5>What you get back</h5>
+<ul><li>A ranked customer table, top 15 fixed, plus a subtotal for everyone else</li><li>Possible duplicate customers flagged, never merged silently</li></ul>
+<div class="example">No change since v7.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Observations</h3>
+<div class="tagrow"><span class="built-tag">Built &middot; run &middot; corrected</span></div>
+<p>Reads the multi-year comparison and says what it means &mdash; a plain statement followed by bullets, for each of several themes.</p>
+<h5>What it needs from you</h5>
+<ul><li>Nothing new &mdash; reads the recast automatically</li><li>Anything you know that the documents don't say, typed in when you run it</li></ul>
+<div class="example">No change since v7.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Earnings &amp; Value</h3>
+<div class="tagrow"><span class="built-tag">Base built Aug 31 &middot; enhanced Sept 9 &middot; re-run Sept 10, unchanged</span></div>
+<p>Collapses three years of earnings into one weighted figure, applies the multiple, and &mdash; for Full and Certified &mdash; a second method entirely. This is the station that produces the Range of Value.</p>
+<h5>What it needs from you</h5>
+<ul><li>Nancy's input sheet: a weight per year, summing to 100</li><li>The multiple, from Nancy, or her sign-off to let the agent source and propose one</li></ul>
+<h5>What you get back</h5>
+<ul><li>The weighted earnings calculation, every step shown</li><li>The Range of Value at all three multiples</li><li>A new Valuation Methods section naming where the multiple came from</li></ul>
+<div class="note ember">Still true as of Sept 10: the Sept 9 additions (document-based sourcing for Full/Certified, the Income Method) have not touched a real engagement. Project Firefly is Express, which structurally can't exercise either. Today's re-run reproduced the Aug 31 output exactly, byte for byte &mdash; nothing upstream had changed, so nothing was expected to move.</div>
+<div class="example">Firefly example &mdash; weighted earnings + Range of Value. Sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Value Builder Summary</h3>
+<div class="tagrow"><span style="color:#8A5A2B; font-weight:600;">Built &middot; never tested</span></div>
+<p>Turns the Value Builder assessment into eight written driver observations plus an analyst note &mdash; the qualitative half of the report.</p>
+<h5>Why it's untested</h5>
+<ul><li>No Value Builder assessment exists for Firefly to run it against. Still the fastest remaining gap to close &mdash; everything downstream that depends on drivers, the qualitative section and Recommendations, is blocked until this runs once.</li></ul>
+<div class="example">No change since v7.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Report Narrative <span class="badge built">Real draft, Sept 10</span></h3>
+<div class="tagrow"><span class="built-tag">Built &middot; run twice on real data &middot; corrected</span></div>
+<p>Assembles everything above into the draft report &mdash; the document Nancy edits and signs. It writes nothing new and recalculates nothing.</p>
+<h5>What it needs from you</h5>
+<ul><li>Every earlier station's output</li><li>A real client context brief &mdash; purpose, a business description, industry/NAICS, who it's prepared for. It never invents these.</li></ul>
+<h5>What you get back</h5>
+<ul><li>A complete draft report, marked DRAFT, with a linked contents page</li><li>The estimate of value, in plain language</li><li>Every missing section labeled as missing, never quietly dropped</li><li><strong>New:</strong> a proposed NAICS code, matched against the client's actual business description &mdash; same propose-and-confirm posture as Station 07's sourced multiple, never finalized without a person saying yes</li></ul>
+<div class="note ember">Caveats on Firefly, current as of Sept 10: the context brief that was an explicitly-labeled test fixture in v7 has been replaced with a real, sourced business description, and the agent has since produced two real drafts against it. The first NAICS proposal came back wrong (a retail code) because the description it was reading from was itself mischaracterized; corrected once the description was fixed, and the second proposal is the one worth Nancy's eyes. Still open from v7, unconfirmed either way: whether an executive summary and a formal sign-off line have been added to the draft.</div>
+<div class="example">Firefly example &mdash; full draft report, current as of Sept 10. Sent separately by email.</div>
+</div>
+
+<h2 class="section">04 &mdash; Over to you</h2>
+<p style="font-size:13.5px; color:#666;">Each of these is currently running on somebody's inference. Where you've spoken, the agents follow you. Where you haven't, a default is standing in for a decision &mdash; listed so you can overrule any of them in a sentence.</p>
+
+<p style="font-size:13.5px; color:var(--green); font-weight:600; margin-top:18px;">Resolved since v7, moved out of the list below:</p>
+
+<div class="decision resolved">
+<span class="owner resolved-tag">Resolved</span>
+<h4>The Balance Sheet agent's format</h4>
+<p>Gary walked through the actual ValuTrax format live, on the real client's own report, on the Sept 10 call. The agent was built the same day and has since run twice against real Project Firefly data. Formerly Decision 03.</p>
+</div>
+
+<div class="decision resolved">
+<span class="owner resolved-tag">Resolved</span>
+<h4>The working-capital adjustment, enterprise-value side</h4>
+<p>Gary specified it directly on the Sept 10 call: weighted price, accounts receivable minus accounts payable, and an estimated payoff, all on the same page. Built into the Balance Sheet agent's output. Formerly Decision 04.</p>
+</div>
+
+<div class="decision resolved">
+<span class="owner resolved-tag">Resolved, corrected</span>
+<h4>Clearance to calibrate against a real report</h4>
+<p>Already granted before v7 shipped; v7 didn't catch the update. Corrected here. Formerly Decision 06.</p>
+</div>
+
+<p style="font-size:13.5px; color:var(--midnight); font-weight:600; margin-top:28px;">Still open:</p>
+
+<div class="decision">
+<span class="owner">Gary</span>
+<h4>How customers get named in the concentration table</h4>
+<p>Firefly's books name customers by property address. We carry account names verbatim everywhere else, which means customers' home addresses are sitting in a working file. Still open &mdash; wasn't raised on the call.</p>
+</div>
+
+<div class="decision">
+<span class="owner">Gary</span>
+<h4>The shape of the Recommendations section</h4>
+<p>Reframed on an earlier call: not a list of actions, a diagnosis that ends in an invitation. You're actively working out the transition language against a framework you're applying to your webinars too. Deliberately not being built yet &mdash; building now means building the wrong thing.</p>
+</div>
+
+<div class="decision">
+<span class="owner">Gary</span>
+<h4>Where the Scenario Planner fits</h4>
+<p>You've used the word "agent" yourself, unprompted, describing growth-scenario content you want in the report, and said you already have a spreadsheet with the logic. Worth one caution before this becomes a build: "I've got a spreadsheet" is exactly what led into Value Builder Summary stalling once before &mdash; get and review this one first.</p>
+</div>
+
+<div class="decision">
+<span class="owner">Gary</span>
+<h4>Asset Method &mdash; standard, or situational?</h4>
+<p>Your Sept 9 email named three valuation methods as a set: Income, Market, Asset. Nancy's own stated practice is she almost never uses it, reserved for businesses where the value genuinely is in heavy equipment. Your email and her practice point different directions &mdash; worth a direct conversation with her before this becomes standard on every Full/Certified report. <strong>Updated in v8:</strong> the stated technical blocker on this decision, that Asset Method can't be built until the Balance Sheet agent exists, is gone. That agent exists now and already produces the data Asset Method would need. The policy question itself is untouched by that.</p>
+</div>
+
+<h2 class="section">05 &mdash; Boundaries</h2>
+<p style="font-size:13.5px; color:#666;">What the agents will not do. Not limitations to fix later. Design decisions.</p>
+
+<div class="boundary">
+<div class="bname">Finalizing the multiple, and the weighting</div>
+<div class="bwhy">Judgment</div>
+<p style="font-size:14px;">The weighting is Nancy's, full stop. A station can source and propose a multiple or a NAICS code, but a person still says yes before either is used &mdash; an agent that could finalize either could produce a valuation, and then nobody could say whose opinion it was.</p>
+</div>
+
+<div class="boundary">
+<div class="bname">The signature</div>
+<div class="bwhy">Accountability</div>
+<p style="font-size:14px;">Every output is a draft until a person reviews the flags file and signs. Nothing leaves the machine on the agents' say-so.</p>
+</div>
+
+<div class="boundary">
+<div class="bname">Walking a client through it</div>
+<div class="bwhy">The conversation</div>
+<p style="font-size:14px;">The reports exist so Gary can sit next to an owner and take them through the process. The agents build the artifact. They don't do the meeting.</p>
+</div>
+
+<p style="font-size:14px; margin-top:20px;"><strong>One structural safeguard worth naming.</strong> When an agent doesn't know something, it stops and asks rather than filling the gap. That's why the Firefly package has "Pending" rows on the balance sheet instead of a confident-looking number nobody chose. A visible gap is recoverable. A plausible invention that reaches a client is not.</p>
+
+<footer>SBV &mdash; Agent Pipeline Roadmap v8.0 &middot; Project Firefly examples &middot; Balance Sheet built, Report Narrative re-run, both Sept 10, 2026 &middot; Internal &mdash; not for client distribution</footer>
+
+</div>
+</body>
+</html>
