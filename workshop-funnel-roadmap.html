@@ -201,6 +201,11 @@
   .ci h4{margin:0 0 4px;font-size:15.5px;font-family:'Source Sans 3',sans-serif}
   .ci p{margin:0;font-size:14px;max-width:70ch}
 
+  .ahead{background:var(--cream);border:1px solid var(--line);border-radius:8px;
+    padding:18px 22px;margin-top:20px}
+  .ahead p{margin:0;font-size:13.5px;max-width:70ch}
+  .ahead p b{color:var(--ink);font-weight:600}
+
   footer{margin-top:72px;padding-top:22px;border-top:1px solid var(--line);
     font-size:12px;color:var(--ink-faint)}
   footer p{font-size:12px;color:var(--ink-faint)}
@@ -210,13 +215,13 @@
 
   <div class="eyebrow">Strategic Business Valuations &nbsp;·&nbsp; Business Value Workshop</div>
   <h1 class="title">The Value Workshop Funnel</h1>
-  <p class="datestamp">August 31, 2026</p>
-  <p class="dek">Everything that happens automatically from the moment someone signs up for the workshop through the follow-up after it ends. Every email is shown here exactly as the recipient receives it. There is one open decision at the bottom that needs your call.</p>
+  <p class="datestamp">Updated September 14, 2026</p>
+  <p class="dek">Everything that happens automatically from the moment someone signs up for a workshop through the follow-up after it ends. This covers the system itself, not any one date, the same automation runs for every round. Every email is shown here exactly as the recipient receives it. There is one open decision at the bottom that needs your call.</p>
 
   <div class="stat-strip">
     <div class="stat"><span class="n">4</span><span class="l">automatic sequences</span></div>
     <div class="stat"><span class="n">8</span><span class="l">emails, all viewable below</span></div>
-    <div class="stat"><span class="n">3</span><span class="l">running now</span></div>
+    <div class="stat"><span class="n">2</span><span class="l">running now</span></div>
     <div class="stat"><span class="n">1</span><span class="l">decision for you</span></div>
   </div>
 
@@ -230,7 +235,7 @@
   <!-- ================= DIAGRAM ================= -->
   <section>
     <h2 class="section-title">How it fits together</h2>
-    <p class="section-note">Signing up starts two sequences at once. What happens after the workshop depends on whether the person actually showed up, which we mark by hand once the session ends.</p>
+    <p class="section-note">This is one reusable system, not a one-time build for a single date. Signing up starts two sequences at once. What happens after the workshop depends on whether the person actually showed up, which we mark by hand once the session ends.</p>
 
     <figure class="diagram">
       <div class="flow">
@@ -290,7 +295,7 @@
             <p class="fn-status pend">Paused, waiting on you</p>
             <h4 class="fn-title">They attended</h4>
             <p class="fn-sub">Two emails, 3 hours and 3 days after the session. The scorecard is the only ask.</p>
-            <p class="fn-note">Currently switched off while the decision below is open.</p>
+            <p class="fn-note">Switched off together with the no-show sequence below, until the decision at the bottom of this page is made.</p>
           </div>
           <div class="fnode is-pend">
             <p class="fn-status pend">Not turned on yet</p>
@@ -301,7 +306,7 @@
         </div>
 
       </div>
-      <figcaption>Both post-workshop sequences are paused right now. The decision at the end of this document affects what both say, so we held both rather than turn one on and rebuild it again in a week.</figcaption>
+      <figcaption>Two of the four sequences are running today: the confirmation and the three-part reminder countdown. Both post-workshop sequences are paused together, since the decision at the end of this document affects what both say and rebuilding the copy twice seemed worse than pausing once.</figcaption>
     </figure>
   </section>
 
@@ -365,7 +370,7 @@
         <span class="pill pill-live">Running</span>
       </div>
       <p class="wf-purpose">Three nudges counting down to the session, each one shorter and more urgent than the last, ending with the join link in front of them an hour before we start.</p>
-      <p class="wf-when">Confirmed switched on and sending as of August 28. The current round is September 9, 2026 at 11:00 AM Eastern. <b>Updating the date for a new round is still a manual step on our end</b> (not yet the one-click update we'd like it to be) but the sequence itself runs on its own once that's set.</p>
+      <p class="wf-when">Confirmed published and sending. This sequence was rebuilt so it works for any future round without being touched: update the session date and label once, in GHL's Custom Values, and all three reminders below, the confirmation email's calendar links, and every merge tag in this sequence retarget themselves automatically. <b>Nothing round-specific lives inside the workflow itself</b> &mdash; that is the whole point of this rebuild, and why this page does not name a date.</p>
 
       <div class="mflow">
         <div class="mstep tone-live">
@@ -555,8 +560,7 @@
         <h3 class="wf-title">Attendee follow-up</h3>
         <span class="pill pill-pend">Paused, waiting on you</span>
       </div>
-      <p class="wf-purpose">For the people who showed up. Thanks them 3 hours after the session, moves them forward in the sales tracker, then follows up once more 3 days later. They only get the Value Builder link, since they already sat through the session and do not need the recording.</p>
-      <p class="wf-when">This sequence ran from August 12 through late August but is currently switched off. Same reason as the no-show sequence below: it depends on the decision at the bottom of this page, and rebuilding it twice seemed worse than pausing it once.</p>
+      <p class="wf-purpose">For the people who show up. Thanks them 3 hours after the session, moves them forward in the sales tracker, then follows up once more 3 days later. They only get the Value Builder link, since they already sat through the session and do not need the recording.</p>
 
       <div class="mflow">
         <div class="mstep tone-pend">
@@ -571,7 +575,7 @@
           <p class="ms-desc">Re-shares the scorecard, and offers a call instead for anyone who would rather just talk it through.</p>
         </div>
       </div>
-      <p class="flag pend">The two gaps above are the intended timing. This sequence was tested with shorter gaps before it first went live, and we are re-confirming those test settings were put back to 3 hours and 3 days before switching it back on.</p>
+      <p class="flag pend">This sequence ran from mid-August through late August on the correct 3-hour / 3-day timing, confirmed working. It is paused now, together with the no-show sequence below, until the decision at the bottom of this page is made &mdash; rebuilding the copy twice seemed worse than pausing once.</p>
 
       <div class="previews">
         <p class="previews-label">Both attendee emails <span class="hint">(click a header to collapse)</span></p>
@@ -654,7 +658,7 @@
       <p class="em-subj-line"><span class="lbl">Subject:</span><span class="val">Still thinking about your number?</span></p>
     </div>
   </summary>
-  <div class="em-frame-wrap"><iframe style="--h-narrow:1181px;--h-mid:1025px;--h-wide:1025px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Still thinking about your number, {{contact.first_name}}?&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Here’s the Value Builder assessment link again:&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=final_valuebuilder&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;See My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;A few minutes for a clearer snapshot&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Prefer to skip the assessment and just talk it through? Reply to this email and we’ll set up a quick call.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
+  <div class="em-frame-wrap"><iframe style="--h-narrow:1181px;--h-mid:1025px;--h-wide:1025px" class="em-frame" loading="lazy" sandbox="allow-same-origin" title="Email preview" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;html,body{margin:0;padding:0;background:#f5f5f5;}&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;table style=&quot;background-color:#f5f5f5;padding:32px 0;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; align=&quot;center&quot;&gt;&lt;table style=&quot;max-width:600px;width:100%;background-color:#ffffff;border-radius:6px;overflow:hidden;border:1px solid #e0e0e0;&quot; width=&quot;600&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#0E1F3D;padding:24px 40px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;letter-spacing: 0.08em;text-transform: uppercase;color: #C4553A;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;&lt;img style=&quot;height: auto;width: 200px;display: block;clear: both;&quot; src=&quot;https://assets.cdn.filesafe.space/ETrWQNJ5xzOqQPGGXk5a/media/69fb9d160394c98503711730.png&quot; alt=&quot;Strategic Business Valuations&quot; width=&quot;200&quot; title=&quot;Strategic Business Valuations&quot;&gt;&lt;/strong&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:40px 40px 32px;&quot;&gt;&lt;h1 style=&quot;line-height: 1.2;padding-left: 0px!important;margin: 0 0 16px;font-family: Georgia,serif;font-size: 26px;font-weight: 500;color: #0E1F3D;&quot;&gt;&lt;strong&gt;Still thinking about your number, {{contact.first_name}}?&lt;/strong&gt;&lt;/h1&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;&quot;&gt;&lt;/p&gt;&lt;table style=&quot;background-color:#f9f7f4;border-left:3px solid #C4553A;border-radius:0 4px 4px 0;margin:24px 0 32px;&quot; width=&quot;100%&quot; cellpadding=&quot;0&quot; cellspacing=&quot;0&quot; border=&quot;0&quot;&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;padding:20px 28px;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;font-weight: 600;color: #0E1F3D;&quot; class=&quot;custom-newline&quot;&gt;&lt;strong&gt;Here&#8217;s the Value Builder assessment link again:&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://score.valuebuildersystem.com/strategic-business-valuations/nancy-hallett?utm_source=sbv&amp;amp;utm_medium=email&amp;amp;utm_campaign=webinar_followup&amp;amp;utm_content=final_valuebuilder&quot; title=&quot;Get My Value Builder Score&quot;&gt;&lt;strong&gt;See My Value Builder Score&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;&lt;br&gt;A few minutes for a clearer snapshot&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.7;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #444444;&quot; class=&quot;custom-newline&quot;&gt;Prefer to skip the assessment and just talk it through? Reply to this email and we&#8217;ll set up a quick call.&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #333333;&quot; class=&quot;custom-newline&quot;&gt;- Nancy Hallett, CVA&lt;/p&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.5;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #888888;&quot; class=&quot;custom-newline&quot;&gt;&lt;br&gt;Strategic Business Valuations&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan=&quot;1&quot; rowspan=&quot;1&quot; style=&quot;background-color:#f9f7f4;padding:20px 40px;border-top:1px solid #e8e0d6;&quot;&gt;&lt;p style=&quot;margin:0px;font-family:verdana,geneva,sans-serif;font-size:16px; line-height: 1.6;padding-left: 0px!important;margin: 0px;font-family: verdana,geneva,sans-serif;font-size: 16px;color: #999999;&quot; class=&quot;custom-newline&quot;&gt;© 2026 Strategic Business Valuations &amp;nbsp;·&amp;nbsp; 5011 Gate Parkway, Jacksonville, FL 32256 &lt;br&gt;&lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/privacy.html&quot;&gt;Privacy Policy&lt;/a&gt; &amp;nbsp;·&amp;nbsp; &lt;a target=&quot;_blank&quot; rel=&quot;noopener noreferrer nofollow&quot; href=&quot;https://strategicbusinessvaluations.com/terms.html&quot;&gt;Terms of Use&lt;/a&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;"></iframe></div>
   <p class="em-foot">Offers a call as an alternative for anyone who would rather talk than fill in a form.</p>
 </details>
       </div>
@@ -687,6 +691,7 @@
         </div>
       </div>
       <p class="flag pend">The exact timing on these two emails has not been re-checked since they were built, so the real gaps may differ slightly from the 3 hours and 3 days shown. We will confirm before switching this on.</p>
+      <p class="flag pend">Planned change, not built yet: once the new replay landing page is ready, the recording link in both emails below will point there instead of straight to YouTube, with the video embedded on that page. Liana has also asked for a fuller version of this page (a real viewing window, its own countdown reminder emails, a single "book a call" button, case-study proof), but that is future scope we have not started. For now the emails below are unchanged from what is actually built.</p>
 
       <div class="previews">
         <p class="previews-label">Both no-show emails. The recording link shows as a placeholder because a new video goes up each round. <span class="hint">(click a header to collapse)</span></p>
@@ -883,7 +888,7 @@
   <!-- ================= CLOSING ================= -->
   <section>
     <h2 class="section-title">Before the next round</h2>
-    <p class="section-note">Three things on our side, listed so you know where they stand.</p>
+    <p class="section-note">A few things on our side, listed so you know where they stand.</p>
     <div class="closing">
       <div class="ci">
         <span class="ci-n">1</span>
@@ -906,6 +911,9 @@
           <p>We still need to re-check the timing gaps on the two no-show emails before switching that sequence on. Quick, and will be done before it's turned back on.</p>
         </div>
       </div>
+    </div>
+    <div class="ahead">
+      <p><b>Also on the radar, not blocking any of this:</b> Liana has asked for a dedicated replay landing page (hosted in GHL or Vimeo, with the workshop video embedded) to replace the direct YouTube link in the no-show emails above. She's also floated a fuller version with its own viewing window and countdown reminder emails. None of that is built yet, and nothing here waits on it.</p>
     </div>
   </section>
 
