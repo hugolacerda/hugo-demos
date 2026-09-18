@@ -70,3 +70,12 @@ Agents/Nancy-Delivery/Inputs/*
 !Agents/Nancy-Delivery/Inputs/README.md
 Agents/Nancy-Delivery/Outputs/*
 !Agents/Nancy-Delivery/Outputs/README.md
+
+# --- Markdown in Agents/ is internal by default (added 2026-09-18) ---------
+# This is a public repo. Agent instruction files, publish notes and session
+# notes routinely name client files, describe internal decisions, and record
+# disagreements between principals. None of that belongs on a public remote.
+# Only the rendered roadmap HTML is meant to be published from this folder.
+Agents/**/*.md
+Agents/*.md
+!Agents/.gitkeep
