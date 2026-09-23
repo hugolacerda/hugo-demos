@@ -80,6 +80,10 @@ Agents/**/*.md
 Agents/*.md
 !Agents/.gitkeep
 
+Agents/_archive/
+__pycache__/
+*.pyc
+
 # --- Markdown anywhere in this repo is internal by default (added 2026-09-21) ---
 # Extends the Agents/ rule above to the whole repo. CLAUDE.md files, agent
 # memory, skills and reference docs stay local. Rendered HTML is what publishes.
