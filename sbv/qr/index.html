@@ -29,10 +29,17 @@
     }
     .qr-hero .container { position: relative; z-index: 1; }
     .qr-hero-inner { max-width: 46rem; }
-    .qr-hero .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
-    .qr-hero h1 { font-size: 2.1rem; line-height: 1.15; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1.25rem; }
-    @media (min-width: 768px) { .qr-hero h1 { font-size: 3.1rem; } }
-    .qr-hero h1 em { font-style: italic; color: hsl(var(--color-clay-hsl)); }
+    .qr-hero .event-chip {
+      display: inline-flex; align-items: center; padding: 0.375rem 0.875rem; margin-bottom: 1.5rem;
+      border: 1px solid hsl(var(--color-ember-hsl) / 0.6); border-radius: 999px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: hsl(var(--color-ember-hsl));
+    }
+    .qr-hero h1 { font-size: 2.5rem; line-height: 1.08; font-weight: 600; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1.5rem; }
+    @media (min-width: 768px) { .qr-hero h1 { font-size: 3.9rem; } }
+    .qr-hero .rule { display: block; width: 3rem; height: 3px; background: hsl(var(--color-ember-hsl)); margin-bottom: 1.5rem; }
+    .qr-hero .statement { font-family: var(--font-headline); font-size: 1.4rem; line-height: 1.35; color: hsl(var(--color-ivory-hsl) / 0.9); max-width: 34rem; margin-bottom: 1rem; }
+    @media (min-width: 768px) { .qr-hero .statement { font-size: 1.75rem; } }
+    .qr-hero .statement em { font-style: italic; color: hsl(var(--color-clay-hsl)); }
     .qr-hero .lead { font-size: 1.125rem; line-height: 1.65; color: rgb(190, 202, 219); max-width: 36rem; margin-bottom: 2rem; }
     .qr-hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; }
     .qr-hero .note { margin-top: 1rem; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(139, 157, 184); }
@@ -165,8 +172,10 @@
   <section class="qr-hero">
     <div class="container">
       <div class="qr-hero-inner">
-        <div class="eyebrow"><span class="line"></span><span>For financial planners and wealth advisors · XYPN 2026</span></div>
-        <h1>The business is the asset your owner clients <em>understand least.</em></h1>
+        <span class="event-chip">XYPN 2026</span>
+        <h1>For financial planners and wealth advisors</h1>
+        <span class="rule" aria-hidden="true"></span>
+        <p class="statement">The business is the asset your owner clients <em>understand least.</em></p>
         <p class="lead">Here is your 18-point checklist: know the value, protect it, grow it, and plan an exit with no regrets.</p>
         <div class="qr-hero-ctas">
           <a href="#checklist" class="btn-ember xl">View the checklist</a>
