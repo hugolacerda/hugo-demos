@@ -1,95 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strategic Business Valuations</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Libre+Franklin:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --midnight: #0E1F3D;
-    --ember: #C4553A;
-    --ivory: #F7F3EA;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: var(--ivory);
-    font-family: 'Libre Franklin', sans-serif;
-    color: var(--midnight);
-  }
-  main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 48px 24px;
-  }
-  .logo {
-    max-width: 220px;
-    margin-bottom: 40px;
-  }
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 4vw, 42px);
-    font-weight: 700;
-    max-width: 640px;
-    margin: 0 0 16px;
-    line-height: 1.25;
-  }
-  p.sub {
-    font-size: 18px;
-    max-width: 520px;
-    color: #4A5568;
-    margin: 0 0 32px;
-    line-height: 1.6;
-  }
-  .cta {
-    display: inline-block;
-    background: var(--ember);
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 14px 32px;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  .cta:hover { opacity: 0.9; }
-  .cta-note {
-    display: block;
-    font-size: 13px;
-    color: #718096;
-    margin-top: 12px;
-  }
-  .back {
-    margin-top: 40px;
-    font-size: 14px;
-  }
-  .back a { color: var(--midnight); }
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 13px;
-    color: #718096;
-  }
-</style>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Owner Checklist for Financial Advisors | Strategic Business Valuations</title>
+  <meta name="description" content="An 18-point checklist for financial planners and wealth advisors serving business owner clients.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://strategicbusinessvaluations.com/qr/">
+  <meta property="og:title" content="Business Owner Checklist for Financial Advisors">
+  <meta property="og:description" content="An 18-point checklist for financial planners and wealth advisors serving business owner clients.">
+  <meta property="og:image" content="https://strategicbusinessvaluations.com/assets/SBV_logo.webp">
+  <meta property="og:site_name" content="Strategic Business Valuations">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Libre+Franklin:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/main.css">
+  <style>
+    /* Page-specific styles for /qr/ (XYPN advisor checklist). Shared tokens and components come from main.css. */
+
+    /* Hero */
+    .qr-hero { position: relative; overflow: hidden; background: hsl(var(--color-midnight-hsl)); padding: 4.5rem 0 4rem; }
+    @media (min-width: 768px) { .qr-hero { padding: 6rem 0 5.5rem; } }
+    .qr-hero::after {
+      content: ''; position: absolute; right: -140px; top: 50%; transform: translateY(-50%);
+      width: 520px; height: 520px; background: url('../assets/sbv-globe-mark.png') center / contain no-repeat;
+      opacity: 0.06; pointer-events: none;
+    }
+    .qr-hero .container { position: relative; z-index: 1; }
+    .qr-hero-inner { max-width: 46rem; }
+    .qr-hero .eyebrow span:not(.line) { color: hsl(var(--color-ember-hsl)); }
+    .qr-hero h1 { font-size: 2.1rem; line-height: 1.15; color: hsl(var(--color-ivory-hsl)); margin-bottom: 1.25rem; }
+    @media (min-width: 768px) { .qr-hero h1 { font-size: 3.1rem; } }
+    .qr-hero h1 em { font-style: italic; color: hsl(var(--color-clay-hsl)); }
+    .qr-hero .lead { font-size: 1.125rem; line-height: 1.65; color: rgb(190, 202, 219); max-width: 36rem; margin-bottom: 2rem; }
+    .qr-hero-ctas { display: flex; flex-wrap: wrap; gap: 0.75rem 1rem; align-items: center; }
+    .qr-hero .note { margin-top: 1rem; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgb(139, 157, 184); }
+
+    /* Framework strip under hero */
+    .qr-framework { background: hsl(var(--card)); border-bottom: 1px solid hsl(var(--border)); }
+    .qr-framework ol { display: grid; grid-template-columns: repeat(2, 1fr); }
+    @media (min-width: 768px) { .qr-framework ol { grid-template-columns: repeat(4, 1fr); } }
+    .qr-framework li { padding: 1.25rem 1rem; text-align: center; border-right: 1px solid hsl(var(--border)); }
+    .qr-framework li:nth-child(2n) { border-right: 0; }
+    .qr-framework li:nth-child(-n+2) { border-bottom: 1px solid hsl(var(--border)); }
+    @media (min-width: 768px) { .qr-framework li:nth-child(-n+2) { border-bottom: 0; } }
+    @media (min-width: 768px) { .qr-framework li:nth-child(2n) { border-right: 1px solid hsl(var(--border)); } .qr-framework li:last-child { border-right: 0; } }
+    .qr-framework a { display: block; }
+    .qr-framework .step { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--accent)); margin-bottom: 0.25rem; }
+    .qr-framework .word { font-family: var(--font-headline); font-size: 1.35rem; color: hsl(var(--foreground)); transition: color 0.15s; }
+    .qr-framework a:hover .word { color: hsl(var(--accent)); }
+
+    /* Why section */
+    .qr-why { max-width: 46rem; }
+    .qr-why h2 { font-size: 1.875rem; line-height: 1.25; margin-bottom: 1.25rem; }
+    @media (min-width: 768px) { .qr-why h2 { font-size: 2.25rem; } }
+    .qr-why p { font-size: 1.0625rem; line-height: 1.75; color: hsl(var(--muted-foreground)); margin-bottom: 1.25rem; }
+    .qr-why p.pull { font-family: var(--font-headline); font-size: 1.3rem; line-height: 1.5; color: hsl(var(--foreground)); border-left: 3px solid hsl(var(--accent)); padding-left: 1.25rem; margin-top: 2rem; }
+
+    /* Checklist */
+    .qr-groups { max-width: 60rem; margin: 0 auto; display: grid; gap: 1.5rem; }
+    .qr-group { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); overflow: hidden; scroll-margin-top: 6rem; }
+    .qr-group-head { display: grid; gap: 0.25rem; padding: 1.5rem 1.75rem; border-bottom: 1px solid hsl(var(--border)); background: hsl(var(--background)); }
+    @media (min-width: 768px) { .qr-group-head { grid-template-columns: 11rem 1fr; align-items: end; gap: 1.5rem; } }
+    .qr-group-head .step { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--accent)); }
+    .qr-group-head h3 { font-size: 1.75rem; line-height: 1.1; color: hsl(var(--foreground)); }
+    .qr-group-head p { font-size: 0.95rem; font-style: italic; color: hsl(var(--muted-foreground)); }
+    .qr-items li { display: grid; grid-template-columns: 2.75rem 1fr; gap: 1rem; padding: 1.25rem 1.75rem; border-top: 1px solid hsl(var(--border) / 0.6); }
+    .qr-items li:first-child { border-top: 0; }
+    .qr-items .num { font-family: var(--font-headline); font-size: 1.5rem; line-height: 1.2; color: hsl(var(--accent)); }
+    .qr-items h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 600; line-height: 1.45; color: hsl(var(--foreground)); margin-bottom: 0.25rem; }
+    .qr-items p { font-size: 0.95rem; line-height: 1.6; color: hsl(var(--muted-foreground)); }
+    .qr-download { text-align: center; margin-top: 2.5rem; }
+    .qr-download .sub { display: block; margin-top: 0.625rem; font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: hsl(var(--muted-foreground)); }
+
+    /* Resources */
+    .qr-cards { display: grid; gap: 1.5rem; max-width: 64rem; margin: 0 auto; }
+    @media (min-width: 900px) { .qr-cards { grid-template-columns: repeat(3, 1fr); } }
+    .qr-card { display: flex; flex-direction: column; background: hsl(var(--background)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 2rem; }
+    .qr-card .kind { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: hsl(var(--accent)); margin-bottom: 0.75rem; }
+    .qr-card h3 { font-size: 1.3rem; line-height: 1.25; margin-bottom: 0.75rem; }
+    .qr-card p { font-size: 0.95rem; line-height: 1.65; color: hsl(var(--muted-foreground)); margin-bottom: 1.5rem; flex: 1; }
+    .qr-card .btn-ember { align-self: flex-start; }
+    .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center; align-self: flex-start;
+      height: 2.75rem; padding: 0 1.5rem; border: 2px solid hsl(var(--foreground) / 0.2); border-radius: calc(var(--radius) - 2px);
+      font-size: 0.875rem; font-weight: 600; letter-spacing: 0.025em; color: hsl(var(--foreground)); transition: all 0.15s ease;
+    }
+    .btn-outline:hover { border-color: hsl(var(--accent)); color: hsl(var(--accent)); }
+
+    /* Lead form */
+    .qr-form-wrap { display: grid; gap: 2.5rem; max-width: 64rem; margin: 0 auto; align-items: start; }
+    @media (min-width: 900px) { .qr-form-wrap { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+    .qr-form-copy h2 { font-size: 1.875rem; line-height: 1.25; color: rgb(245, 242, 237); margin-bottom: 1rem; }
+    @media (min-width: 768px) { .qr-form-copy h2 { font-size: 2.25rem; } }
+    .qr-form-copy p { font-size: 1rem; line-height: 1.7; color: rgb(139, 157, 184); }
+    .qr-form { display: grid; gap: 1rem; background: hsl(var(--color-ivory-hsl) / 0.04); border: 1px solid hsl(var(--color-ivory-hsl) / 0.1); border-radius: var(--radius); padding: 2rem; }
+    .qr-form label { display: grid; gap: 0.375rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: hsl(var(--color-clay-hsl)); }
+    .qr-form input {
+      height: 2.875rem; padding: 0 0.875rem; font: inherit; font-size: 1rem; letter-spacing: normal; text-transform: none;
+      color: hsl(var(--foreground)); background: hsl(var(--color-ivory-hsl)); border: 1px solid transparent; border-radius: calc(var(--radius) - 2px);
+    }
+    .qr-form input:focus { outline: 2px solid hsl(var(--accent)); outline-offset: 1px; }
+    .qr-form .btn-ember { width: 100%; margin-top: 0.5rem; }
+    .qr-form .hidden { display: none; }
+    .qr-success { display: none; background: hsl(var(--color-ivory-hsl) / 0.04); border: 1px solid hsl(var(--color-ivory-hsl) / 0.1); border-radius: var(--radius); padding: 2rem; }
+    .qr-success.show { display: block; }
+    .qr-success h3 { font-size: 1.5rem; color: rgb(245, 242, 237); margin-bottom: 0.75rem; }
+    .qr-success p { color: rgb(190, 202, 219); line-height: 1.65; margin-bottom: 1.5rem; }
+
+    /* Closing CTA and disclaimer */
+    .qr-close { text-align: center; max-width: 42rem; margin: 0 auto; }
+    .qr-close h2 { font-size: 1.875rem; line-height: 1.25; margin-bottom: 1rem; }
+    @media (min-width: 768px) { .qr-close h2 { font-size: 2.25rem; } }
+    .qr-close p { font-size: 1.0625rem; line-height: 1.7; color: hsl(var(--muted-foreground)); margin-bottom: 2rem; }
+    .qr-close .alt { margin-top: 1.25rem; font-size: 0.9rem; color: hsl(var(--muted-foreground)); margin-bottom: 0; }
+    .qr-close .alt a { color: hsl(var(--accent)); font-weight: 600; }
+    .qr-disclaimer { padding: 1.5rem 0; font-size: 0.8rem; line-height: 1.6; text-align: center; color: hsl(var(--muted-foreground)); border-top: 1px solid hsl(var(--border)); }
+
+    /* Toast */
+    #toast {
+      position: fixed; left: 50%; bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%) translateY(8px);
+      background: hsl(var(--color-midnight-hsl)); color: hsl(var(--color-ivory-hsl)); padding: 0.625rem 1.125rem; border-radius: 999px;
+      font-size: 0.85rem; opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 100;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H4GTH9DBYB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H4GTH9DBYB');
+  </script>
 </head>
 <body>
-  <main>
-    <img class="logo" src="https://strategicbusinessvaluations.com/assets/SBV_logo.webp" alt="Strategic Business Valuations">
-    <h1>Something New Is Coming</h1>
-    <p class="sub">We're putting together a new resource here. In the meantime, our team is happy to talk with you directly.</p>
-    <a class="cta" href="https://calendly.com/gwba/one-on-one-with-gary">Speak with a Certified Expert</a>
-    <span class="cta-note">15-minute call &middot; No obligation</span>
-    <p class="back"><a href="https://strategicbusinessvaluations.com/">Return to strategicbusinessvaluations.com</a></p>
-  </main>
-  <footer>&copy; 2026 Strategic Business Valuations &middot; Jacksonville, FL</footer>
+
+  <!-- ═══════════ HEADER ═══════════ -->
+  <header class="site-header">
+    <div class="container inner">
+      <a href="../index.html" class="logo-placeholder"><img src="../assets/SBV_logo.webp" alt="Strategic Business Valuations" height="45"></a>
+      <nav class="main-nav">
+        <a href="../index.html">Home</a>
+        <div class="nav-dropdown"><a href="../valuations.html">Services <svg class="chevron" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></a><div class="nav-dd-menu"><div class="nav-dd-inner"><a href="../valuations.html"><span class="dd-title">Valuations</span><span class="dd-desc">Certified reports for any situation</span></a><a href="../exit.html"><span class="dd-title">Exit Planning</span><span class="dd-desc">Maximize your exit value</span></a><a href="../advisory.html"><span class="dd-title">Buy-Sell Advisory</span><span class="dd-desc">Close the deal the right way</span></a></div></div></div>
+        <a href="../insights.html">Insights</a>
+        <a href="../about.html">About</a>
+        <a href="../faq.html">FAQ</a>
+        <a href="../contact.html">Contact</a>
+      </nav>
+      <div class="header-right">
+        <div class="header-cta-wrap">
+          <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember">Speak with a Certified Expert</a>
+          <span class="header-cta-sub">15-minute call · No obligation</span>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section class="qr-hero">
+    <div class="container">
+      <div class="qr-hero-inner">
+        <div class="eyebrow"><span class="line"></span><span>For financial planners and wealth advisors · XYPN 2026</span></div>
+        <h1>The business is the asset your owner clients <em>understand least.</em></h1>
+        <p class="lead">Here is your 18-point checklist: know the value, protect it, grow it, and plan an exit with no regrets.</p>
+        <div class="qr-hero-ctas">
+          <a href="#checklist" class="btn-ember xl">View the checklist</a>
+          <a href="./SBV_Business_Owner_Client_Checklist.pdf" class="btn-ghost" download>Download the PDF</a>
+        </div>
+        <p class="note">Free · One page · Use it in your next business owner meeting</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ FRAMEWORK STRIP ═══════════ -->
+  <nav class="qr-framework" aria-label="Checklist steps">
+    <div class="container">
+      <ol>
+        <li><a href="#grp-know"><span class="step">Step 01</span><span class="word">Know</span></a></li>
+        <li><a href="#grp-protect"><span class="step">Step 02</span><span class="word">Protect</span></a></li>
+        <li><a href="#grp-grow"><span class="step">Step 03</span><span class="word">Grow</span></a></li>
+        <li><a href="#grp-reap"><span class="step">Step 04</span><span class="word">Reap</span></a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <!-- ═══════════ WHY ═══════════ -->
+  <section class="section">
+    <div class="container">
+      <div class="qr-why reveal">
+        <div class="eyebrow"><span class="line"></span><span>For advisors who serve owners</span></div>
+        <h2>Why this matters to your practice</h2>
+        <p>For many business owners the company is the largest asset in their plan, and the least documented, least diversified and hardest to value. When a planner or wealth advisor can talk about it with confidence, the owner sees a trusted advisor who understands the whole picture. And when the business is one day sold, the advisor who helped prepare is best positioned to help manage what comes after.</p>
+        <p class="pull">The checklist is deliberately high level. Use it to ask better questions. When a client needs the detailed work, that is what we do.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CHECKLIST ═══════════ -->
+  <section id="checklist" class="section bg-card">
+    <div class="container">
+      <div class="section-header centered reveal">
+        <div class="eyebrow centered"><span class="line"></span><span>The SBV Proven Process</span><span class="line"></span></div>
+        <h2>The 18 items and why each matters</h2>
+        <p>Four steps: KNOW the value, PROTECT it, GROW it, REAP it.</p>
+      </div>
+
+      <div class="qr-groups">
+        <section class="qr-group reveal" id="grp-know">
+          <div class="qr-group-head">
+            <div><span class="step">Step 01</span><h3>Know</h3></div>
+            <p>Understand what the business is worth and what the owner needs.</p>
+          </div>
+          <ol class="qr-items">
+            <li><span class="num">01</span><div><h4>Get an independent market valuation</h4><p>It might be the most valuable asset, and the most illiquid.</p></div></li>
+            <li><span class="num">02</span><div><h4>Define the owner's number: after-tax proceeds needed for retirement</h4><p>Selling price can face a substantial tax liability, plan ahead.</p></div></li>
+            <li><span class="num">03</span><div><h4>Clarify exit goals and timeline: sale, family, employees or keep</h4><p>Each path has different timing, tax and readiness requirements.</p></div></li>
+            <li><span class="num">04</span><div><h4>Know what buyers pay more for</h4><p>Understand value drivers that command a premium in your industry.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="qr-group reveal" id="grp-protect">
+          <div class="qr-group-head">
+            <div><span class="step">Step 02</span><h3>Protect</h3></div>
+            <p>Keep the value from disappearing when something changes.</p>
+          </div>
+          <ol class="qr-items">
+            <li><span class="num">05</span><div><h4>Be financially prepared</h4><p>Know your red flags before buyers do.</p></div></li>
+            <li><span class="num">06</span><div><h4>Understand the hidden risk in your business</h4><p>Where are you most vulnerable to business value decline?</p></div></li>
+            <li><span class="num">07</span><div><h4>Secure key employees with documented roles, employment agreements and long-term incentives</h4><p>Losing one person can drop value overnight.</p></div></li>
+            <li><span class="num">08</span><div><h4>Keep buy-sell and ownership agreements current, funded and formula-based</h4><p>Outdated agreements cause disputes at death, disability, divorce or partner exit.</p></div></li>
+            <li><span class="num">09</span><div><h4>Test owner dependence: could the business run 90 days without the owner?</h4><p>Have a plan for all contingencies.</p></div></li>
+            <li><span class="num">10</span><div><h4>Two most common value killers: inconsistent revenue growth and personnel</h4><p>Take action on these two fundamentals that can add multiples to your selling price.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="qr-group reveal" id="grp-grow">
+          <div class="qr-group-head">
+            <div><span class="step">Step 03</span><h3>Grow</h3></div>
+            <p>Improve the drivers that raise value.</p>
+          </div>
+          <ol class="qr-items">
+            <li><span class="num">11</span><div><h4>Develop a growth plan that accelerates business value</h4><p>Align strategy and resource allocation with the growth that matters most.</p></div></li>
+            <li><span class="num">12</span><div><h4>Connect key performance indicators (KPIs) to employee compensation plans</h4><p>Aligned incentives turn strategy into daily behavior.</p></div></li>
+            <li><span class="num">13</span><div><h4>Manage expenses with vigilance</h4><p>Target consistent gross profit margins and scrutinize operating expenses.</p></div></li>
+            <li><span class="num">14</span><div><h4>Measure what you manage</h4><p>Produce accurate month-end financials and daily, weekly and monthly KPIs for all stakeholders.</p></div></li>
+          </ol>
+        </section>
+
+        <section class="qr-group reveal" id="grp-reap">
+          <div class="qr-group-head">
+            <div><span class="step">Step 04</span><h3>Reap</h3></div>
+            <p>Plan for an exit with no regrets.</p>
+          </div>
+          <ol class="qr-items">
+            <li><span class="num">15</span><div><h4>Evaluate your plan every six months</h4><p>Assess personal, business and financial goals, and any changes.</p></div></li>
+            <li><span class="num">16</span><div><h4>Line up your deal team early</h4><p>Include a valuation partner, M&amp;A advisor and experienced deal attorney.</p></div></li>
+            <li><span class="num">17</span><div><h4>Address personal transition matters</h4><p>Allow sufficient time to stay on after the sale, up to a year if necessary.</p></div></li>
+            <li><span class="num">18</span><div><h4>Align financial, personal and business readiness</h4><p>When all three are ready, you have the freedom to choose your next step.</p></div></li>
+          </ol>
+        </section>
+      </div>
+
+      <div class="qr-download reveal">
+        <a href="./SBV_Business_Owner_Client_Checklist.pdf" class="btn-ember xl" download>Download the checklist (PDF)</a>
+        <span class="sub">One page · Print it or share it</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ RESOURCES ═══════════ -->
+  <section id="resources" class="section">
+    <div class="container">
+      <div class="section-header centered reveal">
+        <div class="eyebrow centered"><span class="line"></span><span>Free resources</span><span class="line"></span></div>
+        <h2>Free guides to share with your clients</h2>
+        <p>Plain-English guides from the Value Builder system that owners can read on their own.</p>
+      </div>
+      <div class="qr-cards reveal">
+        <div class="qr-card">
+          <span class="kind">Free guide</span>
+          <h3>What drives the value of a business</h3>
+          <p>The eight drivers buyers look at, explained for owners who have never seen a valuation.</p>
+          <!-- TODO: link to the Value Builder "eight drivers" guide once Gary confirms the URL -->
+        </div>
+        <div class="qr-card">
+          <span class="kind">Free guide</span>
+          <h3>Getting a business ready for sale</h3>
+          <p>What to fix, document and protect years before an exit so nothing derails the deal.</p>
+          <a href="https://score.valuebuildersystem.com/landing/the-exit-checklist-ebook-landing-page/91f04810-5f06-4210-8a90-6288128231c8" target="_blank" rel="noopener noreferrer" class="btn-outline">Get the guide</a>
+        </div>
+        <div class="qr-card">
+          <span class="kind">For your clients</span>
+          <h3>Share with a client</h3>
+          <p>Send an owner client a link to this page with a note from you.</p>
+          <button type="button" id="copy-link" class="btn-outline">Copy this page's link</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ LEAD FORM ═══════════ -->
+  <section id="stay-in-touch" class="section bg-dark">
+    <div class="container">
+      <div class="qr-form-wrap reveal">
+        <div class="qr-form-copy">
+          <div class="eyebrow"><span class="line"></span><span>Stay in touch</span></div>
+          <h2>Get the checklist and stay in touch</h2>
+          <p>Leave your details and we will follow up with the checklist and a few useful resources. You can opt out anytime.</p>
+        </div>
+        <div>
+          <form id="leadForm" class="qr-form" name="xypn-checklist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="xypn-checklist">
+            <p class="hidden"><label>Leave this empty <input name="bot-field"></label></p>
+            <label>Name <input name="name" type="text" autocomplete="name" required></label>
+            <label>Firm <input name="firm" type="text" autocomplete="organization"></label>
+            <label>Email <input name="email" type="email" autocomplete="email" required></label>
+            <button class="btn-ember xl" type="submit">Send me the checklist</button>
+          </form>
+          <div id="formSuccess" class="qr-success" role="status">
+            <h3>Thank you.</h3>
+            <p>We will be in touch soon. Your checklist is ready to download now.</p>
+            <a href="./SBV_Business_Owner_Client_Checklist.pdf" class="btn-ember" download>Download the checklist (PDF)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CLOSING CTA ═══════════ -->
+  <section class="section bg-card">
+    <div class="container">
+      <div class="qr-close reveal">
+        <div class="eyebrow centered"><span class="line"></span><span>Work with us</span><span class="line"></span></div>
+        <h2>Have a business owner client thinking about the future?</h2>
+        <p>We work alongside planners and wealth advisors on valuation, protecting value, and exit planning, so you stay the trusted advisor throughout.</p>
+        <a href="https://calendly.com/gwba/one-on-one-with-gary" target="_blank" rel="noopener noreferrer" class="btn-ember xl">Speak with a Certified Expert</a>
+        <p class="alt">Prefer email? <a href="mailto:gwbusinessbrokers@gmail.com">gwbusinessbrokers@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="container">
+      <p class="qr-disclaimer" style="margin-top:4rem;">Educational use only. This checklist is not tax, legal, investment or valuation advice.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo-placeholder"><img src="../assets/SBV_logo.webp" alt="Strategic Business Valuations" height="40"></div>
+        <nav>
+          <a href="../index.html">Home</a>
+          <a href="../valuations.html">Services</a>
+          <a href="../insights.html">Insights</a>
+          <a href="../contact.html">Contact</a>
+        </nav>
+        <p class="copyright">© 2026 Strategic Business Valuations · Jacksonville, FL</p>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast" aria-live="polite"></div>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    (function () {
+      // Lead form: POST to Netlify Forms, same pattern as assets/js/contact.js
+      var form = document.getElementById('leadForm');
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('[type="submit"]');
+        btn.disabled = true;
+        btn.textContent = 'Sending...';
+        fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)).toString()
+        }).then(function (res) {
+          if (!res.ok) throw new Error('bad status');
+          form.style.display = 'none';
+          document.getElementById('formSuccess').classList.add('show');
+          if (window.gtag) gtag('event', 'generate_lead', { form_name: 'xypn-checklist' });
+        }).catch(function () {
+          btn.disabled = false;
+          btn.textContent = 'Send me the checklist';
+          alert('Something went wrong. Please email us at info@strategicbusinessvaluations.com');
+        });
+      });
+
+      // Copy link
+      var toastEl = document.getElementById('toast');
+      function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
+      }
+      document.getElementById('copy-link').addEventListener('click', function () {
+        var url = 'https://strategicbusinessvaluations.com/qr/';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(function () { toast('Link copied'); })
+            .catch(function () { toast('Copy the address from your browser bar'); });
+        } else { toast('Copy the address from your browser bar'); }
+      });
+    })();
+  </script>
 </body>
 </html>
