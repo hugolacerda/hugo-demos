@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SBV: Agent Pipeline Roadmap v13</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Libre+Franklin:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root { --ivory:#F5F0E8; --ivory-lt:#FBF8F3; --midnight:#0E1F3D; --ember:#C4553A; --green:#3E7A4C; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--ivory); color:#222; font-family:'Libre Franklin',sans-serif; font-weight:400; line-height:1.6; }
+.wrap { max-width:880px; margin:0 auto; padding:36px 24px 80px; }
+h1 { font-family:'Playfair Display',serif; font-weight:700; color:var(--midnight); font-size:34px; margin:0 0 6px; }
+h2.section { font-family:'Playfair Display',serif; font-weight:600; color:#fff; background:var(--midnight); padding:14px 20px; border-radius:8px; margin:48px 0 20px; font-size:20px; }
+h3.station { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:22px; margin:0 0 4px; }
+h4 { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:16px; margin:18px 0 6px; }
+.masthead { color:#6a6a6a; font-size:13px; margin-bottom:24px; }
+.meta { display:grid; grid-template-columns:140px 1fr; gap:8px 16px; background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:18px 22px; margin:20px 0 28px; font-size:14px; }
+.meta dt { font-weight:600; color:var(--midnight); }
+.meta dd { margin:0; }
+.point { background:var(--midnight); color:var(--ivory); border-radius:10px; padding:20px 24px; font-size:15px; margin-bottom:28px; }
+.point strong { color:#fff; }
+.newbox { background:#fff; border:2px solid var(--ember); border-radius:10px; padding:20px 24px; margin-bottom:32px; }
+.newbox h4 { color:var(--ember); font-size:17px; margin-top:0; }
+.newbox ul { margin:8px 0 0; padding-left:20px; }
+.newbox li { margin-bottom:10px; font-size:14.5px; }
+.line-list { list-style:none; margin:0; padding:0; }
+.line-list li { display:flex; gap:16px; align-items:flex-start; padding:14px 0; border-bottom:1px solid #E4DCCE; }
+.line-num { font-family:'Playfair Display',serif; font-weight:700; color:var(--ember); font-size:15px; min-width:24px; }
+.line-body strong { color:var(--midnight); }
+.badge { display:inline-block; font-size:10.5px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; padding:3px 9px; border-radius:20px; margin-left:8px; vertical-align:2px; }
+.badge.new { background:var(--ember); color:#fff; }
+.card { background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:22px 24px; margin-bottom:22px; }
+.tagrow { margin:6px 0 16px; font-size:13px; color:#666; }
+.tagrow .built-tag { color:var(--green); font-weight:600; }
+.card h5 { font-family:'Playfair Display',serif; color:var(--midnight); font-size:14px; margin:16px 0 6px; }
+.card ul { margin:4px 0 0; padding-left:20px; font-size:14px; }
+.card li { margin-bottom:5px; }
+.note { background:var(--ivory); border-left:4px solid var(--midnight); border-radius:4px; padding:12px 16px; margin-top:14px; font-size:13.5px; }
+.note.ember { border-left-color:var(--ember); }
+.example { font-size:12.5px; color:#888; font-style:italic; margin-top:14px; padding-top:10px; border-top:1px dashed #E4DCCE; }
+.grouphead { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:18px; margin:30px 0 4px; }
+.groupsub { font-size:13px; color:#666; margin:0 0 14px; }
+.decision { background:#fff; border:1px solid #E4DCCE; border-radius:10px; padding:18px 22px; margin-bottom:14px; }
+.decision.resolved { border-color:var(--green); background:#FAFDFB; }
+.decision.parked { background:var(--ivory-lt); }
+.decision h4 { margin-top:0; }
+.decision p { font-size:14px; margin:6px 0; }
+.boundary { margin-bottom:18px; }
+.boundary .bname { font-family:'Playfair Display',serif; font-weight:600; color:var(--midnight); font-size:15px; }
+.boundary .bwhy { color:#555; font-size:11px; text-transform:uppercase; letter-spacing:.4px; }
+footer { margin-top:60px; padding-top:20px; border-top:1px solid #E4DCCE; font-size:12px; color:#888; text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Agent Pipeline Roadmap</h1>
+<p class="masthead">Strategic Business Valuations &middot; Internal</p>
+
+<div class="meta">
+<dt>Version</dt><dd>v13, October 6, 2026</dd>
+<dt>Status</dt><dd>The full sample report is built by the agents in Gary's own order: 31 pages, rebuilt on October 2 with the cleanup listed below. It is waiting on Gary's read.</dd>
+<dt>Built for</dt><dd>Nancy. It runs on Hugo's machine today; setting it up on Nancy's and Gary's machines comes before the second client.</dd>
+<dt>Test engagement</dt><dd>Project Firefly</dd>
+<dt>Awaiting</dt><dd>21 items: 4 the two of you answer together, 10 for Gary, and 7 for Nancy. Most are a sentence.</dd>
+</div>
+
+<div class="point">
+<strong>The point.</strong> The agents produce the draft. Nancy's name goes on the deliverable. Nothing here decides what a business is worth. That judgment stays where it belongs.
+</div>
+
+<div class="newbox">
+<h4>New since v12</h4>
+<ul>
+<li><strong>The report follows Gary's order.</strong> Twelve sections, from the cover and the Industry Report through the recast, the range of value, the value drivers, the dashboard, Growth by Design and Next Steps, with a closing page of assumptions and limits. The sample is the 31-page body. The detail (the rest of the Industry Report, the customer table, the balance sheet, every scenario) is an appendix, built when asked for.</li>
+<li><strong>Gary's valuation method runs.</strong> A conservative value on the completed years, weighted 50/33/17. Three market cases (low, middle, high) on the most recent twelve months, differing only by the multiple. The multiple is placed inside its range by the Value Builder score. A one-page dashboard grades what an owner should know about the business as High, Medium or OK.</li>
+<li><strong>The industry code is proposed, then confirmed.</strong> The agent proposes a code from the business's largest share of revenue or gross profit. A person confirms it before anything else runs.</li>
+<li><strong>Growth by Design is a new station.</strong> Built to match Gary's example: where the value could go if three things improve, year by year, with charts. The projection math runs behind it; there is no separate Pro Forma section.</li>
+<li><strong>The Industry Report is supplied once per client</strong> and then treated as finished, like any reviewed page. A later rerun never rewrites it.</li>
+<li><strong>A Next Steps page is drafted for Gary to mark up.</strong> It answers the question Growth by Design ends on, "Where do we start?", under the SBV Proven Process.</li>
+<li><strong>October 2 cleanup.</strong> Every recast worksheet now adds up exactly from top to bottom (two years were a dollar off from rounding), and two lines that were zero in every year no longer print. The value page now states the advisor-set range in Gary's own words and no longer says the comparable-sales pull is "to follow." No value on the page changed.</li>
+</ul>
+</div>
+
+<h2 class="section">01: Orientation</h2>
+
+<h3 style="font-family:'Playfair Display',serif; color:var(--midnight);">How this actually works</h3>
+<p>The short version, no jargon. Think of it as <strong>an assembly line with stations</strong>. A folder of the client's documents goes in one end. A drafted valuation report comes out the other. Each station does exactly one job, hands its work to the next, and writes down anything it couldn't figure out.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">One job each</h5>
+<p>Every agent produces <strong>one thing</strong>: a worksheet, a memo, a number, a report. Not "handles the financials." One noun. An agent with one job either does it or visibly doesn't. An agent with four jobs fails at one of them quietly.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">They never decide</h5>
+<p>No agent chooses a weighting or concludes what a business is worth. Those arrive from Nancy on an input sheet, and the agent <strong>applies</strong> them. The range of multiples comes from comparable sales or from an advisor, with the source named. Inside that range the agent places the multiple by the Value Builder score, the way Gary's method does, and it proposes the industry code. In every case a person says yes before anything finished is produced.</p>
+
+<h5 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:15px;">They flag, they don't fix</h5>
+<p>When something's wrong or missing the agent <strong>reports it and keeps going</strong>, unless the problem makes the numbers unreliable, in which case it stops and asks. It never quietly corrects a number or invents one to fill a gap. Everything it flags lands in one place per client.</p>
+
+<div class="note"><strong>What Nancy actually does to run it.</strong> Drop the client's documents into that client's Inputs folder, including the add-backs workbook and the Industry Report. Tell the first agent the business name. It asks a handful of questions with clickable answers and sets up the folders. Then run the agents in order. Each one finishes by showing her what it made and telling her what needs her eyes.</div>
+
+<h2 class="section">02: The line</h2>
+<h3 style="font-family:'Playfair Display',serif; color:var(--midnight); font-size:19px; margin-bottom:4px;">Nine stations, in order</h3>
+<p style="font-size:13.5px; color:#666; margin-top:0;">Each hands off to the next. Nancy reviews at the end, and can stop at any station.</p>
+
+<ul class="line-list">
+<li><span class="line-num">01</span><div class="line-body"><strong>Intake</strong>: Sets up the client. Checks the documents make sense.</div></li>
+<li><span class="line-num">02</span><div class="line-body"><strong>Recast Worksheet</strong>: Normalizes the P&amp;L. Produces SDE and EBITDA.</div></li>
+<li><span class="line-num">03</span><div class="line-body"><strong>Balance Sheet</strong>: Transferable assets against what the owner keeps, and a walk from the value to what the owner takes home after debt. Appendix only.</div></li>
+<li><span class="line-num">04</span><div class="line-body"><strong>Revenue &amp; Customers</strong>: Who the revenue comes from, and how concentrated. Appendix only.</div></li>
+<li><span class="line-num">05</span><div class="line-body"><strong>Value Builder Summary</strong>: The eight drivers, written up.</div></li>
+<li><span class="line-num">06</span><div class="line-body"><strong>Observations</strong>: Where the quantitative and qualitative work meet.</div></li>
+<li><span class="line-num">07</span><div class="line-body"><strong>Earnings &amp; Value</strong><span class="badge new">Gary's method</span>: The conservative value, the three market cases and the valuation dashboard.</div></li>
+<li><span class="line-num">08</span><div class="line-body"><strong>Growth by Design</strong><span class="badge new">New</span>: Where the value could go, and what moves it.</div></li>
+<li><span class="line-num">09</span><div class="line-body"><strong>Report Narrative</strong>: Assembles everything into the report, in Gary's order.</div></li>
+<li><span class="line-num">&middot;</span><div class="line-body"><strong>Human</strong>: Nancy reviews and signs. Judgment, edits, sign-off. The part that isn't automated and won't be.</div></li>
+</ul>
+
+<h2 class="section">03: The team</h2>
+<p style="font-size:13.5px; color:#666;">One card per agent: what it does, what it needs from you, what you get back, and where it stands today. Every example carries a live client's figures and is sent separately by email rather than published here.</p>
+
+<div class="card">
+<h3 class="station">Intake</h3>
+<div class="tagrow"><span class="built-tag">Built and run for real</span></div>
+<p>Sets the engagement up, reads every source document before anything else touches them, and opens the working notes the whole team writes to. The only agent that knows the client's real name, and it will not start without it.</p>
+<h5>What it needs from you</h5>
+<ul><li>Which tier, and SDE, EBITDA or both</li><li>The client's documents in the Inputs folder</li></ul>
+<h5>What you get back</h5>
+<ul><li>A codename, the valuation date, and the folders every other agent uses</li><li>A list of problems it found in the source documents, stated as fact</li></ul>
+<div class="note">A statement covering only part of a year is kept out of the recast rather than passed along. Nothing is ever stretched to look like a full year. The industry code is no longer asked for here; Earnings &amp; Value proposes it and a person confirms.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Recast Worksheet</h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked October 2, 2026</span></div>
+<p>Takes the client's P&amp;L exactly as their bookkeeper wrote it, adds back what a buyer wouldn't inherit, and produces normalized earnings. The foundation everything else stands on.</p>
+<h5>What it needs from you</h5>
+<ul><li>Profit &amp; loss statements, two years minimum, three preferred, twelve full months each</li><li>The add-backs workbook (add-backs, replacement salary, rent)</li></ul>
+<h5>What you get back</h5>
+<ul><li>One worksheet per year, a multi-year comparison laid out side by side the way ValuTrax does it, and a summary carrying SDE and EBITDA</li><li>One combined document for you and Nancy, plus the same pages separately</li></ul>
+<div class="note ember">Every worksheet now adds up exactly, top to bottom: net income always equals gross profit less total expenses. Lines that are zero in every year no longer print. SDE and EBITDA did not change.</div>
+<div class="note">The station still flags accounts whose own names say the books have not been reconciled, and never adds one back. On the test engagement these read as a pattern in the client's books. Question 3 below.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Balance Sheet</h3>
+<div class="tagrow"><span class="built-tag">Built &middot; last run September 23, 2026 &middot; runs when Hugo schedules it</span></div>
+<p>Recasts the client's balance sheet to what it's actually worth in a sale, then walks from the value down to what the owner takes home, cash-free and debt-free.</p>
+<h5>What it needs from you</h5>
+<ul><li>The client's balance sheet</li><li>An advisor or owner estimate of real estate and fixed-asset market value, never guessed if missing</li></ul>
+<h5>What you get back</h5>
+<ul><li>A recast table for every asset and liability line, real estate on its own, every debt on its own line</li><li>A walk from the value to what the owner keeps</li></ul>
+<div class="note">Gary's order has no place for it, so it goes in the appendix, and only once the estimates are in. Until then its pages are for Nancy's review. The estimates are question 20; the heading on its value walk is question 11.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Revenue &amp; Customers</h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked September 23, 2026</span></div>
+<p>Ranks who the revenue actually comes from. Concentration is one of the eight drivers, and it's the one a buyer asks about first.</p>
+<h5>What it needs from you</h5>
+<ul><li>Income by customer, per year</li></ul>
+<h5>What you get back</h5>
+<ul><li>A ranked table of the top 15, plus everyone else, with a subtotal that adds up to the lines printed above it</li><li>A short dashboard: total customers, top 15 share, largest single customer</li></ul>
+<div class="note">In the appendix, not the body, because Gary's order has no place for it. Customer identities show as labels (Customer 1, Residential account 1) while question 1 is open. Street addresses never appear.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Value Builder Summary</h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked September 24, 2026</span></div>
+<p>Turns the Value Builder assessment into eight written drivers: the qualitative half of the report.</p>
+<h5>What it needs from you</h5>
+<ul><li>The client's Value Builder assessment</li><li>The owner's completed questionnaire, when it can be exported (question 14)</li></ul>
+<h5>What you get back</h5>
+<ul><li>All eight drivers scored against the industry, each ending with what it means for a buyer</li><li>A closing section on what the profile says as a whole</li></ul>
+<div class="note ember">The Value Gap priorities page came out, as Gary decided on September 24. It belongs to exit planning work, not the valuation report.</div>
+<div class="note">Where an answer in the assessment exists only as a picture the agent cannot read clearly, it lists it for Nancy to confirm rather than guessing. Question 21.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Observations</h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked September 23, 2026</span></div>
+<p>Reads the recast and the value driver summary and says what they mean: a plain statement followed by two to four bullets, for each theme.</p>
+<h5>What it needs from you</h5>
+<ul><li>Nothing new; anything you know that the documents don't say can be typed in when you run it</li></ul>
+<h5>What you get back</h5>
+<ul><li>An executive summary at the top and the detailed observations below, as Gary confirmed in August</li></ul>
+<div class="note">The October 2 recast cleanup did not touch any figure this memo quotes. Question 12 is about how many observations it writes.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Earnings &amp; Value <span class="badge new">Gary's method</span></h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked October 2, 2026</span></div>
+<p>Produces the value the way Gary's own sample does: a conservative value on the completed years, and three market cases on the most recent twelve months. Then the one-page valuation dashboard.</p>
+<h5>What it needs from you</h5>
+<ul><li>A confirmed industry code (the agent proposes one)</li><li>The range of multiples, with its source: comparable sales once pulled, an advisor's range until then</li><li>The most recent twelve months of results</li><li>The Value Builder score and the industry average</li><li>For the income method, when it runs: the discount rate pieces and the revenue and margin assumptions</li></ul>
+<h5>What you get back</h5>
+<ul><li>A conservative value, the completed years weighted 50/33/17</li><li>Low, middle and high market cases on one twelve-month base, differing only by the multiple</li><li>The valuation dashboard: findings about the business graded High, Medium or OK, never anything about the work behind it</li><li>Every figure reproducible by hand from the other printed figures</li></ul>
+<div class="note">The arithmetic runs in tested code, and the page wording is fixed. While the range is an advisor's, the page says so next to the figure in Gary's own words. The comparable-sales pull is question 15. The income method is built but has not run yet; its inputs are question 19.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Growth by Design <span class="badge new">New</span></h3>
+<div class="tagrow"><span class="built-tag">Built and run September 25, 2026</span></div>
+<p>Shows the owner where the value could go if three things improve, year by year, built to match Gary's example. The projection math runs behind it; the owner sees only the resulting values and what moves them.</p>
+<h5>What it needs from you</h5>
+<ul><li>Today's value and multiple</li><li>The three levers and their targets</li><li>A short plan for each lever (question 8)</li></ul>
+<h5>What you get back</h5>
+<ul><li>Four pages with line charts and outlined bars in the report's colors, plus a page of every scenario in the appendix</li></ul>
+<div class="note">Until the lever plans are written, their lines print as blanks to fill in. Questions 5 to 8 are about this section.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<div class="card">
+<h3 class="station">Report Narrative</h3>
+<div class="tagrow"><span class="built-tag">Re-run and checked October 2, 2026, on the current figures</span></div>
+<p>Assembles everything above into the report Nancy edits and signs, in Gary's twelve-section order. It writes nothing new and recalculates nothing: it carries every figure exactly as the earlier stations published it.</p>
+<h5>What it needs from you</h5>
+<ul><li>Every earlier station's output</li><li>The Industry Report for the client, supplied once</li><li>A client brief: purpose, a business description, who it's prepared for</li></ul>
+<h5>What you get back</h5>
+<ul><li>A 31-page report with a linked contents page, numbered correctly straight through the Industry Report's pages</li><li>The summary of factors: one line per factor, what is, no actions</li><li>A Next Steps page, drafted for Gary to mark up</li><li>The appendix, when asked for</li></ul>
+<div class="note">Two layout calls were made without a word from Gary, and he may want them changed: question 10.</div>
+<div class="example">Test engagement example: sent separately by email.</div>
+</div>
+
+<h2 class="section">04: Over to you</h2>
+<p style="font-size:13.5px; color:#666;">Where you've spoken, the agents follow you. Where you haven't, a default is standing in, listed so you can overrule it in a sentence.</p>
+
+<p class="grouphead">Together</p>
+<p class="groupsub">Four that need the two of you in the same conversation.</p>
+
+<div class="decision">
+<h4>1. Customer names on the concentration table.</h4>
+<p>Gary wants real names because they are relatable to the owner; Nancy wants them hidden for confidentiality. One possible middle ground: real names on the owner's own valuation, since they are the owner's own customers, and labels in anything a buyer or outsider sees. Hidden for now.</p>
+</div>
+
+<div class="decision">
+<h4>2. The valuation date. <span class="badge new">New</span></h4>
+<p>The sample's cover dates the value December 31, 2025. The three market cases use the business's results through May 2026. Should the report carry a later date, or say plainly which results each value rests on? Until you say, December 31, 2025 stays on the cover.</p>
+</div>
+
+<div class="decision">
+<h4>3. Bookkeeping items for the client.</h4>
+<p>The test engagement's books carry unreconciled accounts, and the customer list is mostly property addresses, so we cannot tell how many belong to the same owner. Both are for their bookkeeper, not for you, but they change how confident the report can sound.</p>
+</div>
+
+<div class="decision">
+<h4>4. Next Steps: how often, and what it's called.</h4>
+<p>The page offers a valuation update once or twice a year, an annual planning conference, and one to four working sessions a month. On October 6 Gary described meeting every two weeks with an annual planning event. Which should the page say, and what is the service called? "Exit planning" stays off the page in the meantime.</p>
+</div>
+
+<p class="grouphead">Gary</p>
+<p class="groupsub">Ten. The first four are about Growth by Design and the value it starts from.</p>
+
+<div class="decision">
+<h4>5. Which value of the business "today" leads?</h4>
+<p>Growth by Design starts from one value today, the range of value page from another, on different multiples, both as in your examples. Which should the report lead with, and where should the Growth by Design multiple come from?</p>
+</div>
+
+<div class="decision">
+<h4>6. Revenue or profit on the "$1 becomes $3" page?</h4>
+<p>On September 23 you said you'd like to see it with revenue. Your September 24 version uses profit, and the agent follows that version until you say otherwise.</p>
+</div>
+
+<div class="decision">
+<h4>7. One rule for placing the multiple, or two?</h4>
+<p>The valuation moves the multiple a little for each point the Value Builder score sits above or below the industry. Growth by Design uses a steeper scale. Should Growth by Design use the valuation's rule? For now both stand as you wrote them.</p>
+</div>
+
+<div class="decision">
+<h4>8. Who writes the three lever plans?</h4>
+<p>You and Nancy per client, or the agent proposes them from the biggest driver gaps for you to edit? Default: the agent proposes, marked as proposals.</p>
+</div>
+
+<div class="decision">
+<h4>9. The Industry Report: "change SDE to..."</h4>
+<p>On September 23 you started to change the SDE margin line and did not finish the sentence. It still reads as it did.</p>
+</div>
+
+<div class="decision">
+<h4>10. Two layout calls Hugo made. Keep them?</h4>
+<p>The assumptions and limits are the report's last page, because Nancy signs it. And "numbers in SBV format" shows the recast worksheets the way ValuTrax opens its report, not the client's raw statements.</p>
+</div>
+
+<div class="decision">
+<h4>11. Three labels. Yes?</h4>
+<p>A plain heading on the balance sheet's value walk instead of "Enterprise Value", which is certified-report language. "Summary" as the factors heading, with "Factors Impacting Business Valuation and Sellability" underneath. And the comparable-sales sources keep their names on the page, as in your own sample.</p>
+</div>
+
+<div class="decision">
+<h4>12. Is the number of observations fixed?</h4>
+<p>The count came from the first build, not from you. Fixed, or as many as the numbers support?</p>
+</div>
+
+<div class="decision">
+<h4>13. Inventory at closing.</h4>
+<p>Your sample adds inventory at cost on top of the value at closing. Until now the agents have treated normal operating inventory as already inside the value. Which is it? With Nancy.</p>
+</div>
+
+<div class="decision">
+<h4>14. Still waiting on from you:</h4>
+<p>the owner's completed Value Builder questionnaire as an export (and whether it is a standard input from now on), the low, middle and high bar from the Peer Comps report you said shows the range better, and the labor-table spreadsheet.</p>
+</div>
+
+<p class="grouphead">Nancy</p>
+<p class="groupsub">Seven. The first two replace the advisor's figures with real ones.</p>
+
+<div class="decision">
+<h4>15. The comparable-sales pull for the confirmed code.</h4>
+<p>For All Other Home Furnishings Retailers, the code now on file. Until it is in, the page prints the advisor-set range with Gary's caveat beside it.</p>
+</div>
+
+<div class="decision">
+<h4>16. The actual twelve months, and the revenue split.</h4>
+<p>The market cases run on Gary's annualized figure, with his note that actual results replace it when available. The split between retail and service revenue is a check on the industry code.</p>
+</div>
+
+<div class="decision">
+<h4>17. Your factors list.</h4>
+<p>If you have one for the test engagement, your list replaces the standard outline the report uses today.</p>
+</div>
+
+<div class="decision">
+<h4>18. The replacement salary.</h4>
+<p>Your add-backs sheet carries one, which makes the EBITDA line real. We assume that was intended. Say so if not.</p>
+</div>
+
+<div class="decision">
+<h4>19. The income method inputs, and the GLS sheet.</h4>
+<p>Gary thought you had already built one like it for GLS. If you can send that sheet, it becomes the model. Reconciliation weights are only needed once it runs.</p>
+</div>
+
+<div class="decision">
+<h4>20. The balance sheet estimates.</h4>
+<p>Real estate and fixed-asset market values, from you or the owner. They bring the balance sheet into the appendix.</p>
+</div>
+
+<div class="decision">
+<h4>21. Two read-throughs.</h4>
+<p>The Value Builder summary: if it reads right to you, it becomes the reference example. And the "Notes to the recast" page: does it work when you walk an owner through the worksheets?</p>
+</div>
+
+<p class="grouphead">Parked for later, no answer needed now</p>
+<div class="decision parked">
+<p>What an Explore client gets that an Express client does not; for now every engagement produces the same outputs. A PowerPoint version. The look of the pages stays as it is in the sample until a house style guide replaces it. The monthly value-tracking dashboard Gary described and parked.</p>
+</div>
+
+<p class="grouphead">Resolved since v12</p>
+<div class="decision resolved">
+<p><strong>The report's order</strong> is Gary's, twelve sections, with no Pro Forma section and no Value Gap page; the Value Gap belongs to exit planning work.</p>
+<p><strong>The industry code</strong> for the test engagement is All Other Home Furnishings Retailers, matching Gary's own report. From now on the agent proposes and a person confirms.</p>
+<p><strong>Cash and receivables</strong> stay out of the value, as Gary's method and Nancy's both say.</p>
+<p><strong>Researching multiples and codes:</strong> Gary's written method is the default the agents follow.</p>
+<p><strong>Year weighting</strong> is 50/33/17 on the completed years. The SBA check found no requirement, so the weighting is SBV's own choice.</p>
+<p><strong>The multi-year page</strong> follows ValuTrax, side by side.</p>
+<p><strong>Gary's examples arrived:</strong> the scenario planner and growth forecast came as Growth by Design and the Pro Forma report, and both are now the standard the agents match.</p>
+</div>
+
+<h2 class="section">05: Boundaries</h2>
+<p style="font-size:13.5px; color:#666;">What the agents will not do. Design decisions, not limitations to fix later.</p>
+
+<div class="boundary">
+<div class="bname">Finalizing the multiple, and the weighting</div>
+<div class="bwhy">Judgment</div>
+<p>The weighting is Nancy's. The range of multiples comes from comparable sales or an advisor; the agent places the multiple inside it, and a person says yes before anything finished is produced. An agent that could finalize it could produce a valuation, and then nobody could say whose opinion it was.</p>
+</div>
+
+<div class="boundary">
+<div class="bname">The industry code</div>
+<div class="bwhy">A person's call</div>
+<p>Proposed by the agent from the largest share of revenue or gross profit, confirmed by a person before the run goes on.</p>
+</div>
+
+<div class="boundary">
+<div class="bname">The signature</div>
+<div class="bwhy">Accountability</div>
+<p>Nothing is client-ready until a person has read the working notes and signed. Nothing leaves the machine on the agents' say-so.</p>
+</div>
+
+<div class="boundary">
+<div class="bname">Walking a client through it</div>
+<div class="bwhy">The conversation</div>
+<p>The reports exist so Gary can sit next to an owner and take them through the process. The agents build the artifact. They don't do the meeting.</p>
+</div>
+
+<div class="note ember"><strong>One structural safeguard worth naming.</strong> When an agent doesn't know something, it asks rather than filling the gap. On a page that means the line is left blank, with no invented figure. The question goes to Nancy in the working notes she reads before she signs. A visible gap is recoverable. A plausible invention that reaches a client is not.</div>
+
+<footer>SBV: Agent Pipeline Roadmap v13 &middot; October 6, 2026 &middot; Internal, not for client distribution</footer>
+
+</div>
+</body>
+</html>
