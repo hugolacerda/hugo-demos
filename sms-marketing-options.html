@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing Texts: Options</title>
+<style>
+  :root{
+    --ink:#14213d; --muted:#5b6474; --line:#e3e6ec; --bg:#f6f7f9; --card:#ffffff;
+    --navy:#1d3557; --gold:#c9963b; --green:#2a9d6f; --amber:#d68a1c; --red:#c2453d;
+    --soft-green:#e8f6ef; --soft-amber:#fdf3e1; --soft-red:#fbeceb; --soft-navy:#e9eef6;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif}
+  .wrap{max-width:980px;margin:0 auto;padding:40px 20px 64px}
+  header{border-bottom:3px solid var(--gold);padding-bottom:18px;margin-bottom:32px}
+  .eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);font-weight:700}
+  h1{font-size:34px;line-height:1.15;margin:6px 0 6px;color:var(--navy)}
+  .sub{color:var(--muted);margin:0}
+  h2{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:44px 0 14px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+
+  /* status track */
+  .track{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+  .step{background:var(--card);border:1px solid var(--line);padding:18px;position:relative}
+  .step:first-child{border-radius:12px 0 0 12px}
+  .step:last-child{border-radius:0 12px 12px 0}
+  .step + .step{border-left:none}
+  .dot{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;margin-bottom:10px}
+  .done .dot{background:var(--green)} .next .dot{background:var(--amber)} .todo .dot{background:#9aa3b2}
+  .step b{display:block;font-size:16px}
+  .step span{color:var(--muted);font-size:14px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:99px;margin-top:8px}
+  .t-green{background:var(--soft-green);color:var(--green)} .t-amber{background:var(--soft-amber);color:var(--amber)} .t-gray{background:#eef0f3;color:#6b7280}
+  .t-red{background:var(--soft-red);color:var(--red)} .t-navy{background:var(--soft-navy);color:var(--navy)}
+
+  /* the trade */
+  .card p.rule{font-size:20px;font-weight:600;color:var(--navy);margin:0 0 16px}
+  .trade{display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;gap:12px}
+  .trade .card{text-align:center}
+  .trade .big{font-size:22px;font-weight:700;color:var(--navy);margin:6px 0}
+  .arrow{font-size:28px;color:var(--gold);text-align:center;font-weight:700}
+  .small{font-size:14px;color:var(--muted)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
+  .chip{background:var(--soft-navy);color:var(--navy);border-radius:99px;padding:4px 10px;font-size:13px;font-weight:600}
+
+  /* ways to say yes */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .icon{width:44px;height:44px;border-radius:10px;background:var(--soft-navy);display:grid;place-items:center;margin-bottom:10px}
+  .icon svg{width:24px;height:24px;stroke:var(--navy);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{margin:0 0 4px;font-size:17px}
+  .card p{margin:0;font-size:14px;color:var(--muted)}
+
+  /* ideas */
+  .idea{display:grid;grid-template-columns:1fr 270px;gap:22px;align-items:center;margin-bottom:14px}
+  .idea.top{border:2px solid var(--gold)}
+  .rank{font-size:12px;font-weight:800;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+  .idea h3{font-size:20px;margin:2px 0 6px}
+  .facts{list-style:none;padding:0;margin:10px 0 0;font-size:14px}
+  .facts li{padding:3px 0;color:var(--ink)}
+  .facts li::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:middle}
+  .phone{background:#111827;border-radius:26px;padding:14px 12px 18px}
+  .phone .from{color:#9ca3af;font-size:11px;text-align:center;margin-bottom:10px}
+  .bubble{background:#e5e7eb;color:#111;border-radius:16px 16px 16px 4px;padding:10px 12px;font-size:13.5px;line-height:1.4}
+  .ex{color:#9ca3af;font-size:10px;text-align:center;margin-top:8px;letter-spacing:.08em;text-transform:uppercase}
+
+  /* skip */
+  .skip{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .skip .card{border-left:4px solid var(--red)}
+
+  /* pilot */
+  .flow{display:flex;align-items:stretch;gap:0}
+  .flow .f{flex:1;background:var(--card);border:1px solid var(--line);padding:14px 14px 14px 26px;position:relative;font-size:14px}
+  .flow .f:first-child{border-radius:12px 0 0 12px;padding-left:16px}
+  .flow .f:last-child{border-radius:0 12px 12px 0}
+  .flow .f + .f{border-left:none}
+  .flow .f b{display:block;font-size:15px;color:var(--navy)}
+  .flow .n{font-size:11px;font-weight:800;color:var(--gold)}
+  .cost{display:flex;gap:14px;margin-top:14px}
+  .cost .card{flex:1;text-align:center}
+  .cost .num{font-size:26px;font-weight:800;color:var(--navy)}
+
+
+  /* more ideas */
+  .group-title{font-size:15px;font-weight:700;color:var(--navy);margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+  .group-title .tag{margin:0}
+  .mini{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .mini .card{padding:16px;display:flex;flex-direction:column}
+  .mini h3{font-size:15px;margin:0 0 6px}
+  .who{display:flex;gap:5px;margin-bottom:8px}
+  .who span{font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 7px;border-radius:5px}
+  .w-sbv{background:var(--soft-navy);color:var(--navy)} .w-gba{background:#f3ece0;color:#8a6420}
+  .say{margin-top:auto;padding-top:10px}
+  .say div{background:#eef0f3;border-radius:12px 12px 12px 3px;padding:8px 10px;font-size:12.5px;line-height:1.4;color:#1f2937}
+  .fav{border:2px solid var(--gold)}
+  .fav .star{font-size:10.5px;font-weight:800;color:var(--gold);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+
+  /* approval lanes */
+  .lanes{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .lane h3{font-size:18px;margin:0 0 2px}
+  .lane .small{margin-bottom:14px}
+  .steps{list-style:none;padding:0;margin:0;counter-reset:s}
+  .steps li{counter-increment:s;position:relative;padding:0 0 14px 40px;font-size:14px}
+  .steps li::before{content:counter(s);position:absolute;left:0;top:0;width:26px;height:26px;border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;display:grid;place-items:center}
+  .steps li::after{content:"";position:absolute;left:12px;top:28px;bottom:2px;width:2px;background:var(--line)}
+  .steps li:last-child::after{display:none}
+  .steps b{display:block;font-size:14.5px}
+  .own{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:1px 7px;border-radius:5px;margin-left:6px;vertical-align:1px}
+  .o-hugo{background:var(--soft-navy);color:var(--navy)} .o-gary{background:var(--soft-amber);color:var(--amber)}
+  .o-chuck{background:#efe9f7;color:#6b4fa0} .o-car{background:#eef0f3;color:#6b7280}
+  .lane .cost{margin-top:4px}
+  .lane .cost .card{padding:12px}
+  .lane .cost .num{font-size:20px}
+  .note{background:var(--soft-amber);border-radius:10px;padding:12px 14px;font-size:13.5px;margin-top:14px;color:#6b4a12}
+
+  /* decisions */
+  .ask{display:grid;gap:10px}
+  .ask .card{display:flex;gap:14px;align-items:flex-start}
+  .box{flex:0 0 22px;height:22px;border:2px solid var(--navy);border-radius:5px;margin-top:2px}
+  footer{margin-top:44px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+
+  @media (max-width:760px){
+    .track,.grid3,.skip,.mini,.lanes{grid-template-columns:1fr}
+    .step,.step:first-child,.step:last-child{border-radius:12px}
+    .step + .step{border-left:1px solid var(--line);margin-top:10px}
+    .trade{grid-template-columns:1fr}
+    .arrow{transform:rotate(90deg)}
+    .idea{grid-template-columns:1fr}
+    .flow{flex-direction:column}
+    .flow .f,.flow .f:first-child,.flow .f:last-child{border-radius:12px;padding-left:16px}
+    .flow .f + .f{border-left:1px solid var(--line);margin-top:8px}
+    .cost{flex-direction:column}
+    h1{font-size:28px}
+  }
+  @media print{body{background:#fff}.wrap{padding:0}.card,.step,.flow .f{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">SBV &amp; GBA &middot; For discussion</div>
+  <h1>Marketing Texts: Ideas and How We Get Approved</h1>
+  <p class="sub">Prepared by Hugo &middot; October 12, 2026</p>
+</header>
+
+<h2>Where we are</h2>
+<div class="track">
+  <div class="step done">
+    <div class="dot">&#10003;</div>
+    <b>Workshop reminder texts</b>
+    <span>Approved for SBV. Ready to send.</span><br>
+    <span class="tag t-green">Done</span>
+  </div>
+  <div class="step next">
+    <div class="dot">2</div>
+    <b>Decide what we'd text</b>
+    <span>Carriers want real example messages before they approve marketing texts.</span><br>
+    <span class="tag t-amber">Your call</span>
+  </div>
+  <div class="step todo">
+    <div class="dot">3</div>
+    <b>Get marketing texts approved</b>
+    <span>A second approval. The first one took about a week.</span><br>
+    <span class="tag t-gray">After step 2</span>
+  </div>
+</div>
+
+<h2>The one rule</h2>
+<div class="card">
+  <p class="rule">People have to say yes before we text them. No exceptions.</p>
+  <div class="trade">
+    <div class="card" style="background:var(--bg)">
+      <div class="small">Online stores trade</div>
+      <div class="big">A discount code</div>
+      <div class="small">for your phone number</div>
+    </div>
+    <div class="arrow">&rarr;</div>
+    <div class="card" style="background:var(--bg)">
+      <div class="small">We can trade</div>
+      <div class="big">Early access</div>
+      <div class="chips"><span class="chip">Next workshop</span><span class="chip">New listings</span><span class="chip">Replay link</span><span class="chip">Value score</span></div>
+    </div>
+  </div>
+  <p class="small" style="margin-top:14px">This means cold email lists (like Instantly) can't be texted. Their replies can be invited to sign up, though.</p>
+</div>
+
+<h2>How people say yes</h2>
+<div class="grid3">
+  <div class="card">
+    <div class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8"/><path d="M8 16.5l1.5 1.5L12 15.5"/></svg></div>
+    <h3>A checkbox on sign-up</h3>
+    <p>An optional box on the workshop form. Already built for reminders; we add a second one.</p>
+  </div>
+  <div class="card">
+    <div class="icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M21 14v7h-4M17 21h0"/></svg></div>
+    <h3>A QR code at your talks</h3>
+    <p>Last slide or table card: "Scan to be invited to the next workshop." Fits how you meet clients.</p>
+  </div>
+  <div class="card">
+    <div class="icon"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18h4"/><path d="M9 8h6M9 11h4"/></svg></div>
+    <h3>Text a word to our number</h3>
+    <p>"Text WORKSHOP to 904-674-8478." Easy to say out loud from a stage or a podcast.</p>
+  </div>
+</div>
+
+<h2>Three ideas, ranked</h2>
+
+<div class="card idea top">
+  <div>
+    <div class="rank">#1 &middot; Recommended first step</div>
+    <h3>SBV workshop invitations</h3>
+    <span class="tag t-green">Ready soonest</span>
+    <ul class="facts">
+      <li>Who: past workshop sign-ups and people met at events</li>
+      <li>How often: a few texts per workshop round</li>
+      <li>Why it works: they already showed interest</li>
+    </ul>
+  </div>
+  <div class="phone">
+    <div class="from">Strategic Business Valuations</div>
+    <div class="bubble">Our next Business Value Workshop is Thursday, Nov 12 at 4 PM ET. Save your seat: [link]<br>Reply STOP to opt out.</div>
+    <div class="ex">Example text</div>
+  </div>
+</div>
+
+<div class="card idea">
+  <div>
+    <div class="rank">#2</div>
+    <h3>GBA new-listing alerts for buyers</h3>
+    <span class="tag t-amber">Needs setup first</span>
+    <ul class="facts">
+      <li>Who: buyers who register for listing alerts</li>
+      <li>How often: only when a new listing goes up</li>
+      <li>Why it works: good deals move fast; a text beats an email</li>
+      <li>Needs: a buyer sign-up and its own GBA approval</li>
+    </ul>
+  </div>
+  <div class="phone">
+    <div class="from">Gateway Business Advisors</div>
+    <div class="bubble">New listing: established HVAC company, Northeast Florida, $1.2M revenue. Reply YES for the NDA link.<br>Reply STOP to opt out.</div>
+    <div class="ex">Example text</div>
+  </div>
+</div>
+
+<div class="card idea">
+  <div>
+    <div class="rank">#3</div>
+    <h3>Sign-ups at your talks and events</h3>
+    <span class="tag t-navy">Feeds #1 and #2</span>
+    <ul class="facts">
+      <li>Who: anyone who scans or texts in at an event</li>
+      <li>What they get: one welcome text, then invitations</li>
+      <li>Why it works: matches your person-to-person style</li>
+    </ul>
+  </div>
+  <div class="phone">
+    <div class="from">Strategic Business Valuations</div>
+    <div class="bubble">Thanks for joining us today! We'll text you when the next Business Value Workshop opens. Msg frequency varies. Reply STOP to opt out.</div>
+    <div class="ex">Example text</div>
+  </div>
+</div>
+
+<h2>More ideas</h2>
+<div class="group-title">Win new business <span class="tag t-navy">Marketing</span></div>
+<div class="mini">
+    <div class="card fav"><div class="star">Top pick</div><div class="who"><span class="w-sbv">SBV</span><span class="w-gba">GBA</span></div><h3>Instant reply to new inquiries</h3><div class="say"><div>Hi Dana, this is Gary's office. Got your request. What's a good time for a quick call?</div></div></div>
+    <div class="card fav"><div class="star">Top pick</div><div class="who"><span class="w-gba">GBA</span></div><h3>Quarterly market pulse</h3><div class="say"><div>Q3: service businesses in Florida sold for about 2.8x earnings. Want to know where yours lands? [link]</div></div></div>
+    <div class="card"><div class="who"><span class="w-gba">GBA</span></div><h3>&ldquo;Just sold&rdquo; news</h3><div class="say"><div>Just closed: a 30-year Jacksonville landscaping company, sold in 7 months. Thinking about your own exit? Reply TALK.</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span></div><h3>Referral partner line</h3><div class="say"><div>For advisors: text PARTNER to join. Reply with a client's name and we'll take it from there.</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span></div><h3>Year-end planning</h3><div class="say"><div>Planning an exit in the next few years? A valuation before Dec 31 sets your baseline for 2027.</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span><span class="w-gba">GBA</span></div><h3>&ldquo;Ask Gary&rdquo; keyword</h3><div class="say"><div>Text ASK with your question. Example: &ldquo;Can I sell if my books are messy?&rdquo; Gary's team replies.</div></div></div>
+</div>
+<div class="group-title">Serve current clients <span class="tag t-green">Service</span></div>
+<div class="mini">
+    <div class="card fav"><div class="star">Top pick</div><div class="who"><span class="w-sbv">SBV</span></div><h3>Document reminders</h3><div class="say"><div>2 items left for your valuation: 2024 tax return, Q3 P&amp;L. Upload here: [link]</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span></div><h3>Value Builder nudge</h3><div class="say"><div>Your Value Builder survey is 60% done. Finish here: [link]</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span><span class="w-gba">GBA</span></div><h3>Call reminders</h3><div class="say"><div>Reminder: your call with Gary is tomorrow at 10 AM. Reply YES to confirm or R to reschedule.</div></div></div>
+    <div class="card"><div class="who"><span class="w-gba">GBA</span></div><h3>Deal milestone updates</h3><div class="say"><div>Good news: the LOI is signed. Due diligence starts Monday. We'll keep you posted.</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span><span class="w-gba">GBA</span></div><h3>Review requests</h3><div class="say"><div>Thank you for trusting us. Would you share your experience? [review link]</div></div></div>
+    <div class="card"><div class="who"><span class="w-sbv">SBV</span><span class="w-gba">GBA</span></div><h3>Missed-call text back</h3><div class="say"><div>Sorry we missed your call. How can we help? Reply here or call back anytime.</div></div></div>
+</div>
+<p class="small" style="margin-top:12px">Example texts are made up for illustration. Figures in them are not real data.</p>
+
+<h2>What we would not do</h2>
+<div class="skip">
+  <div class="card">
+    <h3>Text cold lists</h3>
+    <p>Not allowed, and it can get our number shut down.</p>
+  </div>
+  <div class="card">
+    <h3>Frequent promos to sellers</h3>
+    <p>Selling a business is a slow, private decision. Email and calls fit better.</p>
+  </div>
+</div>
+
+<h2>What getting approved involves</h2>
+<p class="small" style="margin:-4px 0 14px">One approval request per company can cover every idea on this page, as long as we list them all up front.</p>
+<div class="lanes">
+  <div class="card lane">
+    <h3>SBV</h3>
+    <div class="small">Add to what's already approved</div>
+    <ol class="steps">
+      <li><b>Pick the texts <span class="own o-gary">Gary</span></b>Which ideas we'll use, with a sample of each.</li>
+      <li><b>Add the sign-up options <span class="own o-hugo">Hugo</span></b>A second checkbox, keywords, wording on client forms.</li>
+      <li><b>Update website policies <span class="own o-hugo">Hugo</span></b>Privacy and terms pages: add marketing texts.</li>
+      <li><b>Submit and wait <span class="own o-car">Carriers</span></b>About a week, based on the first one.</li>
+    </ol>
+    <div class="cost">
+      <div class="card"><div class="num">~$15</div><div class="small">one time</div></div>
+      <div class="card"><div class="num">$2 to $11</div><div class="small">per month</div></div>
+    </div>
+  </div>
+  <div class="card lane">
+    <h3>GBA</h3>
+    <div class="small">Start from scratch, same process SBV went through</div>
+    <ol class="steps">
+      <li><b>Company details <span class="own o-gary">Gary</span></b>Legal name and tax ID exactly as on the IRS letter.</li>
+      <li><b>Turn on texting and get a number <span class="own o-hugo">Hugo</span></b>A local 904 number in GBA's account.</li>
+      <li><b>Write privacy and terms pages <span class="own o-hugo">Hugo</span><span class="own o-chuck">Chuck</span></b>Both pages are empty today. Hugo writes, Chuck publishes.</li>
+      <li><b>Add a sign-up checkbox <span class="own o-hugo">Hugo</span></b>On the GBA contact form and a buyer sign-up.</li>
+      <li><b>Register the company <span class="own o-car">Carriers</span></b>Confirms GBA is a real business.</li>
+      <li><b>Submit the texts and wait <span class="own o-car">Carriers</span></b>Reviewed after the company is approved.</li>
+    </ol>
+    <div class="cost">
+      <div class="card"><div class="num">~$23</div><div class="small">one time</div></div>
+      <div class="card"><div class="num">$3 to $12</div><div class="small">per month</div></div>
+    </div>
+  </div>
+</div>
+<div class="note"><b>Timing:</b> SBV took about five weeks from start to approval (Sept 8 to Oct 12), mostly spent fixing website wording. GBA should go faster now that we know what the reviewers check.</div>
+
+<h2>Decisions for you</h2>
+<div class="ask">
+  <div class="card"><div class="box"></div><div><b>Is this worth doing?</b><p>For SBV, GBA, both, or hold off for now.</p></div></div>
+  <div class="card"><div class="box"></div><div><b>Which ideas make the list?</b><p>Circle the ones you'd use. Everything we pick goes into one approval request.</p></div></div>
+  <div class="card"><div class="box"></div><div><b>For GBA: legal name and tax ID</b><p>Exactly as on the IRS letter. Also: how do buyers register with us today?</p></div></div>
+</div>
+
+<footer>Costs are estimates from GoHighLevel's published fees (September 2026) and will be confirmed before anything is submitted. Example texts are drafts for discussion only.</footer>
+
+</div>
+</body>
+</html>
