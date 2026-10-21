@@ -88,3 +88,6 @@ __pycache__/
 # Extends the Agents/ rule above to the whole repo. CLAUDE.md files, agent
 # memory, skills and reference docs stay local. Rendered HTML is what publishes.
 *.md
+
+# --- sbv-skills: its own private repo (added 2026-10-21, sbv-skills/docs/design.md Section 7) ---
+sbv-skills/
