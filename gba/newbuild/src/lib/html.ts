@@ -62,3 +62,36 @@ export function retagHeadings(html: string, within: RegExp, from: string, to: st
   });
   return found.before + block + found.after;
 }
+
+/**
+ * Rewrite the first `.owl-carousel` element matching `open` into the DOM Owl
+ * Carousel 2.3.4 renders live (stage, items, arrows, the dots row), so
+ * custom.css styles it unchanged and src/scripts/carousel.ts (Embla) drives it.
+ * The element's direct `.item` children become the slides, in order.
+ */
+export function owlCarousel(html: string, open: RegExp): string {
+  const found = extractBlock(html, open);
+  if (!found) return html;
+  let rest = found.block.slice(found.openTag.length, -'</div>'.length);
+  const items: string[] = [];
+  let item: Block | null;
+  while ((item = extractBlock(rest, /<div class="item">/))) {
+    items.push(item.block);
+    rest = item.after;
+  }
+  return found.before + owlMarkup(found.openTag, items) + found.after;
+}
+
+/** Owl's rendered carousel DOM around `items`, under the given opening tag. */
+export function owlMarkup(openTag: string, items: string[]): string {
+  const tag = openTag.replace(/\sclass="owl-carousel"/, ' class="owl-carousel owl-loaded owl-drag" data-carousel');
+  const arrow = (dir: 'prev' | 'next', icon: string, label: string) =>
+    `<button type="button" class="owl-${dir}" aria-label="${label}"><i class="fa-solid ${icon}" aria-hidden="true"></i></button>`;
+  return tag
+    + '<div class="owl-stage-outer"><div class="owl-stage">'
+    + items.map((i) => `<div class="owl-item">${i}</div>`).join('')
+    + '</div></div>'
+    + `<div class="owl-nav">${arrow('prev', 'fa-angles-left', 'Previous')}${arrow('next', 'fa-angles-right', 'Next')}</div>`
+    + '<div class="owl-dots" aria-hidden="true"></div>'
+    + '</div>';
+}

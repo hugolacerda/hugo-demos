@@ -1,0 +1,38 @@
+/* bootstrap53-compat.css: keeps Bootstrap 5.3.8 looking like 5.0.2, the version the live
+   site loads (map ticket 09; the evidence, a pixel diff of the homepage states and a
+   computed-style sweep of all 693 harvested pages, is in the KB at
+   Maps/gba-site-rebuild/issues/09-javascript-decisions-bootstrap-research.md).
+   Keep it whenever custom.css or Bootstrap changes. */
+
+
+/* .nav-link outside .nav/.navbar-nav (mobile #cssmenu, the desktop Menu button):
+   5.3 reads padding and colour from variables only .nav/.navbar-nav define; 5.0.2 hard-coded them. */
+:root { --bs-nav-link-padding-x: 1rem; --bs-nav-link-padding-y: .5rem; --bs-nav-link-color: #0d6efd; --bs-nav-link-hover-color: #0a58ca; }
+
+/* Form fields: 5.3 uses --bs-border-color (#dee2e6); 5.0.2 had #ced4da. */
+.form-control, .form-select { border-color: #ced4da; }
+
+/* Offcanvas: 5.3 sets width and border-left on .offcanvas.offcanvas-end (0,2,0), which beats
+   custom.css .offcanvas{width:620px;border-left:none}; and it sets a text colour. */
+.offcanvas { --bs-offcanvas-width: 620px; --bs-offcanvas-border-width: 0; color: inherit; }
+
+/* Modal: 5.0.2 radius .3rem, border rgba(0,0,0,.2), no text colour of its own. */
+.modal { --bs-modal-border-radius: .3rem; --bs-modal-inner-border-radius: calc(.3rem - 1px); --bs-modal-border-color: rgba(0, 0, 0, .2); }
+.modal-content { color: inherit; }
+.btn-close { border-radius: .25rem; }
+
+/* Cards (the news-listing cards): 5.3 gives .card its own text colour (#212529); 5.0.2 inherited. */
+.card { color: inherit; }
+
+/* <hr>: 5.0.2 drew it as a 1px background (custom.css recolours it with background-color);
+   5.3 draws it as border-top. */
+hr { background-color: currentColor; border-top: 0; }
+hr:not([size]) { height: 1px; }
+
+/* Placeholder text: 5.0.2 #6c757d; 5.3 var(--bs-secondary-color), rgba(33,37,41,.75). */
+.form-control::placeholder { color: #6c757d; }
+
+/* Modal opened from inside the open offcanvas ("Take the Readiness Score" in the menu):
+   5.0.2 put the modal backdrop at 1040, under the offcanvas (1050), so the menu stayed bright;
+   5.3 puts it at 1050, over the offcanvas (1045), dimming the menu. */
+.modal-backdrop { --bs-backdrop-zindex: 1040; }

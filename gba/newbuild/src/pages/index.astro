@@ -10,11 +10,15 @@
 // the other five captions are H2s, and the acquirer line in each deal card is
 // an h3 under the section's h2 (h6 live). port.css carries the live styling
 // over to the new tags, so nothing visible changes.
+//
+// Behaviours (map ticket 09): the hero is src/scripts/hero.ts (its first slide
+// marked active here so it shows before the script runs); the deals carousel
+// is rewritten into Owl's rendered markup and driven by src/scripts/carousel.ts.
 import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import ClientLogos from '../components/ClientLogos.astro';
-import { retagHeadings } from '../lib/html';
+import { owlCarousel, retagHeadings } from '../lib/html';
 
 const home = await getEntry('pages', 'home');
 if (!home) throw new Error('src/content/pages/home.html is missing');
@@ -22,9 +26,19 @@ if (!home) throw new Error('src/content/pages/home.html is missing');
 let body = home.body ?? '';
 body = retagHeadings(body, /<div class="flexslider" id="home-slider">/, 'h4', ['h1', 'h2']);
 body = retagHeadings(body, /<div class="completed-deals">/, 'h6', ['h3']);
+body = body.replace(/(<div class="flexslider" id="home-slider">\s*<ul class="slides">\s*)<li>/, '$1<li class="flex-active-slide">');
+body = owlCarousel(body, /<div class="owl-carousel" id="completed-deals">/);
 ---
 <Base title={home.data.meta_title} description={home.data.meta_description} path="/" home>
   <Fragment set:html={body} />
   <ContactBlock class={home.data.contact_class ?? 'contact'} />
   <ClientLogos />
 </Base>
+
+<script>
+  import { initHero } from '../scripts/hero';
+  import { initCarousels } from '../scripts/carousel';
+  const hero = document.getElementById('home-slider');
+  if (hero) initHero(hero);
+  initCarousels();
+</script>

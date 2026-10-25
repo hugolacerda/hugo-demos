@@ -1,6 +1,8 @@
 ---
 // The "Can we help you?" contact block, carried by the homepage and most inner
-// pages. The live markup is kept exactly (map Notes, forms: the markup stays,
+// pages. The Submit column sits after the inner row, not in it, as the live DOM
+// nests it (a `</div>` after the hidden inputs closes that row), which keeps the
+// button on the left (found at ticket 09). The live markup is kept exactly (map Notes, forms: the markup stays,
 // the post target becomes a Netlify Function at ticket 13); only the browser
 // extension artefacts (`fdprocessedid`) and the visually hidden label are gone.
 // The class list varies by page ("contact", "contact sec-pad", "contact sec-pad
@@ -74,9 +76,9 @@ const { class: className = 'contact' } = Astro.props;
                   </div>
                   <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" value="">
                   <input type="hidden" id="action" name="action" value="profile">
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
-                    <button type="submit" class="btn btn-primary contactSubmit"> Submit </button>
-                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                  <button type="submit" class="btn btn-primary contactSubmit"> Submit </button>
                 </div>
               </div>
             </div>

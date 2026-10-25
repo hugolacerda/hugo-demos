@@ -15,9 +15,10 @@ const nm = join(root, 'node_modules');
 const out = join(root, 'public', 'vendor');
 
 const copies = [
-  // Bootstrap 5.0.2, the version the live site loads from jsdelivr (BRIEF.md, "Head, every page").
-  ['bootstrap/dist/css/bootstrap.min.css', 'bootstrap-5.0.2/css/bootstrap.min.css'],
-  ['bootstrap/dist/js/bootstrap.bundle.min.js', 'bootstrap-5.0.2/js/bootstrap.bundle.min.js'],
+  // Bootstrap 5.3.8's CSS (ticket 09: upgraded from the live site's 5.0.2, with
+  // public/css/bootstrap53-compat.css restoring the 5.0.2 look). Its JavaScript is not
+  // copied: src/scripts/bootstrap.ts imports the three components the site uses.
+  ['bootstrap/dist/css/bootstrap.min.css', 'bootstrap-5.3.8/css/bootstrap.min.css'],
   // Font Awesome 6.5.2, the version the live site loads from cdnjs: the social icons and carousel arrows.
   ['@fortawesome/fontawesome-free/css/all.min.css', 'fontawesome-6.5.2/css/all.min.css'],
   ['@fortawesome/fontawesome-free/webfonts', 'fontawesome-6.5.2/webfonts'],

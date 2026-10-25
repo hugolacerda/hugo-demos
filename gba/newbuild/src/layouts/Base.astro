@@ -7,8 +7,8 @@
 // Not carried over on purpose: the empty Open Graph tags (ticket 12 fills
 // them), the GA4 tag (ticket 18, after Gary's approval), the three reCAPTCHA
 // tags and jquery.validate (forms, ticket 13), the MeclabsAI chat widget (out of
-// scope), Owl Carousel's CSS and the jQuery plugins (ticket 09 wires the
-// behaviours). The favicon link points at an empty data URL until ticket 12
+// scope), jQuery with its plugins and their CSS (Owl, fancybox; ticket 09
+// replaced each behaviour: src/scripts/, port.css). The favicon link points at an empty data URL until ticket 12
 // supplies a real icon, so browsers do not request /favicon.ico and log a 404.
 import { FONT_STYLESHEET, SITE_URL } from '../site.config';
 import SiteHeader from '../components/SiteHeader.astro';
@@ -39,13 +39,13 @@ const canonical = SITE_URL + (path === '/' ? '/' : path);
     <meta name="description" content={description}>
     <link rel="canonical" href={canonical}>
     <link rel="icon" href="data:,">
-    <link href="/vendor/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap53-compat.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/flexslider.css" rel="stylesheet">
     <link href={FONT_STYLESHEET} rel="stylesheet">
     <link href="/vendor/fontawesome-6.5.2/css/all.min.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
     <link href="/css/port.css" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -61,5 +61,9 @@ const canonical = SITE_URL + (path === '/' ? '/' : path);
     <SiteFooter />
     <ReadinessModal />
     <NewsletterModal />
+    <script>
+      // Bootstrap's Offcanvas, Collapse and Modal with their data-api (ticket 09).
+      import '../scripts/bootstrap';
+    </script>
   </body>
 </html>

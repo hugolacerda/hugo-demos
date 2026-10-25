@@ -1,7 +1,10 @@
 ---
 // The header every page carries: the mobile header (shown at 860 px and below,
 // custom.css line 169), the desktop header, and the off-canvas menu the desktop
-// "Menu" button opens (Bootstrap Offcanvas, wired at ticket 09). Markup from the
+// "Menu" button opens (Bootstrap Offcanvas, src/scripts/bootstrap.ts). The
+// mobile menu carries at build time the nodes and classes MenuMaker 0.8.5
+// injected live (`small-screen`, `#menu-button`, `has-sub`, `.submenu-button`),
+// and the script at the end toggles them (map ticket 09). Markup from the
 // live homepage, harvest/2026-10-24/pages/home.html, with links made
 // root-relative, the two display:none menu sections dropped (map Notes, hidden
 // content is not ported), the visually hidden "Phone" and "Click Here" spans
@@ -24,10 +27,11 @@ const { home = false } = Astro.props;
           </div>
         </div>
         <div class="col-6">
-          <nav id="cssmenu" aria-label="Main menu">
-            <ul>
+          <nav id="cssmenu" class="small-screen" aria-label="Main menu">
+            <div id="menu-button" role="button" tabindex="0" aria-expanded="false" aria-controls="cssmenu-list">Menu</div>
+            <ul id="cssmenu-list">
               <li> <a class="nav-link active" href="/">Home</a> </li>
-              <li><a class="nav-link" href="#">For Business Owners</a>
+              <li class="has-sub"><span class="submenu-button" role="button" tabindex="0" aria-expanded="false" aria-label="For Business Owners submenu"></span><a class="nav-link" href="#">For Business Owners</a>
                 <ul>
                   <li><a class="" href="/start-here">Start Here</a></li>
                   <li><a class="" href="/assessing-your-options">Assessing Your Options</a></li>
@@ -36,7 +40,7 @@ const { home = false } = Astro.props;
                 </ul>
               </li>
               <li><a class="nav-link" href="/businesses-we-have-sold">Tombstones</a></li>
-              <li><a class="nav-link" href="#">Who We Are</a>
+              <li class="has-sub"><span class="submenu-button" role="button" tabindex="0" aria-expanded="false" aria-label="Who We Are submenu"></span><a class="nav-link" href="#">Who We Are</a>
                 <ul>
                   <li>  <a class="" href="/our-team">Our Team </a></li>
                   <li>  <a class="" href="/affiliations">Affiliations</a></li>
@@ -128,3 +132,33 @@ const { home = false } = Astro.props;
     <div class="clearfix"></div>
   </nav>
 </div>
+
+<script>
+  // Mobile menu (MenuMaker "multitoggle" in plain JS): the button opens and
+  // closes the list and each "+" its sub-list, instantly, as live (MenuMaker
+  // used show() and hide()); port.css keeps closed lists hidden.
+  const toggle = (button: HTMLElement, list: Element | null | undefined, openClass: string) => {
+    if (!list) return;
+    const open = list.classList.toggle('open');
+    button.classList.toggle(openClass, open);
+    button.setAttribute('aria-expanded', String(open));
+  };
+  const onActivate = (el: HTMLElement, run: () => void) => {
+    el.addEventListener('click', run);
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); run(); }
+    });
+  };
+  const menuButton = document.getElementById('menu-button');
+  if (menuButton) onActivate(menuButton, () => toggle(menuButton, menuButton.nextElementSibling, 'menu-opened'));
+  document.querySelectorAll<HTMLElement>('#cssmenu .submenu-button').forEach((b) => {
+    onActivate(b, () => toggle(b, b.parentElement?.querySelector(':scope > ul'), 'submenu-opened'));
+  });
+
+  // Header shrink: .navbar-shrink from 100 px of scroll, as live; also checked
+  // on load, so a page restored mid-scroll starts shrunk.
+  const header = document.querySelector('.fixheader');
+  const shrink = () => header?.classList.toggle('navbar-shrink', window.scrollY >= 100);
+  window.addEventListener('scroll', shrink, { passive: true });
+  shrink();
+</script>
