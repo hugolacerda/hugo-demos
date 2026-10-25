@@ -1,6 +1,11 @@
-# Netlify build configuration for the GBA rebuild. The Netlify site builds from
-# branch gba-astro-newbuild with gba/newbuild as its base directory (map Notes,
-# "Build location"); nothing is deployed until ticket 15.
+# Netlify build configuration for the GBA rebuild (map tickets 05, 08, 12). The
+# Netlify site builds from branch gba-astro-newbuild with gba/newbuild as its base
+# directory (map Notes, "Build location"); every deploy before cutover is staging.
+#
+# `npm run build` runs scripts/vendor.mjs and scripts/redirects.mjs first and
+# scripts/headers.mjs after, so dist/ carries its own _redirects and _headers
+# (the CSP hashes follow the build). Never set GBA_FONTS here: the default build
+# ships the look-alike fonts; GBA_FONTS=live is for local fidelity builds (ticket 10).
 [build]
   base = "gba/newbuild"
   command = "npm run build"
@@ -8,3 +13,8 @@
 
 [build.environment]
   NODE_VERSION = "22"
+
+# Pages build as files (dist/start-here.html); Pretty URLs serves them at the bare
+# slug and answers /start-here/ with a 301 to /start-here (tickets 08, 14).
+[build.processing.html]
+  pretty_urls = true

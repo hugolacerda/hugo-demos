@@ -62,4 +62,9 @@ const body = (SHAPES[page.id] ?? ((b: string) => b))(page.body ?? '');
   import { initLoadMore } from '../scripts/loadmore';
   initCarousels();
   initLoadMore();
+  // "Check My Industry" (/industry-insider) opened the MeclabsAI tool live; the tool
+  // returns with the chat widget (map Not yet specified). Until then the button does
+  // nothing, as live without the tool; cancelling its javascript:void(0) navigation
+  // keeps the CSP from logging a violation (ticket 12).
+  document.getElementById('openChat')?.addEventListener('click', (e) => e.preventDefault());
 </script>

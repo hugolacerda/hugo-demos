@@ -10,10 +10,12 @@
   "scripts": {
     "vendor": "node scripts/vendor.mjs",
     "redirects": "node scripts/redirects.mjs",
+    "headers": "node scripts/headers.mjs",
     "predev": "npm run vendor && npm run redirects",
     "dev": "astro dev",
     "prebuild": "npm run vendor && npm run redirects",
     "build": "astro build",
+    "postbuild": "npm run headers",
     "preview": "astro preview",
     "check": "astro check",
     "astro": "astro"
