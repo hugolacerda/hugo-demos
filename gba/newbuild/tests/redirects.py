@@ -86,6 +86,8 @@ def cases(dist):
                 bare = path.rstrip("/") or "/"
                 if any(re.fullmatch(r[0].replace("*", ".*"), bare) for r in rules):
                     continue  # now redirected on purpose (the retired pages, /blog/...)
+                if (dist / bare.lstrip("/")).is_file():
+                    continue  # a real file now (/favicon.ico, added at ticket 15)
                 out.append(("gone", path, 404, None))
     out.append(("gone", "/this-page-does-not-exist", 404, None))
     for p in PROBES:
