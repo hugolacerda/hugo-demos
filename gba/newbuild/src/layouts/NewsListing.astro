@@ -6,14 +6,15 @@
 // (`listing_order`, ticket 07's extractor), with its live excerpt and card
 // image. Live repeats 19 articles (642 cards on 54 pages, ticket 07), so this
 // listing runs to 52 pages; the two live offsets past the end are ticket 14's.
-// Every page carries page 1's banner, title and description, as live, and its
-// own canonical URL.
+// Every page carries page 1's banner and description and its own canonical URL,
+// as live; pages 2 on add their number to the title (ticket 15).
 import { getCollection, getEntry } from 'astro:content';
 import Base from './Base.astro';
 import HeadBanner from '../components/HeadBanner.astro';
 import ContactBlock from '../components/ContactBlock.astro';
 import { PER_PAGE, pageHref, paginationHtml } from '../lib/pagination';
 import { escapeHtml } from '../lib/html';
+import { META, listingTitle } from '../lib/seo';
 
 interface Props {
   /** 1-based page number. */
@@ -43,7 +44,7 @@ const section = `<div class="news inner-page bg-white sec-pad">\n<div class="con
   + `<div class="">\n${paginationHtml(page, total)} </div>\n</div>\n</div>`;
 const { data } = listing;
 ---
-<Base title={data.meta_title} description={data.meta_description} path={pageHref(page)}>
+<Base title={listingTitle(page)} description={META['/news-and-events'].description} path={pageHref(page)} image={data.banner}>
   {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.title} />}
   <Fragment set:html={section} />
   <ContactBlock class={data.contact_class ?? 'contact sec-pad mt-0'} />

@@ -15,13 +15,14 @@
 import type { CollectionEntry } from 'astro:content';
 import Base from './Base.astro';
 import HeadBanner from '../components/HeadBanner.astro';
+import { canonicalPath } from '../lib/seo';
 
 interface Props {
   article: CollectionEntry<'articles'>;
 }
 const { data, body } = Astro.props.article;
 ---
-<Base title={data.meta_title} description={data.meta_description} path={data.path}>
+<Base title={data.meta_title} description={data.meta_description} path={data.path} canonical={canonicalPath(data.path)} image={data.banner} type="article">
   {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.section_label} heading={false} height={data.banner_height} />}
   <div class="news_events tslider">
     <div class="container mb-5">

@@ -50,7 +50,7 @@ const SHAPES: Record<string, (body: string) => string> = {
 const { data } = page;
 const body = (SHAPES[page.id] ?? ((b: string) => b))(page.body ?? '');
 ---
-<Base title={data.meta_title} description={data.meta_description} path={data.path}>
+<Base title={data.meta_title} description={data.meta_description} path={data.path} image={data.banner}>
   {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.title} />}
   <Fragment set:html={body} />
   {data.contact_class && <ContactBlock class={data.contact_class} />}

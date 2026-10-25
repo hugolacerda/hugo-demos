@@ -31,6 +31,12 @@ Redirects (ticket 14): `scripts/redirects.mjs` writes `public/_redirects` before
 .venv/bin/python -I tests/redirects.py --base https://<staging-host>
 ```
 
+SEO (ticket 15): titles, descriptions, canonicals, Open Graph and Twitter tags are set in `src/layouts/Base.astro` from `src/lib/seo.ts` (the eight core-page titles Hugo approved, the listing page titles, the near-duplicate canonicals in `src/data/duplicates.json`, written by `scripts/duplicates.py`); `src/pages/sitemap.xml.ts` builds the sitemap (canonical pages only, lastmod from git); `public/robots.txt`; the icons from `scripts/favicon.py`. `tests/seo.py` checks every page and the sitemap, on `dist/` or a running site:
+
+```
+.venv/bin/python -I tests/seo.py
+```
+
 Node 22.12 or newer. Astro is pinned to 7.3.x because 7.4 wants Node 22.22+ and this Mac runs 22.19 (ticket 08, 2026-10-24); lift the pin once Node is upgraded. `npm run vendor` runs before every dev and build and copies the pinned third-party files from `node_modules` into `public/vendor/` (git-ignored): Bootstrap 5.3.8's CSS (the live site runs 5.0.2; `public/css/bootstrap53-compat.css` keeps the 5.0.2 look, ticket 09), Font Awesome 6.5.2 and the look-alike font files. JavaScript is not vendored: the component scripts import their libraries from npm (Embla 8.6.0, Bootstrap's own Collapse, Modal and Offcanvas sources) and Astro bundles them (ticket 09).
 
 ## Layout
@@ -54,7 +60,7 @@ Node 22.12 or newer. Astro is pinned to 7.3.x because 7.4 wants Node 22.22+ and 
 | `src/lib/pagination.ts` | The listing's pagination bar, CodeIgniter's markup as live. |
 | `src/pages/` | `index.astro` (Home), `[slug].astro` (the other 16 pages and the 622 articles at their live slugs), `news-and-events.astro` and `news-and-events/[offset].astro` (the listing at `/news-and-events`, `/12`, `/24` ...), `404.astro`. 692 pages in all. |
 | `src/scripts/` | The site's JavaScript (ticket 09): `hero.ts` (homepage crossfade slider), `carousel.ts` (Embla on Owl's markup, deals and logos), `bootstrap.ts` (Offcanvas, Collapse, Modal, and the modal openers), `loadmore.ts` (the affiliations Load More). The mobile menu and header shrink are the script in `SiteHeader.astro`. No jQuery. |
-| `scripts/` | `harvest.py` and `extract.py` (Python, `.venv`), `vendor.mjs`, `port_css.py`, `redirects.mjs` (writes `public/_redirects`). |
+| `scripts/` | `harvest.py` and `extract.py` (Python, `.venv`), `vendor.mjs`, `port_css.py`, `redirects.mjs` (writes `public/_redirects`), `duplicates.py` (the canonical copy of each near-duplicate article group), `favicon.py` (the icons from the logo). |
 | `harvest/2026-10-24/` | The raw crawl the content was extracted from, with `MANIFEST.md` and `REVIEW-LISTS.md`. |
 
 ## Rules carried from the map

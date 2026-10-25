@@ -4,13 +4,19 @@
 // (public/vendor, scripts/vendor.mjs) and every path root-relative
 // (ticket 06: the live relative paths break on the pagination pages).
 //
-// Not carried over on purpose: the empty Open Graph tags (ticket 12 fills
-// them), the GA4 tag (ticket 18, after Gary's approval), the three reCAPTCHA
-// tags and jquery.validate (forms, ticket 13), the MeclabsAI chat widget (out of
-// scope), jQuery with its plugins and their CSS (Owl, fancybox; ticket 09
-// replaced each behaviour: src/scripts/, port.css). The favicon link points at an empty data URL until ticket 12
-// supplies a real icon, so browsers do not request /favicon.ico and log a 404.
-import { FONT_STYLESHEET, SITE_URL } from '../site.config';
+// Not carried over on purpose: the GA4 tag (ticket 18, after Gary's approval),
+// the three reCAPTCHA tags and jquery.validate (forms, ticket 13), the MeclabsAI
+// chat widget (out of scope), jQuery with its plugins and their CSS (Owl,
+// fancybox; ticket 09 replaced each behaviour: src/scripts/, port.css).
+//
+// Search and sharing (ticket 15, src/lib/seo.ts): the title, description and
+// canonical as live, except the eight core pages whose generic live title and
+// description META replaces (applied here by path, so every caller gets it);
+// descriptions with their line breaks collapsed; Open Graph and Twitter tags
+// (empty live) from the page's own title, description and banner; the icons
+// from scripts/favicon.py (the live site has none).
+import { FONT_STYLESHEET } from '../site.config';
+import { META, DEFAULT_IMAGE, absolute, clean } from '../lib/seo';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import ReadinessModal from '../components/ReadinessModal.astro';
@@ -22,11 +28,23 @@ interface Props {
   description: string;
   /** The page's path, e.g. "/" or "/start-here"; builds the canonical URL. */
   path: string;
+  /** The canonical path when it is not `path` (near-duplicate articles), or null for none (404). */
+  canonical?: string | null;
+  /** Banner image path for the sharing tags; pages without one share DEFAULT_IMAGE. */
+  image?: string | null;
+  /** Open Graph type: articles are `article`. */
+  type?: 'website' | 'article';
+  /** The 404 page is `noindex`. */
+  noindex?: boolean;
   /** The homepage omits the `inner-header` class on the desktop nav. */
   home?: boolean;
 }
-const { title, description, path, home = false } = Astro.props;
-const canonical = SITE_URL + (path === '/' ? '/' : path);
+const { path, canonical: canonicalOverride, image, type = 'website', noindex = false, home = false } = Astro.props;
+const title = META[path]?.title ?? Astro.props.title;
+const description = clean(META[path]?.description ?? Astro.props.description);
+const canonicalPath = canonicalOverride === undefined ? path : canonicalOverride;
+const canonical = canonicalPath === null ? null : absolute(canonicalPath);
+const shareImage = absolute(image ?? DEFAULT_IMAGE);
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -37,8 +55,22 @@ const canonical = SITE_URL + (path === '/' ? '/' : path);
     <meta name="format-detection" content="telephone=no">
     <title>{title}</title>
     <meta name="description" content={description}>
-    <link rel="canonical" href={canonical}>
-    <link rel="icon" href="data:,">
+    {noindex && <meta name="robots" content="noindex">}
+    {canonical && <link rel="canonical" href={canonical}>}
+    <meta property="og:type" content={type}>
+    <meta property="og:site_name" content="Gateway Business Advisors">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content={title}>
+    <meta property="og:description" content={description}>
+    {canonical && <meta property="og:url" content={canonical}>}
+    <meta property="og:image" content={shareImage}>
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content={title}>
+    <meta name="twitter:description" content={description}>
+    <meta name="twitter:image" content={shareImage}>
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <link href="/vendor/bootstrap-5.3.8/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/bootstrap53-compat.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
