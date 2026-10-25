@@ -1,0 +1,25 @@
+---
+// The page both forms land on after a successful post (map ticket 13): the live
+// forms redirect to /thankyou, but that page was never captured (the live host
+// answered the captcha on 2026-10-25, the Wayback Machine was offline), so this
+// one is new, built from the inner-page parts with the Contact Us banner (Hugo's
+// fallback). New copy, so on Gary's list (17). noindex and not in the sitemap.
+import Base from '../layouts/Base.astro';
+import HeadBanner from '../components/HeadBanner.astro';
+---
+<Base title="Thank You | Gateway Business Advisors" description="Thank you for contacting Gateway Business Advisors." path="/thankyou" canonical={null} noindex>
+  <HeadBanner banner="/upload/images/pages/page_header_1729174716_330_contact-us-banner.jpg" alt="" title="Thank You" />
+  <div class="about-content bg-light sec-pad">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12 text-center">
+          <div class="content">
+            <p>Thank you for reaching out to Gateway Business Advisors. We have received your information and will be in touch soon.</p>
+            <p>If you would like to talk sooner, call us at <a href="tel:904-759-7902">(904) 759-7902</a>.</p>
+          </div>
+          <a class="btn btn-primary" href="/">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</Base>

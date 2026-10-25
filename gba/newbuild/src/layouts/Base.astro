@@ -96,6 +96,9 @@ const shareImage = absolute(image ?? DEFAULT_IMAGE);
     <script>
       // Bootstrap's Offcanvas, Collapse and Modal with their data-api (ticket 09).
       import '../scripts/bootstrap';
+      // The contact and newsletter forms: load time, phone mask, returned messages (ticket 13).
+      import { initForms } from '../scripts/forms';
+      initForms();
     </script>
   </body>
 </html>

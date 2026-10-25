@@ -1,7 +1,11 @@
 ---
 // The "Stay Updated" newsletter modal (#opnnewslettrPop), opened by the
 // .opnnewslettr buttons (Bootstrap Modal, wired at ticket 09). Live markup, the
-// form kept as-is for ticket 13; `fdprocessedid` artefacts dropped.
+// form kept as-is; `fdprocessedid` artefacts dropped. Ticket 13: it posts to
+// /action/enewsletter as live, answered by netlify/functions/forms.mts; added, all
+// invisible until used: `required`, an email keyboard hint, the hidden `ts` field and
+// `website` honeypot, a message line for a failed post, and maxlength 150 for the
+// email (30 live, which cut long addresses short; on Gary's list).
 ---
 <div class="modal fade" id="opnnewslettrPop" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-lg">
@@ -17,12 +21,15 @@
                     <div class="">
                       <h2>Stay Updated</h2>
                       <p>Subscribe To Our Newsletter</p>
+                      <p style="color:red" id="newsletter-message" hidden></p>
                     </div>
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
                       <form action="/action/enewsletter" method="post" id="frm_newsletter" name="frm_newsletter" class="fv-form-bootstrap" accept-charset="utf-8">
                         <input type="hidden" name="cprmtok" value="">
+                        <input type="hidden" name="ts" value="">
+                        <div hidden><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"></div>
                         <div class="form-group">
-                          <input type="text" class="form-control subscribe-form" placeholder="Email*" name="emails" maxlength="30" id="emailsd" value="">
+                          <input type="text" class="form-control subscribe-form" placeholder="Email*" name="emails" maxlength="150" id="emailsd" value="" required inputmode="email" autocomplete="email">
                         </div>
                         <input type="hidden" id="g-recaptcha-responsene" name="g-recaptcha-response" value="">
                         <input type="hidden" id="actionne" name="action" value="profile">

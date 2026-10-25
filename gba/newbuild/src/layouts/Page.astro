@@ -40,10 +40,15 @@ const SHAPES: Record<string, (body: string) => string> = {
   affiliations: (b) => owlCarousel(hideRowsAfter(retagHeadings(b, /<div class="about-content affiliations-page sec-pad">/, 'h3', ['h2']), 3), /<div class="owl-carousel" id="client-logo">/),
   'businesses-we-have-sold': (b) => retagHeadings(b, /<div class="deals-outer-inner sec-pad">/, 'h6', ['h2']),
   'our-team': (b) => retagHeadings(retagHeadings(b, /<div class="our-team bg-dark sec-pad">/, 'h3', ['h2']), /<div class="our-team bg-dark sec-pad">/, 'h4', ['h3']),
-  // the shared thirteen-logo strip, inline in the content file, is the ClientLogos component
+  // the shared thirteen-logo strip, inline in the content file, is the ClientLogos component;
+  // the page's own contact form gets what ContactBlock's has (ticket 13, all invisible)
   'contact-us': (b) => {
     const strip = extractBlock(b, /<div class="client-logo">/);
-    return strip ? strip.before + strip.after : b;
+    return (strip ? strip.before + strip.after : b)
+      .replace('id="firstName" name="firstName"', 'id="firstName" name="firstName" required autocomplete="given-name"')
+      .replace('id="email" name="email"', 'id="email" name="email" required autocomplete="email"')
+      .replace('id="phone" name="phone"', 'id="phone" name="phone" inputmode="tel" autocomplete="tel"')
+      .replace('<input name="cprmtok" type="hidden" value=""/>', '<input name="cprmtok" type="hidden" value=""/><input type="hidden" name="ts" value=""/><div hidden><input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/></div>');
   },
 };
 
