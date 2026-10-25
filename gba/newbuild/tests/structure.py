@@ -12,10 +12,8 @@ at scale:
             page 1 matches the live page 1 card for card;
   headings  every page has one H1, it is the first heading, and no level is skipped;
   links     every root-relative href and src resolves to a file in dist/
-            (pages by Pretty URL), listed by target when it does not.
-
-Known differences are reported, not failed: the links ticket 14 will redirect
-(LATER_REDIRECTS).
+            (pages by Pretty URL) or to a rule in dist/_redirects (ticket 14;
+            reported, not failed), listed by target when it does neither.
 
 Usage (from gba/newbuild, after npm run build):
   .venv/bin/python -I tests/structure.py [--dist dist] [--harvest harvest/2026-10-24]
@@ -35,9 +33,6 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "scripts"))
 from extract import HEADER_CLASSES, is_pure_hidden  # noqa: E402
 
-# Links on live pages that ticket 14 turns into 301s (its Question lists them).
-LATER_REDIRECTS = {"/businesses-weve-sold", "/industries-we-service", "/site-map", "/lshowcase-categories/home",
-                   "/what-type-of-buyer-are-you", "/faqs", "/financing", "/white-papers", "/videos", "/industry-terms"}
 PER_PAGE = 12
 
 
@@ -123,7 +118,10 @@ def main():
 
     # ---- headings and links: every built page
     missing = collections.defaultdict(set)
-    later = collections.defaultdict(set)
+    redirected = collections.defaultdict(set)
+    # Sources of the 301s in dist/_redirects (scripts/redirects.mjs, ticket 14); splats as prefixes.
+    rules = [line.split()[0] for line in (dist / "_redirects").read_text().splitlines()
+             if line.startswith("/") and len(line.split()) == 3]
     files = sorted(dist.rglob("*.html"))
     for f in files:
         s = soup_of(f)
@@ -141,16 +139,16 @@ def main():
                 if not url or not url.startswith("/") or url.startswith("//"):
                     continue
                 target = unquote(urlsplit(url).path)
-                if target in LATER_REDIRECTS:
-                    later[target].add(rel)
+                if any(target.rstrip("/") == r or (r.endswith("*") and target.startswith(r[:-1])) for r in rules):
+                    redirected[target].add(rel)
                     continue
                 if target == "/" or (dist / target.lstrip("/")).is_file() or built(dist, target).is_file():
                     continue
                 missing[target].add(rel)
     print(f"headings: {len(files)} pages, {len(failures['headings'])} problems")
-    print(f"links: {len(missing)} missing targets; {len(later)} targets left to ticket 14's redirects")
-    for target, pages_from in sorted(later.items()):
-        print(f"  later 301: {target} (linked from {len(pages_from)} pages)")
+    print(f"links: {len(missing)} missing targets; {len(redirected)} targets answered by a 301 in _redirects")
+    for target, pages_from in sorted(redirected.items()):
+        print(f"  301: {target} (linked from {len(pages_from)} pages)")
     for target, pages_from in sorted(missing.items()):
         failures["links"].append(f"{target} (from {len(pages_from)} pages, e.g. {sorted(pages_from)[0]})")
 

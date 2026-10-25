@@ -9,9 +9,10 @@
   },
   "scripts": {
     "vendor": "node scripts/vendor.mjs",
-    "predev": "npm run vendor",
+    "redirects": "node scripts/redirects.mjs",
+    "predev": "npm run vendor && npm run redirects",
     "dev": "astro dev",
-    "prebuild": "npm run vendor",
+    "prebuild": "npm run vendor && npm run redirects",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",
