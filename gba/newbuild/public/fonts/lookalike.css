@@ -36,3 +36,12 @@
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; size-adjust: 108%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; size-adjust: 105.9%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; size-adjust: 106.6%; }
+
+/* One context the single Gotham 400 factor cannot serve (ticket 16, 2026-10-25):
+   the deal cards' 14 px "Have been recently acquired by" runs 1.5 % wider than
+   live and breaks onto a third line in the 136 px card at 1024 px, which makes
+   every card in the row taller (+72 px on /businesses-we-have-sold). A tenth of
+   a pixel of tracking brings it back to the live width. Measured on 2,502
+   pieces of text (15 pages and 40 articles at three widths), the pieces that
+   wrap differently from live: 1.098 80, 1.108 55, 1.108 with this rule 42. */
+.deal-content .pre-text { letter-spacing: -0.1px; }

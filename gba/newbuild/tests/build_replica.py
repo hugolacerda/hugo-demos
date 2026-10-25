@@ -10,10 +10,17 @@ from commit 9721484, where they were last in the tree. Owl, jQuery and Bootstrap
 5.0.2 still load from cdnjs and jsdelivr, as live. Ticket 09 matched the build
 against this replica (390 px pixel-identical).
 
+Intended fixes (ticket 16, Hugo 2026-10-25): live defects the port fixes on
+purpose (BRIEF.md "Known defects") are applied to the replica too, from
+INTENDED_FIXES, so the check measures the port and not the fixes. `--as-live`
+skips them and writes tests/.replica-as-live/, the before side of each fix for
+Gary's review.
+
 Usage (from gba/newbuild):
-  .venv/bin/python tests/build_replica.py        # writes tests/.replica/ (git-ignored)
+  .venv/bin/python tests/build_replica.py [--as-live]   # writes tests/.replica/ (git-ignored)
   .venv/bin/python tests/serve.py 8401 tests/.replica
 """
+import argparse
 import re
 import shutil
 import subprocess
@@ -41,11 +48,25 @@ DROP = [
     r'<script async src="https://meclabsai\.com/embed/chat\.js[^"]*"></script>',
     r"<script src=['\"]https://www\.google\.com/recaptcha/api\.js[^'\"]*['\"][^>]*></script>",
 ]
+# (page slug, live markup, fixed markup, why). Every visible fix the port makes to a
+# page in fidelity.PAGES belongs here, and on Gary's list (ticket 17).
+INTENDED_FIXES = [
+    ("your-professional-team", 'src="//images/team-of-expert-bg.jpg"', 'src="/images/team-of-expert-bg.jpg"',
+     "the double-slash path made the expert-diagram background a broken image live (BRIEF.md; ticket 11)"),
+]
 # The live inline scripts call grecaptcha.ready(); with the API gone, a stub keeps them from throwing.
 STUB = "<script>window.grecaptcha={ready(){},execute(){return Promise.resolve('')},render(){}};</script>"
 
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--as-live", action="store_true", help="skip INTENDED_FIXES, write tests/.replica-as-live/")
+    args = ap.parse_args()
+    out = OUT.with_name(".replica-as-live") if args.as_live else OUT
+    build(out, fixes=not args.as_live)
+
+
+def build(OUT, fixes):
     if OUT.exists():
         shutil.rmtree(OUT)
     shutil.copytree(ROOT / "public", OUT, ignore=shutil.ignore_patterns("vendor"))
@@ -68,6 +89,11 @@ def main():
         for host in HOSTS:
             html = html.replace(host, "/")
         html = html.replace("<head>", "<head>\n" + STUB, 1)
+        for fix_slug, live, fixed, _why in INTENDED_FIXES if fixes else []:
+            if fix_slug == slug:
+                if live not in html:
+                    raise SystemExit(f"intended fix no longer matches {slug}: {live}")
+                html = html.replace(live, fixed)
         (OUT / ("index.html" if path == "/" else f"{slug}.html")).write_text(html, encoding="utf-8")
     print(f"replica of {len(PAGES)} pages written to {OUT}")
 

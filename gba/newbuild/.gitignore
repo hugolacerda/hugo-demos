@@ -20,6 +20,7 @@ harvest/
 # the reference screenshots and each run's captures and diff images. Kept
 # locally; which of them go to Gary with the report is settled at ticket 16.
 tests/.replica/
+tests/.replica-as-live/
 tests/reference/
 tests/reports/**/local/
 tests/reports/**/*.diff.png
