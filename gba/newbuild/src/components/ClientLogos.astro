@@ -1,0 +1,40 @@
+---
+// The affiliation-logo strip between the contact block and the footer on the
+// homepage, /affiliations and /contact-us (harvest/2026-10-24: 3 pages). An Owl
+// carousel live (ticket 03); the carousel is wired at ticket 09. Logos in live
+// order; alt text as live (the empty alts are on the ticket 07 review list).
+const logos: { src: string; alt?: string }[] = [
+  { src: '/upload/links/551732630532CM_&_AP.png', alt: '' },
+  { src: '/upload/links/5931732630441CBI.png', alt: '' },
+  { src: '/images/ibba-logo.png' },
+  { src: '/upload/links/9821732630267M&_AMI.png', alt: '' },
+  { src: '/upload/links/981732127049FPA1.png', alt: '' },
+  { src: '/upload/links/3171732126708ACGGlobal_wAssociationForCorporateGrowth_RGB_1.png', alt: '' },
+  { src: '/upload/links/6931732127662Jax.png', alt: '' },
+  { src: '/upload/links/2021732126322EPI-Live-Logo_Full_Color-1.webp', alt: '' },
+  { src: '/upload/links/1471732126172logo.png', alt: '' },
+  { src: '/upload/links/6691732125595logo-cia-header.webp', alt: '' },
+  { src: '/upload/links/6521730801603IBBA1.png', alt: '' },
+  { src: '/upload/links/7691729613462m-a-source-2.png', alt: '' },
+  { src: '/upload/links/2271729612058bbf.png', alt: '' },
+];
+---
+<div class="client-logo">
+  <div class="container">
+    <div class="row align-items-center justify-content-center">
+      <div class="col-lg-10">
+        <div class="owl-carousel" id="client-logo">
+          {logos.map((l) => (
+            <div class="item">
+              {l.alt === undefined ? (
+                <img src={l.src} class="img-fluid" width="370" height="103" />
+              ) : (
+                <img src={l.src} alt={l.alt} class="img-fluid" width="370" height="103" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

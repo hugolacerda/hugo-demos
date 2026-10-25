@@ -1,0 +1,10 @@
+# Netlify build configuration for the GBA rebuild. The Netlify site builds from
+# branch gba-astro-newbuild with gba/newbuild as its base directory (map Notes,
+# "Build location"); nothing is deployed until ticket 15.
+[build]
+  base = "gba/newbuild"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"

@@ -1,0 +1,42 @@
+---
+// The LocalBusiness JSON-LD every live page carries in its head, identical on
+// all 693 harvested pages except `url`, which is the page's own URL. Carried
+// over verbatim; ticket 12 (SEO parity) owns any change to it.
+import { SITE_URL } from '../site.config';
+interface Props {
+  path: string;
+}
+const { path } = Astro.props;
+const data = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: 'Gateway Business Advisors',
+  url: SITE_URL + path,
+  description: 'Gateway Business Advisors helps owners understand what drives value, improve sellability, and make prudent decisions about timing, readiness, and process.',
+  logo: SITE_URL + '/images/logo.png',
+  image: SITE_URL + '/upload/slideshow/1725883419slide-1.jpg',
+  email: 'info@gatewaybusinessadvisors.com',
+  telephone: '+1-904-759-7902',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+1-904-759-7902',
+    contactType: 'customer service',
+    email: 'info@gatewaybusinessadvisors.com',
+    availableLanguage: 'en',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Carlton Building, 5011 Gate Pkwy',
+    addressLocality: 'Jacksonville',
+    addressRegion: 'FL',
+    postalCode: '32256',
+    addressCountry: 'US',
+  },
+  areaServed: { '@type': 'State', name: 'Florida', sameAs: 'https://en.wikipedia.org/wiki/Florida' },
+  potentialAction: [
+    { '@type': 'CommunicateAction', name: 'Call', target: 'tel:+19047597902' },
+    { '@type': 'CommunicateAction', name: 'Email', target: 'mailto:info@gatewaybusinessadvisors.com' },
+  ],
+};
+---
+<script type="application/ld+json" is:inline set:html={JSON.stringify(data, null, 2)} />

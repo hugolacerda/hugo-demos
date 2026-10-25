@@ -1,0 +1,130 @@
+---
+// The header every page carries: the mobile header (shown at 860 px and below,
+// custom.css line 169), the desktop header, and the off-canvas menu the desktop
+// "Menu" button opens (Bootstrap Offcanvas, wired at ticket 09). Markup from the
+// live homepage, harvest/2026-10-24/pages/home.html, with links made
+// root-relative, the two display:none menu sections dropped (map Notes, hidden
+// content is not ported), the visually hidden "Phone" and "Click Here" spans
+// dropped (no hidden text anywhere), and the logo's "Gba mobile" alt fixed
+// (BRIEF.md, known defects). Inner pages add `inner-header` on the desktop nav.
+interface Props {
+  home?: boolean;
+}
+const { home = false } = Astro.props;
+---
+<div class="mobileheader">
+  <div class="mobimenu">
+    <div class="column">
+      <div class="row align-items-center">
+        <div class="col-6">
+          <div class="head-link">
+            <ul>
+              <li><img src="/images/phone-icon.png" width="24" height="24" alt="phone icon"><a href="tel:9047597902" rel="nofollow">(904) 759-7902</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-6">
+          <nav id="cssmenu" aria-label="Main menu">
+            <ul>
+              <li> <a class="nav-link active" href="/">Home</a> </li>
+              <li><a class="nav-link" href="#">For Business Owners</a>
+                <ul>
+                  <li><a class="" href="/start-here">Start Here</a></li>
+                  <li><a class="" href="/assessing-your-options">Assessing Your Options</a></li>
+                  <li><a class="" href="/your-professional-team">Your Professional Team</a></li>
+                  <li><a class="" href="/the-business-sales-process">The Business Sales Process</a></li>
+                </ul>
+              </li>
+              <li><a class="nav-link" href="/businesses-we-have-sold">Tombstones</a></li>
+              <li><a class="nav-link" href="#">Who We Are</a>
+                <ul>
+                  <li>  <a class="" href="/our-team">Our Team </a></li>
+                  <li>  <a class="" href="/affiliations">Affiliations</a></li>
+                </ul>
+              </li>
+              <li class=""> <a class="nav-link" href="/industry-insider">Industries</a> </li>
+              <li class=""> <a class="nav-link" href="/contact-us">Contact Us</a> </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12 text-center">
+          <a class="navbar-bran mx-0" href="/"><img src="/images/mob-logo.jpg" alt="Gateway Business Advisors" width="170" height="58" class="img-fluid h-auto"></a>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>
+
+<div class="desktopheader" id="desktopheader">
+  <nav class:list={['navbar navbar-expand-lg navbar-light fixheader', { 'inner-header': !home }]} id="navigationMenuDesk">
+    <div class="container-fluid align-items-start">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  col-xs-12">
+        <a class="navbar-brand" href="/"><img src="/images/logo.png" alt="Gateway" width="475" height="162" class="img-fluid h-auto"></a>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12 d-flex align-items-center justify-content-end pe-3">
+        <div class="phone"><img src="/images/phone-icon.png" width="24" height="24" alt="phone icon"><a href="tel:9047597902" rel="nofollow"> (904) 759-7902</a></div>
+        <a class="lnk5 nav-link btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">Menu <img src="/images/menu-icon.png" width="18" height="14" alt="menu-icon"></a>
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </nav>
+</div>
+
+<div class="offcanvas offcanvas-end " tabindex="-1" id="offcanvasExample">
+  <div class="offcanvas-header d-flex justify-content-end">
+    <a class="btn-close text-white" data-bs-dismiss="offcanvas" aria-label="Close" style="cursor:pointer"><span> X </span> Close</a>
+  </div>
+  <nav class="navbar navbar-expand-lg navbar-light " aria-label="Site menu">
+    <div class="container-fluid">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 text-end ">
+        <div>
+          <ul class="navbar-nav flex-column w-100 mx-0 ">
+            <li class="nav-item"> <a class="nav-link phone" href="tel:9047597902" rel="nofollow"><img src="/images/phone-icon.png" alt="Phone" width="24" height="24"> (904) 759-7902 </a> </li>
+          </ul>
+        </div>
+        <div class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav flex-column w-100 mx-0 " id="khoba">
+            <li class="nav-item"> <a class="nav-link active" href="/">Home</a> </li>
+            <li class="nav-item"><a class="nav-link ac-button collapsed" href="" data-bs-toggle="collapse" data-bs-target="#demo3" role="button">For Business Owners</a>
+              <div class="accordion-collapse collapse" aria-labelledby="navbarDropdown" data-bs-parent="#khoba" id="demo3">
+                <a class="dropdown-item" href="/start-here">Start Here</a>
+                <a class="dropdown-item" href="/assessing-your-options">Assessing Your Options</a>
+                <a class="dropdown-item" href="/your-professional-team">Your Professional Team</a>
+                <a class="dropdown-item" href="/the-business-sales-process">The Business Sales Process</a>
+              </div>
+            </li>
+            <li class="nav-item"><a class="nav-link ac-button " href="/businesses-we-have-sold">Tombstones</a></li>
+            <li class="nav-item"><a class="nav-link ac-button collapsed" href="" data-bs-toggle="collapse" data-bs-target="#demo7" role="button">Who We Are</a>
+              <div class="accordion-collapse collapse" aria-labelledby="navbarDropdown" data-bs-parent="#khoba" id="demo7">
+                <a class="dropdown-item" href="/our-team">Our Team </a>
+                <a class="dropdown-item" href="/affiliations">Affiliations</a>
+              </div>
+            </li>
+            <li class="nav-item"> <a class="nav-link" href="/industry-insider">Industries</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="/contact-us">Contact Us</a> </li>
+          </ul>
+        </div>
+        <div>
+          <ul class="navbar-nav navbarnav-1 flex-column w-100 mx-0 ">
+            <li class="nav-item">
+              <a href="https://calendly.com/gwba/one-on-one-with-gary" class="btn btn-1 navTA" target="_blank">Talk to an Advisor</a>
+            </li>
+            <li class="nav-item">
+              <a href="javascript:void(0)" class="btn btn-1 opnmym navTRS">Take the Readiness Score</a>
+            </li>
+          </ul>
+        </div>
+        <div class="social">
+          <ul>
+            <li><a href="https://www.facebook.com/gatewaybusinessadvisors" target="_blank"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+            <li><a href="https://www.linkedin.com/company/gateway-business-brokers-llc" target="_blank"><span class="fa fa-brands fa-linkedin"></span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </nav>
+</div>

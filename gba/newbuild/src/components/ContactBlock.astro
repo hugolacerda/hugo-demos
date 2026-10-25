@@ -1,0 +1,88 @@
+---
+// The "Can we help you?" contact block, carried by the homepage and most inner
+// pages. The live markup is kept exactly (map Notes, forms: the markup stays,
+// the post target becomes a Netlify Function at ticket 13); only the browser
+// extension artefacts (`fdprocessedid`) and the visually hidden label are gone.
+// The class list varies by page ("contact", "contact sec-pad", "contact sec-pad
+// mt-0"), so the page passes the one it carries live.
+interface Props {
+  class?: string;
+}
+const { class: className = 'contact' } = Astro.props;
+---
+<div class={className}>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 mb-3 mb-lg-5">
+        <h2>Can we help you?</h2>
+        <p style="color:red"></p>
+      </div>
+    </div>
+    <div class="row align-items-center">
+      <div class="col-lg-12 col-xl-12">
+        <div class="contact-form-outer">
+          <form action="/action/contactus" method="post" id="frm_contactus" name="frm_contactus" class="contact-form" accept-charset="utf-8">
+            <input type="hidden" name="cprmtok" value="">
+            <div class="row">
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <input type="text" class="form-control " placeholder="First Name*" name="firstName" maxlength="30" id="first_Name" value="">
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <input type="text" placeholder="Last Name" class="form-control " id="lastname" name="lastname" maxlength="30" value="">
+                    </div>
+                  </div>
+                  <div class="clearfix"></div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <input type="email" placeholder="Email*" class="form-control " name="email" id="email_main" maxlength="150" value="">
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                    <div class="form-group">
+                      <input type="text" placeholder="Phone" class="form-control" name="phone" maxlength="15" id="phone" value="">
+                    </div>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <select class="form-control dwn-arw2" name="serviceneeded" id="serviceneeded" aria-label="Service Needed?">
+                      <option>Service Needed?</option>
+                      <option value="Selling a Business">Selling a Business</option>
+                      <option value="Business Valuations">Business Valuations</option>
+                    </select>
+                  </div>
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <textarea placeholder="Message/Comments" class="form-control " rows="5" id="comment" name="comment"> </textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 col-xl-4 contact-banner-outer">
+                <div class="contact-banner">
+                  <h2>Stay Updated</h2>
+                  <p>Subscribe To Our Newsletter</p>
+                  <a href="javascript:void(0)" class="btn opnnewslettr">Subscribe</a>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-lg-8">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-center text-lg-start">
+                  </div>
+                  <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response" value="">
+                  <input type="hidden" id="action" name="action" value="profile">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 ">
+                    <button type="submit" class="btn btn-primary contactSubmit"> Submit </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

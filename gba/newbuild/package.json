@@ -1,0 +1,30 @@
+{
+  "name": "gba-newbuild",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "gatewaybusinessadvisors.com rebuilt as a static Astro site: a 1:1 port of the live site's markup and CSS, deployed on Netlify from gba/newbuild.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "vendor": "node scripts/vendor.mjs",
+    "predev": "npm run vendor",
+    "dev": "astro dev",
+    "prebuild": "npm run vendor",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "astro": "~7.3.3",
+    "js-yaml": "^5.5.0"
+  },
+  "devDependencies": {
+    "@fontsource-variable/cinzel": "^5.3.0",
+    "@fontsource/metropolis": "^5.3.0",
+    "@fortawesome/fontawesome-free": "6.5.2",
+    "bootstrap": "5.0.2"
+  }
+}

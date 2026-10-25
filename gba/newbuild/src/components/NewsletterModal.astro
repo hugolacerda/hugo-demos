@@ -1,0 +1,43 @@
+---
+// The "Stay Updated" newsletter modal (#opnnewslettrPop), opened by the
+// .opnnewslettr buttons (Bootstrap Modal, wired at ticket 09). Live markup, the
+// form kept as-is for ticket 13; `fdprocessedid` artefacts dropped.
+---
+<div class="modal fade" id="opnnewslettrPop" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <button type="button" class="btn-close closeModals" data-bs-dismiss="modal" aria-label="Close" style="position: absolute; right: 5px; top: 2px; z-index: 9999"></button>
+      <div class="modal-body" style="text-align:center">
+        <div class="row align-items-center">
+          <div class="col-lg-12 col-xl-12 justify-content-center">
+            <div class="contact-form-outer">
+              <div class="row justify-content-center">
+                <div class="col-lg-8">
+                  <div class="row justify-content-center">
+                    <div class="">
+                      <h2>Stay Updated</h2>
+                      <p>Subscribe To Our Newsletter</p>
+                    </div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                      <form action="/action/enewsletter" method="post" id="frm_newsletter" name="frm_newsletter" class="fv-form-bootstrap" accept-charset="utf-8">
+                        <input type="hidden" name="cprmtok" value="">
+                        <div class="form-group">
+                          <input type="text" class="form-control subscribe-form" placeholder="Email*" name="emails" maxlength="30" id="emailsd" value="">
+                        </div>
+                        <input type="hidden" id="g-recaptcha-responsene" name="g-recaptcha-response" value="">
+                        <input type="hidden" id="actionne" name="action" value="profile">
+                        <div class="mx-auto col-xl-6 col-lg-6 col-md-12 col-sm-12 text-center text-lg-end">
+                          <button type="submit" class="btn btn-primary"> Submit </button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

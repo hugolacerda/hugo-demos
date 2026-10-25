@@ -89,5 +89,11 @@ __pycache__/
 # memory, skills and reference docs stay local. Rendered HTML is what publishes.
 *.md
 
+# gba/newbuild (the GBA rebuild, branch gba-astro-newbuild): the two READMEs a
+# developer needs are the only Markdown committed there (Hugo, 2026-10-24,
+# map ticket 08). BRIEF.md and the harvest notes are internal and stay local.
+!gba/newbuild/README.md
+!gba/newbuild/src/content/README.md
+
 # --- sbv-skills: its own private repo (added 2026-10-21, sbv-skills/docs/design.md Section 7) ---
 sbv-skills/

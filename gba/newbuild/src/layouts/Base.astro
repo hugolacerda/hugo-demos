@@ -1,0 +1,65 @@
+---
+// The one page shell every template uses (map ticket 08). The head reproduces
+// the live site's, in the live order, with the CDN files vendored
+// (public/vendor, scripts/vendor.mjs) and every path root-relative
+// (ticket 06: the live relative paths break on the pagination pages).
+//
+// Not carried over on purpose: the empty Open Graph tags (ticket 12 fills
+// them), the GA4 tag (ticket 18, after Gary's approval), the three reCAPTCHA
+// tags and jquery.validate (forms, ticket 13), the MeclabsAI chat widget (out of
+// scope), Owl Carousel's CSS and the jQuery plugins (ticket 09 wires the
+// behaviours). The favicon link points at an empty data URL until ticket 12
+// supplies a real icon, so browsers do not request /favicon.ico and log a 404.
+import { FONT_STYLESHEET, SITE_URL } from '../site.config';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import ReadinessModal from '../components/ReadinessModal.astro';
+import NewsletterModal from '../components/NewsletterModal.astro';
+import SchemaLocalBusiness from '../components/SchemaLocalBusiness.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** The page's path, e.g. "/" or "/start-here"; builds the canonical URL. */
+  path: string;
+  /** The homepage omits the `inner-header` class on the desktop nav. */
+  home?: boolean;
+}
+const { title, description, path, home = false } = Astro.props;
+const canonical = SITE_URL + (path === '/' ? '/' : path);
+---
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="canonical" href={canonical}>
+    <link rel="icon" href="data:,">
+    <link href="/vendor/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/flexslider.css" rel="stylesheet">
+    <link href={FONT_STYLESHEET} rel="stylesheet">
+    <link href="/vendor/fontawesome-6.5.2/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="/css/jquery.fancybox.min.css" rel="stylesheet">
+    <link href="/css/port.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <SchemaLocalBusiness path={path} />
+  </head>
+  <body>
+    <header>
+      <SiteHeader home={home} />
+    </header>
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+    <ReadinessModal />
+    <NewsletterModal />
+  </body>
+</html>

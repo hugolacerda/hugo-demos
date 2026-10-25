@@ -1,0 +1,19 @@
+/* Free look-alike faces for the two commercial families custom.css names
+   (map ticket 02): Cinzel (OFL) stands in for Trajan Pro, Metropolis
+   (Unlicense) for Gotham. Selected by FONTS in src/site.config.ts; the files
+   come from public/vendor/fonts, copied by scripts/vendor.mjs.
+
+   The weights declared here mirror public/fonts/stylesheet.css, so font
+   matching behaves as it does live: Trajan Pro exists at 400 and 700 only
+   (an unweighted heading at Bootstrap's 500 falls to 400, as live), and
+   Gotham at 400, 500 and 700 with italics (the live site's 600 falls to 700). */
+
+@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
