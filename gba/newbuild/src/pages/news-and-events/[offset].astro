@@ -1,0 +1,16 @@
+---
+// The listing's later pages at the live offsets: /news-and-events/12 is page 2,
+// /24 page 3, and so on (map ticket 11; src/layouts/NewsListing.astro).
+import type { GetStaticPaths } from 'astro';
+import { getCollection } from 'astro:content';
+import NewsListing from '../../layouts/NewsListing.astro';
+import { PER_PAGE } from '../../lib/pagination';
+
+export const getStaticPaths = (async () => {
+  const total = Math.ceil((await getCollection('articles')).length / PER_PAGE);
+  return Array.from({ length: total - 1 }, (_, i) => ({ params: { offset: String((i + 1) * PER_PAGE) }, props: { page: i + 2 } }));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+---
+<NewsListing page={page} />

@@ -4,21 +4,31 @@
 // port.css carries the h2 styling over to h1). The markup is the live
 // headbanner block from src/content/pages/*.html, which the content loader
 // strips from each page body (src/loaders/html-content.ts).
+//
+// Articles carry the section label ("News & Events") in the banner and their
+// title further down as the H1, so there the label is a paragraph with the
+// same styling (`heading={false}`, ticket 11). The 58 articles with their own
+// banner photo fix the banner at 550 px live, through a <style> inside the
+// headbanner (`.headbanner{height:550px !important}`); `height` applies the
+// same as an inline style.
 interface Props {
   banner: string;
   alt: string | null;
   title: string;
+  heading?: boolean;
+  height?: number | null;
 }
-const { banner, alt, title } = Astro.props;
+const { banner, alt, title, heading = true, height = null } = Astro.props;
+const Tag = heading ? 'h1' : 'p';
 ---
 <div class="">
-  <div class="headbanner">
+  <div class="headbanner" style={height ? `height:${height}px !important` : undefined}>
     <img alt={alt ?? ''} height="463" src={banner} style="width:100%;height:auto" width="1920" />
     <div class="breadcrumb">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-xl-start text-lg-start text-md-start text-sm-center">
-            <h1 class="mb-0">{title}</h1>
+            <Tag class="mb-0">{title}</Tag>
           </div>
         </div>
       </div>

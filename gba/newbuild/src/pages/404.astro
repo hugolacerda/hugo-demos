@@ -1,0 +1,26 @@
+---
+// The 404 page (map ticket 11). Not on the live site as a designed page, so
+// built from the inner-page parts: the headbanner (the banner the articles
+// use), one about-content section with a line of text and a button home, and
+// the shared contact block. Netlify serves dist/404.html for any URL that
+// matches no file and no redirect (ticket 14). New copy, so on Gary's list (17).
+import Base from '../layouts/Base.astro';
+import HeadBanner from '../components/HeadBanner.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+---
+<Base title="Page Not Found | Gateway Business Advisors" description="The page you are looking for could not be found." path="/404">
+  <HeadBanner banner="/upload/images/pages/page_header_1788859043_326_page_header_1725904863_226_start-here-banner.jpg" alt="" title="Page Not Found" />
+  <div class="about-content bg-light sec-pad">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-12 text-center">
+          <div class="content">
+            <p>The page you are looking for has moved or no longer exists.</p>
+          </div>
+          <a class="btn btn-primary" href="/">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ContactBlock class="contact sec-pad" />
+</Base>

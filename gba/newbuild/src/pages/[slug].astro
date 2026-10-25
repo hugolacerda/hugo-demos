@@ -1,0 +1,23 @@
+---
+// Every page and article at its live slug (map ticket 11): the 16 core pages
+// that are neither Home (index.astro) nor the News and Events listing
+// (news-and-events.astro), and the 622 articles. build.format 'file' writes
+// dist/<slug>.html; Netlify serves it at /<slug> (ticket 12).
+import type { GetStaticPaths } from 'astro';
+import { getCollection, type CollectionEntry } from 'astro:content';
+import Page from '../layouts/Page.astro';
+import Article from '../layouts/Article.astro';
+
+export const getStaticPaths = (async () => {
+  const OWN_ROUTE = new Set(['home', 'news-and-events']);
+  const pages = (await getCollection('pages')).filter((p) => !OWN_ROUTE.has(p.id));
+  const articles = await getCollection('articles');
+  return [
+    ...pages.map((page) => ({ params: { slug: page.id }, props: { page } })),
+    ...articles.map((article) => ({ params: { slug: article.id }, props: { article } })),
+  ];
+}) satisfies GetStaticPaths;
+
+const { page, article } = Astro.props as { page?: CollectionEntry<'pages'>; article?: CollectionEntry<'articles'> };
+---
+{page ? <Page page={page} /> : article && <Article article={article} />}

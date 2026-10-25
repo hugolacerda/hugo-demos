@@ -1,0 +1,40 @@
+---
+// The article template, 622 pages (map ticket 11). Live markup kept: the
+// headbanner with the section label, then the doubly nested `news_events
+// tslider` block holding the title, the author line and the body copy from the
+// article's content file (ticket 07). The title is the H1 (an h1 live since
+// Chuck's Oct 21 template change); the banner label, an h2 live, is a paragraph
+// so the H1 comes first, and the author line, an h6 live, is a paragraph
+// (map Notes, headings; port.css keeps both looks).
+//
+// Not carried over: the two empty `d-none` photo and video sliders and the
+// `d-none` "Related Documents / Related Links / Share / < Back" block (hidden
+// content, map Notes; the Share block's removal is also ticket 09's decision),
+// the inline <style> for `.news-content-paragraph`, a class no article uses,
+// and the reCAPTCHA block that threw on every article (BRIEF.md defects).
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import HeadBanner from '../components/HeadBanner.astro';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+const { data, body } = Astro.props.article;
+---
+<Base title={data.meta_title} description={data.meta_description} path={data.path}>
+  {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.section_label} heading={false} height={data.banner_height} />}
+  <div class="news_events tslider">
+    <div class="container mb-5">
+      <div class="news_events tslider">
+        <div class="container mb-5">
+          <div class="col-md-12">
+            <h1 class="scrollText">{data.title}</h1>
+            <p class="mt-3"><b>{data.author}</b></p>
+          </div>
+          <Fragment set:html={body ?? ''} />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="clearfix"></div>
+</Base>

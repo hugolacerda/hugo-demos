@@ -1,0 +1,50 @@
+---
+// The News and Events listing (map ticket 11): /news-and-events and its
+// pages /news-and-events/12, /24 ..., twelve cards a page. The markup is the
+// live listing's, with the cards generated from the article files: each
+// article once, in the order the live listing first showed it
+// (`listing_order`, ticket 07's extractor), with its live excerpt and card
+// image. Live repeats 19 articles (642 cards on 54 pages, ticket 07), so this
+// listing runs to 52 pages; the two live offsets past the end are ticket 14's.
+// Every page carries page 1's banner, title and description, as live, and its
+// own canonical URL.
+import { getCollection, getEntry } from 'astro:content';
+import Base from './Base.astro';
+import HeadBanner from '../components/HeadBanner.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import { PER_PAGE, pageHref, paginationHtml } from '../lib/pagination';
+import { escapeHtml } from '../lib/html';
+
+interface Props {
+  /** 1-based page number. */
+  page: number;
+}
+const { page } = Astro.props;
+
+const listing = await getEntry('pages', 'news-and-events');
+if (!listing) throw new Error('src/content/pages/news-and-events.html is missing');
+const articles = (await getCollection('articles')).sort((a, b) => a.data.listing_order - b.data.listing_order);
+const total = Math.ceil(articles.length / PER_PAGE);
+
+function card(a: (typeof articles)[number]): string {
+  const href = escapeHtml(a.data.path);
+  const img = a.data.listing_image;
+  const image = img
+    ? `<div class="card-image">\n<a href="${href}">\n<img alt="${escapeHtml(img.alt ?? '')}" class="img-fluid" height="${img.height ?? ''}" loading="lazy" src="${escapeHtml(img.src)}" width="${img.width ?? ''}"/>\n</a>\n</div>\n`
+    : '';
+  return `<div class="col-12 col-sm-6 col-md-6 col-lg-4 mb-4">\n<div class="news-card card">\n${image}<div class="card-body">\n`
+    + `<h2 class="card-title">\n<a class="text-decoration-none" href="${href}">${escapeHtml(a.data.title)}</a>\n</h2>\n`
+    + `<p class="author">${escapeHtml(a.data.author)}</p>\n<p> ${a.data.excerpt}</p>\n`
+    + `<a class="btn btn-primary mt-auto" href="${href}">Read More</a>\n</div>\n</div>\n</div>`;
+}
+
+const cards = articles.slice((page - 1) * PER_PAGE, page * PER_PAGE).map(card).join('\n');
+const section = `<div class="news inner-page bg-white sec-pad">\n<div class="container">\n<div class="row justify-content-center">\n${cards}\n</div>\n`
+  + `<div class="">\n${paginationHtml(page, total)} </div>\n</div>\n</div>`;
+const { data } = listing;
+---
+<Base title={data.meta_title} description={data.meta_description} path={pageHref(page)}>
+  {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.title} />}
+  <Fragment set:html={section} />
+  <ContactBlock class={data.contact_class ?? 'contact sec-pad mt-0'} />
+</Base>

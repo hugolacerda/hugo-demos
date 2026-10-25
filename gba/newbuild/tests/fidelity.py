@@ -59,6 +59,7 @@ PAGES = {
     "article-short": "/size-breakdown-businesses",
     "article-median": "/how-long-does-it-take-to-sell-a-business",
     "article-long": "/the-anatomy-deal",
+    "article-banner": "/an-overview-of-term-sheets",  # one of the 58 with their own 550 px banner (ticket 11)
     "contact": "/contact-us",
     "privacy": "/privacy-policy",
 }

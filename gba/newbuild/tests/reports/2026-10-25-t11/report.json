@@ -1,0 +1,458 @@
+{
+  "reference": "tests/reference/2026-10-25-t11-replica",
+  "local": "http://127.0.0.1:8400",
+  "query": "",
+  "threshold": 0.5,
+  "rows": [
+    {
+      "pct": 0.195,
+      "pct_overlap": 0.195,
+      "h_ref": 4389,
+      "h_local": 4389,
+      "h_delta": 0,
+      "page": "home",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3417,
+      "h_local": 3417,
+      "h_delta": 0,
+      "page": "start-here",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 17.779,
+      "pct_overlap": 17.779,
+      "h_ref": 2915,
+      "h_local": 2915,
+      "h_delta": 0,
+      "page": "professional-team",
+      "width": 1440,
+      "passed": false
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2009,
+      "h_local": 2009,
+      "h_delta": 0,
+      "page": "industry-insider",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2950,
+      "h_local": 2950,
+      "h_delta": 0,
+      "page": "affiliations",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2898,
+      "h_local": 2898,
+      "h_delta": 0,
+      "page": "deals",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3851,
+      "h_local": 3851,
+      "h_delta": 0,
+      "page": "process",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 4094,
+      "h_local": 4094,
+      "h_delta": 0,
+      "page": "team",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 4038,
+      "h_local": 4038,
+      "h_delta": 0,
+      "page": "news",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1028,
+      "h_local": 1028,
+      "h_delta": 0,
+      "page": "article-short",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1691,
+      "h_local": 1691,
+      "h_delta": 0,
+      "page": "article-median",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 4161,
+      "h_local": 4161,
+      "h_delta": 0,
+      "page": "article-long",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1628,
+      "h_local": 1628,
+      "h_delta": 0,
+      "page": "article-banner",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.006,
+      "pct_overlap": 0.006,
+      "h_ref": 1717,
+      "h_local": 1717,
+      "h_delta": 0,
+      "page": "contact",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 900,
+      "h_local": 900,
+      "h_delta": 0,
+      "page": "privacy",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.012,
+      "pct_overlap": 0.012,
+      "h_ref": 4105,
+      "h_local": 4105,
+      "h_delta": 0,
+      "page": "home",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3472,
+      "h_local": 3472,
+      "h_delta": 0,
+      "page": "start-here",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 12.442,
+      "pct_overlap": 12.442,
+      "h_ref": 2840,
+      "h_local": 2840,
+      "h_delta": 0,
+      "page": "professional-team",
+      "width": 1024,
+      "passed": false
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1984,
+      "h_local": 1984,
+      "h_delta": 0,
+      "page": "industry-insider",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.081,
+      "pct_overlap": 0.081,
+      "h_ref": 2887,
+      "h_local": 2887,
+      "h_delta": 0,
+      "page": "affiliations",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2883,
+      "h_local": 2883,
+      "h_delta": 0,
+      "page": "deals",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3757,
+      "h_local": 3757,
+      "h_delta": 0,
+      "page": "process",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 4597,
+      "h_local": 4597,
+      "h_delta": 0,
+      "page": "team",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3659,
+      "h_local": 3659,
+      "h_delta": 0,
+      "page": "news",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1102,
+      "h_local": 1102,
+      "h_delta": 0,
+      "page": "article-short",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1927,
+      "h_local": 1927,
+      "h_delta": 0,
+      "page": "article-median",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 5396,
+      "h_local": 5396,
+      "h_delta": 0,
+      "page": "article-long",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1864,
+      "h_local": 1864,
+      "h_delta": 0,
+      "page": "article-banner",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.025,
+      "pct_overlap": 0.025,
+      "h_ref": 1769,
+      "h_local": 1769,
+      "h_delta": 0,
+      "page": "contact",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 861,
+      "h_local": 861,
+      "h_delta": 0,
+      "page": "privacy",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 5693,
+      "h_local": 5693,
+      "h_delta": 0,
+      "page": "home",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3771,
+      "h_local": 3771,
+      "h_delta": 0,
+      "page": "start-here",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 5.667,
+      "pct_overlap": 5.667,
+      "h_ref": 3079,
+      "h_local": 3079,
+      "h_delta": 0,
+      "page": "professional-team",
+      "width": 390,
+      "passed": false
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2743,
+      "h_local": 2743,
+      "h_delta": 0,
+      "page": "industry-insider",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3197,
+      "h_local": 3197,
+      "h_delta": 0,
+      "page": "affiliations",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 6982,
+      "h_local": 6982,
+      "h_delta": 0,
+      "page": "deals",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3617,
+      "h_local": 3617,
+      "h_delta": 0,
+      "page": "process",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 7492,
+      "h_local": 7492,
+      "h_delta": 0,
+      "page": "team",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 6461,
+      "h_local": 6461,
+      "h_delta": 0,
+      "page": "news",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 1221,
+      "h_local": 1221,
+      "h_delta": 0,
+      "page": "article-short",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 3030,
+      "h_local": 3030,
+      "h_delta": 0,
+      "page": "article-median",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 10717,
+      "h_local": 10717,
+      "h_delta": 0,
+      "page": "article-long",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2903,
+      "h_local": 2903,
+      "h_delta": 0,
+      "page": "article-banner",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 2117,
+      "h_local": 2117,
+      "h_delta": 0,
+      "page": "contact",
+      "width": 390,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 869,
+      "h_local": 869,
+      "h_delta": 0,
+      "page": "privacy",
+      "width": 390,
+      "passed": true
+    }
+  ]
+}

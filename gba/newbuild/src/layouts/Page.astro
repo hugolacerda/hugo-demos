@@ -1,0 +1,65 @@
+---
+// Every core page except Home and the News and Events listing (map ticket 11):
+// inner content (/start-here, /assessing-your-options, /your-professional-team,
+// the four expert pages, /industry-insider, /affiliations), Deals
+// (/businesses-we-have-sold), Process timeline (/the-business-sales-process),
+// Team (/our-team), Contact (/contact-us) and Legal and misc (/terms-of-use,
+// /privacy-policy, /sitemap). They share one shape live: the headbanner, the
+// page's own sections, then the shared contact block on most of them. The
+// sections are the page's content file rendered verbatim (ticket 07); what
+// differs per page is in SHAPES below.
+//
+// The map's heading rule: the banner text is the H1 (HeadBanner), and a section
+// heading that would skip a level under it steps up (h3 or h4 to h2; on
+// /our-team the names to h2 and the phone numbers under them to h3). port.css
+// keeps each retagged heading's live look (scripts/port_css.py, RETAGS).
+import type { CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import HeadBanner from '../components/HeadBanner.astro';
+import ContactBlock from '../components/ContactBlock.astro';
+import ClientLogos from '../components/ClientLogos.astro';
+import { extractBlock, owlCarousel, retagHeadings } from '../lib/html';
+
+interface Props {
+  page: CollectionEntry<'pages'>;
+}
+const { page } = Astro.props;
+
+// Affiliations: rows after the third wait for "+ Load More" (src/scripts/loadmore.ts).
+function hideRowsAfter(html: string, visible: number): string {
+  let n = 0;
+  return html.replace(/<div class="row align-items-center py-3 py-lg-5 theloop"/g, (tag) => (n++ < visible ? tag : `${tag} hidden`));
+}
+
+const SHAPES: Record<string, (body: string) => string> = {
+  'start-here': (b) => retagHeadings(retagHeadings(b, /<div class="about-content sec-pad">/, 'h3', ['h2']), /<div class="access-option position-relative">/, 'h4', ['h2']),
+  'assessing-your-options': (b) => retagHeadings(retagHeadings(b, /<div class="about-content sec-pad">/, 'h3', ['h2']), /<div class="assess-options bg-dark sec-pad">/, 'h4', ['h2']),
+  'your-professional-team': (b) => retagHeadings(b, /<div class="access-option position-relative experts">/, 'h4', ['h2']),
+  'industry-insider': (b) => retagHeadings(b, /<div class="industry-advisor-page">/, 'h4', ['h2']),
+  // its own four-logo strip (not the shared thirteen) stays in the body, as Embla on Owl's markup
+  affiliations: (b) => owlCarousel(hideRowsAfter(retagHeadings(b, /<div class="about-content affiliations-page sec-pad">/, 'h3', ['h2']), 3), /<div class="owl-carousel" id="client-logo">/),
+  'businesses-we-have-sold': (b) => retagHeadings(b, /<div class="deals-outer-inner sec-pad">/, 'h6', ['h2']),
+  'our-team': (b) => retagHeadings(retagHeadings(b, /<div class="our-team bg-dark sec-pad">/, 'h3', ['h2']), /<div class="our-team bg-dark sec-pad">/, 'h4', ['h3']),
+  // the shared thirteen-logo strip, inline in the content file, is the ClientLogos component
+  'contact-us': (b) => {
+    const strip = extractBlock(b, /<div class="client-logo">/);
+    return strip ? strip.before + strip.after : b;
+  },
+};
+
+const { data } = page;
+const body = (SHAPES[page.id] ?? ((b: string) => b))(page.body ?? '');
+---
+<Base title={data.meta_title} description={data.meta_description} path={data.path}>
+  {data.banner && <HeadBanner banner={data.banner} alt={data.banner_alt} title={data.title} />}
+  <Fragment set:html={body} />
+  {data.contact_class && <ContactBlock class={data.contact_class} />}
+  {page.id === 'contact-us' && <ClientLogos />}
+</Base>
+
+<script>
+  import { initCarousels } from '../scripts/carousel';
+  import { initLoadMore } from '../scripts/loadmore';
+  initCarousels();
+  initLoadMore();
+</script>

@@ -95,3 +95,8 @@ export function owlMarkup(openTag: string, items: string[]): string {
     + '<div class="owl-dots" aria-hidden="true"></div>'
     + '</div>';
 }
+
+/** Escape text for use in HTML element content or a double-quoted attribute. */
+export function escapeHtml(text: string): string {
+  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;');
+}

@@ -9,23 +9,30 @@
    (an unweighted heading at Bootstrap's 500 falls to 400, as live), and
    Gotham at 400, 500 and 700 with italics (the live site's 600 falls to 700).
 
-   size-adjust makes each face set the homepage's own text as wide as the live
-   face does, so lines break where they break live (ticket 10: page height
-   within 4 px of live at 1440, 1024 and 390 px). Factors are the width of
-   the homepage text at 100px in the live face over the look-alike, measured
-   in Chromium on 2026-10-25: Gotham 400 1.098, Gotham 700 1.059, Gotham 700
-   italic 1.066, Trajan Pro 700 1.064. Gotham 500 and 400 italic do not occur
-   on the homepage and take their neighbours' factors; re-measure if a later
-   template shows them breaking lines differently. Cinzel's line metrics are
+   size-adjust makes each face set the site's text as wide as the live face
+   does, so lines break where they break live. Factors are the width of the
+   text at 100px in the live face over the look-alike, measured in Chromium.
+   Ticket 10 (2026-10-25) measured them on the homepage text: Gotham 700 1.059,
+   Gotham 700 italic 1.066, Trajan Pro 700 1.064 (page height within 4 px of
+   live at 1440, 1024 and 390 px). Ticket 11 (2026-10-25) re-measured on the
+   text of all core pages, the listing and every sixth article: Gotham 400
+   1.108 (homepage alone 1.098; the articles' body text runs wider) and
+   Gotham 500 1.098 (the timeline lists). Gotham 400 with 1.108 cut the text
+   blocks that wrap differently from live from 67 to 34 of 1,878 on 15 pages
+   and 40 articles at three widths (1.103: 48, 1.113: 40, 1.118: 60), the
+   homepage unchanged; no factor fits every timeline line (one wraps at 390 px
+   until 1.112, which breaks another at 1024). Gotham 400 italic keeps 1.098
+   (176 characters of the site's text) and 500 italic 1.08 (the listing's
+   author lines, which wrap as live). Cinzel's line metrics are
    overridden to Trajan Pro's (hhea ascent 0.750, descent 0.250, line gap
    0.200), divided by size-adjust because the overrides are scaled by it. */
 
 @font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 106.4%; ascent-override: 70.5%; descent-override: 23.5%; line-gap-override: 18.8%; }
 @font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; size-adjust: 106.4%; ascent-override: 70.5%; descent-override: 23.5%; line-gap-override: 18.8%; }
 
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 109.8%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 110.8%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; size-adjust: 109.8%; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; size-adjust: 108%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; size-adjust: 109.8%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; size-adjust: 108%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; size-adjust: 105.9%; }
 @font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; size-adjust: 106.6%; }

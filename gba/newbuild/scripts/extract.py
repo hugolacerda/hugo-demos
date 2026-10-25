@@ -62,12 +62,14 @@ def relativise(url):
         u = m.group(2) or "/"
     if u.startswith("/"):
         u = re.sub(r"/{2,}", "/", u)
-        u = re.sub(r"^/news-and-events/([a-z0-9][a-z0-9-]*)$", r"/\1", u)  # the live 301s
+        u = re.sub(r"^/news-and-events/(?!\d+$)([a-z0-9][a-z0-9-]*)$", r"/\1", u)  # the live 301s; not the pagination pages
     return u
 
 
 def is_pure_hidden(el):
     cls = el.get("class") or []
+    if "theloop" in cls:
+        return False  # affiliations rows: display:none from the server, revealed by Load More (ticket 11)
     if "seo-tag" in cls:
         return True
     if "d-none" in cls and not any(re.match(r"d-(sm|md|lg|xl|xxl)-(block|flex|inline|inline-block|grid|table)", c) for c in cls):
@@ -87,8 +89,21 @@ def clean(root):
             continue
         if is_pure_hidden(el):
             el.decompose()
+    for el in root.find_all(class_="theloop"):
+        del el["style"]  # the template decides which rows start hidden
+    # Form leftovers (ticket 11): browser-extension attributes, the per-load token, and the
+    # visually hidden label, which becomes an aria-label on its control (no visually hidden text).
+    for el in root.find_all(attrs={"fdprocessedid": True}):
+        del el["fdprocessedid"]
+    for el in root.find_all("input", attrs={"name": "cprmtok"}):
+        el["value"] = ""
+    for label in root.find_all("label", class_="visuallyhidden"):
+        target = root.find(id=label.get("for")) if label.get("for") else None
+        if target is not None:
+            target["aria-label"] = label.get_text(strip=True)
+        label.decompose()
     for el in root.find_all(True):
-        for attr in ("href", "src", "poster", "data-src"):
+        for attr in ("href", "src", "poster", "data-src", "action"):
             if el.get(attr):
                 el[attr] = relativise(el[attr])
         if el.get("srcset"):
@@ -96,6 +111,16 @@ def clean(root):
         if el.get("style") and "url(" in el["style"]:
             el["style"] = re.sub(r"url\((['\"]?)([^'\")]+)\1\)", lambda m: f"url({m.group(1)}{relativise(m.group(2))}{m.group(1)})", el["style"])
     return root
+
+
+def banner_height(hb):
+    """The fixed banner height (px) an article's own <style> sets, or None (ticket 11).
+
+    The 58 articles with their own banner photo carry `.headbanner{height:550px !important}`
+    inside the headbanner; the template applies it, so the height is front matter."""
+    style = hb.find("style") if hb else None
+    m = re.search(r"height:\s*(\d+)px", style.get_text()) if style else None
+    return int(m.group(1)) if m else None
 
 
 def inner_html(el):
@@ -143,18 +168,30 @@ def main():
         return BeautifulSoup(open(os.path.join(H, "pages", slug + ".html"), "rb").read(), PARSER)
 
     # ---- listing excerpts (from /news-and-events and its pagination pages)
+    # In listing order (page offset, then card), so the first time an article is
+    # shown sets its position: the rebuild lists each article once (ticket 11).
     excerpts = {}
+    cards = {}  # href -> {"order", "image"} for the listing template (ticket 11); card titles equal article titles
     listing_dupes = collections.Counter()
-    for url, rec in st["pages"].items():
-        if not re.match(r"^/news-and-events(/\d+)?$", path_of(url)):
-            continue
-        for card in load(rec["slug"]).find_all(class_="news-card"):
-            a = card.find("a", href=True)
+    listing_pages = sorted(
+        (int(m.group(1) or 0), rec["slug"])
+        for url, rec in st["pages"].items()
+        for m in [re.match(r"^/news-and-events(?:/(\d+))?$", path_of(url))] if m
+    )
+    for _offset, page_slug in listing_pages:
+        for card in load(page_slug).find_all(class_="news-card"):
+            a = card.find(class_="card-title").find("a", href=True)
             href = relativise(a["href"])
             listing_dupes[href] += 1
             ps = card.find_all("p")
             ex = inner_html(ps[-1]).strip() if ps else ""
             excerpts.setdefault(href, ex)
+            if href not in cards:
+                img = card.select_one(".card-image img")
+                cards[href] = {
+                    "order": len(cards),
+                    "image": {"src": relativise(img.get("src")), "alt": img.get("alt"), "width": img.get("width"), "height": img.get("height")} if img else None,
+                }
 
     report = {"articles": 0, "pages": 0, "skipped": [], "anomalies": [], "alt_review": [], "checks": {}}
     index = {}
@@ -203,9 +240,12 @@ def main():
                 "slug": slug, "kind": "article", "path": path,
                 "title": title, "author": author,
                 "excerpt": excerpts.get(path, ""),
+                "listing_order": cards[path]["order"] if path in cards else None,
+                "listing_image": cards[path]["image"] if path in cards else None,
                 "section_label": section_el.get_text(strip=True) if section_el else "",
                 "banner": relativise(banner_img.get("src")) if banner_img else None,
                 "banner_alt": banner_img.get("alt") if banner_img else None,
+                "banner_height": banner_height(hb),
                 "meta_title": meta["meta_title"], "meta_description": meta["meta_description"], "canonical": meta["canonical"],
                 "related_links": [{"text": a.get_text(strip=True), "href": relativise(a["href"])} for a in (main.find(class_="weblinks") or soup.new_tag("x")).find_all("a", href=True)],
                 "source": f"{os.path.basename(H)}/pages/{rec['slug']}.html",
