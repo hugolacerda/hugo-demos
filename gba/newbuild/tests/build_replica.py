@@ -6,7 +6,7 @@ reference side of tests/fidelity.py is the harvested pages served from
 localhost instead (the homepage since ticket 10, every page in fidelity.PAGES since 11): host URLs made root-relative, the gtag, chat and reCAPTCHA
 tags removed (third parties the check blocks anyway), the live site's own
 assets from public/ and the five jQuery plugins plus fancybox's CSS restored
-from commit 9721484, where they were last in the tree. Owl, jQuery and Bootstrap
+from commit 1109ecd (RESTORE_COMMIT), where they were last in the tree. Owl, jQuery and Bootstrap
 5.0.2 still load from cdnjs and jsdelivr, as live. Ticket 09 matched the build
 against this replica (390 px pixel-identical).
 
@@ -32,7 +32,7 @@ OUT = ROOT / "tests" / ".replica"
 HARVEST = ROOT / "harvest" / "2026-10-24" / "pages"
 # The staging host served the 564 article banners live; public/ holds the file at the same path (ticket 06).
 HOSTS = ["https://gatewaybusinessadvisors.com/", "https://www.gatewaybusinessadvisors.com/", "https://gba.consultprdevsites-18.com/"]
-RESTORE_COMMIT = "9721484"
+RESTORE_COMMIT = "1109ecd"  # the ticket 08 scaffold (9721484 before the 2026-10-25 rebase)
 RESTORE = [
     "public/js/jquery.fancybox.min.js",
     "public/js/jquery.flexslider-2.7.2.js",
