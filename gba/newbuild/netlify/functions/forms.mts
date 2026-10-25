@@ -10,7 +10,10 @@
 // contact by email, set Inquiry: Service Type and Inquiry: Message Details (the
 // fields the GHL form "GBA Website Contact Form" maps, KB_03 Section 7), add a
 // note with the message so a second inquiry does not overwrite the first, and tag
-// it. The GHL workflow "GBA Form Submitted" notifies on the tag gba-site-inquiry.
+// it gba-website-form, its own tag (Hugo, 2026-10-25): until cutover the live
+// site runs the GHL form "GBA Website Contact Form", whose workflow "GBA Form
+// Submitted" applies gba-site-inquiry, so a separate tag keeps a notification
+// workflow for this site from firing on those submissions too.
 //
 // Spam (Hugo, 2026-10-25: honeypot and checks, no captcha): a hidden field bots
 // fill (`website`), a submit sooner than 3 s after the page loaded (`ts`, set by
@@ -28,7 +31,7 @@ const LOCATION_ID = 'VI80tuHy6XpjOOIv7OqH'; // GBA sub-account (not a secret)
 const FIELD_SERVICE_TYPE = 'PT5UrJUUFaaqXHzdTRdV'; // Inquiry: Service Type, options below
 const FIELD_MESSAGE = 'lDaSK1eN8qEDSPbcG7Po'; // Inquiry: Message Details (large text)
 const SERVICES = new Set(['Selling a Business', 'Business Valuations']);
-const TAG_INQUIRY = 'gba-site-inquiry';
+const TAG_INQUIRY = 'gba-website-form';
 const TAG_NEWSLETTER = 'gba-newsletter';
 const TAG_SPAM = 'spam-suspect';
 const MIN_SECONDS = 3;
