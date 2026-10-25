@@ -1,0 +1,8 @@
+# tests/fidelity.py and tests/build_replica.py (map ticket 10). Pinned so the
+# reference screenshots stay comparable: a new Playwright brings a new Chromium,
+# whose text rasterisation can shift; re-capture the reference when this changes.
+# Install into gba/newbuild/.venv, then: .venv/bin/python -m playwright install chromium
+playwright==1.64.1
+pixelmatch==0.4.0
+pillow==13.0.0
+numpy==2.5.4

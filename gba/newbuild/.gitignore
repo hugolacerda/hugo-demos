@@ -15,3 +15,11 @@ public/vendor/
 # file only: src/content/ is the committed source of truth (Hugo, 2026-10-24,
 # map ticket 08).
 harvest/
+
+# Fidelity check working files (ticket 10): the local copy of the live homepage,
+# the reference screenshots and each run's captures and diff images. Kept
+# locally; which of them go to Gary with the report is settled at ticket 16.
+tests/.replica/
+tests/reference/
+tests/reports/**/local/
+tests/reports/**/*.diff.png

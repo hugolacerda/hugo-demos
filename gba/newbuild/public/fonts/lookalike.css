@@ -1,19 +1,31 @@
 /* Free look-alike faces for the two commercial families custom.css names
    (map ticket 02): Cinzel (OFL) stands in for Trajan Pro, Metropolis
    (Unlicense) for Gotham. Selected by FONTS in src/site.config.ts; the files
-   come from public/vendor/fonts, copied by scripts/vendor.mjs.
+   come from public/vendor/fonts, copied by scripts/vendor.mjs. Hugo's pick at
+   the homepage proof, ticket 10 (2026-10-25).
 
    The weights declared here mirror public/fonts/stylesheet.css, so font
    matching behaves as it does live: Trajan Pro exists at 400 and 700 only
    (an unweighted heading at Bootstrap's 500 falls to 400, as live), and
-   Gotham at 400, 500 and 700 with italics (the live site's 600 falls to 700). */
+   Gotham at 400, 500 and 700 with italics (the live site's 600 falls to 700).
 
-@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
+   size-adjust makes each face set the homepage's own text as wide as the live
+   face does, so lines break where they break live (ticket 10: page height
+   within 4 px of live at 1440, 1024 and 390 px). Factors are the width of
+   the homepage text at 100px in the live face over the look-alike, measured
+   in Chromium on 2026-10-25: Gotham 400 1.098, Gotham 700 1.059, Gotham 700
+   italic 1.066, Trajan Pro 700 1.064. Gotham 500 and 400 italic do not occur
+   on the homepage and take their neighbours' factors; re-measure if a later
+   template shows them breaking lines differently. Cinzel's line metrics are
+   overridden to Trajan Pro's (hhea ascent 0.750, descent 0.250, line gap
+   0.200), divided by size-adjust because the overrides are scaled by it. */
 
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; }
-@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; }
+@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 106.4%; ascent-override: 70.5%; descent-override: 23.5%; line-gap-override: 18.8%; }
+@font-face { font-family: 'Trajan Pro'; src: url('/vendor/fonts/cinzel-latin-wght-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; size-adjust: 106.4%; ascent-override: 70.5%; descent-override: 23.5%; line-gap-override: 18.8%; }
+
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-normal.woff2') format('woff2'); font-weight: 400; font-style: normal; font-display: swap; size-adjust: 109.8%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-400-italic.woff2') format('woff2'); font-weight: 400; font-style: italic; font-display: swap; size-adjust: 109.8%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-normal.woff2') format('woff2'); font-weight: 500; font-style: normal; font-display: swap; size-adjust: 108%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-500-italic.woff2') format('woff2'); font-weight: 500; font-style: italic; font-display: swap; size-adjust: 108%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-style: normal; font-display: swap; size-adjust: 105.9%; }
+@font-face { font-family: 'Gotham'; src: url('/vendor/fonts/metropolis-latin-700-italic.woff2') format('woff2'); font-weight: 700; font-style: italic; font-display: swap; size-adjust: 106.6%; }

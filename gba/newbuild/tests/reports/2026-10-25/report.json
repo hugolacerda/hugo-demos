@@ -1,0 +1,38 @@
+{
+  "reference": "tests/reference/2026-10-25-replica",
+  "local": "http://127.0.0.1:8400",
+  "query": "",
+  "threshold": 0.5,
+  "rows": [
+    {
+      "pct": 0.195,
+      "pct_overlap": 0.195,
+      "h_ref": 4389,
+      "h_local": 4389,
+      "h_delta": 0,
+      "page": "home",
+      "width": 1440,
+      "passed": true
+    },
+    {
+      "pct": 0.012,
+      "pct_overlap": 0.012,
+      "h_ref": 4105,
+      "h_local": 4105,
+      "h_delta": 0,
+      "page": "home",
+      "width": 1024,
+      "passed": true
+    },
+    {
+      "pct": 0.0,
+      "pct_overlap": 0.0,
+      "h_ref": 5693,
+      "h_local": 5693,
+      "h_delta": 0,
+      "page": "home",
+      "width": 390,
+      "passed": true
+    }
+  ]
+}
