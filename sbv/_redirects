@@ -1,0 +1,21 @@
+# Old Squarespace blog URLs (pre-May 2026) to the static site's posts
+/insights-posts/10-reasons-every-business-owner-needs-an-exit-plan  /insights/10-reasons-every-business-owner-needs-an-exit-plan  301
+/insights-posts/3-ways-to-mitigate-risk  /insights/3-ways-to-mitigate-risk  301
+/insights-posts/5-reasons-to-get-a-business-valuation  /valuations  301
+/insights-posts/8-recurring-revenue-ideas-for-any-business-owner  /insights/8-recurring-revenue-ideas  301
+/insights-posts/mistakes-business-owners-make-by-not-using-an-mampa-professional  /insights/mistakes-business-owners-make-without-ma-professional  301
+/insights-posts/the-risks-of-customer-concentration-and-how-to-protect-your-business  /insights/the-risks-of-customer-concentration  301
+/insights-posts/the-risks-of-relying-on-key-employees-and-how-to-protect-your-business  /insights/the-risks-of-relying-on-key-employees  301
+/insights-posts/three-reasons-a-business-acquisition-can-increase-the-value-of-your-business  /insights/three-reasons-a-business-acquisition-increases-value  301
+/insights-posts/why-differentiation-matters-and-how-to-do-it  /insights/why-differentiation-matters  301
+/insights-posts/why-recurring-revenue-is-key-to-business-success-5-simple-steps  /insights/why-recurring-revenue-is-key  301
+/insights-posts/why-the-cepa-designation-is-important-for-your-business  /insights/why-the-cepa-designation-is-important  301
+/insights-posts/why-you-should-use-a-business-valuation-professional  /insights/why-you-should-use-a-business-valuation-professional  301
+/insights-posts/why-you-should-work-with-an-advisor-who-has-a-cva-designation  /insights/why-work-with-a-cva-advisor  301
+/insights-posts  /insights  301
+/insights-posts/*  /insights  301
+
+# Other old Squarespace pages
+/services  /valuations  301
+/detailed-conclusion-value  /valuations  301
+/book  /contact  301
