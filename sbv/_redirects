@@ -19,3 +19,6 @@
 /services  /valuations  301
 /detailed-conclusion-value  /valuations  301
 /book  /contact  301
+
+# Function source lives inside the published folder; never serve it.
+/netlify/*  /404.html  404!

@@ -109,6 +109,13 @@
               data-netlify="true" netlify-honeypot="bot-field" novalidate>
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none"><input name="bot-field"></p>
+          <!-- Filled by contact.js from main.js's record of where the visitor came from -->
+          <input type="hidden" name="first_referrer">
+          <input type="hidden" name="first_landing">
+          <input type="hidden" name="first_utm">
+          <input type="hidden" name="first_seen">
+          <input type="hidden" name="visit_referrer">
+          <input type="hidden" name="visit_landing">
           <div class="form-row two-col">
             <div class="form-group">
               <label for="firstName">First Name <span class="req">*</span></label>
@@ -185,6 +192,7 @@
     </div>
   </footer>
 
+  <script src="./assets/js/main.js"></script>
   <script src="./assets/js/contact.js"></script>
   <script async src="https://meclabsai.com/embed/chat.js?appId=au2pzSqFSbYBqi0KMkzJfI3F"></script>
 </body>
