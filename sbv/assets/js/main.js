@@ -62,3 +62,29 @@ document.addEventListener('DOMContentLoaded', () => {
     if (window.innerWidth >= 768) closeMenu();
   });
 });
+
+// Where the visitor came from, for the contact form (contact.js sends it along
+// with the message, and Netlify passes it to GHL). "first" is the first page of
+// their first visit, kept 90 days; "visit" is the first page of this visit.
+// Links from this site's own pages don't count as a referrer.
+(() => {
+  try {
+    const params = new URLSearchParams(location.search);
+    let referrer = '';
+    try {
+      if (document.referrer && new URL(document.referrer).host !== location.host) referrer = document.referrer;
+    } catch (e) {}
+    const touch = {
+      referrer,
+      landing: location.pathname,
+      utm: ['utm_source', 'utm_medium', 'utm_campaign'].map(k => params.get(k) || '').join('|').replace(/^\|*$/, ''),
+      gclid: params.has('gclid') ? 'yes' : '',
+      at: new Date().toISOString(),
+    };
+    if (!sessionStorage.getItem('sbv_visit')) sessionStorage.setItem('sbv_visit', JSON.stringify(touch));
+    const first = JSON.parse(localStorage.getItem('sbv_first') || 'null');
+    if (!first || Date.now() - Date.parse(first.at) > 90 * 864e5) {
+      localStorage.setItem('sbv_first', JSON.stringify(touch));
+    }
+  } catch (e) {}
+})();
