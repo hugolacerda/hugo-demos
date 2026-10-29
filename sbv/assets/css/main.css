@@ -182,7 +182,8 @@ h1, h2, h3, h4, h5, h6 {
 @media (min-width: 768px) { .logo-placeholder img { height: 45px; } }
 
 .main-nav { display: none; align-items: center; gap: 2rem; }
-@media (min-width: 768px) { .main-nav { display: flex; } }
+/* The full header (logo, six links, call button) needs about 1,020px; below 1,024px the phone menu is used. */
+@media (min-width: 1024px) { .main-nav { display: flex; } }
 .main-nav a {
   font-size: 0.875rem;
   font-family: var(--font-body);
@@ -197,7 +198,7 @@ h1, h2, h3, h4, h5, h6 {
 .header-right { display: flex; align-items: center; gap: 0.75rem; }
 
 .header-cta-wrap { display: none; flex-direction: column; align-items: center; gap: 0.375rem; }
-@media (min-width: 768px) { .header-cta-wrap { display: flex; } }
+@media (min-width: 1024px) { .header-cta-wrap { display: flex; } }
 .header-cta-sub {
   font-size: 10px;
   font-family: var(--font-body);
@@ -207,10 +208,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .mobile-menu-btn { display: block; color: hsl(var(--foreground)); }
-@media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+@media (min-width: 1024px) { .mobile-menu-btn { display: none; } }
+/* main.js adds the menu's "Book a Free 15-Min Call" block at every width; it belongs to the phone menu only. */
+@media (min-width: 1024px) { .mobile-nav-cta { display: none; } }
 
 /* ── Mobile nav (open state) ── */
-@media (max-width: 767px) {
+@media (max-width: 1023px) {
 
   /* Kill desktop hover trigger on touch, but only when the accordion is
      closed — scoping to :not(.mobile-dd-open) prevents the !important
