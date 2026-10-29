@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdown = link.closest('.nav-dropdown');
     if (dropdown && link === dropdown.querySelector(':scope > a')) {
       link.addEventListener('click', e => {
-        if (nav.classList.contains('mobile-nav-open') && window.innerWidth < 768) {
+        if (nav.classList.contains('mobile-nav-open') && window.innerWidth < 1024) {
           e.preventDefault();
           dropdown.classList.toggle('mobile-dd-open');
         }
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('resize', () => {
-    if (window.innerWidth >= 768) closeMenu();
+    if (window.innerWidth >= 1024) closeMenu();
   });
 });
 

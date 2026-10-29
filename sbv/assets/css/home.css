@@ -44,7 +44,7 @@
   transform: translateY(-50%);
   width: 520px;
   height: 520px;
-  background: url('../sbv-globe-mark.png') center / contain no-repeat;
+  background: url('../sbv-globe-mark.webp') center / contain no-repeat;
   opacity: 0.04;
   pointer-events: none;
   z-index: 0;
@@ -319,7 +319,7 @@
   bottom: -80px;
   width: 480px;
   height: 480px;
-  background: url('../sbv-globe-mark.png') center / contain no-repeat;
+  background: url('../sbv-globe-mark.webp') center / contain no-repeat;
   opacity: 0.06;
   pointer-events: none;
   z-index: 1;
