@@ -88,3 +88,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   } catch (e) {}
 })();
+
+// MeclabsAI chat widget. Its iframe downloads about 19.5 MB, roughly 35 times
+// the page itself, so it loads after the visitor's first interaction (scroll,
+// tap, mouse move, key) or 5 seconds after the page has finished loading,
+// whichever comes first. Pages that should not carry the widget simply don't
+// load main.js (privacy, terms, assessment, qr).
+(() => {
+  const src = 'https://meclabsai.com/embed/chat.js?appId=au2pzSqFSbYBqi0KMkzJfI3F';
+  const events = ['pointerdown', 'keydown', 'touchstart', 'scroll', 'mousemove'];
+  const opts = { passive: true };
+  let loaded = false;
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    events.forEach(e => window.removeEventListener(e, load, opts));
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    document.body.appendChild(s);
+  };
+  events.forEach(e => window.addEventListener(e, load, opts));
+  if (document.readyState === 'complete') setTimeout(load, 5000);
+  else window.addEventListener('load', () => setTimeout(load, 5000));
+})();
