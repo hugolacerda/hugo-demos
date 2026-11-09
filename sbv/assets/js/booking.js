@@ -1,10 +1,10 @@
-// Booking links. "Speak with a Certified Expert" and the other call buttons go
+// Booking links. "Book a Free Call with Gary" and the other call buttons go
 // straight to Gary's Calendly, so a booking never passes through the contact
 // form, GHL or GA4. On each click of a Calendly link this:
 //  - sends the GA4 event book_call_click with link_url and link_text (GA4
 //    built-in dimensions) and cta_location: mobile_menu, header, or the id or
 //    first class of the section around the button (hero, final-cta,
-//    post-sidebar, cta-band...). cta_location shows in reports once it is
+//    call-block, post-inline-cta, post-sidebar, cta-band...). cta_location shows in reports once it is
 //    registered as a custom dimension in GA4;
 //  - adds utm_source=sbv-website, utm_medium=website, utm_campaign=<cta_location>
 //    and utm_content=<page path> to the link. Calendly keeps them on the booking,
@@ -35,7 +35,9 @@
     if (typeof gtag === 'function') {
       gtag('event', 'book_call_click', {
         link_url: a.href.split('?')[0],
-        link_text: a.textContent.trim().replace(/\s+/g, ' '),
+        // innerText, not textContent: the header button carries a long and a
+        // short label, and only the one on screen should be reported.
+        link_text: (a.innerText || a.textContent).trim().replace(/\s+/g, ' '),
         cta_location: where,
       });
     }

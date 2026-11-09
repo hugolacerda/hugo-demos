@@ -87,6 +87,34 @@
 }
 .post-content strong { font-weight: 700; color: hsl(var(--foreground)); }
 
+/* ── Booking prompt inside the article body ── */
+.post-inline-cta {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem 1.25rem;
+  align-items: center;
+  margin: 2.5rem 0;
+  padding: 1.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-left: 3px solid hsl(var(--accent));
+  border-radius: var(--radius);
+}
+.post-inline-cta img { display: block; width: 4rem; height: 4rem; border-radius: 50%; object-fit: cover; }
+.post-content .post-inline-cta p { margin: 0; font-size: 0.9375rem; line-height: 1.55; }
+.post-content .post-inline-cta .post-inline-cta-title {
+  margin-bottom: 0.25rem;
+  font-family: var(--font-headline);
+  font-size: 1.125rem;
+  line-height: 1.3;
+  color: hsl(var(--foreground));
+}
+.post-inline-cta .btn-ember { grid-column: 1 / -1; padding: 0 1.25rem; }
+@media (min-width: 640px) {
+  .post-inline-cta { grid-template-columns: auto 1fr auto; }
+  .post-inline-cta .btn-ember { grid-column: auto; }
+}
+
 /* ── Back link ── */
 .post-back {
   display: inline-flex;

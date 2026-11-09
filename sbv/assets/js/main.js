@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     cta.innerHTML = `
       <a href="https://calendly.com/gwba/one-on-one-with-gary"
          target="_blank" rel="noopener noreferrer">
-        Book a Free 15-Min Call
+        Book a Free Call with Gary
       </a>
-      <p class="mobile-nav-cta-sub">No obligation · Certified experts</p>
+      <p class="mobile-nav-cta-sub">15 minutes · No obligation · Confidential</p>
     `;
     nav.appendChild(cta);
   }
