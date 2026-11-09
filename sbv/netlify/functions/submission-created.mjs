@@ -1,4 +1,5 @@
-// Copies each contact-form inquiry into GoHighLevel (Oct 29, 2026).
+// Copies each contact-form inquiry, and each /qr checklist request, into
+// GoHighLevel (contact form Oct 29, 2026; checklist Nov 9, 2026).
 //
 // Netlify runs a function with this exact name after every form submission it
 // accepts; spam it catches (honeypot, Akismet) never gets here. Netlify Forms
@@ -12,6 +13,11 @@
 // message, the interest picked and where the visitor came from (first visit and
 // this visit, filled in by assets/js/main.js and contact.js).
 //
+// The /qr checklist form (xypn-checklist: name, firm, email) gets the same
+// treatment with its own Source and the single tag sbv-xypn-checklist. It
+// carries no visitor-source fields: people reach that page from the printed
+// QR code.
+//
 // GHL_SBV_TOKEN: a Private Integration token of the SBV sub-account with the
 // contacts scopes, set as a Netlify environment variable on the sbv site only
 // (Functions scope). Named apart from the GBA rebuild's GHL_TOKEN, which holds
@@ -24,6 +30,8 @@ const API = 'https://services.leadconnectorhq.com';
 const LOCATION_ID = 'ETrWQNJ5xzOqQPGGXk5a'; // SBV sub-account (not a secret)
 const SOURCE = 'SBV website contact form';
 const TAG_FORM = 'sbv-website-form';
+const CHECKLIST_SOURCE = 'SBV advisor checklist (/qr)';
+const CHECKLIST_TAG = 'sbv-xypn-checklist';
 const INTERESTS = {
   valuation: 'Business Valuation',
   exit: 'Exit Planning',
@@ -83,14 +91,45 @@ export const handler = async (event) => {
     console.error('submission-created: unreadable event body');
     return { statusCode: 200 };
   }
-  if (payload.form_name !== 'contact') return { statusCode: 200 };
+  const form = payload.form_name;
+  if (form !== 'contact' && form !== 'xypn-checklist') return { statusCode: 200 };
 
   const f = payload.data || {};
   const email = (f.email || '').trim();
   const token = process.env.GHL_SBV_TOKEN;
-  if (!email) return { statusCode: 200 };
+  if (!email) {
+    console.error(`submission-created: ${form} submission without an email; it stays in Netlify Forms only`);
+    return { statusCode: 200 };
+  }
   if (!token) {
     console.error('submission-created: GHL_SBV_TOKEN is not set; inquiry stays in Netlify Forms only');
+    return { statusCode: 200 };
+  }
+
+  if (form === 'xypn-checklist') {
+    const [firstName, ...rest] = (f.name || '').trim().split(/\s+/);
+    const firm = (f.firm || '').trim();
+    try {
+      const { contact } = await ghl('/contacts/upsert', token, {
+        locationId: LOCATION_ID,
+        email,
+        firstName: firstName || undefined,
+        lastName: rest.join(' ') || undefined,
+        companyName: firm || undefined,
+        source: CHECKLIST_SOURCE,
+      });
+      await ghl(`/contacts/${contact.id}/tags`, token, { tags: [CHECKLIST_TAG] });
+      await ghl(`/contacts/${contact.id}/notes`, token, {
+        body: [
+          CHECKLIST_SOURCE,
+          `Firm: ${firm || '(not given)'}`,
+          'Asked for the business owner client checklist; the page promises a follow-up.',
+        ].join('\n'),
+      });
+      console.log(`submission-created: saved checklist request to GHL contact ${contact.id}`);
+    } catch (e) {
+      console.error(`submission-created: ${String(e)}`);
+    }
     return { statusCode: 200 };
   }
 

@@ -23,6 +23,17 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
+    // The form tag carries novalidate, which switches off the browser's own
+    // check on submit. Run it here: a message with no name or no usable email
+    // can't be answered and is never copied into GHL.
+    ['firstName', 'lastName'].forEach(function (name) {
+      form.elements[name].value = form.elements[name].value.trim();
+    });
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     fillSource();
 
     var btn = form.querySelector('[type="submit"]');
