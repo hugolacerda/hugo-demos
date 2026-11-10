@@ -33,7 +33,7 @@
 /* ── Tiers / Pricing Cards ── */
 .tiers-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; max-width: 72rem; margin: 0 auto; }
 @media (min-width: 640px) { .tiers-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1024px) { .tiers-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1024px) { .tiers-grid { grid-template-columns: repeat(3, 1fr); } }
 .tier-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: var(--radius); padding: 2rem 1.5rem; display: flex; flex-direction: column; transition: transform 0.2s, box-shadow 0.2s; }
 .tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(10, 22, 40, 0.1); }
 .tier-card.featured { border-color: hsl(var(--accent)); border-width: 2px; position: relative; }

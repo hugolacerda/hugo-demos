@@ -1,4 +1,4 @@
-// Booking links. "Book a Free Call with Gary" and the other call buttons go
+// Booking links. "Book a Call with Gary" and the other call buttons go
 // straight to Gary's Calendly, so a booking never passes through the contact
 // form, GHL or GA4. On each click of a Calendly link this:
 //  - sends the GA4 event book_call_click with link_url and link_text (GA4
